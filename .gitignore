@@ -1,0 +1,8 @@
+.env
+*.env
+auth.json
+.codex/
+*.mcap
+*.rrd
+__pycache__/
+.venv/
