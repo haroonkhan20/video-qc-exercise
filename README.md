@@ -124,3 +124,9 @@ registry access to download uncached images.
 The current tree contains no inline application Secrets. An earlier Postgres
 manifest committed before this exercise did contain development credentials;
 older local commits have not been rewritten.
+
+Verification evidence is recorded in [verification/day1.json](verification/day1.json).
+A fresh shallow clone passed `make up` against the existing cluster using Docker's
+build cache. A new workflow completed, its history replay passed in Stage 4,
+and the UI API reported `WORKFLOW_EXECUTION_STATUS_COMPLETED`.
+Teardown and empty-cluster startup remain untested until `make down` is approved.

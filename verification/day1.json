@@ -1,0 +1,103 @@
+{
+  "checked_at_utc": "2026-10-13T06:16:59.845110+00:00",
+  "tested_source_commit": "18693934d3af3b01145268514c8f4a4e7c0c5030",
+  "environment": {
+    "cluster": "qc",
+    "context": "kind-qc",
+    "namespace": "qc"
+  },
+  "make_up": {
+    "result": "passed",
+    "checkout": "fresh shallow clone",
+    "cluster": "existing",
+    "docker_build_cache": "reused"
+  },
+  "service_pods_running_and_ready": 10,
+  "bootstrap_jobs_completed": 2,
+  "all_containers_have_cpu_and_memory_requests_and_limits": true,
+  "workflow": {
+    "workflow_id": "hello-3142e543-28db-4b8f-be38-7e76e85e1f68",
+    "run_id": "01a133e7-386a-741e-a651-efae2dffc23c",
+    "status": "COMPLETED",
+    "result": "Hello, world!"
+  },
+  "temporal_ui": {
+    "workflow_id": "hello-3142e543-28db-4b8f-be38-7e76e85e1f68",
+    "run_id": "01a133e7-386a-741e-a651-efae2dffc23c",
+    "ui_status": "WORKFLOW_EXECUTION_STATUS_COMPLETED",
+    "ui_page_http_status": 200,
+    "ui_url": "http://localhost:8080/namespaces/default/workflows/hello-3142e543-28db-4b8f-be38-7e76e85e1f68/01a133e7-386a-741e-a651-efae2dffc23c/history"
+  },
+  "determinism": "Recorded hello workflow history replayed successfully with Temporal Replayer during Stage 4",
+  "pods": [
+    {
+      "name": "clickhouse-0",
+      "phase": "Running",
+      "ready": true
+    },
+    {
+      "name": "hello-worker-865f476bc5-r7lqb",
+      "phase": "Running",
+      "ready": true
+    },
+    {
+      "name": "minio-0",
+      "phase": "Running",
+      "ready": true
+    },
+    {
+      "name": "postgres-0",
+      "phase": "Running",
+      "ready": true
+    },
+    {
+      "name": "temporal-admintools-94d6684fd-thpr9",
+      "phase": "Running",
+      "ready": true
+    },
+    {
+      "name": "temporal-frontend-659d7d856-5j9lv",
+      "phase": "Running",
+      "ready": true
+    },
+    {
+      "name": "temporal-history-74b64dcc7c-jkf7h",
+      "phase": "Running",
+      "ready": true
+    },
+    {
+      "name": "temporal-matching-7d8d667779-fj4sm",
+      "phase": "Running",
+      "ready": true
+    },
+    {
+      "name": "temporal-namespace-1-7-0-1-q54ws",
+      "phase": "Succeeded",
+      "ready": false
+    },
+    {
+      "name": "temporal-schema-1-7-0-1-4dftg",
+      "phase": "Succeeded",
+      "ready": false
+    },
+    {
+      "name": "temporal-web-c8d56796d-76vlw",
+      "phase": "Running",
+      "ready": true
+    },
+    {
+      "name": "temporal-worker-6dd44cdd4b-dzprh",
+      "phase": "Running",
+      "ready": true
+    }
+  ],
+  "pending": [
+    "User approval for make down",
+    "Teardown and fresh empty-cluster bootstrap verification"
+  ],
+  "observed_limitations": [
+    "Docker Hub anonymous request limit blocked repeated image audits; all pins were verified earlier. Cached startup now uses immutable base digests.",
+    "Unexplained host/node restarts interrupted initial checks; checks stayed stable with an active WSL session. Cause not confirmed.",
+    "Older commits retain the original inline Postgres development credentials; the current tree has no inline application Secrets."
+  ]
+}
