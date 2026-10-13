@@ -18,6 +18,13 @@ namespace=$(kubectl --context kind-qc get namespace qc --ignore-not-found -o nam
 if [[ -z "$namespace" ]]; then
   kubectl --context kind-qc create namespace qc
 fi
+# Reuse verified official images cached in Docker; uncached images are pulled by Kubernetes.
+for image in postgres:16.4 clickhouse/clickhouse-server:25.8.4.13 \
+  temporalio/server:1.32.0 temporalio/admin-tools:1.32.0 temporalio/ui:2.54.1; do
+  if docker image inspect "$image" >/dev/null 2>&1; then
+    kind load docker-image --name qc "$image"
+  fi
+done
 python3 scripts/ensure-secrets.py postgres minio clickhouse
 
 kubectl --context kind-qc -n qc apply -f k8s/postgres.yaml
