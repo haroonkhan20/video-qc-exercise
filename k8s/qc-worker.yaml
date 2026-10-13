@@ -24,8 +24,14 @@ spec:
         - name: worker
           image: video-qc/qc-worker:pipeline-v1
           imagePullPolicy: Never
-          command: ["python", "-m", "qc.worker"]
+          command: ["bash", "-c", "rerun analytics disable >/dev/null && exec python -m qc.worker"]
           env:
+            - name: HOME
+              value: /cache/home
+            - name: XDG_CONFIG_HOME
+              value: /cache/config
+            - name: XDG_DATA_HOME
+              value: /cache/data
             - name: TEMPORAL_ADDRESS
               value: temporal-frontend:7233
             - name: QC_CACHE

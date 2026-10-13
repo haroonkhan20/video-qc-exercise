@@ -4,6 +4,7 @@ import argparse,hashlib,json,subprocess
 from pathlib import Path
 K=["kubectl","--context","kind-qc","-n","qc"]
 def exec_command(*args,**kwargs):
+    kwargs.setdefault("stdin",subprocess.DEVNULL)
     return subprocess.run([*K,"exec","-i","deployment/qc-worker","--","python","-m","qc.cli",*args],**kwargs)
 def digest(path):
     h=hashlib.sha256()
@@ -11,12 +12,12 @@ def digest(path):
         for block in iter(lambda:f.read(1024*1024),b""):h.update(block)
     return h.hexdigest()
 def main():
-    p=argparse.ArgumentParser();p.add_argument("path",type=Path);p.add_argument("--wait",action="store_true");a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument("path",type=Path);p.add_argument("--wait",action="store_true");p.add_argument("--filename",help="Alias for a single-file duplicate-ingest test");a=p.parse_args()
     files=sorted(a.path.glob("*.mcap")) if a.path.is_dir() else [a.path]
     for path in files:
         sha=digest(path)
         with path.open("rb") as body:
-            result=exec_command("ingest","--digest",sha,"--filename",path.name,stdin=body,capture_output=True)
+            result=exec_command("ingest","--digest",sha,"--filename",a.filename or path.name,stdin=body,capture_output=True)
         if result.returncode:
             print(result.stderr.decode(),file=__import__("sys").stderr)
             raise SystemExit(result.returncode)

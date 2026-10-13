@@ -1,6 +1,6 @@
 # video-qc
 
-## Day 1: clone ? one command ? it works
+## Day 1: clone → one command → it works
 
 This local onboarding stack runs Postgres, Temporal, MinIO, ClickHouse, and a
 Python Temporal worker in the `qc` namespace of the `qc` kind cluster.
@@ -98,7 +98,7 @@ version. Changes to Temporal values require a separately reviewed upgrade;
 | MinIO local image | `video-qc/minio:RELEASE.2025-10-15T17-29-55Z` |
 | MinIO upstream source | `RELEASE.2025-10-15T17-29-55Z`, commit `9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a` |
 | MinIO build/runtime bases | `golang:1.24.9-bookworm`, `debian:bookworm-20251020-slim` |
-| Worker local image | `video-qc/hello-worker:day1-v2` |
+| Worker local image | `video-qc/qc-worker:pipeline-v1` |
 | Worker Python base | `python:3.12.12-slim-bookworm` |
 | Python Temporal SDK | `temporalio==1.14.1` |
 | SDK runtime dependencies | `nexus-rpc==1.1.0`, `protobuf==5.29.6`, `types-protobuf==7.35.1.20260906`, `typing-extensions==4.16.0` |
@@ -174,4 +174,49 @@ The offline explorer is tools/day2_probe.py; focused full-frame interval decodin
 is tools/day2_window_probe.py. Both read originals without modifying them.
 Numeric observations are in data/day2-observations/ and initial AI image notes
 are in data/day2-visual-notes.json. Settings are exploratory, not production
-pass/fail policy. No recordings have been uploaded or submitted as QC workflows.
+pass/fail policy. Pilot recordings have now been uploaded and checked by the pipeline; the full 41-file run remains pending.
+
+## QC pipeline: verified pilot, full dataset still pending
+
+The same worker image runs the original hello-world example and two QC workers.
+QC workflows use Temporal namespace default and task queue video-qc. Kubernetes
+resources remain in namespace qc.
+
+From PowerShell, submit one file:
+
+~~~powershell
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-submit FILE='/mnt/c/Users/win 11/Downloads/data/ep_0ed34c0f.mcap'"
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-status"
+~~~
+
+The output includes its SHA-256 digest. Replace DIGEST below with that fingerprint:
+
+~~~powershell
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-report DIGEST=DIGEST"
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-viewer DIGEST=DIGEST"
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-verify DIGEST=DIGEST"
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-fleet"
+~~~
+
+Downloads appear under .cache/qc-exports, accessible in Windows at
+\\wsl$\Ubuntu\home\haroon\video-qc\.cache\qc-exports.
+The JSON report contains verdicts, typed reasons, stream names, and defect time
+ranges. The .rrd artifact contains sampled camera images and marked findings
+on the episode_seconds timeline; it is not full original-video playback.
+Temporal's UI shows processing history rather than camera playback.
+
+Raw objects are content-addressed under qc-raw/raw/<digest>.mcap with
+COMPLIANCE retention. A renamed duplicate adds an alias, not a second episode,
+object, or completed workflow for the same code/configuration. Derived reports,
+metrics, and viewers can be recomputed from raw recordings. Historical versioned
+runs remain available; Postgres has one current authoritative verdict per digest.
+
+Engineering defaults and their limitations are in [docs/qc-parameters.md](docs/qc-parameters.md).
+Worker dependency versions are pinned in worker/requirements.txt and
+worker/pool-requirements.txt; the container's MCAP CLI is 0.3.0.
+The reliability checkpoint and remaining work are documented in
+[docs/PIPELINE-CHECKPOINT.md](docs/PIPELINE-CHECKPOINT.md).
+
+Destructive recovery tests require separate explicit approval. They are never
+part of make up or the ordinary inspection commands. Do not run make down while
+you need these local recordings, reports, database volumes, or Temporal history.

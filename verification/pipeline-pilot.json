@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-13",
+  "scope": "One-file reliability checkpoint; full dataset pending",
+  "file": "ep_0ed34c0f.mcap",
+  "result": {
+    "digest": "344e7e9f4bd1f0f151267d5e62ed993f1e95af9afae54ca84a627a2817b79e95",
+    "workflow_id": "qc-344e7e9f4bd1f0f151267d5e62ed993f1e95af9afae54ca84a627a2817b79e95-109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478-18f15fae8e596ae531491ca24035eef55f701be4123b1acb0a19009cf2f83ee0",
+    "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478",
+    "code_version": "18f15fae8e596ae531491ca24035eef55f701be4123b1acb0a19009cf2f83ee0",
+    "workflow_status": "COMPLETED",
+    "workflow_seconds": 96.69,
+    "verdict": "needs_review",
+    "reason_codes": [
+      "SENSOR_FLATLINE"
+    ],
+    "streams": 16,
+    "episode_rows": 1,
+    "verdict_rows": 1,
+    "finalized_run_rows": 1,
+    "raw_versions": 1,
+    "raw_retention_mode": "COMPLIANCE",
+    "aliases": [
+      "ep_0ed34c0f.mcap",
+      "recovery-pilot-renamed.mcap"
+    ],
+    "clickhouse": {
+      "rows": 2863,
+      "unique_rows": 2863
+    },
+    "viewer_bytes": 9374785,
+    "viewer_verified": true,
+    "fleet_matches_reports": true,
+    "workflow_replay_passed": true,
+    "retried_activities": []
+  },
+  "duplicate_test": {
+    "alias": "recovery-pilot-renamed.mcap",
+    "uploaded": false,
+    "new_workflow_started": false,
+    "counts_unchanged": true
+  },
+  "pod_replacement_test": {
+    "digest": "344e7e9f4bd1f0f151267d5e62ed993f1e95af9afae54ca84a627a2817b79e95",
+    "workflow_id": "qc-344e7e9f4bd1f0f151267d5e62ed993f1e95af9afae54ca84a627a2817b79e95-109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478-18f15fae8e596ae531491ca24035eef55f701be4123b1acb0a19009cf2f83ee0",
+    "deleted_pod": "qc-worker-cbb887c68-spjt2",
+    "busy_activity": {
+      "type": "check_stream",
+      "attempt": 1,
+      "worker": "1@qc-worker-cbb887c68-spjt2",
+      "details": [
+        {
+          "messages": 2239,
+          "stage": "stream",
+          "stream": "/gripper/left/camera0/compressed"
+        }
+      ]
+    },
+    "deletion_count": 1,
+    "completed": true,
+    "final_status": "COMPLETED"
+  },
+  "strict_crash_retry_proven": false,
+  "limitation": "The deleted worker completed its busy activity during shutdown. Pod replacement passed; a strict interrupted-task retry requires another approved test."
+}

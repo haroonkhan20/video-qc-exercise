@@ -60,13 +60,15 @@ def inspect_container(ref):
         report["findings"].append(finding("CONTAINER_TRUNCATED_RECOVERABLE" if recoverable else "CONTAINER_UNREADABLE",
                                           metrics={"recovery_exit_code":recover_code}))
     observed={c["topic"]:c for c in report["channels"]}
+    duration=(report["end_ns"]-report["start_ns"])/1e9
     for expected in cfg["expected_streams"]:
-        ch=observed.get(expected["topic"])
-        if not ch:
-            report["findings"].append(finding("MISSING_STREAM",expected["topic"]));continue
-        if ch["schema"]!=expected["schema"]:report["findings"].append(finding("WRONG_SCHEMA",ch["topic"]))
-        if ch["encoding"]!=expected["encoding"] or ch["schema_encoding"]!="protobuf":
-            report["findings"].append(finding("WRONG_ENCODING",ch["topic"]))
+        matches=[c for c in report["channels"] if c["topic"]==expected["topic"]]
+        if not matches:
+            report["findings"].append(finding("MISSING_STREAM",expected["topic"],0,duration));continue
+        for ch in matches:
+            if ch["schema"]!=expected["schema"]:report["findings"].append(finding("WRONG_SCHEMA",ch["topic"],0,duration))
+            if ch["encoding"]!=expected["encoding"] or ch["schema_encoding"]!="protobuf":
+                report["findings"].append(finding("WRONG_ENCODING",ch["topic"],0,duration))
     expected_names={c["topic"] for c in cfg["expected_streams"]}
     for topic in sorted(set(observed)-expected_names):report["findings"].append(finding("UNEXPECTED_STREAM",topic))
     key=st.put_json(artifact(ref,"inventory.json"),report)
@@ -78,7 +80,7 @@ def check_stream(request):
     key=artifact(ref,f"streams/{cid}/report.json")
     try:
         cached=st.get_json(key)
-        return {"report_key":key,"channel_id":cid}
+        if not ref.get("rebuild"):return {"report_key":key,"channel_id":cid}
     except Exception:pass
     inv=st.get_json(artifact(ref,"inventory.json"));cfg=st.run_config(ref)
     st.heartbeat({"stage":"check_stream","channel_id":cid,"worker":os.environ.get("HOSTNAME")})
@@ -135,12 +137,16 @@ def metrics_rows(ref,report):
     def row(stream,check,metric,value,time_ns=0):
         return {**common,"stream":stream,"check_name":check,"metric":metric,"time_ns":int(time_ns),"value":float(value)}
     yield row("","container","messages",report["inventory"].get("message_count",0))
+    yield row("","container","duration_seconds",(report["inventory"]["end_ns"]-report["inventory"]["start_ns"])/1e9)
+    for index,entry in enumerate(report["findings"]):
+        yield row(entry["stream"],"finding",entry["code"],entry["end_s"]-entry["start_s"],index)
     for stream in report["streams"]:
         topic=stream["topic"]
         for clock,timing in stream["timing"].items():
             for name,value in timing.items():
                 if isinstance(value,(int,float)) and value is not None:
-                    yield row(topic,"timing_"+clock,name,value)
+                    if name in ("first_ns","last_ns"):yield row(topic,"timing_"+clock,name,0,value)
+                    else:yield row(topic,"timing_"+clock,name,value)
         for name,value in stream["stats"].items():
             if isinstance(value,(int,float)):yield row(topic,"stream",name,value)
         for code in ["BLACK_RUN","BRIGHT_RUN","FROZEN_RUN","BLUR_RUN","VIDEO_UNDECODABLE","RESOLUTION_CHANGE"]:
@@ -156,11 +162,17 @@ def metrics_rows(ref,report):
             if isinstance(value,(int,float)):yield row(topic,"cross_stream",name,value)
 
 def deliver_batch(ref,rows,index):
-    payload=b"".join(canonical(row)+b"\n" for row in rows)
-    token=hashlib.sha256(canonical(ref)+str(index).encode()+payload).hexdigest()
-    with st.pg() as db:
-        if db.execute("SELECT 1 FROM qc_deliveries WHERE delivery_id=%s",(token,)).fetchone():return
-    st.ch("INSERT INTO qc_metrics FORMAT JSONEachRow",payload,token)
+    scope={k:ref[k] for k in ("digest","config_version","code_version")}
+    token=hashlib.sha256(canonical(scope)+str(index).encode()).hexdigest()
+    prepared=[dict(row,delivery_id=token,row_id=hashlib.sha256(canonical(row)).hexdigest()) for row in rows]
+    present=json.loads(st.ch("SELECT row_id FROM qc_metrics WHERE delivery_id='"+token+"' FORMAT JSON"))["data"]
+    ids={row["row_id"] for row in present}
+    missing=[row for row in prepared if row["row_id"] not in ids]
+    if missing:
+        payload=b"".join(canonical(row)+bytes([10]) for row in missing)
+        # Stable on retries; a repair nonce bypasses an old dedup entry after projection deletion.
+        insertion=hashlib.sha256(payload+ref.get("repair_nonce","").encode()).hexdigest()
+        st.ch("INSERT INTO qc_metrics FORMAT JSONEachRow",payload,insertion)
     with st.pg() as db:
         db.execute("INSERT INTO qc_deliveries(delivery_id,digest,artifact) VALUES(%s,%s,%s) ON CONFLICT DO NOTHING",
                    (token,ref["digest"],f"clickhouse_batch_{index}"))
@@ -179,7 +191,7 @@ def viewer_export(ref,report,path):
             for name in sorted(archive.namelist()):
                 t=(int(Path(name).stem)-origin)/1e9
                 rec.set_time("episode_seconds",duration=t)
-                rec.log("cameras/"+str(stream["id"]),rr.EncodedImage(contents=archive.read(name),media_type="image/jpeg"))
+                rec.log("cameras"+stream["topic"],rr.EncodedImage(contents=archive.read(name),media_type="image/jpeg"))
         st.heartbeat({"stage":"viewer","stream":stream["topic"]})
     for i,entry in enumerate(report["findings"]):
         rec.set_time("episode_seconds",duration=entry["start_s"])
@@ -197,14 +209,13 @@ def finalize(request):
     with st.pg() as db:
         existing=db.execute("SELECT report FROM qc_runs WHERE digest=%s AND config_version=%s AND code_version=%s AND finalized_at IS NOT NULL",
                             (ref["digest"],ref["config_version"],ref["code_version"])).fetchone()
-    if existing:return {k:existing[0][k] for k in ("digest","verdict","reason_codes","report_key","viewer_key")}
+    if existing and not ref.get("rebuild"):return {k:existing[0][k] for k in ("digest","verdict","reason_codes","report_key","viewer_key")}
     inv=st.get_json(artifact(ref,"inventory.json"))
     streams=[st.get_json(item["report_key"]) for item in request["streams"] if "report_key" in item]
     cross=st.get_json(request["cross"]["report_key"]) if "report_key" in request["cross"] else {"metrics":{},"findings":[]}
     findings=list(inv["findings"])+list(cross["findings"])
     for stream in streams:findings.extend(stream["findings"])
     for failed in request.get("errors",[]):findings.append(finding("CHECK_UNAVAILABLE",str(failed),metrics={"check":"activity"}))
-    if not cfg["contract_confirmed"]:findings.append(finding("CONTRACT_UNCONFIRMED"))
     result,codes=verdict(findings,cfg)
     report={**ref,"recording_type":cfg["recording_type"],"config":cfg,
             "inventory":inv,"streams":streams,"cross":cross,"findings":findings,

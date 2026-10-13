@@ -71,7 +71,8 @@ def setup():
         "ObjectLockEnabled":"Enabled","Rule":{"DefaultRetention":{"Mode":"COMPLIANCE","Days":36500}}})
     with pg() as db:
         db.execute(Path("/app/sql/postgres.sql").read_text())
-    ch(Path("/app/sql/clickhouse.sql").read_text())
+    for sql in Path("/app/sql/clickhouse.sql").read_text().split(";"):
+        if sql.strip():ch(sql)
     return {"raw_bucket":RAW_BUCKET,"derived_bucket":DERIVED_BUCKET}
 
 def put_json(key, value):
