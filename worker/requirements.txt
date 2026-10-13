@@ -4,3 +4,25 @@ nexus-rpc==1.1.0
 protobuf==5.29.6
 types-protobuf==7.35.1.20260906
 typing-extensions==4.16.0
+
+# QC pipeline storage, decoding, and viewer export.
+mcap==1.5.0
+lz4==4.4.5
+zstandard==0.25.0
+mcap-protobuf-support==0.5.4
+av==19.0.1
+numpy==2.5.4
+Pillow==12.3.0
+psycopg-binary==3.3.6
+boto3==1.43.112
+psycopg==3.3.6
+rerun-sdk==0.39.0
+attrs==26.1.0
+psutil==7.2.2
+pyarrow==26.0.0
+botocore==1.43.112
+jmespath==1.1.0
+s3transfer==0.19.2
+python-dateutil==2.9.0.post0
+six==1.17.0
+urllib3==2.8.0

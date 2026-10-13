@@ -1,0 +1,239 @@
+"""Temporal activities own all filesystem/network/clock operations."""
+import hashlib, io, json, os, subprocess, time, uuid, zipfile
+from pathlib import Path
+import numpy as np
+from temporalio import activity
+from psycopg.types.json import Jsonb
+from mcap.reader import make_reader
+from qc.model import canonical, finding, run_prefix, verdict, version
+from qc import storage as st
+from qc.checks import stream_check
+
+def workdir(ref):
+    path=st.CACHE/"work"/ref["digest"]/ref["config_version"]/ref["code_version"]
+    path.mkdir(parents=True,exist_ok=True)
+    return path
+def artifact(ref,name):
+    return run_prefix(ref)+"/"+name
+def cli_scan(command,output):
+    with output.open("wb") as log:
+        proc=subprocess.Popen(command,stdout=log,stderr=log)
+        started=time.monotonic()
+        while proc.poll() is None:
+            st.heartbeat({"stage":"container_scan"})
+            if time.monotonic()-started>300:
+                proc.terminate();raise TimeoutError("MCAP inspection timed out")
+            time.sleep(1)
+    return proc.returncode
+
+@activity.defn
+def inspect_container(ref):
+    st.heartbeat({"stage":"inspect_container"})
+    path=st.raw_path(ref);work=workdir(ref);cfg=st.run_config(ref)
+    report={"digest":ref["digest"],"findings":[],"channels":[],"start_ns":0,"end_ns":0}
+    doctor=cli_scan(["mcap","doctor",str(path)],work/"doctor.txt")
+    try:
+        with path.open("rb") as stream:
+            reader=make_reader(stream,validate_crcs=True);reader.get_header();summary=reader.get_summary()
+            if summary is None or summary.statistics is None:
+                raise ValueError("Missing summary")
+            stats=summary.statistics
+            report.update({"start_ns":stats.message_start_time,"end_ns":stats.message_end_time,
+                           "message_count":stats.message_count,"chunk_indexes":len(summary.chunk_indexes),
+                           "attachments":len(summary.attachment_indexes)})
+            if doctor or not summary.chunk_indexes:report["findings"].append(finding("CONTAINER_INCOMPLETE"))
+            for ch in sorted(summary.channels.values(),key=lambda c:c.id):
+                schema=summary.schemas.get(ch.schema_id)
+                report["channels"].append({"id":ch.id,"topic":ch.topic,"schema":schema.name if schema else None,
+                                          "encoding":ch.message_encoding,"schema_encoding":schema.encoding if schema else None,
+                                          "message_count":stats.channel_message_counts.get(ch.id,0)})
+    except Exception:
+        recovered=work/"recovered-inspection-copy.mcap"
+        recover_code=cli_scan(["mcap","recover",str(path),"-o",str(recovered)],work/"recover.txt")
+        recoverable=False
+        if recovered.exists():
+            try:
+                with recovered.open("rb") as stream:
+                    recovered_summary=make_reader(stream).get_summary()
+                    recoverable=bool(recovered_summary and recovered_summary.statistics and recovered_summary.statistics.message_count)
+            except Exception:pass
+        report["findings"].append(finding("CONTAINER_TRUNCATED_RECOVERABLE" if recoverable else "CONTAINER_UNREADABLE",
+                                          metrics={"recovery_exit_code":recover_code}))
+    observed={c["topic"]:c for c in report["channels"]}
+    for expected in cfg["expected_streams"]:
+        ch=observed.get(expected["topic"])
+        if not ch:
+            report["findings"].append(finding("MISSING_STREAM",expected["topic"]));continue
+        if ch["schema"]!=expected["schema"]:report["findings"].append(finding("WRONG_SCHEMA",ch["topic"]))
+        if ch["encoding"]!=expected["encoding"] or ch["schema_encoding"]!="protobuf":
+            report["findings"].append(finding("WRONG_ENCODING",ch["topic"]))
+    expected_names={c["topic"] for c in cfg["expected_streams"]}
+    for topic in sorted(set(observed)-expected_names):report["findings"].append(finding("UNEXPECTED_STREAM",topic))
+    key=st.put_json(artifact(ref,"inventory.json"),report)
+    return {"inventory_key":key,"stream_ids":[c["id"] for c in report["channels"]]}
+
+@activity.defn
+def check_stream(request):
+    ref=request["ref"];cid=request["channel_id"]
+    key=artifact(ref,f"streams/{cid}/report.json")
+    try:
+        cached=st.get_json(key)
+        return {"report_key":key,"channel_id":cid}
+    except Exception:pass
+    inv=st.get_json(artifact(ref,"inventory.json"));cfg=st.run_config(ref)
+    st.heartbeat({"stage":"check_stream","channel_id":cid,"worker":os.environ.get("HOSTNAME")})
+    report,metrics,samples,times=stream_check(st.raw_path(ref),cid,inv,cfg,workdir(ref),st.heartbeat)
+    report.update({"frame_metrics_key":artifact(ref,f"streams/{cid}/frames.jsonl"),
+                   "samples_key":artifact(ref,f"streams/{cid}/samples.zip"),
+                   "times_key":artifact(ref,f"streams/{cid}/times.json")})
+    st.upload_derived(metrics,report["frame_metrics_key"],"application/x-ndjson")
+    st.upload_derived(samples,report["samples_key"],"application/zip")
+    st.upload_derived(times,report["times_key"],"application/json")
+    st.put_json(key,report)
+    return {"report_key":key,"channel_id":cid}
+
+@activity.defn
+def cross_stream(request):
+    ref=request["ref"];cfg=st.run_config(ref);inv=st.get_json(artifact(ref,"inventory.json"))
+    reports=[st.get_json(item["report_key"]) for item in request["streams"] if "report_key" in item]
+    findings=[];metrics={}
+    active=[r for r in reports if r["kind"] in ("video","sensor") and r["timing"]["log"].get("messages")]
+    if active:
+        earliest=min(r["timing"]["log"]["first_ns"] for r in active)
+        latest=max(r["timing"]["log"]["last_ns"] for r in active)
+        tol=cfg["timing"]["coverage_tolerance_seconds"]*1e9
+        for r in active:
+            a=r["timing"]["log"]["first_ns"];b=r["timing"]["log"]["last_ns"]
+            if a-earliest>tol or latest-b>tol:
+                findings.append(finding("COVERAGE_MISMATCH",r["topic"],(a-inv["start_ns"])/1e9,
+                                        (b-inv["start_ns"])/1e9,{"start_lag_s":(a-earliest)/1e9,"end_lag_s":(latest-b)/1e9}))
+    cameras=sorted([r for r in active if r["kind"]=="video"],key=lambda r:r["topic"])
+    if len(cameras)>1:
+        base=cameras[0];reference=np.sort(np.asarray(st.get_json(base["times_key"]),dtype=np.int64))
+        for other in cameras[1:]:
+            x=np.sort(np.asarray(st.get_json(other["times_key"]),dtype=np.int64))
+            lo=max(reference[0],x[0]);hi=min(reference[-1],x[-1]);a=reference[(reference>=lo)&(reference<=hi)]
+            if not len(a):
+                findings.append(finding("CHECK_UNAVAILABLE",other["topic"],metrics={"check":"camera_sync"}));continue
+            idx=np.searchsorted(x,a);right=np.minimum(idx,len(x)-1);left=np.maximum(idx-1,0)
+            choose=np.where(np.abs(x[left]-a)<=np.abs(x[right]-a),left,right)
+            skew=(x[choose]-a)/1e6;abs_skew=np.abs(skew)
+            q=max(1,len(skew)//4);drift=float(np.median(skew[-q:])-np.median(skew[:q]))
+            metrics[other["topic"]]={"reference":base["topic"],"skew_p95_ms":float(np.percentile(abs_skew,95)),
+                                     "skew_max_ms":float(abs_skew.max()),"drift_ms":drift}
+            mask=(abs_skew>cfg["timing"]["camera_sync_skew_ms"])
+            if mask.any() or abs(drift)>cfg["timing"]["camera_sync_drift_ms"]:
+                findings.append(finding("CAMERA_SYNC",other["topic"],(a[0]-inv["start_ns"])/1e9,
+                                        (a[-1]-inv["start_ns"])/1e9,metrics[other["topic"]]))
+            st.heartbeat({"stage":"cross_stream","stream":other["topic"]})
+    result={"findings":findings,"metrics":metrics}
+    key=st.put_json(artifact(ref,"cross-stream.json"),result)
+    return {"report_key":key}
+
+def metrics_rows(ref,report):
+    common={k:ref[k] for k in ("digest","config_version","code_version")}
+    def row(stream,check,metric,value,time_ns=0):
+        return {**common,"stream":stream,"check_name":check,"metric":metric,"time_ns":int(time_ns),"value":float(value)}
+    yield row("","container","messages",report["inventory"].get("message_count",0))
+    for stream in report["streams"]:
+        topic=stream["topic"]
+        for clock,timing in stream["timing"].items():
+            for name,value in timing.items():
+                if isinstance(value,(int,float)) and value is not None:
+                    yield row(topic,"timing_"+clock,name,value)
+        for name,value in stream["stats"].items():
+            if isinstance(value,(int,float)):yield row(topic,"stream",name,value)
+        for code in ["BLACK_RUN","BRIGHT_RUN","FROZEN_RUN","BLUR_RUN","VIDEO_UNDECODABLE","RESOLUTION_CHANGE"]:
+            yield row(topic,"content",code.lower()+"_findings",sum(f["code"]==code for f in stream["findings"]))
+        body=st.s3().get_object(Bucket=st.DERIVED_BUCKET,Key=stream["frame_metrics_key"])["Body"]
+        for line in body.iter_lines():
+            if not line:continue
+            frame=json.loads(line)
+            for name in ("mean_luma","std_luma","laplacian_variance","frame_difference"):
+                if frame.get(name) is not None:yield row(topic,"frame",name,frame[name],frame["time_ns"])
+    for topic,values in report["cross"]["metrics"].items():
+        for name,value in values.items():
+            if isinstance(value,(int,float)):yield row(topic,"cross_stream",name,value)
+
+def deliver_batch(ref,rows,index):
+    payload=b"".join(canonical(row)+b"\n" for row in rows)
+    token=hashlib.sha256(canonical(ref)+str(index).encode()+payload).hexdigest()
+    with st.pg() as db:
+        if db.execute("SELECT 1 FROM qc_deliveries WHERE delivery_id=%s",(token,)).fetchone():return
+    st.ch("INSERT INTO qc_metrics FORMAT JSONEachRow",payload,token)
+    with st.pg() as db:
+        db.execute("INSERT INTO qc_deliveries(delivery_id,digest,artifact) VALUES(%s,%s,%s) ON CONFLICT DO NOTHING",
+                   (token,ref["digest"],f"clickhouse_batch_{index}"))
+    st.heartbeat({"stage":"publish_metrics","batch":index})
+
+def viewer_export(ref,report,path):
+    import rerun as rr
+    rec=rr.RecordingStream(application_id="video-qc",recording_id=uuid.uuid5(uuid.NAMESPACE_URL,run_prefix(ref)))
+    rec.save(str(path))
+    rec.log("report",rr.TextDocument(json.dumps({"verdict":report["verdict"],"reason_codes":report["reason_codes"]},indent=2)),static=True)
+    origin=report["inventory"]["start_ns"]
+    for stream in report["streams"]:
+        if stream["kind"]!="video":continue
+        data=st.s3().get_object(Bucket=st.DERIVED_BUCKET,Key=stream["samples_key"])["Body"].read()
+        with zipfile.ZipFile(io.BytesIO(data)) as archive:
+            for name in sorted(archive.namelist()):
+                t=(int(Path(name).stem)-origin)/1e9
+                rec.set_time("episode_seconds",duration=t)
+                rec.log("cameras/"+str(stream["id"]),rr.EncodedImage(contents=archive.read(name),media_type="image/jpeg"))
+        st.heartbeat({"stage":"viewer","stream":stream["topic"]})
+    for i,entry in enumerate(report["findings"]):
+        rec.set_time("episode_seconds",duration=entry["start_s"])
+        rec.log("findings",rr.TextLog(f'{entry["code"]} | {entry["stream"]} | {entry["start_s"]:.3f}–{entry["end_s"]:.3f}s'))
+        rec.set_time("episode_seconds",duration=entry["end_s"])
+        rec.log("findings",rr.TextLog(f'END {entry["code"]} | {entry["stream"]}'))
+    rec.flush(timeout_sec=60)
+    rec.disconnect()
+    if not path.exists() or path.stat().st_size<16:raise ValueError("Viewer export missing")
+    return path
+
+@activity.defn
+def finalize(request):
+    ref=request["ref"];cfg=st.run_config(ref)
+    with st.pg() as db:
+        existing=db.execute("SELECT report FROM qc_runs WHERE digest=%s AND config_version=%s AND code_version=%s AND finalized_at IS NOT NULL",
+                            (ref["digest"],ref["config_version"],ref["code_version"])).fetchone()
+    if existing:return {k:existing[0][k] for k in ("digest","verdict","reason_codes","report_key","viewer_key")}
+    inv=st.get_json(artifact(ref,"inventory.json"))
+    streams=[st.get_json(item["report_key"]) for item in request["streams"] if "report_key" in item]
+    cross=st.get_json(request["cross"]["report_key"]) if "report_key" in request["cross"] else {"metrics":{},"findings":[]}
+    findings=list(inv["findings"])+list(cross["findings"])
+    for stream in streams:findings.extend(stream["findings"])
+    for failed in request.get("errors",[]):findings.append(finding("CHECK_UNAVAILABLE",str(failed),metrics={"check":"activity"}))
+    if not cfg["contract_confirmed"]:findings.append(finding("CONTRACT_UNCONFIRMED"))
+    result,codes=verdict(findings,cfg)
+    report={**ref,"recording_type":cfg["recording_type"],"config":cfg,
+            "inventory":inv,"streams":streams,"cross":cross,"findings":findings,
+            "verdict":result,"reason_codes":codes,"report_key":artifact(ref,"qc_report.json"),
+            "viewer_key":artifact(ref,"qc.rrd")}
+    # External side effects finish before the short authoritative database transaction.
+    rows=[];batch=0
+    for row in metrics_rows(ref,report):
+        rows.append(row)
+        if len(rows)>=2000:deliver_batch(ref,rows,batch);batch+=1;rows=[]
+    if rows:deliver_batch(ref,rows,batch)
+    viewer=viewer_export(ref,report,workdir(ref)/"qc.rrd")
+    st.upload_derived(viewer,report["viewer_key"])
+    st.put_json(report["report_key"],report)
+    st.put_json(f"derived/{ref['digest']}/qc_report.json",report)
+    st.upload_derived(viewer,f"derived/{ref['digest']}/qc.rrd")
+    with st.pg() as db:
+        db.execute("UPDATE qc_runs SET verdict=%s,reason_codes=%s,report=%s,finalized_at=now() WHERE digest=%s AND config_version=%s AND code_version=%s",
+                   (result,codes,Jsonb(report),ref["digest"],ref["config_version"],ref["code_version"]))
+        db.execute("""INSERT INTO qc_verdicts(digest,verdict,reason_codes,config_version,code_version,report)
+                      VALUES(%s,%s,%s,%s,%s,%s) ON CONFLICT(digest) DO UPDATE SET
+                      verdict=EXCLUDED.verdict,reason_codes=EXCLUDED.reason_codes,config_version=EXCLUDED.config_version,
+                      code_version=EXCLUDED.code_version,report=EXCLUDED.report,updated_at=now()""",
+                   (ref["digest"],result,codes,ref["config_version"],ref["code_version"],Jsonb(report)))
+    return {k:report[k] for k in ("digest","verdict","reason_codes","report_key","viewer_key")}
+
+@activity.defn
+def finalize_unavailable(ref):
+    key=artifact(ref,"inventory.json")
+    st.put_json(key,{"digest":ref["digest"],"findings":[finding("CHECK_UNAVAILABLE",metrics={"check":"container"})],
+                     "channels":[],"start_ns":0,"end_ns":0})
+    return finalize({"ref":ref,"streams":[],"cross":{},"errors":["container"]})

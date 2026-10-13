@@ -1,0 +1,169 @@
+{
+  "recording_type": "quest3s-dual-gripper",
+  "contract_confirmed": false,
+  "expected_streams": [
+    {
+      "topic": "/quest3s/head_left/camera/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "encoding": "protobuf",
+      "kind": "calibration",
+      "nominal_hz": null
+    },
+    {
+      "topic": "/quest3s/head_right/camera/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "encoding": "protobuf",
+      "kind": "calibration",
+      "nominal_hz": null
+    },
+    {
+      "topic": "/quest3s/head_left/camera/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "encoding": "protobuf",
+      "kind": "video",
+      "nominal_hz": 30
+    },
+    {
+      "topic": "/quest3s/head_right/camera/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "encoding": "protobuf",
+      "kind": "video",
+      "nominal_hz": 30
+    },
+    {
+      "topic": "/gripper/right/camera0/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "encoding": "protobuf",
+      "kind": "video",
+      "nominal_hz": 30
+    },
+    {
+      "topic": "/gripper/right/camera0/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "encoding": "protobuf",
+      "kind": "calibration",
+      "nominal_hz": null
+    },
+    {
+      "topic": "/gripper/left/camera0/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "encoding": "protobuf",
+      "kind": "video",
+      "nominal_hz": 30
+    },
+    {
+      "topic": "/gripper/left/camera0/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "encoding": "protobuf",
+      "kind": "calibration",
+      "nominal_hz": null
+    },
+    {
+      "topic": "/quest3s/left_controller_pose",
+      "schema": "foxglove.PoseInFrame",
+      "encoding": "protobuf",
+      "kind": "sensor",
+      "nominal_hz": 50
+    },
+    {
+      "topic": "/quest3s/left_gripper_pose",
+      "schema": "foxglove.PoseInFrame",
+      "encoding": "protobuf",
+      "kind": "sensor",
+      "nominal_hz": 50
+    },
+    {
+      "topic": "/quest3s/head_pose",
+      "schema": "foxglove.PoseInFrame",
+      "encoding": "protobuf",
+      "kind": "sensor",
+      "nominal_hz": 50
+    },
+    {
+      "topic": "/quest3s/right_controller_pose",
+      "schema": "foxglove.PoseInFrame",
+      "encoding": "protobuf",
+      "kind": "sensor",
+      "nominal_hz": 50
+    },
+    {
+      "topic": "/quest3s/right_gripper_pose",
+      "schema": "foxglove.PoseInFrame",
+      "encoding": "protobuf",
+      "kind": "sensor",
+      "nominal_hz": 50
+    },
+    {
+      "topic": "/quest3s/body_tracking",
+      "schema": "foxglove.FrameTransforms",
+      "encoding": "protobuf",
+      "kind": "sensor",
+      "nominal_hz": 50
+    },
+    {
+      "topic": "/gripper/left/magnetic_encoder",
+      "schema": "foxglove.MagneticEncoderMeasurement",
+      "encoding": "protobuf",
+      "kind": "sensor",
+      "nominal_hz": 100
+    },
+    {
+      "topic": "/gripper/right/magnetic_encoder",
+      "schema": "foxglove.MagneticEncoderMeasurement",
+      "encoding": "protobuf",
+      "kind": "sensor",
+      "nominal_hz": 100
+    }
+  ],
+  "timing": {
+    "gap_period_multiple": 3,
+    "rate_relative_tolerance": 0.3,
+    "coverage_tolerance_seconds": 6,
+    "payload_stamp_tolerance_ms": 100,
+    "camera_sync_skew_ms": 50,
+    "camera_sync_drift_ms": 30
+  },
+  "content": {
+    "downscale_width": 160,
+    "dark_mean": 10,
+    "bright_mean": 245,
+    "run_min_seconds": 0.5,
+    "freeze_mean_abs_difference": 0.2,
+    "freeze_min_seconds": 2,
+    "blur_laplacian_variance": 10,
+    "blur_min_seconds": 2,
+    "sample_seconds": 1,
+    "sensor_flatline_min_seconds": 5
+  },
+  "policy": {
+    "review_codes": [
+      "CONTRACT_UNCONFIRMED",
+      "BLUR_RUN",
+      "FROZEN_RUN",
+      "SENSOR_FLATLINE",
+      "UNEXPECTED_STREAM"
+    ],
+    "failure_codes": [
+      "CONTAINER_UNREADABLE",
+      "CONTAINER_TRUNCATED_RECOVERABLE",
+      "CONTAINER_INCOMPLETE",
+      "MISSING_STREAM",
+      "WRONG_SCHEMA",
+      "WRONG_ENCODING",
+      "RATE_OUT_OF_RANGE",
+      "TIMESTAMP_REVERSED",
+      "TIMESTAMP_DUPLICATE",
+      "PAYLOAD_TIMESTAMP_MISMATCH",
+      "GAP_RUN",
+      "COVERAGE_MISMATCH",
+      "VIDEO_UNDECODABLE",
+      "VIDEO_NOT_KEYFRAME_START",
+      "BLACK_RUN",
+      "BRIGHT_RUN",
+      "RESOLUTION_CHANGE",
+      "CAMERA_SYNC",
+      "SENSOR_NONFINITE",
+      "CHECK_UNAVAILABLE"
+    ]
+  }
+}

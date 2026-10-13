@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qc-worker
+  namespace: qc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: qc-worker
+  template:
+    metadata:
+      labels:
+        app: qc-worker
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        runAsNonRoot: true
+      containers:
+        - name: worker
+          image: video-qc/qc-worker:pipeline-v1
+          imagePullPolicy: Never
+          command: ["python", "-m", "qc.worker"]
+          env:
+            - name: TEMPORAL_ADDRESS
+              value: temporal-frontend:7233
+            - name: QC_CACHE
+              value: /cache
+          envFrom:
+            - secretRef: {name: postgres-secret}
+            - secretRef: {name: minio-secret}
+            - secretRef: {name: clickhouse-secret}
+          resources:
+            requests: {cpu: 100m, memory: 256Mi, ephemeral-storage: 512Mi}
+            limits: {cpu: "1", memory: 768Mi, ephemeral-storage: 8Gi}
+          startupProbe:
+            exec:
+              command: ["python", "-c", "from pathlib import Path; raise SystemExit(not Path('/tmp/qc-worker-ready').exists())"]
+            periodSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            exec:
+              command: ["python", "-c", "from pathlib import Path; raise SystemExit(not Path('/tmp/qc-worker-ready').exists())"]
+            periodSeconds: 10
+          volumeMounts:
+            - name: cache
+              mountPath: /cache
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {drop: ["ALL"]}
+      volumes:
+        - name: cache
+          emptyDir: {sizeLimit: 8Gi}

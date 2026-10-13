@@ -46,11 +46,8 @@ done
 kubectl --context kind-qc -n qc wait --for=condition=Complete job \
   -l app.kubernetes.io/instance=temporal --timeout=300s
 
-docker build --provenance=false -t video-qc/hello-worker:day1-v2 worker
-docker image inspect video-qc/hello-worker:day1-v2 --format '{{.Id}}'
-bash scripts/load-image.sh video-qc/hello-worker:day1-v2
-kubectl --context kind-qc -n qc apply -f k8s/worker.yaml
-kubectl --context kind-qc -n qc rollout status deployment/hello-worker --timeout=300s
+bash scripts/build-qc-worker.sh
+bash scripts/deploy-qc-worker.sh
 
 python3 scripts/verify-pods.py
 echo "Stack ready. Run make hello, then make ui to inspect it in the browser."
