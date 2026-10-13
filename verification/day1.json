@@ -1,103 +1,146 @@
 {
-  "checked_at_utc": "2026-10-13T06:16:59.845110+00:00",
-  "tested_source_commit": "18693934d3af3b01145268514c8f4a4e7c0c5030",
+  "checked_at_utc": "2026-10-13T07:56:51.603546+00:00",
+  "tested_source_commit": "5f53d447c59f53bf65a27abb1447b5a66b9d1eeb",
   "environment": {
     "cluster": "qc",
     "context": "kind-qc",
     "namespace": "qc"
   },
+  "make_down": {
+    "checked_at_utc": "2026-10-13T07:45:12.726016+00:00",
+    "make_down": "passed",
+    "qc_cluster_absent": true,
+    "qc_node_containers_absent": true,
+    "other_clusters_preserved": true
+  },
   "make_up": {
     "result": "passed",
     "checkout": "fresh shallow clone",
-    "cluster": "existing",
-    "docker_build_cache": "reused"
+    "cluster_before_startup": "absent",
+    "cluster": "created by make up",
+    "docker_images_and_build_cache": "reused",
+    "existing_database_volumes_or_application_secrets": "none"
   },
   "service_pods_running_and_ready": 10,
   "bootstrap_jobs_completed": 2,
   "all_containers_have_cpu_and_memory_requests_and_limits": true,
+  "persistent_storage": [
+    {
+      "name": "data-clickhouse-0",
+      "phase": "Bound",
+      "created_at": "2026-10-13T07:47:39Z"
+    },
+    {
+      "name": "data-minio-0",
+      "phase": "Bound",
+      "created_at": "2026-10-13T07:47:24Z"
+    },
+    {
+      "name": "data-postgres-0",
+      "phase": "Bound",
+      "created_at": "2026-10-13T07:47:05Z"
+    }
+  ],
   "workflow": {
-    "workflow_id": "hello-3142e543-28db-4b8f-be38-7e76e85e1f68",
-    "run_id": "01a133e7-386a-741e-a651-efae2dffc23c",
+    "workflow_id": "hello-9396d9e6-1918-4539-b238-9cdf19858ea2",
+    "run_id": "01a13440-4eb6-74e7-badf-ccbef28ec21d",
     "status": "COMPLETED",
     "result": "Hello, world!"
   },
   "temporal_ui": {
-    "workflow_id": "hello-3142e543-28db-4b8f-be38-7e76e85e1f68",
-    "run_id": "01a133e7-386a-741e-a651-efae2dffc23c",
+    "workflow_id": "hello-9396d9e6-1918-4539-b238-9cdf19858ea2",
+    "run_id": "01a13440-4eb6-74e7-badf-ccbef28ec21d",
     "ui_status": "WORKFLOW_EXECUTION_STATUS_COMPLETED",
     "ui_page_http_status": 200,
-    "ui_url": "http://localhost:8080/namespaces/default/workflows/hello-3142e543-28db-4b8f-be38-7e76e85e1f68/01a133e7-386a-741e-a651-efae2dffc23c/history"
+    "ui_url": "http://localhost:8080/namespaces/default/workflows/hello-9396d9e6-1918-4539-b238-9cdf19858ea2/01a13440-4eb6-74e7-badf-ccbef28ec21d/history"
   },
-  "determinism": "Recorded hello workflow history replayed successfully with Temporal Replayer during Stage 4",
+  "determinism": "Fresh-cluster workflow history replay passed with Temporal Replayer",
+  "database_checks": {
+    "postgres": [
+      "temporal",
+      "temporal_visibility"
+    ],
+    "clickhouse": "SELECT version(), 1 + 1 returned 25.8.4.13 and 2"
+  },
   "pods": [
     {
       "name": "clickhouse-0",
       "phase": "Running",
-      "ready": true
+      "ready": true,
+      "restarts": 3
     },
     {
-      "name": "hello-worker-865f476bc5-r7lqb",
+      "name": "hello-worker-865f476bc5-t9rzw",
       "phase": "Running",
-      "ready": true
+      "ready": true,
+      "restarts": 5
     },
     {
       "name": "minio-0",
       "phase": "Running",
-      "ready": true
+      "ready": true,
+      "restarts": 3
     },
     {
       "name": "postgres-0",
       "phase": "Running",
-      "ready": true
+      "ready": true,
+      "restarts": 3
     },
     {
-      "name": "temporal-admintools-94d6684fd-thpr9",
+      "name": "temporal-admintools-94d6684fd-bhppk",
       "phase": "Running",
-      "ready": true
+      "ready": true,
+      "restarts": 3
     },
     {
-      "name": "temporal-frontend-659d7d856-5j9lv",
+      "name": "temporal-frontend-659d7d856-cmxvr",
       "phase": "Running",
-      "ready": true
+      "ready": true,
+      "restarts": 6
     },
     {
-      "name": "temporal-history-74b64dcc7c-jkf7h",
+      "name": "temporal-history-74b64dcc7c-mn4cw",
       "phase": "Running",
-      "ready": true
+      "ready": true,
+      "restarts": 6
     },
     {
-      "name": "temporal-matching-7d8d667779-fj4sm",
+      "name": "temporal-matching-7d8d667779-zqq8x",
       "phase": "Running",
-      "ready": true
+      "ready": true,
+      "restarts": 6
     },
     {
-      "name": "temporal-namespace-1-7-0-1-q54ws",
+      "name": "temporal-namespace-1-7-0-1-249hw",
       "phase": "Succeeded",
-      "ready": false
+      "ready": false,
+      "restarts": 0
     },
     {
-      "name": "temporal-schema-1-7-0-1-4dftg",
+      "name": "temporal-schema-1-7-0-1-r8c84",
       "phase": "Succeeded",
-      "ready": false
+      "ready": false,
+      "restarts": 0
     },
     {
-      "name": "temporal-web-c8d56796d-76vlw",
+      "name": "temporal-web-c8d56796d-98h8g",
       "phase": "Running",
-      "ready": true
+      "ready": true,
+      "restarts": 3
     },
     {
-      "name": "temporal-worker-6dd44cdd4b-dzprh",
+      "name": "temporal-worker-6dd44cdd4b-548db",
       "phase": "Running",
-      "ready": true
+      "ready": true,
+      "restarts": 6
     }
   ],
-  "pending": [
-    "User approval for make down",
-    "Teardown and fresh empty-cluster bootstrap verification"
-  ],
+  "day1_done_when_checks": "passed",
+  "pending": [],
   "observed_limitations": [
-    "Docker Hub anonymous request limit blocked repeated image audits; all pins were verified earlier. Cached startup now uses immutable base digests.",
-    "Unexplained host/node restarts interrupted initial checks; checks stayed stable with an active WSL session. Cause not confirmed.",
-    "Older commits retain the original inline Postgres development credentials; the current tree has no inline application Secrets."
+    "Fresh-cluster verification reused Docker image/build caches; an uncached machine still needs registry and source-download access.",
+    "Intermittent WSL/Docker/node restarts and Kubernetes Forbidden responses interrupted checks. Recovery and final verification succeeded with an active WSL session; root cause remains unconfirmed.",
+    "Older commits retain original development credentials. The current tree stores no inline application Secrets, and the recreated cluster uses newly generated credentials."
   ]
 }

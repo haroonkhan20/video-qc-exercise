@@ -126,10 +126,12 @@ manifest committed before this exercise did contain development credentials;
 older local commits have not been rewritten.
 
 Verification evidence is recorded in [verification/day1.json](verification/day1.json).
-A fresh shallow clone passed `make up` against the existing cluster using Docker's
-build cache. A new workflow completed, its history replay passed in Stage 4,
-and the UI API reported `WORKFLOW_EXECUTION_STATUS_COMPLETED`.
-Teardown and empty-cluster startup remain untested until `make down` is approved.
+With user approval, `make down` deleted qc and its node containers. A fresh
+shallow clone then passed `make up` with no cluster, existing database volumes,
+or application Secrets. Docker image/build caches were reused. All 10 service
+pods became Ready, both bootstrap jobs completed, and all three PVCs were Bound.
+A new workflow returned `Hello, world!`, its history replay passed, and the UI
+API reported `WORKFLOW_EXECUTION_STATUS_COMPLETED`. Day 1 checks are complete.
 
 ## Day 2 preparation
 
@@ -151,3 +153,11 @@ only the host platform, then loads Docker's compatibility manifest and the
 unchanged application config/layers. Generated archives are cached under
 ignored `.cache/image-archives/`. This loader needs Docker's
 `image save --platform` support (API 1.48 or newer).
+
+## Current completion status
+
+- Day 1: teardown, clean-clone empty-cluster startup, Ready workloads, and a
+  completed hello-world workflow verified; see `verification/day1.json`.
+- Day 2: inspection tools and guide prepared and smoke-tested. The mentor has
+  not issued the real recordings; viewer inspections and DATA.md remain pending.
+- Local Git commits are on branch `main`. No push was performed.
