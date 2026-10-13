@@ -22,7 +22,7 @@ fi
 for image in postgres:16.4 clickhouse/clickhouse-server:25.8.4.13 \
   temporalio/server:1.32.0 temporalio/admin-tools:1.32.0 temporalio/ui:2.54.1; do
   if docker image inspect "$image" >/dev/null 2>&1; then
-    kind load docker-image --name qc "$image"
+    bash scripts/load-image.sh "$image"
   fi
 done
 python3 scripts/ensure-secrets.py postgres minio clickhouse
@@ -32,7 +32,7 @@ kubectl --context kind-qc -n qc rollout status statefulset/postgres --timeout=30
 
 docker build --provenance=false -t video-qc/minio:RELEASE.2025-10-15T17-29-55Z images/minio
 docker image inspect video-qc/minio:RELEASE.2025-10-15T17-29-55Z --format '{{.Id}}'
-kind load docker-image --name qc video-qc/minio:RELEASE.2025-10-15T17-29-55Z
+bash scripts/load-image.sh video-qc/minio:RELEASE.2025-10-15T17-29-55Z
 kubectl --context kind-qc -n qc apply -f k8s/minio.yaml
 kubectl --context kind-qc -n qc rollout status statefulset/minio --timeout=300s
 
@@ -48,7 +48,7 @@ kubectl --context kind-qc -n qc wait --for=condition=Complete job \
 
 docker build --provenance=false -t video-qc/hello-worker:day1-v2 worker
 docker image inspect video-qc/hello-worker:day1-v2 --format '{{.Id}}'
-kind load docker-image --name qc video-qc/hello-worker:day1-v2
+bash scripts/load-image.sh video-qc/hello-worker:day1-v2
 kubectl --context kind-qc -n qc apply -f k8s/worker.yaml
 kubectl --context kind-qc -n qc rollout status deployment/hello-worker --timeout=300s
 

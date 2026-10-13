@@ -142,3 +142,12 @@ Preparation was checked using a synthetic MCAP file, not mentor data.
 The mentor's recordings have not been issued. Per-file inventories, viewer
 inspection, decoder selection, first guesses, and DATA.md remain pending.
 DATA.md is intentionally absent until those observations can be made.
+
+### Local image loading compatibility
+
+With kind 0.23 and Docker Engine 29, Docker exports can include other architecture
+references and build attestations that old kind cannot import. Startup exports
+only the host platform, then loads Docker's compatibility manifest and the
+unchanged application config/layers. Generated archives are cached under
+ignored `.cache/image-archives/`. This loader needs Docker's
+`image save --platform` support (API 1.48 or newer).
