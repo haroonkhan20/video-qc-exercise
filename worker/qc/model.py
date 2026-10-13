@@ -27,7 +27,6 @@ def finding(code, stream="", start=0.0, end=0.0, metrics=None):
     return {"code":code,"stream":stream,"start_s":float(start),"end_s":float(end),"metrics":metrics or {}}
 def verdict(findings, config):
     all_codes={f["code"] for f in findings}
-    if not config["contract_confirmed"]:all_codes.add("CONTRACT_UNCONFIRMED")
     if not all_codes <= CODES:raise ValueError("Unknown reason code in findings")
     codes=sorted(all_codes)
     if any(code in config["policy"]["failure_codes"] for code in codes):

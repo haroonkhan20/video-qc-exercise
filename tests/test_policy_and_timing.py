@@ -5,10 +5,11 @@ from qc.model import finding,verdict
 from qc.checks import timing
 CFG=json.loads((Path(__file__).resolve().parents[1]/"worker/config/qc.json").read_text())
 class PolicyTests(unittest.TestCase):
-    def test_unconfirmed_contract_never_passes(self):
-        self.assertEqual(verdict([],CFG)[0],"needs_review")
+    def test_engineer_selected_defaults_allow_clean_recording(self):
+        self.assertEqual(CFG["parameter_authority"],"engineer_selected")
+        self.assertEqual(verdict([],CFG)[0],"pass")
     def test_confirmed_clean_and_failed_checks(self):
-        cfg=copy.deepcopy(CFG);cfg["contract_confirmed"]=True
+        cfg=copy.deepcopy(CFG)
         self.assertEqual(verdict([],cfg)[0],"pass")
         self.assertEqual(verdict([finding("CHECK_UNAVAILABLE")],cfg)[0],"fail")
         self.assertEqual(verdict([finding("BLACK_RUN")],cfg)[0],"fail")

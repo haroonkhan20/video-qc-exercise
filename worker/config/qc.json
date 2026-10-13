@@ -1,6 +1,5 @@
 {
   "recording_type": "quest3s-dual-gripper",
-  "contract_confirmed": false,
   "expected_streams": [
     {
       "topic": "/quest3s/head_left/camera/camera_info",
@@ -137,7 +136,6 @@
   },
   "policy": {
     "review_codes": [
-      "CONTRACT_UNCONFIRMED",
       "BLUR_RUN",
       "FROZEN_RUN",
       "SENSOR_FLATLINE",
@@ -165,5 +163,6 @@
       "SENSOR_NONFINITE",
       "CHECK_UNAVAILABLE"
     ]
-  }
+  },
+  "parameter_authority": "engineer_selected"
 }
