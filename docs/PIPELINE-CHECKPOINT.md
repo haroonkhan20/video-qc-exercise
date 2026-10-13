@@ -2,7 +2,7 @@
 
 This session deliberately verifies a small, useful slice rather than claiming
 the entire 41-recording pipeline is finished. Evidence is in
-verification/pipeline-pilot.json.
+verification/pipeline-pilot.json and verification/pipeline-crash.json.
 
 ## What passed
 
@@ -21,14 +21,27 @@ verification/pipeline-pilot.json.
   current-version reports. The 9,374,785-byte viewer artifact passes Rerun's
   native format verifier, and Temporal history replays without nondeterminism.
 
-## An important test limitation
+## Pod replacement and strict crash recovery
 
 Exactly one pod deletion was performed under the user's approval. History shows
 the busy decoder completed during shutdown, with no activity attempt above one.
-This proves workflow continuation across pod replacement, not a strict crash
-retry. A prepared process-kill test requires a separate explicit approval and
-does not run as part of startup. Preserve its local guard record after running;
-do not repeat destructive tests automatically.
+That first test proved workflow continuation across pod replacement.
+
+The user then separately approved one worker-process crash. On ep_23f5a0d2.mcap,
+the guarded test sent SIGKILL through the kind node runtime to the exact container
+ID belonging to the busy qc-worker pod. It did not kill the kind node or another
+service. The container exited 137 and restarted exactly once.
+
+Temporal history records activity 5 retrying at attempt 2 after an activity
+Heartbeat timeout. The workflow completed in 96.37 seconds with verdict pass.
+All 16 streams completed; one raw version, one episode, one finalized current
+run, and one authoritative verdict remained. All 2,501 metric rows were distinct,
+the viewer passed verification, the fleet query matched reports, and workflow
+history replay passed. Both QC workers returned Ready.
+
+The two destructive approvals are now consumed: one pod deletion and one process
+kill. These tests never run during startup. Their local guard records prevent
+automatic repetition; future destructive tests need fresh approval.
 
 ## How the system fits together
 
@@ -49,17 +62,15 @@ The Rerun export contains sampled images and findings on an episode timeline.
 
 ## Next session
 
-1. Run a strict crash test if approved, proving an interrupted activity retries
-   on a surviving/restarted worker and still yields one authoritative result.
-2. Process all 41 recordings under the selected policy; compare camera-drop
+1. Process all 41 recordings under the selected policy; compare camera-drop
    totals with reports over the complete dataset.
-3. Add malformed/truncated/missing-stream failure fixtures and broader artifact
+2. Add malformed/truncated/missing-stream failure fixtures and broader artifact
    rebuild tests without modifying or deleting originals.
-4. Reverify make up with the expanded pipeline and finish the design/demo notes.
-5. Prepare the accuracy worksheet; actual confusion-table scoring needs the
+3. Reverify make up with the expanded pipeline and finish the design/demo notes.
+4. Prepare the accuracy worksheet; actual confusion-table scoring needs the
    mentor's answer key. No labels or accuracy numbers should be invented.
 
 Successful pilot workflow times observed before this test ranged from roughly
-17 to 75 seconds, excluding uploads. The crash/replacement pilot took 97 seconds.
+17 to 75 seconds, excluding uploads. The pod-replacement pilot took 97 seconds and the strict-crash pilot took 96 seconds.
 A provisional complete-dataset estimate is 30–60 minutes including uploads, not
 a deadline or a benchmark over all 41 files.

@@ -220,3 +220,9 @@ The reliability checkpoint and remaining work are documented in
 Destructive recovery tests require separate explicit approval. They are never
 part of make up or the ordinary inspection commands. Do not run make down while
 you need these local recordings, reports, database volumes, or Temporal history.
+
+The strict crash checkpoint also passed: one separately approved busy-worker
+process was killed, Temporal retried that same activity at attempt 2 after a
+heartbeat timeout, and the workflow completed with one authoritative verdict
+and no duplicate metrics. Evidence: [verification/pipeline-crash.json](verification/pipeline-crash.json).
+Both destructive test approvals have been consumed; do not repeat them automatically.

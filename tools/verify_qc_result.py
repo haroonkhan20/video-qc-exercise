@@ -70,7 +70,12 @@ async def main():
     assert description.status.name=="COMPLETED"
     history=await handle.fetch_history()
     starts=[e.activity_task_started_event_attributes for e in history.events if e.HasField("activity_task_started_event_attributes")]
-    retried=[{"attempt":s.attempt,"worker":s.identity,"scheduled_event_id":s.scheduled_event_id} for s in starts if s.attempt>1]
+    scheduled={e.event_id:e.activity_task_scheduled_event_attributes.activity_id
+               for e in history.events if e.HasField("activity_task_scheduled_event_attributes")}
+    retried=[{"attempt":s.attempt,"worker":s.identity,"scheduled_event_id":s.scheduled_event_id,
+              "activity_id":scheduled[s.scheduled_event_id],
+              "previous_failure":s.last_failure.message if s.HasField("last_failure") else None}
+             for s in starts if s.attempt>1]
     await Replayer(workflows=[QcEpisode]).replay_workflow(history)
     result={"digest":digest,"workflow_id":workflow_id,"config_version":cv,"code_version":code,
         "workflow_status":description.status.name,"workflow_seconds":round((description.close_time-description.start_time).total_seconds(),2),
@@ -84,13 +89,15 @@ asyncio.run(main())
 """
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument("digest");p.add_argument("--output",type=Path)
+    p=argparse.ArgumentParser();p.add_argument("digest");p.add_argument("--output",type=Path);p.add_argument("--require-retry-of",help="Require a specific Temporal activity ID to have retried")
     a=p.parse_args()
     command=["kubectl","--context","kind-qc","-n","qc","exec","-i","deployment/qc-worker","--","python","-",a.digest]
     result=subprocess.run(command,input=PROBE,capture_output=True,text=True)
     if result.returncode:
         raise SystemExit(result.stderr or result.stdout)
     value=json.loads(result.stdout)
+    if a.require_retry_of and not any(r["activity_id"]==a.require_retry_of for r in value["retried_activities"]):
+        raise SystemExit("The crashed activity did not show a retry in workflow history")
     if a.output:
         a.output.parent.mkdir(parents=True,exist_ok=True)
         a.output.write_text(json.dumps(value,indent=2)+"\n")

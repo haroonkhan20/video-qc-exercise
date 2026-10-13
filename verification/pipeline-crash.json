@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-13",
+  "file": "ep_23f5a0d2.mcap",
+  "scope": "One separately approved busy-worker process crash",
+  "crash": {
+    "digest": "0f2f31579a90e8c87062772109699a5f242c2c6b6f43ebf8b86630815fc3fd6b",
+    "workflow_id": "qc-0f2f31579a90e8c87062772109699a5f242c2c6b6f43ebf8b86630815fc3fd6b-109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478-18f15fae8e596ae531491ca24035eef55f701be4123b1acb0a19009cf2f83ee0",
+    "crashed_pod": "qc-worker-cbb887c68-9j8tg",
+    "busy_activity": {
+      "type": "check_stream",
+      "attempt": 1,
+      "activity_id": "5",
+      "worker": "1@qc-worker-cbb887c68-9j8tg",
+      "details": [
+        {
+          "messages": 1471,
+          "stage": "stream",
+          "stream": "/quest3s/head_right/camera/compressed"
+        }
+      ]
+    },
+    "process_kill_count": 1,
+    "completed": true,
+    "node": "qc-control-plane",
+    "container_id": "c6d28e5032c7f604e3c7bc8ecae9f242e38a852e85ae36a9ae9eb8dbc210eaef",
+    "kill_command_returncode": 0,
+    "final_status": "COMPLETED"
+  },
+  "container": {
+    "restart_count": 1,
+    "previous_exit_code": 137,
+    "ready": true
+  },
+  "result": {
+    "digest": "0f2f31579a90e8c87062772109699a5f242c2c6b6f43ebf8b86630815fc3fd6b",
+    "workflow_id": "qc-0f2f31579a90e8c87062772109699a5f242c2c6b6f43ebf8b86630815fc3fd6b-109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478-18f15fae8e596ae531491ca24035eef55f701be4123b1acb0a19009cf2f83ee0",
+    "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478",
+    "code_version": "18f15fae8e596ae531491ca24035eef55f701be4123b1acb0a19009cf2f83ee0",
+    "workflow_status": "COMPLETED",
+    "workflow_seconds": 96.37,
+    "verdict": "pass",
+    "reason_codes": [],
+    "streams": 16,
+    "episode_rows": 1,
+    "verdict_rows": 1,
+    "finalized_run_rows": 1,
+    "raw_versions": 1,
+    "raw_retention_mode": "COMPLIANCE",
+    "aliases": [
+      "ep_23f5a0d2.mcap"
+    ],
+    "clickhouse": {
+      "rows": 2501,
+      "unique_rows": 2501
+    },
+    "viewer_bytes": 9486755,
+    "viewer_verified": true,
+    "fleet_matches_reports": true,
+    "workflow_replay_passed": true,
+    "retried_activities": [
+      {
+        "attempt": 2,
+        "worker": "1@qc-worker-cbb887c68-9j8tg",
+        "scheduled_event_id": 14,
+        "activity_id": "5",
+        "previous_failure": "activity Heartbeat timeout"
+      }
+    ]
+  },
+  "strict_crash_retry_proven": true
+}
