@@ -1,0 +1,134 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clickhouse-config
+  namespace: qc
+data:
+  laptop.xml: |
+    <clickhouse>
+      <logger><level>warning</level><console>true</console></logger>
+      <background_pool_size>4</background_pool_size>
+      <background_schedule_pool_size>4</background_schedule_pool_size>
+      <background_message_broker_schedule_pool_size>2</background_message_broker_schedule_pool_size>
+      <background_distributed_schedule_pool_size>2</background_distributed_schedule_pool_size>
+      <background_buffer_flush_schedule_pool_size>2</background_buffer_flush_schedule_pool_size>
+      <background_fetches_pool_size>2</background_fetches_pool_size>
+      <background_move_pool_size>2</background_move_pool_size>
+      <background_common_pool_size>2</background_common_pool_size>
+      <merge_tree>
+        <number_of_free_entries_in_pool_to_execute_mutation>2</number_of_free_entries_in_pool_to_execute_mutation>
+        <number_of_free_entries_in_pool_to_lower_max_size_of_merge>2</number_of_free_entries_in_pool_to_lower_max_size_of_merge>
+        <number_of_free_entries_in_pool_to_execute_optimize_entire_partition>2</number_of_free_entries_in_pool_to_execute_optimize_entire_partition>
+      </merge_tree>
+      <mark_cache_size>67108864</mark_cache_size>
+      <uncompressed_cache_size>16777216</uncompressed_cache_size>
+      <query_log remove="1"/>
+      <query_thread_log remove="1"/>
+      <trace_log remove="1"/>
+      <metric_log remove="1"/>
+      <asynchronous_metric_log remove="1"/>
+      <text_log remove="1"/>
+      <processors_profile_log remove="1"/>
+    </clickhouse>
+  laptop-users.xml: |
+    <clickhouse>
+      <profiles>
+        <default>
+          <max_threads>2</max_threads>
+          <max_memory_usage>268435456</max_memory_usage>
+          <max_bytes_before_external_group_by>134217728</max_bytes_before_external_group_by>
+          <max_bytes_before_external_sort>134217728</max_bytes_before_external_sort>
+        </default>
+      </profiles>
+    </clickhouse>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clickhouse
+  namespace: qc
+spec:
+  selector:
+    app: clickhouse
+  ports:
+    - name: http
+      port: 8123
+    - name: native
+      port: 9000
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: clickhouse
+  namespace: qc
+spec:
+  serviceName: clickhouse
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clickhouse
+  template:
+    metadata:
+      labels:
+        app: clickhouse
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: clickhouse
+          image: clickhouse/clickhouse-server:25.8.4.13
+          ports:
+            - name: http
+              containerPort: 8123
+            - name: native
+              containerPort: 9000
+          env:
+            - name: CLICKHOUSE_USER
+              value: default
+            - name: CLICKHOUSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: clickhouse-secret
+                  key: CLICKHOUSE_PASSWORD
+          startupProbe:
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/clickhouse
+            - name: config
+              mountPath: /etc/clickhouse-server/config.d/laptop.xml
+              subPath: laptop.xml
+            - name: config
+              mountPath: /etc/clickhouse-server/users.d/laptop.xml
+              subPath: laptop-users.xml
+      volumes:
+        - name: config
+          configMap:
+            name: clickhouse-config
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 2Gi
