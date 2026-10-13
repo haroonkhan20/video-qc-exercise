@@ -130,3 +130,15 @@ A fresh shallow clone passed `make up` against the existing cluster using Docker
 build cache. A new workflow completed, its history replay passed in Stage 4,
 and the UI API reported `WORKFLOW_EXECUTION_STATUS_COMPLETED`.
 Teardown and empty-cluster startup remain untested until `make down` is approved.
+
+## Day 2 preparation
+
+Run `make day2-tools` to install checksum-verified MCAP CLI `0.3.0` and isolated,
+pinned Python inspection libraries under this repository.
+See [the Day 2 guide](docs/DAY2-GUIDE.md) for vocabulary, commands, and what to
+observe in each recording. The inventory helper is `tools/inspect_mcap.py`.
+
+Preparation was checked using a synthetic MCAP file, not mentor data.
+The mentor's recordings have not been issued. Per-file inventories, viewer
+inspection, decoder selection, first guesses, and DATA.md remain pending.
+DATA.md is intentionally absent until those observations can be made.

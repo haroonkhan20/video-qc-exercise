@@ -1,0 +1,4 @@
+# Base inspection libraries. Message-specific decoders are chosen after seeing the files.
+mcap==1.5.0
+lz4==4.4.5
+zstandard==0.25.0

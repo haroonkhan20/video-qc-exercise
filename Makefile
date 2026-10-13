@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := up
-.PHONY: up down hello ui status verify check-images
+.PHONY: up down hello ui status verify check-images day2-tools
 
 # Build and load local images, install the stack, and wait for readiness.
 up:
@@ -29,3 +29,7 @@ verify:
 # Recheck all pinned upstream images against their registries (requires pull quota).
 check-images:
 	@bash scripts/verify-images.sh
+
+# Prepare pinned MCAP CLI and Python libraries for manual Day 2 inspection.
+day2-tools:
+	@bash scripts/setup-day2.sh
