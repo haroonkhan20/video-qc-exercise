@@ -4,7 +4,9 @@
 
 Look at every mentor-issued MCAP file before building automatic checks.
 Write your own first observations in DATA.md, then keep that Day 2 snapshot unchanged.
-The files have not been issued yet, so DATA.md has intentionally not been created.
+The 41 supplied files have now been inspected; DATA.md is the preserved first-read snapshot.
+The mentor revised the viewer requirement to AI-assisted inspection. We examined
+decoded camera contact sheets and selected full-frame windows, with limitations recorded.
 
 ## Words you will see
 
@@ -50,7 +52,7 @@ quality decisions, decode images, recover files, or modify them. Its rates use
 the whole recording duration; they are rough inventory numbers, not drop estimates.
 An error or missing summary needs investigation rather than a guessed verdict.
 
-Next, open each original in **Foxglove** or **Rerun**. Choose the viewer and
+Under the original exercise, open each original in **Foxglove** or **Rerun**. Choose the viewer and
 message decoders AFTER finding out the actual schemas/encodings. In the viewer,
 look at the beginning, middle, end, and suspicious time ranges; compare cameras
 with sensor streams on the timeline. Record exactly what you saw and where.
@@ -73,9 +75,11 @@ for the recording type/intended inventory where the file does not tell us enough
 
 ## What waits for the recordings
 
-Actual inventories, visual inspections, decoder selection, first guesses, and
-the final DATA.md all require the real files. Day 3 automation—uploads, quality
-checks, durable verdicts, and worker-crash tests—comes AFTER those observations.
+Those Day 2 observations are now recorded in DATA.md. Interactive playback was
+waived by the mentor in favour of AI assistance; this does not waive the need
+to examine actual decoded data. Future Day 3 automation—uploads, quality checks,
+durable verdicts, and worker-crash tests—comes AFTER the first-read snapshot.
+Do not rewrite DATA.md after Day 2; record later findings separately.
 
 Official references:
 [MCAP CLI](https://mcap.dev/guides/cli),

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-mkdir -p .cache/bin .cache/pip-bootstrap
+mkdir -p .cache/bin .cache/pip-bootstrap .cache/pip-tmp
+export TMPDIR="$PWD/.cache/pip-tmp"
 case "$(uname -m)" in
   x86_64) arch=amd64; checksum=5d4100573fab880f1c6400952466275bb3b32c3d230a54f7c380ee0d08e59eef ;;
   aarch64) arch=arm64; checksum=be9734ef63ada9d0cc7a3aa41378ab65fd482601e5f5b3b52098d8e6553deabf ;;

@@ -1,0 +1,23 @@
+{
+  "files": 41,
+  "bytes": 5104790395,
+  "messages": 1835388,
+  "originals_unchanged": true,
+  "distinct_digests": 41,
+  "initial_guesses": {
+    "Likely good (initial sample)": 36,
+    "Uncertain: exposure context": 4,
+    "Likely bad": 1
+  },
+  "interactive_viewer": "waived by mentor per user; AI contact-sheet inspection performed",
+  "focused_windows": {
+    "ep_346eb2d7.mcap": [
+      18,
+      26
+    ],
+    "ep_0ed34c0f.mcap": [
+      30,
+      40
+    ]
+  }
+}

@@ -141,9 +141,11 @@ See [the Day 2 guide](docs/DAY2-GUIDE.md) for vocabulary, commands, and what to
 observe in each recording. The inventory helper is `tools/inspect_mcap.py`.
 
 Preparation was checked using a synthetic MCAP file, not mentor data.
-The mentor's recordings have not been issued. Per-file inventories, viewer
-inspection, decoder selection, first guesses, and DATA.md remain pending.
-DATA.md is intentionally absent until those observations can be made.
+The mentor subsequently supplied 41 recordings. Their first-read inventories,
+AI-assisted camera observations, and preliminary guesses are now in [DATA.md](DATA.md).
+Per the mentor's revised guidance, AI examined decoded contact sheets instead
+of interactive viewer playback. Preserve DATA.md after Day 2; later automated
+verdicts belong in separate reports.
 
 ### Local image loading compatibility
 
@@ -158,6 +160,18 @@ ignored `.cache/image-archives/`. This loader needs Docker's
 
 - Day 1: teardown, clean-clone empty-cluster startup, Ready workloads, and a
   completed hello-world workflow verified; see `verification/day1.json`.
-- Day 2: inspection tools and guide prepared and smoke-tested. The mentor has
-  not issued the real recordings; viewer inspections and DATA.md remain pending.
+- Day 2: all 41 supplied MCAPs inspected with CLI/Python and AI-assisted camera
+  sampling; DATA.md records the first guesses and limitations. One likely-bad
+  recording has an all-camera near-black interval; four lighting cases remain
+  uncertain. This is not a final automated QC verdict set.
 - Local Git commits are on branch `main`. No push was performed.
+
+### Day 2 analysis tools
+
+Pinned additions: mcap-protobuf-support 0.5.4, protobuf 7.36.2, PyAV 19.0.1,
+NumPy 2.5.4, Pillow 12.3.0. They are isolated in the repo's Python environment.
+The offline explorer is tools/day2_probe.py; focused full-frame interval decoding
+is tools/day2_window_probe.py. Both read originals without modifying them.
+Numeric observations are in data/day2-observations/ and initial AI image notes
+are in data/day2-visual-notes.json. Settings are exploratory, not production
+pass/fail policy. No recordings have been uploaded or submitted as QC workflows.

@@ -1,0 +1,9 @@
+{
+  "purpose": "Exploratory Day 2 observations, not production QC verdict thresholds",
+  "gap_multiple_of_observed_median": 3,
+  "thumbnail_size": 160,
+  "contact_sheet_columns": 6,
+  "dark_mean_luma": 10,
+  "bright_mean_luma": 245,
+  "low_contrast_std_luma": 2
+}

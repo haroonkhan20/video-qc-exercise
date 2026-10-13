@@ -1,0 +1,3315 @@
+{
+  "file": "ep_2c47cac2.mcap",
+  "bytes": 153724616,
+  "sha256": "16f52895c5111b2a379decdd76f36c997fadd66023195ebd0daabd99ff459a02",
+  "doctor": {
+    "exit_code": 0,
+    "output": ""
+  },
+  "video_method": "All video packets fed to H.264 decoder with NONKEY skip mode; only keyframes decoded. Non-keyframe health is not verified.",
+  "channels": [
+    {
+      "channel_id": 1,
+      "topic": "/quest3s/head_left/camera/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 1,
+        "first_s": 0.0,
+        "last_s": 0.0,
+        "out_of_order": 0,
+        "duplicates": 0
+      },
+      "publish_timing": {
+        "count": 1,
+        "first_s": 0.0,
+        "last_s": 0.0,
+        "out_of_order": 0,
+        "duplicates": 0
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "observed_resolutions": [
+        {
+          "width": 720,
+          "height": 720,
+          "observations": 1
+        }
+      ]
+    },
+    {
+      "channel_id": 2,
+      "topic": "/quest3s/head_right/camera/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 1,
+        "first_s": 0.0,
+        "last_s": 0.0,
+        "out_of_order": 0,
+        "duplicates": 0
+      },
+      "publish_timing": {
+        "count": 1,
+        "first_s": 0.0,
+        "last_s": 0.0,
+        "out_of_order": 0,
+        "duplicates": 0
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "observed_resolutions": [
+        {
+          "width": 720,
+          "height": 720,
+          "observations": 1
+        }
+      ]
+    },
+    {
+      "channel_id": 3,
+      "topic": "/quest3s/head_left/camera/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 2707,
+        "first_s": 2.999993961,
+        "last_s": 93.199859388,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 39.999719,
+        "observed_median_hz": 25.000175626233773,
+        "period_p95_ms": 40.00072,
+        "period_p99_ms": 40.00172,
+        "max_period_ms": 40.005719,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 2707,
+        "first_s": 2.999993961,
+        "last_s": 93.199859388,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 39.999719,
+        "observed_median_hz": 25.000175626233773,
+        "period_p95_ms": 40.00072,
+        "period_p99_ms": 40.00172,
+        "max_period_ms": 40.005719,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "observed_resolutions": [
+        {
+          "width": 720,
+          "height": 720,
+          "observations": 91
+        }
+      ],
+      "video_formats": {
+        "h264": 2707
+      },
+      "keyframes_decoded": 91,
+      "sample_decode_errors": 0,
+      "decode_error_example": null,
+      "keyframe_metrics": [
+        {
+          "t_s": 2.999993961,
+          "mean_luma": 124.479,
+          "std_luma": 57.802,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 3.999992948,
+          "mean_luma": 126.004,
+          "std_luma": 58.699,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 4.999989935,
+          "mean_luma": 122.484,
+          "std_luma": 57.013,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 5.999988922,
+          "mean_luma": 122.178,
+          "std_luma": 56.343,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 6.999986909,
+          "mean_luma": 123.483,
+          "std_luma": 57.048,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 7.999985896,
+          "mean_luma": 123.966,
+          "std_luma": 56.98,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 8.999984883,
+          "mean_luma": 126.835,
+          "std_luma": 58.255,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 9.99998287,
+          "mean_luma": 121.797,
+          "std_luma": 56.528,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 10.999979857,
+          "mean_luma": 124.725,
+          "std_luma": 57.5,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 11.999978844,
+          "mean_luma": 127.892,
+          "std_luma": 58.794,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 12.999977831,
+          "mean_luma": 124.812,
+          "std_luma": 59.079,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 13.999974818,
+          "mean_luma": 127.992,
+          "std_luma": 60.131,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 14.999973805,
+          "mean_luma": 127.337,
+          "std_luma": 60.649,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 15.999972792,
+          "mean_luma": 126.956,
+          "std_luma": 60.942,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 16.999970779,
+          "mean_luma": 129.153,
+          "std_luma": 59.907,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 17.999968766,
+          "mean_luma": 128.577,
+          "std_luma": 59.748,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 18.999966753,
+          "mean_luma": 125.993,
+          "std_luma": 60.137,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 19.99996574,
+          "mean_luma": 127.436,
+          "std_luma": 60.09,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 20.999964727,
+          "mean_luma": 127.624,
+          "std_luma": 60.019,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 21.999962714,
+          "mean_luma": 130.753,
+          "std_luma": 59.899,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 22.999960701,
+          "mean_luma": 128.967,
+          "std_luma": 60.519,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 23.999958688,
+          "mean_luma": 126.389,
+          "std_luma": 60.302,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 24.999957675,
+          "mean_luma": 121.782,
+          "std_luma": 57.424,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 25.999956662,
+          "mean_luma": 122.242,
+          "std_luma": 55.495,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 26.999954649,
+          "mean_luma": 121.663,
+          "std_luma": 57.951,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 27.999952636,
+          "mean_luma": 122.492,
+          "std_luma": 57.654,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 28.999951623,
+          "mean_luma": 124.588,
+          "std_luma": 57.41,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 29.99994961,
+          "mean_luma": 124.82,
+          "std_luma": 56.268,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 30.999948597,
+          "mean_luma": 119.609,
+          "std_luma": 54.59,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 31.999945584,
+          "mean_luma": 120.413,
+          "std_luma": 55.102,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 32.999945571,
+          "mean_luma": 121.374,
+          "std_luma": 54.933,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 33.999944558,
+          "mean_luma": 121.038,
+          "std_luma": 54.272,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 34.999941545,
+          "mean_luma": 120.041,
+          "std_luma": 53.365,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 35.999940532,
+          "mean_luma": 121.127,
+          "std_luma": 53.623,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 36.999938519,
+          "mean_luma": 120.618,
+          "std_luma": 53.436,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 37.999936506,
+          "mean_luma": 115.495,
+          "std_luma": 52.53,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 38.999936493,
+          "mean_luma": 117.803,
+          "std_luma": 52.658,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 39.99993548,
+          "mean_luma": 120.064,
+          "std_luma": 50.594,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 40.999932467,
+          "mean_luma": 124.023,
+          "std_luma": 53.515,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 41.999931454,
+          "mean_luma": 124.797,
+          "std_luma": 53.878,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 42.999930441,
+          "mean_luma": 120.514,
+          "std_luma": 54.662,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 43.999928428,
+          "mean_luma": 126.005,
+          "std_luma": 56.919,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 44.999926415,
+          "mean_luma": 126.983,
+          "std_luma": 57.692,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 45.999925402,
+          "mean_luma": 123.876,
+          "std_luma": 56.594,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 46.999923389,
+          "mean_luma": 120.082,
+          "std_luma": 56.458,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 47.999922376,
+          "mean_luma": 123.852,
+          "std_luma": 57.005,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 48.999922363,
+          "mean_luma": 125.572,
+          "std_luma": 57.641,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 49.99991935,
+          "mean_luma": 125.502,
+          "std_luma": 60.106,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 50.999917337,
+          "mean_luma": 124.168,
+          "std_luma": 59.073,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 51.999917324,
+          "mean_luma": 123.595,
+          "std_luma": 59.348,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 52.999915311,
+          "mean_luma": 123.973,
+          "std_luma": 60.803,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 53.999913298,
+          "mean_luma": 123.373,
+          "std_luma": 60.488,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 54.999911285,
+          "mean_luma": 118.078,
+          "std_luma": 58.731,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 55.999911272,
+          "mean_luma": 126.102,
+          "std_luma": 58.947,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 56.999909259,
+          "mean_luma": 124.514,
+          "std_luma": 58.393,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 57.999907246,
+          "mean_luma": 121.517,
+          "std_luma": 56.099,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 58.999907233,
+          "mean_luma": 121.3,
+          "std_luma": 55.922,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 59.99990522,
+          "mean_luma": 119.732,
+          "std_luma": 54.926,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 60.999903207,
+          "mean_luma": 115.787,
+          "std_luma": 54.268,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 61.999902194,
+          "mean_luma": 124.158,
+          "std_luma": 55.243,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 62.999901181,
+          "mean_luma": 123.59,
+          "std_luma": 58.17,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 63.999899168,
+          "mean_luma": 130.113,
+          "std_luma": 60.033,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 64.999899155,
+          "mean_luma": 130.463,
+          "std_luma": 59.422,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 65.999897142,
+          "mean_luma": 131.006,
+          "std_luma": 60.386,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 66.999895129,
+          "mean_luma": 124.732,
+          "std_luma": 58.507,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 67.999893116,
+          "mean_luma": 124.529,
+          "std_luma": 60.406,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 68.999892103,
+          "mean_luma": 124.533,
+          "std_luma": 61.237,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 69.99989109,
+          "mean_luma": 125.85,
+          "std_luma": 61.176,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 70.999889077,
+          "mean_luma": 126.61,
+          "std_luma": 59.251,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 71.999889064,
+          "mean_luma": 125.215,
+          "std_luma": 58.751,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 72.999887051,
+          "mean_luma": 121.668,
+          "std_luma": 55.45,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 73.999885038,
+          "mean_luma": 118.519,
+          "std_luma": 53.885,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 74.999884025,
+          "mean_luma": 119.239,
+          "std_luma": 52.619,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 75.999883012,
+          "mean_luma": 117.252,
+          "std_luma": 54.001,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 76.999880999,
+          "mean_luma": 119.519,
+          "std_luma": 54.263,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 77.999880986,
+          "mean_luma": 120.588,
+          "std_luma": 53.15,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 78.999878973,
+          "mean_luma": 119.042,
+          "std_luma": 54.29,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 79.99987696,
+          "mean_luma": 119.22,
+          "std_luma": 54.184,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 80.999875947,
+          "mean_luma": 122.468,
+          "std_luma": 53.451,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 81.999874934,
+          "mean_luma": 121.029,
+          "std_luma": 53.42,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 82.999873921,
+          "mean_luma": 121.669,
+          "std_luma": 53.21,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 83.999871908,
+          "mean_luma": 123.804,
+          "std_luma": 54.109,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 84.999870895,
+          "mean_luma": 126.003,
+          "std_luma": 55.785,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 85.999869882,
+          "mean_luma": 127.791,
+          "std_luma": 56.424,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 86.999866869,
+          "mean_luma": 124.642,
+          "std_luma": 55.317,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 87.999865856,
+          "mean_luma": 123.719,
+          "std_luma": 53.583,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 88.999865843,
+          "mean_luma": 124.984,
+          "std_luma": 54.578,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 89.99986283,
+          "mean_luma": 127.052,
+          "std_luma": 55.764,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 90.999862817,
+          "mean_luma": 128.206,
+          "std_luma": 56.152,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 91.999861804,
+          "mean_luma": 130.842,
+          "std_luma": 58.88,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 92.999858791,
+          "mean_luma": 126.175,
+          "std_luma": 61.869,
+          "width": 720,
+          "height": 720
+        }
+      ],
+      "dark_keyframe_count": 0,
+      "bright_keyframe_count": 0,
+      "low_contrast_keyframe_count": 0
+    },
+    {
+      "channel_id": 4,
+      "topic": "/quest3s/head_right/camera/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 2707,
+        "first_s": 2.999993961,
+        "last_s": 93.199859388,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 39.999719,
+        "observed_median_hz": 25.000175626233773,
+        "period_p95_ms": 40.00072,
+        "period_p99_ms": 40.00172,
+        "max_period_ms": 40.005719,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 2707,
+        "first_s": 2.999993961,
+        "last_s": 93.199859388,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 39.999719,
+        "observed_median_hz": 25.000175626233773,
+        "period_p95_ms": 40.00072,
+        "period_p99_ms": 40.00172,
+        "max_period_ms": 40.005719,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "observed_resolutions": [
+        {
+          "width": 720,
+          "height": 720,
+          "observations": 91
+        }
+      ],
+      "video_formats": {
+        "h264": 2707
+      },
+      "keyframes_decoded": 91,
+      "sample_decode_errors": 0,
+      "decode_error_example": null,
+      "keyframe_metrics": [
+        {
+          "t_s": 2.999993961,
+          "mean_luma": 130.449,
+          "std_luma": 51.905,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 3.999992948,
+          "mean_luma": 132.2,
+          "std_luma": 52.541,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 4.999989935,
+          "mean_luma": 128.511,
+          "std_luma": 51.475,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 5.999988922,
+          "mean_luma": 128.431,
+          "std_luma": 51.406,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 6.999986909,
+          "mean_luma": 129.838,
+          "std_luma": 52.206,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 7.999985896,
+          "mean_luma": 129.912,
+          "std_luma": 52.62,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 8.999982883,
+          "mean_luma": 132.079,
+          "std_luma": 53.93,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 9.99998287,
+          "mean_luma": 127.788,
+          "std_luma": 52.887,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 10.999979857,
+          "mean_luma": 126.383,
+          "std_luma": 53.187,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 11.999978844,
+          "mean_luma": 131.845,
+          "std_luma": 53.898,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 12.999977831,
+          "mean_luma": 129.802,
+          "std_luma": 55.7,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 13.999974818,
+          "mean_luma": 131.413,
+          "std_luma": 56.68,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 14.999973805,
+          "mean_luma": 130.57,
+          "std_luma": 57.376,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 15.999972792,
+          "mean_luma": 130.595,
+          "std_luma": 57.842,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 16.999970779,
+          "mean_luma": 132.504,
+          "std_luma": 56.457,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 17.999968766,
+          "mean_luma": 132.239,
+          "std_luma": 56.539,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 18.999967753,
+          "mean_luma": 133.671,
+          "std_luma": 57.665,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 19.99996574,
+          "mean_luma": 133.184,
+          "std_luma": 57.444,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 20.999964727,
+          "mean_luma": 131.397,
+          "std_luma": 57.119,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 21.999962714,
+          "mean_luma": 135.004,
+          "std_luma": 56.521,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 22.999960701,
+          "mean_luma": 133.311,
+          "std_luma": 57.941,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 23.999958688,
+          "mean_luma": 131.372,
+          "std_luma": 57.864,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 24.999957675,
+          "mean_luma": 123.25,
+          "std_luma": 54.159,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 25.999956662,
+          "mean_luma": 121.709,
+          "std_luma": 53.19,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 26.999954649,
+          "mean_luma": 127.602,
+          "std_luma": 55.881,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 27.999952636,
+          "mean_luma": 127.716,
+          "std_luma": 54.732,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 28.999951623,
+          "mean_luma": 130.556,
+          "std_luma": 53.189,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 29.99994961,
+          "mean_luma": 129.307,
+          "std_luma": 52.605,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 30.999948597,
+          "mean_luma": 125.299,
+          "std_luma": 51.144,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 31.999947584,
+          "mean_luma": 122.8,
+          "std_luma": 52.336,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 32.999945571,
+          "mean_luma": 123.284,
+          "std_luma": 51.969,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 33.999944558,
+          "mean_luma": 123.099,
+          "std_luma": 51.366,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 34.999941545,
+          "mean_luma": 120.869,
+          "std_luma": 50.649,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 35.999940532,
+          "mean_luma": 122.49,
+          "std_luma": 51.002,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 36.999938519,
+          "mean_luma": 124.709,
+          "std_luma": 50.627,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 37.999936506,
+          "mean_luma": 118.714,
+          "std_luma": 49.673,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 38.999936493,
+          "mean_luma": 121.573,
+          "std_luma": 49.545,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 39.99993548,
+          "mean_luma": 122.55,
+          "std_luma": 47.137,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 40.999932467,
+          "mean_luma": 125.249,
+          "std_luma": 49.773,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 41.999930454,
+          "mean_luma": 126.187,
+          "std_luma": 50.057,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 42.999930441,
+          "mean_luma": 123.789,
+          "std_luma": 50.432,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 43.999928428,
+          "mean_luma": 128.369,
+          "std_luma": 52.885,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 44.999927415,
+          "mean_luma": 130.302,
+          "std_luma": 53.912,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 45.999925402,
+          "mean_luma": 128.21,
+          "std_luma": 54.041,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 46.999923389,
+          "mean_luma": 125.233,
+          "std_luma": 53.888,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 47.999922376,
+          "mean_luma": 128.032,
+          "std_luma": 54.402,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 48.999922363,
+          "mean_luma": 128.817,
+          "std_luma": 54.901,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 49.99991935,
+          "mean_luma": 128.835,
+          "std_luma": 57.008,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 50.999917337,
+          "mean_luma": 129.265,
+          "std_luma": 57.543,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 51.999917324,
+          "mean_luma": 128.27,
+          "std_luma": 57.5,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 52.999915311,
+          "mean_luma": 129.021,
+          "std_luma": 59.254,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 53.999913298,
+          "mean_luma": 127.805,
+          "std_luma": 59.002,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 54.999913285,
+          "mean_luma": 126.17,
+          "std_luma": 55.852,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 55.999911272,
+          "mean_luma": 133.525,
+          "std_luma": 54.37,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 56.999909259,
+          "mean_luma": 131.835,
+          "std_luma": 55.61,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 57.999907246,
+          "mean_luma": 126.708,
+          "std_luma": 54.505,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 58.999907233,
+          "mean_luma": 126.465,
+          "std_luma": 53.674,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 59.99990522,
+          "mean_luma": 124.732,
+          "std_luma": 52.451,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 60.999903207,
+          "mean_luma": 121.563,
+          "std_luma": 49.259,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 61.999902194,
+          "mean_luma": 127.974,
+          "std_luma": 50.759,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 62.999901181,
+          "mean_luma": 125.178,
+          "std_luma": 54.526,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 63.999899168,
+          "mean_luma": 126.892,
+          "std_luma": 57.566,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 64.999898155,
+          "mean_luma": 129.227,
+          "std_luma": 55.96,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 65.999897142,
+          "mean_luma": 127.716,
+          "std_luma": 57.637,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 66.999895129,
+          "mean_luma": 132.194,
+          "std_luma": 54.487,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 67.999893116,
+          "mean_luma": 129.166,
+          "std_luma": 56.467,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 68.999892103,
+          "mean_luma": 132.374,
+          "std_luma": 56.747,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 69.99989109,
+          "mean_luma": 133.943,
+          "std_luma": 55.876,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 70.999889077,
+          "mean_luma": 134.04,
+          "std_luma": 54.5,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 71.999889064,
+          "mean_luma": 133.41,
+          "std_luma": 54.003,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 72.999887051,
+          "mean_luma": 130.455,
+          "std_luma": 51.353,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 73.999885038,
+          "mean_luma": 127.183,
+          "std_luma": 51.792,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 74.999884025,
+          "mean_luma": 125.957,
+          "std_luma": 50.279,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 75.999883012,
+          "mean_luma": 125.439,
+          "std_luma": 50.763,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 76.999880999,
+          "mean_luma": 124.876,
+          "std_luma": 52.929,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 77.999879986,
+          "mean_luma": 125.534,
+          "std_luma": 50.695,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 78.999878973,
+          "mean_luma": 122.705,
+          "std_luma": 51.6,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 79.99987696,
+          "mean_luma": 122.686,
+          "std_luma": 50.314,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 80.999875947,
+          "mean_luma": 127.899,
+          "std_luma": 49.56,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 81.999874934,
+          "mean_luma": 125.58,
+          "std_luma": 48.979,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 82.999873921,
+          "mean_luma": 125.896,
+          "std_luma": 48.995,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 83.999871908,
+          "mean_luma": 128.686,
+          "std_luma": 49.761,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 84.999870895,
+          "mean_luma": 120.852,
+          "std_luma": 53.353,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 85.999869882,
+          "mean_luma": 123.715,
+          "std_luma": 54.161,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 86.999866869,
+          "mean_luma": 124.892,
+          "std_luma": 52.157,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 87.999866856,
+          "mean_luma": 127.652,
+          "std_luma": 49.815,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 88.999865843,
+          "mean_luma": 129.221,
+          "std_luma": 50.913,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 89.99986283,
+          "mean_luma": 131.037,
+          "std_luma": 52.453,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 90.999862817,
+          "mean_luma": 132.25,
+          "std_luma": 53.145,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 91.999861804,
+          "mean_luma": 136.234,
+          "std_luma": 54.139,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "t_s": 92.999858791,
+          "mean_luma": 128.669,
+          "std_luma": 58.28,
+          "width": 720,
+          "height": 720
+        }
+      ],
+      "dark_keyframe_count": 0,
+      "bright_keyframe_count": 0,
+      "low_contrast_keyframe_count": 0
+    },
+    {
+      "channel_id": 5,
+      "topic": "/gripper/left/camera0/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 2700,
+        "first_s": 3.193487923,
+        "last_s": 93.158066923,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 32.009,
+        "observed_median_hz": 31.241213408728797,
+        "period_p95_ms": 40.1041,
+        "period_p99_ms": 43.92404,
+        "max_period_ms": 44.132,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 2700,
+        "first_s": 3.193487923,
+        "last_s": 93.158066923,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 32.009,
+        "observed_median_hz": 31.241213408728797,
+        "period_p95_ms": 40.1041,
+        "period_p99_ms": 43.92404,
+        "max_period_ms": 44.132,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "observed_resolutions": [
+        {
+          "width": 640,
+          "height": 480,
+          "observations": 90
+        }
+      ],
+      "video_formats": {
+        "h264": 2700
+      },
+      "keyframes_decoded": 90,
+      "sample_decode_errors": 0,
+      "decode_error_example": null,
+      "keyframe_metrics": [
+        {
+          "t_s": 3.193487923,
+          "mean_luma": 113.739,
+          "std_luma": 47.212,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 4.189437923,
+          "mean_luma": 114.611,
+          "std_luma": 51.137,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 5.197446923,
+          "mean_luma": 112.543,
+          "std_luma": 50.666,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 6.197473923,
+          "mean_luma": 102.669,
+          "std_luma": 46.269,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 7.193537923,
+          "mean_luma": 102.572,
+          "std_luma": 45.314,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 8.193588923,
+          "mean_luma": 104.074,
+          "std_luma": 49.604,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 9.189552923,
+          "mean_luma": 104.181,
+          "std_luma": 51.895,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 10.197545923,
+          "mean_luma": 104.452,
+          "std_luma": 49.195,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 11.197542923,
+          "mean_luma": 104.251,
+          "std_luma": 46.511,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 12.193544923,
+          "mean_luma": 103.494,
+          "std_luma": 48.65,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 13.193488923,
+          "mean_luma": 122.54,
+          "std_luma": 60.184,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 14.189584923,
+          "mean_luma": 104.87,
+          "std_luma": 56.032,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 15.197522923,
+          "mean_luma": 104.02,
+          "std_luma": 59.374,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 16.197551923,
+          "mean_luma": 111.399,
+          "std_luma": 60.891,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 17.193505923,
+          "mean_luma": 127.965,
+          "std_luma": 69.455,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 18.193607923,
+          "mean_luma": 115.302,
+          "std_luma": 63.96,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 19.189593923,
+          "mean_luma": 99.418,
+          "std_luma": 47.074,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 20.197625923,
+          "mean_luma": 98.01,
+          "std_luma": 48.662,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 21.193583923,
+          "mean_luma": 120.403,
+          "std_luma": 65.825,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 22.193759923,
+          "mean_luma": 107.441,
+          "std_luma": 59.165,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 23.189517923,
+          "mean_luma": 103.325,
+          "std_luma": 56.803,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 24.197516923,
+          "mean_luma": 106.77,
+          "std_luma": 58.573,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 25.197556923,
+          "mean_luma": 109.303,
+          "std_luma": 62.096,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 26.193622923,
+          "mean_luma": 89.873,
+          "std_luma": 55.673,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 27.193686923,
+          "mean_luma": 86.066,
+          "std_luma": 45.373,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 28.189692923,
+          "mean_luma": 138.376,
+          "std_luma": 55.986,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 29.197580923,
+          "mean_luma": 84.593,
+          "std_luma": 47.762,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 30.197731923,
+          "mean_luma": 89.664,
+          "std_luma": 50.142,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 31.193689923,
+          "mean_luma": 85.932,
+          "std_luma": 48.55,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 32.193563923,
+          "mean_luma": 130.484,
+          "std_luma": 56.47,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 33.189589923,
+          "mean_luma": 102.285,
+          "std_luma": 50.992,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 34.197872923,
+          "mean_luma": 106.812,
+          "std_luma": 55.373,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 35.197585923,
+          "mean_luma": 100.177,
+          "std_luma": 56.647,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 36.193666923,
+          "mean_luma": 111.339,
+          "std_luma": 52.143,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 37.193670923,
+          "mean_luma": 111.339,
+          "std_luma": 52.555,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 38.189608923,
+          "mean_luma": 112.274,
+          "std_luma": 54.213,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 39.197733923,
+          "mean_luma": 112.864,
+          "std_luma": 56.824,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 40.197743923,
+          "mean_luma": 102.304,
+          "std_luma": 57.155,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 41.193745923,
+          "mean_luma": 105.202,
+          "std_luma": 51.957,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 42.193644923,
+          "mean_luma": 105.325,
+          "std_luma": 55.939,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 43.189702923,
+          "mean_luma": 111.911,
+          "std_luma": 56.941,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 44.197670923,
+          "mean_luma": 122.966,
+          "std_luma": 53.514,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 45.197753923,
+          "mean_luma": 136.929,
+          "std_luma": 53.504,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 46.193642923,
+          "mean_luma": 98.213,
+          "std_luma": 60.21,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 47.193673923,
+          "mean_luma": 97.922,
+          "std_luma": 59.763,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 48.189825923,
+          "mean_luma": 106.735,
+          "std_luma": 63.195,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 49.197711923,
+          "mean_luma": 99.428,
+          "std_luma": 52.829,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 50.197758923,
+          "mean_luma": 88.544,
+          "std_luma": 47.42,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 51.193832923,
+          "mean_luma": 84.65,
+          "std_luma": 53.456,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 52.189715923,
+          "mean_luma": 111.603,
+          "std_luma": 61.269,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 53.197793923,
+          "mean_luma": 105.642,
+          "std_luma": 55.148,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 54.197749923,
+          "mean_luma": 103.557,
+          "std_luma": 57.015,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 55.193887923,
+          "mean_luma": 119.854,
+          "std_luma": 59.895,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 56.193735923,
+          "mean_luma": 118.348,
+          "std_luma": 58.627,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 57.189730923,
+          "mean_luma": 109.107,
+          "std_luma": 53.05,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 58.197873923,
+          "mean_luma": 102.992,
+          "std_luma": 54.473,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 59.197892923,
+          "mean_luma": 101.222,
+          "std_luma": 60.628,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 60.193764923,
+          "mean_luma": 109.671,
+          "std_luma": 58.063,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 61.193773923,
+          "mean_luma": 122.941,
+          "std_luma": 53.417,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 62.189761923,
+          "mean_luma": 130.831,
+          "std_luma": 55.22,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 63.197770923,
+          "mean_luma": 130.556,
+          "std_luma": 59.62,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 64.197756923,
+          "mean_luma": 90.757,
+          "std_luma": 49.113,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 65.193798923,
+          "mean_luma": 88.787,
+          "std_luma": 45.965,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 66.193760923,
+          "mean_luma": 92.032,
+          "std_luma": 52.389,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 67.189823923,
+          "mean_luma": 90.141,
+          "std_luma": 54.799,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 68.197924923,
+          "mean_luma": 138.099,
+          "std_luma": 62.08,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 69.197848923,
+          "mean_luma": 137.526,
+          "std_luma": 55.908,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 70.193858923,
+          "mean_luma": 133.197,
+          "std_luma": 60.744,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 71.193866923,
+          "mean_luma": 128.216,
+          "std_luma": 62.86,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 72.189925923,
+          "mean_luma": 86.298,
+          "std_luma": 49.952,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 73.197839923,
+          "mean_luma": 83.645,
+          "std_luma": 44.72,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 74.197850923,
+          "mean_luma": 88.224,
+          "std_luma": 49.196,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 75.193876923,
+          "mean_luma": 87.12,
+          "std_luma": 51.957,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 76.193862923,
+          "mean_luma": 138.563,
+          "std_luma": 60.707,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 77.189874923,
+          "mean_luma": 137.76,
+          "std_luma": 55.851,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 78.198014923,
+          "mean_luma": 137.37,
+          "std_luma": 59.371,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 79.197974923,
+          "mean_luma": 107.877,
+          "std_luma": 55.416,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 80.193869923,
+          "mean_luma": 118.498,
+          "std_luma": 55.77,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 81.193883923,
+          "mean_luma": 115.914,
+          "std_luma": 50.585,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 82.189949923,
+          "mean_luma": 117.805,
+          "std_luma": 52.438,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 83.198013923,
+          "mean_luma": 117.1,
+          "std_luma": 54.452,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 84.193919923,
+          "mean_luma": 115.994,
+          "std_luma": 54.457,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 85.193897923,
+          "mean_luma": 117.089,
+          "std_luma": 50.657,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 86.190029923,
+          "mean_luma": 114.276,
+          "std_luma": 51.995,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 87.198059923,
+          "mean_luma": 115.542,
+          "std_luma": 56.211,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 88.198033923,
+          "mean_luma": 121.215,
+          "std_luma": 55.291,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 89.193930923,
+          "mean_luma": 120.185,
+          "std_luma": 51.572,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 90.193995923,
+          "mean_luma": 116.62,
+          "std_luma": 50.533,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 91.190062923,
+          "mean_luma": 122.968,
+          "std_luma": 59.891,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 92.197963923,
+          "mean_luma": 106.434,
+          "std_luma": 52.493,
+          "width": 640,
+          "height": 480
+        }
+      ],
+      "dark_keyframe_count": 0,
+      "bright_keyframe_count": 0,
+      "low_contrast_keyframe_count": 0
+    },
+    {
+      "channel_id": 6,
+      "topic": "/gripper/left/camera0/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 90,
+        "first_s": 3.193487923,
+        "last_s": 92.193487923,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 1000.0,
+        "observed_median_hz": 1.0,
+        "period_p95_ms": 1000.0,
+        "period_p99_ms": 1000.0,
+        "max_period_ms": 1000.0,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 90,
+        "first_s": 3.193487923,
+        "last_s": 92.193487923,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 1000.0,
+        "observed_median_hz": 1.0,
+        "period_p95_ms": 1000.0,
+        "period_p99_ms": 1000.0,
+        "max_period_ms": 1000.0,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "observed_resolutions": [
+        {
+          "width": 640,
+          "height": 480,
+          "observations": 90
+        }
+      ]
+    },
+    {
+      "channel_id": 7,
+      "topic": "/gripper/right/camera0/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 2699,
+        "first_s": 3.197402923,
+        "last_s": 93.130053923,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 31.989,
+        "observed_median_hz": 31.26074588139673,
+        "period_p95_ms": 40.102,
+        "period_p99_ms": 40.39056000000071,
+        "max_period_ms": 44.108,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 2699,
+        "first_s": 3.197402923,
+        "last_s": 93.130053923,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 31.989,
+        "observed_median_hz": 31.26074588139673,
+        "period_p95_ms": 40.102,
+        "period_p99_ms": 40.39056000000071,
+        "max_period_ms": 44.108,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "observed_resolutions": [
+        {
+          "width": 640,
+          "height": 480,
+          "observations": 90
+        }
+      ],
+      "video_formats": {
+        "h264": 2699
+      },
+      "keyframes_decoded": 90,
+      "sample_decode_errors": 0,
+      "decode_error_example": null,
+      "keyframe_metrics": [
+        {
+          "t_s": 3.197402923,
+          "mean_luma": 121.812,
+          "std_luma": 49.238,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 4.193503923,
+          "mean_luma": 122.167,
+          "std_luma": 49.917,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 5.193378923,
+          "mean_luma": 112.031,
+          "std_luma": 56.1,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 6.189394923,
+          "mean_luma": 111.672,
+          "std_luma": 55.017,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 7.197520923,
+          "mean_luma": 105.968,
+          "std_luma": 55.899,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 8.193574923,
+          "mean_luma": 105.39,
+          "std_luma": 54.77,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 9.193412923,
+          "mean_luma": 110.371,
+          "std_luma": 56.527,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 10.189541923,
+          "mean_luma": 98.007,
+          "std_luma": 59.074,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 11.197530923,
+          "mean_luma": 106.079,
+          "std_luma": 56.233,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 12.197590923,
+          "mean_luma": 108.518,
+          "std_luma": 52.339,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 13.193476923,
+          "mean_luma": 88.579,
+          "std_luma": 50.024,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 14.193536923,
+          "mean_luma": 104.209,
+          "std_luma": 68.353,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 15.189516923,
+          "mean_luma": 104.767,
+          "std_luma": 68.916,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 16.197522923,
+          "mean_luma": 110.132,
+          "std_luma": 66.998,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 17.197494923,
+          "mean_luma": 122.034,
+          "std_luma": 65.912,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 18.193598923,
+          "mean_luma": 123.421,
+          "std_luma": 66.358,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 19.193497923,
+          "mean_luma": 111.077,
+          "std_luma": 57.993,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 20.189503923,
+          "mean_luma": 114.779,
+          "std_luma": 57.883,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 21.197619923,
+          "mean_luma": 98.636,
+          "std_luma": 58.352,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 22.197586923,
+          "mean_luma": 104.932,
+          "std_luma": 61.325,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 23.193511923,
+          "mean_luma": 99.306,
+          "std_luma": 61.177,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 24.193508923,
+          "mean_luma": 129.991,
+          "std_luma": 63.943,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 25.189529923,
+          "mean_luma": 114.408,
+          "std_luma": 56.993,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 26.197635923,
+          "mean_luma": 114.395,
+          "std_luma": 59.528,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 27.197682923,
+          "mean_luma": 100.194,
+          "std_luma": 56.006,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 28.193659923,
+          "mean_luma": 131.483,
+          "std_luma": 67.779,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 29.193528923,
+          "mean_luma": 121.534,
+          "std_luma": 63.528,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 30.189549923,
+          "mean_luma": 111.252,
+          "std_luma": 57.697,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 31.197668923,
+          "mean_luma": 101.512,
+          "std_luma": 61.13,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 32.197574923,
+          "mean_luma": 100.61,
+          "std_luma": 60.435,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 33.193562923,
+          "mean_luma": 101.099,
+          "std_luma": 59.586,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 34.193633923,
+          "mean_luma": 99.946,
+          "std_luma": 59.174,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 35.189573923,
+          "mean_luma": 103.197,
+          "std_luma": 61.015,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 36.197656923,
+          "mean_luma": 105.616,
+          "std_luma": 59.05,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 37.197668923,
+          "mean_luma": 105.288,
+          "std_luma": 62.434,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 38.193587923,
+          "mean_luma": 108.403,
+          "std_luma": 60.197,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 39.189679923,
+          "mean_luma": 103.961,
+          "std_luma": 67.334,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 40.197732923,
+          "mean_luma": 106.402,
+          "std_luma": 68.456,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 41.197616923,
+          "mean_luma": 104.402,
+          "std_luma": 62.204,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 42.193632923,
+          "mean_luma": 104.157,
+          "std_luma": 63.014,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 43.193689923,
+          "mean_luma": 103.629,
+          "std_luma": 58.038,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 44.189689923,
+          "mean_luma": 104.112,
+          "std_luma": 61.944,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 45.197743923,
+          "mean_luma": 103.96,
+          "std_luma": 65.998,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 46.197712923,
+          "mean_luma": 105.508,
+          "std_luma": 70.374,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 47.193663923,
+          "mean_luma": 103.893,
+          "std_luma": 62.822,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 48.193767923,
+          "mean_luma": 118.04,
+          "std_luma": 69.881,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 49.189684923,
+          "mean_luma": 105.276,
+          "std_luma": 68.041,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 50.197748923,
+          "mean_luma": 113.678,
+          "std_luma": 65.999,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 51.197802923,
+          "mean_luma": 102.786,
+          "std_luma": 60.244,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 52.193776923,
+          "mean_luma": 98.507,
+          "std_luma": 60.062,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 53.193757923,
+          "mean_luma": 106.038,
+          "std_luma": 62.774,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 54.189707923,
+          "mean_luma": 98.966,
+          "std_luma": 63.976,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 55.197857923,
+          "mean_luma": 121.178,
+          "std_luma": 65.911,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 56.197859923,
+          "mean_luma": 115.998,
+          "std_luma": 60.633,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 57.193849923,
+          "mean_luma": 95.038,
+          "std_luma": 56.379,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 58.193789923,
+          "mean_luma": 103.788,
+          "std_luma": 64.82,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 59.189832923,
+          "mean_luma": 102.895,
+          "std_luma": 66.873,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 60.197874923,
+          "mean_luma": 111.087,
+          "std_luma": 68.111,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 61.197781923,
+          "mean_luma": 132.888,
+          "std_luma": 74.892,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 62.193763923,
+          "mean_luma": 122.254,
+          "std_luma": 62.806,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 63.193788923,
+          "mean_luma": 120.395,
+          "std_luma": 63.994,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 64.189765923,
+          "mean_luma": 104.979,
+          "std_luma": 63.243,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 65.197773923,
+          "mean_luma": 100.118,
+          "std_luma": 63.238,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 66.197873923,
+          "mean_luma": 99.276,
+          "std_luma": 61.69,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 67.193808923,
+          "mean_luma": 107.472,
+          "std_luma": 61.499,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 68.193776923,
+          "mean_luma": 103.364,
+          "std_luma": 63.22,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 69.189921923,
+          "mean_luma": 110.329,
+          "std_luma": 63.108,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 70.197907923,
+          "mean_luma": 123.601,
+          "std_luma": 65.148,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 71.193853923,
+          "mean_luma": 121.279,
+          "std_luma": 69.834,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 72.193811923,
+          "mean_luma": 122.421,
+          "std_luma": 67.828,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 73.189832923,
+          "mean_luma": 103.538,
+          "std_luma": 65.016,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 74.197840923,
+          "mean_luma": 109.376,
+          "std_luma": 64.828,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 75.197923923,
+          "mean_luma": 109.41,
+          "std_luma": 66.096,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 76.193850923,
+          "mean_luma": 112.652,
+          "std_luma": 64.686,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 77.193829923,
+          "mean_luma": 102.149,
+          "std_luma": 61.295,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 78.189990923,
+          "mean_luma": 108.921,
+          "std_luma": 64.643,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 79.197965923,
+          "mean_luma": 120.795,
+          "std_luma": 65.915,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 80.197972923,
+          "mean_luma": 100.484,
+          "std_luma": 67.8,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 81.193869923,
+          "mean_luma": 105.878,
+          "std_luma": 67.879,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 82.193996923,
+          "mean_luma": 104.861,
+          "std_luma": 68.126,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 83.189894923,
+          "mean_luma": 108.057,
+          "std_luma": 69.767,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 84.197902923,
+          "mean_luma": 117.428,
+          "std_luma": 65.522,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 85.197924923,
+          "mean_luma": 111.986,
+          "std_luma": 55.027,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 86.193902923,
+          "mean_luma": 113.506,
+          "std_luma": 54.135,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 87.193896923,
+          "mean_luma": 101.683,
+          "std_luma": 60.064,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 88.189921923,
+          "mean_luma": 103.585,
+          "std_luma": 61.283,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 89.198048923,
+          "mean_luma": 104.283,
+          "std_luma": 59.872,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 90.197991923,
+          "mean_luma": 112.106,
+          "std_luma": 56.526,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 91.193942923,
+          "mean_luma": 105.638,
+          "std_luma": 57.699,
+          "width": 640,
+          "height": 480
+        },
+        {
+          "t_s": 92.193929923,
+          "mean_luma": 122.637,
+          "std_luma": 54.515,
+          "width": 640,
+          "height": 480
+        }
+      ],
+      "dark_keyframe_count": 0,
+      "bright_keyframe_count": 0,
+      "low_contrast_keyframe_count": 0
+    },
+    {
+      "channel_id": 8,
+      "topic": "/gripper/right/camera0/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 90,
+        "first_s": 3.197402923,
+        "last_s": 92.197402923,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 1000.0,
+        "observed_median_hz": 1.0,
+        "period_p95_ms": 1000.0,
+        "period_p99_ms": 1000.0,
+        "max_period_ms": 1000.0,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 90,
+        "first_s": 3.197402923,
+        "last_s": 92.197402923,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 1000.0,
+        "observed_median_hz": 1.0,
+        "period_p95_ms": 1000.0,
+        "period_p99_ms": 1000.0,
+        "max_period_ms": 1000.0,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "observed_resolutions": [
+        {
+          "width": 640,
+          "height": 480,
+          "observations": 90
+        }
+      ]
+    },
+    {
+      "channel_id": 9,
+      "topic": "/gripper/right/magnetic_encoder",
+      "schema": "foxglove.MagneticEncoderMeasurement",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 8992,
+        "first_s": 3.293948075,
+        "last_s": 93.203786005,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 9.999982,
+        "observed_median_hz": 100.000180000324,
+        "period_p95_ms": 9.999982,
+        "period_p99_ms": 9.999982,
+        "max_period_ms": 9.999982,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 8992,
+        "first_s": 3.293948075,
+        "last_s": 93.203786005,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 9.999982,
+        "observed_median_hz": 100.000180000324,
+        "period_p95_ms": 9.999982,
+        "period_p99_ms": 9.999982,
+        "max_period_ms": 9.999982,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "encoder_value_range": {
+        "min": 0.0,
+        "max": 0.100083349,
+        "std": 0.037101924091792346,
+        "adjacent_equal_fraction": 0.27850072294516737
+      }
+    },
+    {
+      "channel_id": 10,
+      "topic": "/gripper/left/magnetic_encoder",
+      "schema": "foxglove.MagneticEncoderMeasurement",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 8992,
+        "first_s": 3.295141352,
+        "last_s": 93.205152653,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 10.000001,
+        "observed_median_hz": 99.999990000001,
+        "period_p95_ms": 10.000002,
+        "period_p99_ms": 10.000002,
+        "max_period_ms": 10.000002,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 8992,
+        "first_s": 3.295141352,
+        "last_s": 93.205152653,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 10.000001,
+        "observed_median_hz": 99.999990000001,
+        "period_p95_ms": 10.000002,
+        "period_p99_ms": 10.000002,
+        "max_period_ms": 10.000002,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "encoder_value_range": {
+        "min": 0.003472259192005597,
+        "max": 0.09940191562415658,
+        "std": 0.02752007173595213,
+        "adjacent_equal_fraction": 0.18051384718051386
+      }
+    },
+    {
+      "channel_id": 11,
+      "topic": "/quest3s/left_controller_pose",
+      "schema": "foxglove.PoseInFrame",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 4496,
+        "first_s": 3.297941619,
+        "last_s": 93.195020299,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.004611,
+        "observed_median_hz": 45.44502059136605,
+        "period_p95_ms": 23.1788901,
+        "period_p99_ms": 23.70005594000002,
+        "max_period_ms": 32.494901,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 4496,
+        "first_s": 3.297941619,
+        "last_s": 93.195020299,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.004611,
+        "observed_median_hz": 45.44502059136605,
+        "period_p95_ms": 23.1788901,
+        "period_p99_ms": 23.70005594000002,
+        "max_period_ms": 32.494901,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "channel_id": 12,
+      "topic": "/quest3s/left_gripper_pose",
+      "schema": "foxglove.PoseInFrame",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 4496,
+        "first_s": 3.297941619,
+        "last_s": 93.195020299,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.004611,
+        "observed_median_hz": 45.44502059136605,
+        "period_p95_ms": 23.1788901,
+        "period_p99_ms": 23.70005594000002,
+        "max_period_ms": 32.494901,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 4496,
+        "first_s": 3.297941619,
+        "last_s": 93.195020299,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.004611,
+        "observed_median_hz": 45.44502059136605,
+        "period_p95_ms": 23.1788901,
+        "period_p99_ms": 23.70005594000002,
+        "max_period_ms": 32.494901,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "channel_id": 13,
+      "topic": "/quest3s/head_pose",
+      "schema": "foxglove.PoseInFrame",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 4496,
+        "first_s": 3.298001305,
+        "last_s": 93.195086755,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.004558,
+        "observed_median_hz": 45.445130049874216,
+        "period_p95_ms": 23.2074832,
+        "period_p99_ms": 23.791659020000004,
+        "max_period_ms": 32.491723,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 4496,
+        "first_s": 3.298001305,
+        "last_s": 93.195086755,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.004558,
+        "observed_median_hz": 45.445130049874216,
+        "period_p95_ms": 23.2074832,
+        "period_p99_ms": 23.791659020000004,
+        "max_period_ms": 32.491723,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "channel_id": 14,
+      "topic": "/quest3s/right_controller_pose",
+      "schema": "foxglove.PoseInFrame",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 4496,
+        "first_s": 3.298920963,
+        "last_s": 93.195908917,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.00487,
+        "observed_median_hz": 45.44448569793868,
+        "period_p95_ms": 23.613923600000003,
+        "period_p99_ms": 24.758851520000007,
+        "max_period_ms": 32.450112,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 4496,
+        "first_s": 3.298920963,
+        "last_s": 93.195908917,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.00487,
+        "observed_median_hz": 45.44448569793868,
+        "period_p95_ms": 23.613923600000003,
+        "period_p99_ms": 24.758851520000007,
+        "max_period_ms": 32.450112,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "channel_id": 15,
+      "topic": "/quest3s/right_gripper_pose",
+      "schema": "foxglove.PoseInFrame",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 4496,
+        "first_s": 3.298920963,
+        "last_s": 93.195908917,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.00487,
+        "observed_median_hz": 45.44448569793868,
+        "period_p95_ms": 23.613923600000003,
+        "period_p99_ms": 24.758851520000007,
+        "max_period_ms": 32.450112,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 4496,
+        "first_s": 3.298920963,
+        "last_s": 93.195908917,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.00487,
+        "observed_median_hz": 45.44448569793868,
+        "period_p95_ms": 23.613923600000003,
+        "period_p99_ms": 24.758851520000007,
+        "max_period_ms": 32.450112,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0,
+      "payload_minus_log_ms": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "channel_id": 16,
+      "topic": "/quest3s/body_tracking",
+      "schema": "foxglove.FrameTransforms",
+      "message_encoding": "protobuf",
+      "schema_encoding": "protobuf",
+      "log_timing": {
+        "count": 4496,
+        "first_s": 3.304667208,
+        "last_s": 93.202010319,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.430282,
+        "observed_median_hz": 44.58258705797814,
+        "period_p95_ms": 22.432282,
+        "period_p99_ms": 22.434341940000003,
+        "max_period_ms": 33.648923,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "publish_timing": {
+        "count": 4496,
+        "first_s": 3.304667208,
+        "last_s": 93.202010319,
+        "out_of_order": 0,
+        "duplicates": 0,
+        "median_period_ms": 22.430282,
+        "observed_median_hz": 44.58258705797814,
+        "period_p95_ms": 22.432282,
+        "period_p99_ms": 22.434341940000003,
+        "max_period_ms": 33.648923,
+        "large_gap_count": 0,
+        "large_gap_examples": []
+      },
+      "protobuf_decode_errors": 0,
+      "protobuf_error_example": null,
+      "nonfinite_payload_values": 0
+    }
+  ],
+  "profile": "",
+  "writer_library": "mcap-python/1.4.0",
+  "summary_present": true,
+  "declared_message_count": 55955,
+  "duration_s": 93.205152653,
+  "chunk_index_entries": 173,
+  "attachment_index_entries": 1,
+  "observed_message_count": 55955,
+  "declared_but_unobserved_channels": [],
+  "contact_sheet": ".cache/day2-analysis/samples/ep_2c47cac2.jpg",
+  "input_sha256_after": "16f52895c5111b2a379decdd76f36c997fadd66023195ebd0daabd99ff459a02",
+  "input_unchanged": true
+}

@@ -1,0 +1,40 @@
+{
+  "file": "ep_0ed34c0f.mcap",
+  "window_s": [
+    30.0,
+    40.0
+  ],
+  "method": "All frames decoded from recording start through window end; only window frames measured",
+  "channels": {
+    "/quest3s/head_left/camera/compressed": {
+      "measured_frames": 300,
+      "decode_errors": 0,
+      "dark_runs": [],
+      "median_downscaled_frame_change": 2.7791145833333335,
+      "exactly_equal_downscaled_adjacent_frames": 0
+    },
+    "/quest3s/head_right/camera/compressed": {
+      "measured_frames": 300,
+      "decode_errors": 0,
+      "dark_runs": [],
+      "median_downscaled_frame_change": 2.5199479166666667,
+      "exactly_equal_downscaled_adjacent_frames": 0
+    },
+    "/gripper/right/camera0/compressed": {
+      "measured_frames": 300,
+      "decode_errors": 0,
+      "dark_runs": [],
+      "median_downscaled_frame_change": 5.187604166666667,
+      "exactly_equal_downscaled_adjacent_frames": 0
+    },
+    "/gripper/left/camera0/compressed": {
+      "measured_frames": 300,
+      "decode_errors": 0,
+      "dark_runs": [],
+      "median_downscaled_frame_change": 3.4173958333333334,
+      "exactly_equal_downscaled_adjacent_frames": 0
+    }
+  },
+  "sha256": "344e7e9f4bd1f0f151267d5e62ed993f1e95af9afae54ca84a627a2817b79e95",
+  "input_unchanged": true
+}
