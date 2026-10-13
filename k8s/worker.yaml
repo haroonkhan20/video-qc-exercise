@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-worker
+  namespace: qc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-worker
+  template:
+    metadata:
+      labels:
+        app: hello-worker
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+      containers:
+        - name: worker
+          image: video-qc/hello-worker:day1-v2
+          imagePullPolicy: Never
+          env:
+            - name: TEMPORAL_ADDRESS
+              value: temporal-frontend.qc.svc.cluster.local:7233
+            - name: TEMPORAL_NAMESPACE
+              value: default
+          startupProbe:
+            exec:
+              command: ["python", "-c", "from pathlib import Path; raise SystemExit(not Path('/tmp/worker-ready').exists())"]
+            periodSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            exec:
+              command: ["python", "-c", "from pathlib import Path; raise SystemExit(not Path('/tmp/worker-ready').exists())"]
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
