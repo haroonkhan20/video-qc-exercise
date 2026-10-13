@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := up
-.PHONY: up down hello ui status verify
+.PHONY: up down hello ui status verify check-images
 
 # Build and load local images, install the stack, and wait for readiness.
 up:
@@ -25,3 +25,7 @@ status:
 # Check readiness and CPU/memory bounds, including completed bootstrap jobs.
 verify:
 	@source scripts/tool-env.sh; python3 scripts/verify-pods.py
+
+# Recheck all pinned upstream images against their registries (requires pull quota).
+check-images:
+	@bash scripts/verify-images.sh

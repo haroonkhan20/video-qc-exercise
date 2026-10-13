@@ -30,7 +30,7 @@ wsl -d Ubuntu -- bash -lc "git clone REPOSITORY_URL ~/video-qc"
 wsl -d Ubuntu -- bash -lc "cd ~/video-qc && make up"
 ```
 
-`make up` verifies pinned upstream image references, creates kind cluster `qc`
+`make up` uses the verified pinned image references, creates kind cluster `qc`
 if needed, creates namespace `qc`, generates missing application Secrets,
 starts the databases, installs Temporal, builds/loads MinIO and the worker into
 kind, and waits for readiness. The first MinIO source build takes several minutes.
@@ -111,3 +111,15 @@ pulled from a public registry.
 Reference: [Temporal's official chart](https://github.com/temporalio/helm-charts).
 Tooling exercised here: kind `v0.23.0`, Helm `v3.22.0`, Docker Engine `29.9.0`,
 and GNU Make `4.4.1`.
+
+### Verification notes
+
+Every listed upstream image reference was checked with `docker manifest inspect`
+during onboarding. `make check-images` repeats that registry audit on demand;
+it is separate from startup because repeated manifest queries exhausted Docker
+Hub's anonymous request allowance during verification. A first run still needs
+registry access to download uncached images.
+
+The current tree contains no inline application Secrets. An earlier Postgres
+manifest committed before this exercise did contain development credentials;
+older local commits have not been rewritten.
