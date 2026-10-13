@@ -16,7 +16,7 @@ def ensure(name, keys):
     if existing.stdout.strip():
         print(f"Keeping existing {name}")
         return
-    values = {key: secrets.token_hex(24) for key in keys}
+    values = {key: (fixed if fixed is not None else secrets.token_hex(24)) for key, fixed in keys.items()}
     manifest = {
         "apiVersion": "v1", "kind": "Secret",
         "metadata": {"name": name, "namespace": "qc"},
@@ -27,11 +27,12 @@ def ensure(name, keys):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("services", nargs="+", choices=["minio", "clickhouse"])
+    parser.add_argument("services", nargs="+", choices=["postgres", "minio", "clickhouse"])
     args = parser.parse_args()
     for service in args.services:
         keys = {
-            "minio": ["MINIO_ROOT_USER", "MINIO_ROOT_PASSWORD"],
-            "clickhouse": ["CLICKHOUSE_PASSWORD"],
+            "postgres": {"POSTGRES_USER": "postgres", "POSTGRES_DB": "postgres", "POSTGRES_PASSWORD": None},
+            "minio": {"MINIO_ROOT_USER": "qc-admin", "MINIO_ROOT_PASSWORD": None},
+            "clickhouse": {"CLICKHOUSE_PASSWORD": None},
         }[service]
         ensure(f"{service}-secret", keys)

@@ -6,3 +6,4 @@ auth.json
 *.rrd
 __pycache__/
 .venv/
+.cache/
