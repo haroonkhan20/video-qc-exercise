@@ -34,7 +34,8 @@ wsl -d Ubuntu -- bash -lc "cd ~/video-qc && make up"
 if needed, creates namespace `qc`, generates missing application Secrets,
 starts the databases, installs Temporal, builds/loads MinIO and the worker into
 kind, and waits for readiness. The first MinIO source build takes several minutes.
-Later builds reuse Docker's cache.
+Later builds reuse Docker's cache. The Dockerfiles also pin base-image digests,
+so cached builds do not have to resolve their tags again.
 
 Application passwords are generated in memory and sent directly to Kubernetes
 Secrets. Existing Secrets are preserved. Passwords are never written to files,
