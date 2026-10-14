@@ -1,0 +1,19 @@
+{
+  "tests_passed": {
+    "grading": 18,
+    "existing_policy_and_timing": 7
+  },
+  "mentor_recordings_graded": 41,
+  "profile_persistence_after_restart": true,
+  "original_reports_unchanged": true,
+  "critical_caps_verified": 3,
+  "invalid_weight_and_cross_origin_rejection": true,
+  "browser_profile_creation_and_breakdown_verified": true,
+  "example": {
+    "file": "ep_346eb2d7.mcap",
+    "original_verdict": "fail",
+    "balanced_score": 8.92,
+    "image_focused_score": 7.42,
+    "image_focused_recommendation": "review"
+  }
+}

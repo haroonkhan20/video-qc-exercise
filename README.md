@@ -264,3 +264,15 @@ Run make web in WSL and open http://localhost:8090. The cluster must be running.
 Search recordings, filter verdicts, inspect findings and sampled camera images,
 download JSON reports, or upload an MCAP through the existing pipeline.
 See docs/WEB.md for limits and verification. Temporal remains on port 8080 via make ui.
+
+### Explainable grades and personal standards
+
+The dashboard also shows 0–10 grades alongside the original QC verdict. Expand a
+category and stream to see parameter marks, measurements, weights and why. Use
+Customize standard to save different weights, scoring limits, severity bands and
+acceptance cutoffs. Saved profiles persist under web/grading_profiles/. Balanced
+and an Image-focused example are included. Critical defects cap assessed grades
+at 4; unavailable evidence is Not assessed. Changing profiles preserves the
+original verdict and does not re-decode recordings. Download grade JSON includes
+the complete profile and provenance. See docs/GRADING.md for the calculations and
+limits. make qc-grade grades exported reports offline into verification/grading.json.

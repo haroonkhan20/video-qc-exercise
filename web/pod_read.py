@@ -5,10 +5,10 @@ from qc import storage as st
 from temporalio.client import Client
 async def listing():
  with st.pg() as db:
-  rows=db.execute("SELECT e.digest,e.byte_size,v.verdict,v.reason_codes,ARRAY(SELECT a.filename FROM qc_aliases a WHERE a.digest=e.digest ORDER BY a.filename) FROM qc_episodes e LEFT JOIN qc_verdicts v USING(digest) ORDER BY e.created_at").fetchall()
+  rows=db.execute("SELECT e.digest,e.byte_size,v.verdict,v.reason_codes,ARRAY(SELECT a.filename FROM qc_aliases a WHERE a.digest=e.digest ORDER BY a.filename),v.report FROM qc_episodes e LEFT JOIN qc_verdicts v USING(digest) ORDER BY e.created_at").fetchall()
  client=None;result=[]
- for digest,size,verdict,codes,names in rows:
-  r={"digest":digest,"bytes":size,"verdict":verdict,"reason_codes":codes,"aliases":names,"name":names[0] if names else digest[:12]+".mcap","workflow_state":"Finalized" if verdict else "Unknown"}
+ for digest,size,verdict,codes,names,report in rows:
+  r={"digest":digest,"bytes":size,"verdict":verdict,"reason_codes":codes,"aliases":names,"name":names[0] if names else digest[:12]+".mcap","workflow_state":"Finalized" if verdict else "Unknown","_report":report}
   if not verdict:
    try:
     if client is None:client=await Client.connect("temporal-frontend:7233",namespace="default")

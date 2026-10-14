@@ -89,3 +89,9 @@ qc-compare:
 # Serve the local QC dashboard at http://localhost:8090; stop with Ctrl+C.
 web:
 	@source scripts/tool-env.sh; python3 web/server.py
+
+.PHONY: qc-grade
+
+# Regrade exported reports using a saved profile without decoding recordings again.
+qc-grade:
+	@python3 tools/grade_reports.py $(if $(PROFILE),--profile "$(PROFILE)",)

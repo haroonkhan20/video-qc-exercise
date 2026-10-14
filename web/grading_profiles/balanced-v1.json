@@ -1,0 +1,12 @@
+{
+  "id": "balanced-v1",
+  "name": "Balanced",
+  "schema_version": 1,
+  "weights": {"integrity": 10, "inventory": 10, "decoding": 20, "timing": 20, "alignment": 15, "image": 20, "sensor": 5},
+  "fraction_bands": [{"max": 0, "score": 10}, {"max": 0.001, "score": 9}, {"max": 0.01, "score": 8}, {"max": 0.05, "score": 5}, {"max": 0.2, "score": 2}, {"max": 1, "score": 0}],
+  "limit_bands": [{"max": 1, "score": 10}, {"max": 1.25, "score": 8}, {"max": 2, "score": 5}, {"max": 4, "score": 2}],
+  "limits": {"rate_relative_tolerance": 0.3, "payload_stamp_tolerance_ms": 100, "coverage_start_tolerance_seconds": 6, "coverage_end_tolerance_seconds": 0.5, "camera_sync_skew_ms": 50, "camera_sync_drift_ms": 30},
+  "cutoffs": {"acceptable": 8, "review": 5},
+  "flatline_advisory": true,
+  "critical_cap": 4
+}

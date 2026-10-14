@@ -1,0 +1,2831 @@
+{
+  "engine_version": "grading-v1",
+  "engine_hash": "49852fe8590b9131e0737cb4a8371aac621615b685baeadc4c2e8b27bdfbea64",
+  "profile": {
+    "id": "balanced-v1",
+    "name": "Balanced",
+    "schema_version": 1,
+    "weights": {
+      "integrity": 10,
+      "inventory": 10,
+      "decoding": 20,
+      "timing": 20,
+      "alignment": 15,
+      "image": 20,
+      "sensor": 5
+    },
+    "fraction_bands": [
+      {
+        "max": 0,
+        "score": 10
+      },
+      {
+        "max": 0.001,
+        "score": 9
+      },
+      {
+        "max": 0.01,
+        "score": 8
+      },
+      {
+        "max": 0.05,
+        "score": 5
+      },
+      {
+        "max": 0.2,
+        "score": 2
+      },
+      {
+        "max": 1,
+        "score": 0
+      }
+    ],
+    "limit_bands": [
+      {
+        "max": 1,
+        "score": 10
+      },
+      {
+        "max": 1.25,
+        "score": 8
+      },
+      {
+        "max": 2,
+        "score": 5
+      },
+      {
+        "max": 4,
+        "score": 2
+      }
+    ],
+    "limits": {
+      "rate_relative_tolerance": 0.3,
+      "payload_stamp_tolerance_ms": 100,
+      "coverage_start_tolerance_seconds": 6,
+      "coverage_end_tolerance_seconds": 0.5,
+      "camera_sync_skew_ms": 50,
+      "camera_sync_drift_ms": 30
+    },
+    "cutoffs": {
+      "acceptable": 8,
+      "review": 5
+    },
+    "flatline_advisory": true,
+    "critical_cap": 4
+  },
+  "profile_version": "56fca16b5889c28ab15cea55cf9f297d7d7b1db040e47e0bd750d0aeb7363aac",
+  "scope": "Regrading exported measurements; does not rerun decoding or replace original verdicts",
+  "count": 41,
+  "recommendations": {
+    "acceptable": 41
+  },
+  "recordings": [
+    {
+      "file": "ep_032e483c.mcap",
+      "digest": "1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1",
+      "original_verdict": "pass",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced",
+      "source_report_hash": "e5690278e01696e4865ef83631287511036d6d60b2209ad7b8c6876fa37d6c4d",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_03d813ce.mcap",
+      "digest": "1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104",
+      "original_verdict": "pass",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced",
+      "source_report_hash": "ef1ea80cd0bf2513433431888c11ebdb17a4634f0f79e792487eadb337aad15a",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_0409bd35.mcap",
+      "digest": "e636687a37d98d060f4e9de453358d97cd73b8c8c0b03b6ae8e0105f2e2cacf0",
+      "original_verdict": "pass",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced",
+      "source_report_hash": "ae78eec4cb1cae8ad0ed61c3259ce3164a84f8f5bbf7e24eac5aa7b259e498f3",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_041eb856.mcap",
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "original_verdict": "pass",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced",
+      "source_report_hash": "88b108a8dc8483a59bd7613d3aad6001282ad158c751801d0cfe06bacc24ee49",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_0444a8ac.mcap",
+      "digest": "05acfc4830de72effe68cfe3c30d7a0d125a7ffc91a5c62141a58fb630c19927",
+      "original_verdict": "needs_review",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "3cb391d58045e199dfcd377b96ac4aafbc5b28e17bd3c691734761c6a0940981",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_07e258d4.mcap",
+      "digest": "59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e",
+      "original_verdict": "pass",
+      "score": 9.97,
+      "weighted_average": 9.9667,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9667,
+        9.9667
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9667/10 using Balanced",
+      "source_report_hash": "d51f97f1be5cc12b398e4ac5666405e0c1b3c59fa7e977c5baa6b4274c98779f",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.8333,
+          "weight": 20,
+          "contribution": 1.966667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_082f4185.mcap",
+      "digest": "cf8fdf8efa1e2433d2b1c4f9de7903578d12e32dc2f7e3a056762aa01f5233fa",
+      "original_verdict": "pass",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced",
+      "source_report_hash": "f6ec8e2d7fbf3f42fc0c0c59e8aada517d65f9dd18a14840cff1680fc957568e",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_0dec4ae7.mcap",
+      "digest": "6e34087802e0bcba57db93f96001d4bf326d27b8e37cfe9fe5e39697b5d854fc",
+      "original_verdict": "pass",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced",
+      "source_report_hash": "bb55e99dc6a22dd4a2e4f7a8ddeb591f72abaa4986e6c2fa2d2a19a3f247c51a",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_0e09c76b.mcap",
+      "digest": "8287ec6910be35f5edc8cadac3f221351c2bfd3bc042596a41993a7915e82325",
+      "original_verdict": "pass",
+      "score": 9.88,
+      "weighted_average": 9.8833,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8833,
+        9.8833
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8833/10 using Balanced",
+      "source_report_hash": "966a88c8d83b49de436e5ef68b9b895b67977c56a5dbdf3f0af544feacfe43f3",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.4167,
+          "weight": 20,
+          "contribution": 1.883333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_0e374ee6.mcap",
+      "digest": "7bd8f7a0b4871fbee96ba9d49332ebfad240c9ae0dccd6bc17d3580bf146b346",
+      "original_verdict": "needs_review",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "9d0c9e2b88e7bb268d979f8a60d3ef78fbb06e0d843763696dbe1140a5c50c0e",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_0ed34c0f.mcap",
+      "digest": "344e7e9f4bd1f0f151267d5e62ed993f1e95af9afae54ca84a627a2817b79e95",
+      "original_verdict": "needs_review",
+      "score": 9.88,
+      "weighted_average": 9.8833,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8833,
+        9.8833
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8833/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "decddca6a358c2ade51cd58dd5bb5064cd0e643357ea9fbfcdaa7ab93bc1fac4",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.4167,
+          "weight": 20,
+          "contribution": 1.883333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_112a825d.mcap",
+      "digest": "c3711f9aab4997e87ba992fb184c8894c4c9efa630d70986c9b32ba985461300",
+      "original_verdict": "pass",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced",
+      "source_report_hash": "68f82dbb1180e33bb4858d87f3e4414a2c88f7478b41473369825e2df0271efb",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_1ee4bdaf.mcap",
+      "digest": "5c5c54666f03e4f09d34785f0f5bebf0d97769522d334cd526a484565ff07bc6",
+      "original_verdict": "needs_review",
+      "score": 9.88,
+      "weighted_average": 9.8833,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8833,
+        9.8833
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8833/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "0726537c738441a80f4311affd621724e86fecfe6ab5bb8b7218fa622334d995",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.4167,
+          "weight": 20,
+          "contribution": 1.883333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_20846435.mcap",
+      "digest": "5bd147e427d8312f38dd5de5f671630c38e79955fe980b82d554afda8575ff83",
+      "original_verdict": "needs_review",
+      "score": 9.8,
+      "weighted_average": 9.8,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8,
+        9.8
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8000/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "b01ca8d60d65ed75703bb6384f388b25672d9c46fad49fe563369e3734eef9a4",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.0,
+          "weight": 20,
+          "contribution": 1.8,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_208961d3.mcap",
+      "digest": "6b8053b7828b2f8e150a2dbde8a9d49bf457acb4962743a86d552f6a2f100a43",
+      "original_verdict": "pass",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced",
+      "source_report_hash": "00d094be331e0df6bf37120fe27bbf4fa4f50d838481f09a172b2e203dcdba4a",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_212a979d.mcap",
+      "digest": "570781e0a8f2c280584ad58677f456f3be88d195f8a3822af016f947b643b0da",
+      "original_verdict": "pass",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced",
+      "source_report_hash": "da6f0f602afb1e757c7eb79108446b9dbed4fbd5c77bd284ab21abfd6dd0dc1d",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_223529fa.mcap",
+      "digest": "1b50a00263d4c83b5387fe94e450202b2733bcbc4383d44436b13bd34db565a8",
+      "original_verdict": "pass",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced",
+      "source_report_hash": "b0aec7b5adcb3010c916bc3eb75c082565fa7749d277eaa76d33ee0e68bc03f2",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_23212682.mcap",
+      "digest": "0b3967b8cb82f68917d441f79f2ace78699cf20f12602fbec7b72e5cbeb053d6",
+      "original_verdict": "needs_review",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "b97fd971736b27ffece13fd4c591febcf75ae36396c6e6ea5dee03eddf9938f8",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_23f5a0d2.mcap",
+      "digest": "0f2f31579a90e8c87062772109699a5f242c2c6b6f43ebf8b86630815fc3fd6b",
+      "original_verdict": "pass",
+      "score": 9.88,
+      "weighted_average": 9.8833,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8833,
+        9.8833
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8833/10 using Balanced",
+      "source_report_hash": "ab35409f6979bb0b0391174bad8b0dd4c1152f700f0b8559a7c63ba1736f48ff",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.4167,
+          "weight": 20,
+          "contribution": 1.883333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_2c47cac2.mcap",
+      "digest": "16f52895c5111b2a379decdd76f36c997fadd66023195ebd0daabd99ff459a02",
+      "original_verdict": "pass",
+      "score": 9.88,
+      "weighted_average": 9.8833,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8833,
+        9.8833
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8833/10 using Balanced",
+      "source_report_hash": "658c9104cb63ef7e1e7e9ce4f5207ffe4d07a94f28091d548b2b4b4f416ff2d5",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.4167,
+          "weight": 20,
+          "contribution": 1.883333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_2cb4b3ea.mcap",
+      "digest": "b778fde7280c1b95b8d1928c5edda82ba07c0339819def88b2115bf4e58486ad",
+      "original_verdict": "pass",
+      "score": 9.88,
+      "weighted_average": 9.8833,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8833,
+        9.8833
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8833/10 using Balanced",
+      "source_report_hash": "df0b48340c79c9b8151bf915c52d3b73c377fe14301b4da7d4f0b02004c5356f",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.4167,
+          "weight": 20,
+          "contribution": 1.883333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_2e18f47f.mcap",
+      "digest": "61c65408860383ccc7cfa1def851e3ffed1ac1924623ed28d991919fa4b418df",
+      "original_verdict": "needs_review",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "f0eeca0c8667eb669e7840d2f7b6c0e3402298001b9ca8bc4ba6434432ac42a2",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_346eb2d7.mcap",
+      "digest": "05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d",
+      "original_verdict": "fail",
+      "score": 8.92,
+      "weighted_average": 8.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        8.9167,
+        8.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 8.9167/10 using Balanced",
+      "source_report_hash": "727a2aef926cb14da2faeda3bd059156ff1e7026a31269e790c924893bb402d5",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 5.0,
+          "weight": 20,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_34e2d6e2.mcap",
+      "digest": "445f6180b3fcc0ce71cd142128965c92f40917db6b994ec9fe62b7d3eff1ca37",
+      "original_verdict": "pass",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced",
+      "source_report_hash": "f517d132e7a582331778065507d4695dd06115ea70fcec833b3ddfb98f7ee38a",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_357dc6b9.mcap",
+      "digest": "061fad38191631f29ba1c70c97bf76b6c5df5ed57e303c4a94a1c5291b66eed6",
+      "original_verdict": "pass",
+      "score": 9.88,
+      "weighted_average": 9.8833,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8833,
+        9.8833
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8833/10 using Balanced",
+      "source_report_hash": "b80f03866da6c6812252f1c7912d6af98eb1de77ce2c6ce3375f9606c561fae7",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.4167,
+          "weight": 20,
+          "contribution": 1.883333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_39ec7993.mcap",
+      "digest": "b7aa01113ca5ddb6fe609f84c3c2f7d87b72d67dd68bf501e47520b6305becfd",
+      "original_verdict": "needs_review",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "5ea6e583dc0a8b0c8d49fe14651191f5263f40500edd0742497a622680d6e5c6",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_42d682ff.mcap",
+      "digest": "01b7d11e831e460b17c1e4de5b46a1047927382f2948478cee1e628fc63c4628",
+      "original_verdict": "pass",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced",
+      "source_report_hash": "249b55b1faf51f1ea53ffbba22b71bc3e829708787deabe73b53b50235f2a497",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_459e3edd.mcap",
+      "digest": "6e110f683a185e3b14f4759509d99aa884619dc74c471527ad623b7f3350f19c",
+      "original_verdict": "pass",
+      "score": 9.97,
+      "weighted_average": 9.9667,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9667,
+        9.9667
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9667/10 using Balanced",
+      "source_report_hash": "bbdd8dba160fcb3e8cffbc4c5fea9f6f593f559de759b8d1ef9517e8a2e2175c",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.8333,
+          "weight": 20,
+          "contribution": 1.966667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_49df3c44.mcap",
+      "digest": "8de5e6d91d700b3ecbc4598adf300042d5c03cdd69a1092e1b14690f0333d6dd",
+      "original_verdict": "pass",
+      "score": 9.83,
+      "weighted_average": 9.8333,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8333,
+        9.8333
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8333/10 using Balanced",
+      "source_report_hash": "d99b9a30d4f4b22461366dd7f236785ea77e277f4d8f981025bddcc164d50bec",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.1667,
+          "weight": 20,
+          "contribution": 1.833333,
+          "worst_stream": "/quest3s/left_controller_pose"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_4dd7ef84.mcap",
+      "digest": "7d5d80062f36fa6ff3ad6c47cdee0e917a50914adf874b9d2903eda8db61f650",
+      "original_verdict": "pass",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced",
+      "source_report_hash": "bcc95bf83a0b28723d3064d7c10a44284fe5386cfda76b484e766d3df128a43f",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_51347361.mcap",
+      "digest": "e8aacdff325da39ee89bd9171d6690d98b23eecae1e07fa99127c404f6353091",
+      "original_verdict": "pass",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced",
+      "source_report_hash": "3d4e55d00b4086e8e305d86376cc303e3b80c47c31432e0ee2a213a67c09d313",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_52373c02.mcap",
+      "digest": "c5c9e08b916d854acb868e3c93ac05d77dd33cae86de4841559abb6f774a3b69",
+      "original_verdict": "pass",
+      "score": 9.82,
+      "weighted_average": 9.8167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8167,
+        9.8167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8167/10 using Balanced",
+      "source_report_hash": "75e402959cd02cfa4b9c4a9e2fe1f105096f605c79faecdb8909b81bd2a1a53b",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.0833,
+          "weight": 20,
+          "contribution": 1.816667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_52d930da.mcap",
+      "digest": "b95660ee2105a0a98cfd34a0c491fed259d7c8a70949245e0bbfacf6f37c7742",
+      "original_verdict": "needs_review",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "1cf33f695e762814a802292ec5f5407a4c822e0362cb22b0d109f9fbae677800",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_554d5730.mcap",
+      "digest": "d04201b2c332d9afb1e635679100087007ee4c3beb9ed3d4a0d44fe48cce5b71",
+      "original_verdict": "pass",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced",
+      "source_report_hash": "8d69f6f9fefd911d7df77c30fb7e284ff9c4532c0c5b684f787ec4b01caaafd0",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_5b171934.mcap",
+      "digest": "491f7fbce7832446bb38f2d072d1e8a163d1df6937a305368eb3e553f78d573e",
+      "original_verdict": "pass",
+      "score": 9.92,
+      "weighted_average": 9.9167,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9167,
+        9.9167
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9167/10 using Balanced",
+      "source_report_hash": "4e63f7de95baef0c89a1e37c7882fb85e3f8d2cbebe53d6267d25c5c30ca608c",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.5833,
+          "weight": 20,
+          "contribution": 1.916667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_5e2c1fd2.mcap",
+      "digest": "d77cd6d98d8c117eed5829ebb2aa2ab6385350256d6317dbe01ef15a5eead93c",
+      "original_verdict": "pass",
+      "score": 9.8,
+      "weighted_average": 9.8,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8,
+        9.8
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8000/10 using Balanced",
+      "source_report_hash": "fdfad67e16a44637d45512589cd8c2c6f3d18abf89a3a554e53fbbfc7128eba5",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.0,
+          "weight": 20,
+          "contribution": 1.8,
+          "worst_stream": "/quest3s/left_controller_pose"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_66909bdd.mcap",
+      "digest": "3773a3070ee7f6f9a72a4e963bdba9e41e743dd29b2a399802a1bfd466f2c213",
+      "original_verdict": "pass",
+      "score": 9.88,
+      "weighted_average": 9.8833,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8833,
+        9.8833
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8833/10 using Balanced",
+      "source_report_hash": "56b081026db832f9db91bdf0876283b7e7a71329ec4ebf3d1e479592aaddf03a",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.4167,
+          "weight": 20,
+          "contribution": 1.883333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_6d6fa903.mcap",
+      "digest": "c32b3595678e075d0f8196626fb9568a93b65f4f44c223a29e9696ebeb33c36c",
+      "original_verdict": "needs_review",
+      "score": 9.88,
+      "weighted_average": 9.8833,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8833,
+        9.8833
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8833/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "637a56468a860817eec8384dbc59a7e9f9acc41b84059ba212513ddeca22c45b",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.4167,
+          "weight": 20,
+          "contribution": 1.883333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_6e4d59a3.mcap",
+      "digest": "88546277a433056a18137411c696dcc1952463cf70479d89594d56826878d2ae",
+      "original_verdict": "pass",
+      "score": 9.97,
+      "weighted_average": 9.9667,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.9667,
+        9.9667
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.9667/10 using Balanced",
+      "source_report_hash": "9b59049519ff6f8d3b9df3c0bca01133c3a2e27b511bbd503fc77ef33233bd54",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.8333,
+          "weight": 20,
+          "contribution": 1.966667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_6fed8bc1.mcap",
+      "digest": "fe478a38179fac48b4b0d2a3f03132302fcf81314c6b610aa8e631feb1be1976",
+      "original_verdict": "needs_review",
+      "score": 9.88,
+      "weighted_average": 9.8833,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8833,
+        9.8833
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8833/10 using Balanced; advisory findings remain visible for human interpretation",
+      "source_report_hash": "45ba0dbc6e290b776965bdce57d65108a572521cc69e674dc8cfe612d843a894",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.4167,
+          "weight": 20,
+          "contribution": 1.883333,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    },
+    {
+      "file": "ep_9fae2f39.mcap",
+      "digest": "af989c8fa8d6a2812a7367a47afa4e35f13087ec0003bde65933c89d31bba844",
+      "original_verdict": "pass",
+      "score": 9.87,
+      "weighted_average": 9.8667,
+      "recommendation": "acceptable",
+      "assessment_complete": true,
+      "possible_range": [
+        9.8667,
+        9.8667
+      ],
+      "critical_cap": null,
+      "why": "Weighted average 9.8667/10 using Balanced",
+      "source_report_hash": "63cdc9758354e50bf46ff0bdb6f5b30b8662ff52d62ab6e71fb1adf61a60a8fe",
+      "categories": [
+        {
+          "id": "integrity",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "Recording"
+        },
+        {
+          "id": "inventory",
+          "score": 10.0,
+          "weight": 10,
+          "contribution": 1.0,
+          "worst_stream": "/quest3s/head_left/camera/camera_info"
+        },
+        {
+          "id": "decoding",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "timing",
+          "score": 9.3333,
+          "weight": 20,
+          "contribution": 1.866667,
+          "worst_stream": "/quest3s/body_tracking"
+        },
+        {
+          "id": "alignment",
+          "score": 10.0,
+          "weight": 15,
+          "contribution": 1.5,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "image",
+          "score": 10.0,
+          "weight": 20,
+          "contribution": 2.0,
+          "worst_stream": "/quest3s/head_left/camera/compressed"
+        },
+        {
+          "id": "sensor",
+          "score": 10.0,
+          "weight": 5,
+          "contribution": 0.5,
+          "worst_stream": "/quest3s/left_controller_pose"
+        }
+      ]
+    }
+  ]
+}

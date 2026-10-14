@@ -29,3 +29,12 @@ and workflow are reused. Evidence is written to verification/web.json.
 No worker code or image version changes are required for this dashboard.
 
 Upload activity is session-local and resets when the web server restarts; stored recordings and finalized results remain persistent. Uploads switch the table to all uploads so new files are visible.
+
+## Grading
+
+Select a grading profile or choose Customize standard to save a new one. Original
+verdict cards and tabs are unchanged; grade recommendations have their own filter.
+Inspect shows category points, worst streams, each parameter's mark and why.
+Grade downloads include the selected profile, evidence fingerprint and engine
+version. Profiles are saved under web/grading_profiles and persist across restarts.
+Missing evidence stays Not assessed. See docs/GRADING.md for exact calculations.
