@@ -164,7 +164,7 @@ ignored `.cache/image-archives/`. This loader needs Docker's
   sampling; DATA.md records the first guesses and limitations. One likely-bad
   recording has an all-camera near-black interval; four lighting cases remain
   uncertain. This is not a final automated QC verdict set.
-- Local Git commits are on branch `main`. No push was performed.
+- Code and verification evidence are committed on branch main; originals and local caches stay outside Git.
 
 ### Day 2 analysis tools
 
@@ -174,9 +174,9 @@ The offline explorer is tools/day2_probe.py; focused full-frame interval decodin
 is tools/day2_window_probe.py. Both read originals without modifying them.
 Numeric observations are in data/day2-observations/ and initial AI image notes
 are in data/day2-visual-notes.json. Settings are exploratory, not production
-pass/fail policy. Pilot recordings have now been uploaded and checked by the pipeline; the full 41-file run remains pending.
+pass/fail policy. Pilot recordings have now been uploaded and checked by the pipeline; the complete dataset is processed and verified using the commands below.
 
-## QC pipeline: verified pilot, full dataset still pending
+## QC pipeline
 
 The same worker image runs the original hello-world example and two QC workers.
 QC workflows use Temporal namespace default and task queue video-qc. Kubernetes
@@ -226,3 +226,33 @@ process was killed, Temporal retried that same activity at attempt 2 after a
 heartbeat timeout, and the workflow completed with one authoritative verdict
 and no duplicate metrics. Evidence: [verification/pipeline-crash.json](verification/pipeline-crash.json).
 Both destructive test approvals have been consumed; do not repeat them automatically.
+
+### Complete-run verification and standards
+
+~~~powershell
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-verify-dataset"
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-compare"
+~~~
+
+Per-recording JSON reports are exported under reports/. The full-dataset evidence
+is verification/full-dataset.json. The ordinary fleet command excludes synthetic
+fixtures; use python3 tools/fleet_query.py --all only when you intentionally want
+every upload included.
+
+The controlled suite covers 19 cases: one pass, 15 failures, and three review
+outcomes. All matched their expected verdicts and required reasons. This is
+controlled-test agreement, not a claimed accuracy figure for unseen recordings.
+The engineer owns the documented standard; no external answer key is assumed.
+The Day 2 comparison is explicitly preliminary agreement. Independently reviewed
+labels can be scored with tools/score_reference.py without inventing missing truth.
+
+Read [the acceptance standard](docs/ACCEPTANCE-STANDARD.md),
+[the short design note](docs/DESIGN.md),
+[the operating guide](docs/OPERATING.md), and
+[the 20-minute demo](docs/DEMO.md).
+Fresh-clone revalidation reuses the existing qc cluster and Docker cache; the
+earlier Day 1 evidence separately records an empty-cluster test. The cluster is
+kept running so the reports and history remain available for the planned UI.
+
+Final outcomes: **29 pass, 1 fail, 11 needs_review** across all 41 supplied recordings.
+See [REPORT.md](REPORT.md) for evidence, acceptance decisions, and limitations.

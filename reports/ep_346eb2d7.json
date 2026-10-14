@@ -1,0 +1,1276 @@
+{
+  "cross": {
+    "metrics": {
+      "/quest3s/head_pose": {
+        "end_lag_s": 0.008130779,
+        "start_lag_s": 0.325128126
+      },
+      "/quest3s/body_tracking": {
+        "end_lag_s": 0.003462734,
+        "start_lag_s": 0.331465298
+      },
+      "/quest3s/left_gripper_pose": {
+        "end_lag_s": 0.008202495,
+        "start_lag_s": 0.325053961
+      },
+      "/quest3s/right_gripper_pose": {
+        "end_lag_s": 0.007062271,
+        "start_lag_s": 0.326003723
+      },
+      "/quest3s/left_controller_pose": {
+        "end_lag_s": 0.008202495,
+        "start_lag_s": 0.325053961
+      },
+      "/gripper/left/magnetic_encoder": {
+        "end_lag_s": 0.000167269,
+        "start_lag_s": 0.32072968
+      },
+      "/quest3s/right_controller_pose": {
+        "end_lag_s": 0.007062271,
+        "start_lag_s": 0.326003723
+      },
+      "/gripper/right/magnetic_encoder": {
+        "end_lag_s": 0.0,
+        "start_lag_s": 0.321377278
+      },
+      "/gripper/left/camera0/compressed": {
+        "end_lag_s": 0.072299544,
+        "start_lag_s": 0.222272193
+      },
+      "/gripper/right/camera0/compressed": {
+        "drift_ms": 0.0020000000000000018,
+        "end_lag_s": 0.068318544,
+        "reference": "/gripper/left/camera0/compressed",
+        "skew_max_ms": 8.324,
+        "skew_p95_ms": 8.04335,
+        "start_lag_s": 0.226273193
+      },
+      "/quest3s/head_left/camera/compressed": {
+        "drift_ms": -4.602825,
+        "end_lag_s": 0.031436831,
+        "reference": "/gripper/left/camera0/compressed",
+        "skew_max_ms": 18.628916,
+        "skew_p95_ms": 17.660083399999998,
+        "start_lag_s": 0.0
+      },
+      "/quest3s/head_right/camera/compressed": {
+        "drift_ms": -4.603797000000001,
+        "end_lag_s": 0.031436831,
+        "reference": "/gripper/left/camera0/compressed",
+        "skew_max_ms": 18.628916,
+        "skew_p95_ms": 17.660083399999998,
+        "start_lag_s": 0.0
+      }
+    },
+    "findings": []
+  },
+  "config": {
+    "policy": {
+      "review_codes": [
+        "BLUR_RUN",
+        "FROZEN_RUN",
+        "SENSOR_FLATLINE",
+        "UNEXPECTED_STREAM"
+      ],
+      "failure_codes": [
+        "CONTAINER_UNREADABLE",
+        "CONTAINER_TRUNCATED_RECOVERABLE",
+        "CONTAINER_INCOMPLETE",
+        "MISSING_STREAM",
+        "WRONG_SCHEMA",
+        "WRONG_ENCODING",
+        "RATE_OUT_OF_RANGE",
+        "TIMESTAMP_REVERSED",
+        "TIMESTAMP_DUPLICATE",
+        "PAYLOAD_TIMESTAMP_MISMATCH",
+        "GAP_RUN",
+        "COVERAGE_MISMATCH",
+        "VIDEO_UNDECODABLE",
+        "VIDEO_NOT_KEYFRAME_START",
+        "BLACK_RUN",
+        "BRIGHT_RUN",
+        "RESOLUTION_CHANGE",
+        "CAMERA_SYNC",
+        "SENSOR_NONFINITE",
+        "CHECK_UNAVAILABLE"
+      ]
+    },
+    "timing": {
+      "camera_sync_skew_ms": 50,
+      "gap_period_multiple": 3,
+      "camera_sync_drift_ms": 30,
+      "rate_relative_tolerance": 0.3,
+      "payload_stamp_tolerance_ms": 100,
+      "coverage_end_tolerance_seconds": 0.5,
+      "coverage_start_tolerance_seconds": 6
+    },
+    "content": {
+      "dark_mean": 10,
+      "bright_mean": 245,
+      "sample_seconds": 1,
+      "downscale_width": 160,
+      "run_min_seconds": 0.5,
+      "blur_min_seconds": 2,
+      "freeze_min_seconds": 2,
+      "blur_laplacian_variance": 10,
+      "freeze_mean_abs_difference": 0.2,
+      "sensor_flatline_min_seconds": 5
+    },
+    "recording_type": "quest3s-dual-gripper",
+    "expected_streams": [
+      {
+        "kind": "calibration",
+        "topic": "/quest3s/head_left/camera/camera_info",
+        "schema": "foxglove.CameraCalibration",
+        "encoding": "protobuf",
+        "nominal_hz": null
+      },
+      {
+        "kind": "calibration",
+        "topic": "/quest3s/head_right/camera/camera_info",
+        "schema": "foxglove.CameraCalibration",
+        "encoding": "protobuf",
+        "nominal_hz": null
+      },
+      {
+        "kind": "video",
+        "topic": "/quest3s/head_left/camera/compressed",
+        "schema": "foxglove.CompressedVideo",
+        "encoding": "protobuf",
+        "nominal_hz": 30
+      },
+      {
+        "kind": "video",
+        "topic": "/quest3s/head_right/camera/compressed",
+        "schema": "foxglove.CompressedVideo",
+        "encoding": "protobuf",
+        "nominal_hz": 30
+      },
+      {
+        "kind": "video",
+        "topic": "/gripper/right/camera0/compressed",
+        "schema": "foxglove.CompressedVideo",
+        "encoding": "protobuf",
+        "nominal_hz": 30
+      },
+      {
+        "kind": "calibration",
+        "topic": "/gripper/right/camera0/camera_info",
+        "schema": "foxglove.CameraCalibration",
+        "encoding": "protobuf",
+        "nominal_hz": null
+      },
+      {
+        "kind": "video",
+        "topic": "/gripper/left/camera0/compressed",
+        "schema": "foxglove.CompressedVideo",
+        "encoding": "protobuf",
+        "nominal_hz": 30
+      },
+      {
+        "kind": "calibration",
+        "topic": "/gripper/left/camera0/camera_info",
+        "schema": "foxglove.CameraCalibration",
+        "encoding": "protobuf",
+        "nominal_hz": null
+      },
+      {
+        "kind": "sensor",
+        "topic": "/quest3s/left_controller_pose",
+        "schema": "foxglove.PoseInFrame",
+        "encoding": "protobuf",
+        "nominal_hz": 50
+      },
+      {
+        "kind": "sensor",
+        "topic": "/quest3s/left_gripper_pose",
+        "schema": "foxglove.PoseInFrame",
+        "encoding": "protobuf",
+        "nominal_hz": 50
+      },
+      {
+        "kind": "sensor",
+        "topic": "/quest3s/head_pose",
+        "schema": "foxglove.PoseInFrame",
+        "encoding": "protobuf",
+        "nominal_hz": 50
+      },
+      {
+        "kind": "sensor",
+        "topic": "/quest3s/right_controller_pose",
+        "schema": "foxglove.PoseInFrame",
+        "encoding": "protobuf",
+        "nominal_hz": 50
+      },
+      {
+        "kind": "sensor",
+        "topic": "/quest3s/right_gripper_pose",
+        "schema": "foxglove.PoseInFrame",
+        "encoding": "protobuf",
+        "nominal_hz": 50
+      },
+      {
+        "kind": "sensor",
+        "topic": "/quest3s/body_tracking",
+        "schema": "foxglove.FrameTransforms",
+        "encoding": "protobuf",
+        "nominal_hz": 50
+      },
+      {
+        "kind": "sensor",
+        "topic": "/gripper/left/magnetic_encoder",
+        "schema": "foxglove.MagneticEncoderMeasurement",
+        "encoding": "protobuf",
+        "nominal_hz": 100
+      },
+      {
+        "kind": "sensor",
+        "topic": "/gripper/right/magnetic_encoder",
+        "schema": "foxglove.MagneticEncoderMeasurement",
+        "encoding": "protobuf",
+        "nominal_hz": 100
+      }
+    ],
+    "parameter_authority": "engineer_selected"
+  },
+  "digest": "05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d",
+  "streams": [
+    {
+      "id": 1,
+      "kind": "calibration",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/quest3s/head_left/camera/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "timing": {
+        "log": {
+          "last_ns": 1791376817538406628,
+          "first_ns": 1791376817538406628,
+          "messages": 1,
+          "effective_hz": null,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376817538406628,
+          "first_ns": 1791376817538406628,
+          "messages": 1,
+          "effective_hz": null,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/1/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/1/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/1/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 2,
+      "kind": "calibration",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/quest3s/head_right/camera/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "timing": {
+        "log": {
+          "last_ns": 1791376817538407628,
+          "first_ns": 1791376817538407628,
+          "messages": 1,
+          "effective_hz": null,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376817538407628,
+          "first_ns": 1791376817538407628,
+          "messages": 1,
+          "effective_hz": null,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/2/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/2/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/2/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 3,
+      "kind": "video",
+      "stats": {
+        "decoded_frames": 2863,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/quest3s/head_left/camera/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915918260321,
+          "first_ns": 1791376820518401415,
+          "messages": 2863,
+          "effective_hz": 30.00004436924801,
+          "period_p50_ms": 39.999708,
+          "period_p95_ms": 40.000709,
+          "period_p99_ms": 40.002708,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915918260321,
+          "first_ns": 1791376820518401415,
+          "messages": 2863,
+          "effective_hz": 30.00004436924801,
+          "period_p50_ms": 39.999708,
+          "period_p95_ms": 40.000709,
+          "period_p99_ms": 40.002708,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [
+        {
+          "code": "BLACK_RUN",
+          "end_s": 23.119963545,
+          "stream": "/quest3s/head_left/camera/compressed",
+          "metrics": {
+            "observations": 42
+          },
+          "start_s": 21.759965454
+        }
+      ],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/3/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/3/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/3/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 4,
+      "kind": "video",
+      "stats": {
+        "decoded_frames": 2863,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/quest3s/head_right/camera/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915918260321,
+          "first_ns": 1791376820518401415,
+          "messages": 2863,
+          "effective_hz": 30.00004436924801,
+          "period_p50_ms": 39.999708,
+          "period_p95_ms": 40.000709,
+          "period_p99_ms": 40.00209861,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915918260321,
+          "first_ns": 1791376820518401415,
+          "messages": 2863,
+          "effective_hz": 30.00004436924801,
+          "period_p50_ms": 39.999708,
+          "period_p95_ms": 40.000709,
+          "period_p99_ms": 40.00209861,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [
+        {
+          "code": "BLACK_RUN",
+          "end_s": 23.119963545,
+          "stream": "/quest3s/head_right/camera/compressed",
+          "metrics": {
+            "observations": 42
+          },
+          "start_s": 21.759965454
+        }
+      ],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/4/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/4/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/4/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 5,
+      "kind": "video",
+      "stats": {
+        "decoded_frames": 2855,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/gripper/left/camera0/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915877397608,
+          "first_ns": 1791376820740673608,
+          "messages": 2855,
+          "effective_hz": 29.998930801947733,
+          "period_p50_ms": 31.974,
+          "period_p95_ms": 40.114,
+          "period_p99_ms": 43.85846,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915877397608,
+          "first_ns": 1791376820740673608,
+          "messages": 2855,
+          "effective_hz": 29.998930801947733,
+          "period_p50_ms": 31.974,
+          "period_p95_ms": 40.114,
+          "period_p99_ms": 43.85846,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [
+        {
+          "code": "BLACK_RUN",
+          "end_s": 23.11047698,
+          "stream": "/gripper/left/camera0/compressed",
+          "metrics": {
+            "observations": 41
+          },
+          "start_s": 21.77040298
+        }
+      ],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/5/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/5/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/5/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 6,
+      "kind": "calibration",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/gripper/left/camera0/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915740673608,
+          "first_ns": 1791376820740673608,
+          "messages": 96,
+          "effective_hz": 1.0,
+          "period_p50_ms": 1000.0,
+          "period_p95_ms": 1000.0,
+          "period_p99_ms": 1000.0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915740673608,
+          "first_ns": 1791376820740673608,
+          "messages": 96,
+          "effective_hz": 1.0,
+          "period_p50_ms": 1000.0,
+          "period_p95_ms": 1000.0,
+          "period_p99_ms": 1000.0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/6/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/6/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/6/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 7,
+      "kind": "video",
+      "stats": {
+        "decoded_frames": 2855,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/gripper/right/camera0/compressed",
+      "schema": "foxglove.CompressedVideo",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915881378608,
+          "first_ns": 1791376820744674608,
+          "messages": 2855,
+          "effective_hz": 29.99893710843714,
+          "period_p50_ms": 31.989,
+          "period_p95_ms": 40.12135,
+          "period_p99_ms": 42.002059999999325,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915881378608,
+          "first_ns": 1791376820744674608,
+          "messages": 2855,
+          "effective_hz": 29.99893710843714,
+          "period_p50_ms": 31.989,
+          "period_p95_ms": 40.12135,
+          "period_p99_ms": 42.002059999999325,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [
+        {
+          "code": "BLACK_RUN",
+          "end_s": 23.10649398,
+          "stream": "/gripper/right/camera0/compressed",
+          "metrics": {
+            "observations": 41
+          },
+          "start_s": 21.77453298
+        }
+      ],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/7/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/7/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/7/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 8,
+      "kind": "calibration",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/gripper/right/camera0/camera_info",
+      "schema": "foxglove.CameraCalibration",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915744674608,
+          "first_ns": 1791376820744674608,
+          "messages": 96,
+          "effective_hz": 1.0,
+          "period_p50_ms": 1000.0,
+          "period_p95_ms": 1000.0,
+          "period_p99_ms": 1000.0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915744674608,
+          "first_ns": 1791376820744674608,
+          "messages": 96,
+          "effective_hz": 1.0,
+          "period_p50_ms": 1000.0,
+          "period_p95_ms": 1000.0,
+          "period_p99_ms": 1000.0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/8/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/8/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/8/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 9,
+      "kind": "sensor",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0
+      },
+      "topic": "/gripper/left/magnetic_encoder",
+      "schema": "foxglove.MagneticEncoderMeasurement",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915949529883,
+          "first_ns": 1791376820839131095,
+          "messages": 9512,
+          "effective_hz": 99.99958071041118,
+          "period_p50_ms": 10.000042,
+          "period_p95_ms": 10.000042,
+          "period_p99_ms": 10.000042,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915949529883,
+          "first_ns": 1791376820839131095,
+          "messages": 9512,
+          "effective_hz": 99.99958071041118,
+          "period_p50_ms": 10.000042,
+          "period_p95_ms": 10.000042,
+          "period_p99_ms": 10.000042,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/9/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/9/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/9/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 10,
+      "kind": "sensor",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0
+      },
+      "topic": "/gripper/right/magnetic_encoder",
+      "schema": "foxglove.MagneticEncoderMeasurement",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915949697152,
+          "first_ns": 1791376820839778693,
+          "messages": 9512,
+          "effective_hz": 100.00008573343487,
+          "period_p50_ms": 9.999991,
+          "period_p95_ms": 9.999992,
+          "period_p99_ms": 9.999992,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915949697152,
+          "first_ns": 1791376820839778693,
+          "messages": 9512,
+          "effective_hz": 100.00008573343487,
+          "period_p50_ms": 9.999991,
+          "period_p95_ms": 9.999992,
+          "period_p99_ms": 9.999992,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/10/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/10/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/10/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 11,
+      "kind": "sensor",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/quest3s/left_controller_pose",
+      "schema": "foxglove.PoseInFrame",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915941494657,
+          "first_ns": 1791376820843455376,
+          "messages": 4756,
+          "effective_hz": 50.00103089349414,
+          "period_p50_ms": 21.984136,
+          "period_p95_ms": 23.487119399999997,
+          "period_p99_ms": 24.25333064,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915941494657,
+          "first_ns": 1791376820843455376,
+          "messages": 4756,
+          "effective_hz": 50.00103089349414,
+          "period_p50_ms": 21.984136,
+          "period_p95_ms": 23.487119399999997,
+          "period_p99_ms": 24.25333064,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/11/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/11/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/11/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 12,
+      "kind": "sensor",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/quest3s/left_gripper_pose",
+      "schema": "foxglove.PoseInFrame",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915941494657,
+          "first_ns": 1791376820843455376,
+          "messages": 4756,
+          "effective_hz": 50.00103089349414,
+          "period_p50_ms": 21.984136,
+          "period_p95_ms": 23.487119399999997,
+          "period_p99_ms": 24.25333064,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915941494657,
+          "first_ns": 1791376820843455376,
+          "messages": 4756,
+          "effective_hz": 50.00103089349414,
+          "period_p50_ms": 21.984136,
+          "period_p95_ms": 23.487119399999997,
+          "period_p99_ms": 24.25333064,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/12/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/12/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/12/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 13,
+      "kind": "sensor",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/quest3s/head_pose",
+      "schema": "foxglove.PoseInFrame",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915941566373,
+          "first_ns": 1791376820843529541,
+          "messages": 4756,
+          "effective_hz": 50.00103218113927,
+          "period_p50_ms": 21.985022,
+          "period_p95_ms": 23.5055243,
+          "period_p99_ms": 24.260989300000002,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915941566373,
+          "first_ns": 1791376820843529541,
+          "messages": 4756,
+          "effective_hz": 50.00103218113927,
+          "period_p50_ms": 21.985022,
+          "period_p95_ms": 23.5055243,
+          "period_p99_ms": 24.260989300000002,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/13/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/13/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/13/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 14,
+      "kind": "sensor",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/quest3s/right_controller_pose",
+      "schema": "foxglove.PoseInFrame",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915942634881,
+          "first_ns": 1791376820844405138,
+          "messages": 4756,
+          "effective_hz": 50.000930751815666,
+          "period_p50_ms": 21.912107,
+          "period_p95_ms": 23.926485800000002,
+          "period_p99_ms": 24.90392864,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915942634881,
+          "first_ns": 1791376820844405138,
+          "messages": 4756,
+          "effective_hz": 50.000930751815666,
+          "period_p50_ms": 21.912107,
+          "period_p95_ms": 23.926485800000002,
+          "period_p99_ms": 24.90392864,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/14/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/14/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/14/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 15,
+      "kind": "sensor",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/quest3s/right_gripper_pose",
+      "schema": "foxglove.PoseInFrame",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915942634881,
+          "first_ns": 1791376820844405138,
+          "messages": 4756,
+          "effective_hz": 50.000930751815666,
+          "period_p50_ms": 21.912107,
+          "period_p95_ms": 23.926485800000002,
+          "period_p99_ms": 24.90392864,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        },
+        "publish": {
+          "last_ns": 1791376915942634881,
+          "first_ns": 1791376820844405138,
+          "messages": 4756,
+          "effective_hz": 50.000930751815666,
+          "period_p50_ms": 21.912107,
+          "period_p95_ms": 23.926485800000002,
+          "period_p99_ms": 24.90392864,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 0
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/15/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/15/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/15/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    },
+    {
+      "id": 16,
+      "kind": "sensor",
+      "stats": {
+        "decoded_frames": 0,
+        "nonfinite_values": 0,
+        "video_decode_errors": 0,
+        "protobuf_decode_errors": 0,
+        "payload_stamp_offset_max_ms": 0.0,
+        "payload_stamp_publish_offset_max_ms": 0
+      },
+      "topic": "/quest3s/body_tracking",
+      "schema": "foxglove.FrameTransforms",
+      "timing": {
+        "log": {
+          "last_ns": 1791376915946234418,
+          "first_ns": 1791376820849866713,
+          "messages": 4718,
+          "effective_hz": 49.60231514449303,
+          "period_p50_ms": 22.431276,
+          "period_p95_ms": 22.434276,
+          "period_p99_ms": 33.647914,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 80
+        },
+        "publish": {
+          "last_ns": 1791376915946234418,
+          "first_ns": 1791376820849866713,
+          "messages": 4718,
+          "effective_hz": 49.60231514449303,
+          "period_p50_ms": 22.431276,
+          "period_p95_ms": 22.434276,
+          "period_p99_ms": 33.647914,
+          "large_gap_count": 0,
+          "timestamp_reversed": 0,
+          "timestamp_duplicate": 0,
+          "estimated_dropped_frames": 80
+        }
+      },
+      "findings": [],
+      "times_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/16/times.json",
+      "samples_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/16/samples.zip",
+      "frame_metrics_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/streams/16/frames.jsonl",
+      "measurement_source": {
+        "fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+        "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+        "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478"
+      },
+      "frame_metric_sample_seconds": 1
+    }
+  ],
+  "verdict": "fail",
+  "findings": [
+    {
+      "code": "BLACK_RUN",
+      "end_s": 23.119963545,
+      "stream": "/quest3s/head_left/camera/compressed",
+      "metrics": {
+        "observations": 42
+      },
+      "start_s": 21.759965454
+    },
+    {
+      "code": "BLACK_RUN",
+      "end_s": 23.119963545,
+      "stream": "/quest3s/head_right/camera/compressed",
+      "metrics": {
+        "observations": 42
+      },
+      "start_s": 21.759965454
+    },
+    {
+      "code": "BLACK_RUN",
+      "end_s": 23.11047698,
+      "stream": "/gripper/left/camera0/compressed",
+      "metrics": {
+        "observations": 41
+      },
+      "start_s": 21.77040298
+    },
+    {
+      "code": "BLACK_RUN",
+      "end_s": 23.10649398,
+      "stream": "/gripper/right/camera0/compressed",
+      "metrics": {
+        "observations": 41
+      },
+      "start_s": 21.77453298
+    }
+  ],
+  "inventory": {
+    "digest": "05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d",
+    "end_ns": 1791376915949697152,
+    "channels": [
+      {
+        "id": 1,
+        "topic": "/quest3s/head_left/camera/camera_info",
+        "schema": "foxglove.CameraCalibration",
+        "encoding": "protobuf",
+        "message_count": 1,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 2,
+        "topic": "/quest3s/head_right/camera/camera_info",
+        "schema": "foxglove.CameraCalibration",
+        "encoding": "protobuf",
+        "message_count": 1,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 3,
+        "topic": "/quest3s/head_left/camera/compressed",
+        "schema": "foxglove.CompressedVideo",
+        "encoding": "protobuf",
+        "message_count": 2863,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 4,
+        "topic": "/quest3s/head_right/camera/compressed",
+        "schema": "foxglove.CompressedVideo",
+        "encoding": "protobuf",
+        "message_count": 2863,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 5,
+        "topic": "/gripper/left/camera0/compressed",
+        "schema": "foxglove.CompressedVideo",
+        "encoding": "protobuf",
+        "message_count": 2855,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 6,
+        "topic": "/gripper/left/camera0/camera_info",
+        "schema": "foxglove.CameraCalibration",
+        "encoding": "protobuf",
+        "message_count": 96,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 7,
+        "topic": "/gripper/right/camera0/compressed",
+        "schema": "foxglove.CompressedVideo",
+        "encoding": "protobuf",
+        "message_count": 2855,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 8,
+        "topic": "/gripper/right/camera0/camera_info",
+        "schema": "foxglove.CameraCalibration",
+        "encoding": "protobuf",
+        "message_count": 96,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 9,
+        "topic": "/gripper/left/magnetic_encoder",
+        "schema": "foxglove.MagneticEncoderMeasurement",
+        "encoding": "protobuf",
+        "message_count": 9512,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 10,
+        "topic": "/gripper/right/magnetic_encoder",
+        "schema": "foxglove.MagneticEncoderMeasurement",
+        "encoding": "protobuf",
+        "message_count": 9512,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 11,
+        "topic": "/quest3s/left_controller_pose",
+        "schema": "foxglove.PoseInFrame",
+        "encoding": "protobuf",
+        "message_count": 4756,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 12,
+        "topic": "/quest3s/left_gripper_pose",
+        "schema": "foxglove.PoseInFrame",
+        "encoding": "protobuf",
+        "message_count": 4756,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 13,
+        "topic": "/quest3s/head_pose",
+        "schema": "foxglove.PoseInFrame",
+        "encoding": "protobuf",
+        "message_count": 4756,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 14,
+        "topic": "/quest3s/right_controller_pose",
+        "schema": "foxglove.PoseInFrame",
+        "encoding": "protobuf",
+        "message_count": 4756,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 15,
+        "topic": "/quest3s/right_gripper_pose",
+        "schema": "foxglove.PoseInFrame",
+        "encoding": "protobuf",
+        "message_count": 4756,
+        "schema_encoding": "protobuf"
+      },
+      {
+        "id": 16,
+        "topic": "/quest3s/body_tracking",
+        "schema": "foxglove.FrameTransforms",
+        "encoding": "protobuf",
+        "message_count": 4718,
+        "schema_encoding": "protobuf"
+      }
+    ],
+    "findings": [],
+    "start_ns": 1791376817538406628,
+    "attachments": 1,
+    "header_valid": true,
+    "chunk_indexes": 184,
+    "message_count": 59152,
+    "summary_present": true,
+    "footer_magic_valid": true
+  },
+  "report_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/bca36faad9ac190c64e523920ad7504ff83e20fd18ec36572640081b84d1f54c/01e855b3a19d112b1ec941f0ca591158b69c68a285344581aa62283c3bc53bbf/qc_report.json",
+  "viewer_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/bca36faad9ac190c64e523920ad7504ff83e20fd18ec36572640081b84d1f54c/01e855b3a19d112b1ec941f0ca591158b69c68a285344581aa62283c3bc53bbf/qc.rrd",
+  "code_version": "01e855b3a19d112b1ec941f0ca591158b69c68a285344581aa62283c3bc53bbf",
+  "reason_codes": [
+    "BLACK_RUN"
+  ],
+  "config_version": "bca36faad9ac190c64e523920ad7504ff83e20fd18ec36572640081b84d1f54c",
+  "recording_type": "quest3s-dual-gripper"
+}

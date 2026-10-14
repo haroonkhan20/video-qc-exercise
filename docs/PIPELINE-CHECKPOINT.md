@@ -74,3 +74,9 @@ Successful pilot workflow times observed before this test ranged from roughly
 17 to 75 seconds, excluding uploads. The pod-replacement pilot took 97 seconds and the strict-crash pilot took 96 seconds.
 A provisional complete-dataset estimate is 30–60 minutes including uploads, not
 a deadline or a benchmark over all 41 files.
+
+## Subsequent completion
+
+The 2026-10-14 full run, stronger coverage standard, controlled-case suite, and
+final deliverables are documented in REPORT.md and verification/full-dataset.json.
+The next-session list above records the earlier checkpoint, not current pending work.

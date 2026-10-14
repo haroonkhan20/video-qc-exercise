@@ -70,15 +70,17 @@ For each file record:
 6. Questions for the mentor and things you could not decode or inspect.
 
 These are initial observations, not the final machine-generated verdicts.
-Do not invent the expected camera count or nominal frame rate. Ask the mentor
-for the recording type/intended inventory where the file does not tell us enough.
+Distinguish observed rates from requirements. The engineer now selects and documents
+the recording contract in docs/ACCEPTANCE-STANDARD.md and worker/config/qc.json;
+these choices are explicit engineering defaults rather than supplied hardware specifications.
 
 ## What waits for the recordings
 
 Those Day 2 observations are now recorded in DATA.md. Interactive playback was
 waived by the mentor in favour of AI assistance; this does not waive the need
-to examine actual decoded data. Future Day 3 automation—uploads, quality checks,
-durable verdicts, and worker-crash tests—comes AFTER the first-read snapshot.
+to examine actual decoded data. The Day 3 pipeline—uploads, quality checks,
+durable verdicts, and worker-crash tests—was built after the first-read snapshot.
+Use docs/OPERATING.md for current pipeline commands.
 Do not rewrite DATA.md after Day 2; record later findings separately.
 
 Official references:

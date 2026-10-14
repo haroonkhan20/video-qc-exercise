@@ -1,0 +1,7 @@
+{
+  "workflow_id": "qc-1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1-109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478-63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+  "run_id": "01a138d1-56ad-75a0-8432-d7021dc417bd",
+  "ui_status": "WORKFLOW_EXECUTION_STATUS_COMPLETED",
+  "ui_page_http_status": 200,
+  "ui_url": "http://localhost:8080/namespaces/default/workflows/qc-1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1-109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478-63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/01a138d1-56ad-75a0-8432-d7021dc417bd/history"
+}

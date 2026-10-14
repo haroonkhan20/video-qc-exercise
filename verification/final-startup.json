@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-14",
+  "make_up_passed": true,
+  "clean_clone_make_up_passed": true,
+  "clean_clone_commit": "1849b66",
+  "existing_cluster_reused": true,
+  "empty_cluster_retest_performed": false,
+  "docker_cache_reused": true,
+  "ready_service_pods": 12,
+  "qc_worker_replicas": 2,
+  "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+  "hello": {
+    "workflow_id": "hello-71eb1eec-376d-4152-a089-f39487e5317a",
+    "run_id": "01a138e1-3699-7e53-98ee-83443bc2fc3a",
+    "status": "COMPLETED",
+    "result": "Hello, world!"
+  },
+  "qc_ui": {
+    "workflow_id": "qc-1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1-109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478-63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+    "run_id": "01a138d1-56ad-75a0-8432-d7021dc417bd",
+    "ui_status": "WORKFLOW_EXECUTION_STATUS_COMPLETED",
+    "ui_page_http_status": 200,
+    "ui_url": "http://localhost:8080/namespaces/default/workflows/qc-1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1-109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478-63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/01a138d1-56ad-75a0-8432-d7021dc417bd/history"
+  },
+  "previous_empty_cluster_evidence": "verification/day1.json",
+  "latest_policy_make_up_passed": true,
+  "latest_policy_code_version": "01e855b3a19d112b1ec941f0ca591158b69c68a285344581aa62283c3bc53bbf",
+  "latest_policy_config_version": "bca36faad9ac190c64e523920ad7504ff83e20fd18ec36572640081b84d1f54c"
+}

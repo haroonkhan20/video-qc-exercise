@@ -1,0 +1,284 @@
+{
+  "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478",
+  "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+  "cases": [
+    {
+      "name": "control",
+      "digest": "9c0e00e4e11ce242fafa25886be8fa77e083125ca3004da67a15fe04af88db62",
+      "expected_codes": [],
+      "expected_verdict": "pass",
+      "actual_verdict": "pass",
+      "actual_codes": [],
+      "matched": true,
+      "report_key": "derived/9c0e00e4e11ce242fafa25886be8fa77e083125ca3004da67a15fe04af88db62/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "missing-camera",
+      "digest": "cd38c5ba83d3942c0ad70afbc39a6ee0e03e0a88f33100e5d719be904bbb80d7",
+      "expected_codes": [
+        "MISSING_STREAM"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "MISSING_STREAM"
+      ],
+      "matched": true,
+      "report_key": "derived/cd38c5ba83d3942c0ad70afbc39a6ee0e03e0a88f33100e5d719be904bbb80d7/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "duplicate-timestamp",
+      "digest": "db5319848a31f5975d0aa4e6ae7e395b42b6e4147fc0bdbffe6ce2842820328e",
+      "expected_codes": [
+        "TIMESTAMP_DUPLICATE"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "TIMESTAMP_DUPLICATE"
+      ],
+      "matched": true,
+      "report_key": "derived/db5319848a31f5975d0aa4e6ae7e395b42b6e4147fc0bdbffe6ce2842820328e/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "reversed-timestamp",
+      "digest": "75198a073aaf32d4d442493ab809e0ab4e49fb8f111ec70e6d26888d69c2b0f4",
+      "expected_codes": [
+        "TIMESTAMP_REVERSED"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "TIMESTAMP_REVERSED"
+      ],
+      "matched": true,
+      "report_key": "derived/75198a073aaf32d4d442493ab809e0ab4e49fb8f111ec70e6d26888d69c2b0f4/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "camera-gap",
+      "digest": "c7e625ad5f19e4ab0efa23c5f7ca54e67259e545cc0296ac6ded769acd44a830",
+      "expected_codes": [
+        "GAP_RUN"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "CAMERA_SYNC",
+        "GAP_RUN"
+      ],
+      "matched": true,
+      "report_key": "derived/c7e625ad5f19e4ab0efa23c5f7ca54e67259e545cc0296ac6ded769acd44a830/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "coverage-ends-early",
+      "digest": "4628bc7c9a46b1ebe51304e3d6284ba7af12355998a5f35ac195ea160998aec1",
+      "expected_codes": [
+        "COVERAGE_MISMATCH"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "COVERAGE_MISMATCH"
+      ],
+      "matched": true,
+      "report_key": "derived/4628bc7c9a46b1ebe51304e3d6284ba7af12355998a5f35ac195ea160998aec1/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "unknown-encoding",
+      "digest": "75dabde10e7a0b16a42fcc73211ca64bc94db81363d3a3946888f627b940711d",
+      "expected_codes": [
+        "WRONG_ENCODING",
+        "CHECK_UNAVAILABLE"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "CHECK_UNAVAILABLE",
+        "WRONG_ENCODING"
+      ],
+      "matched": true,
+      "report_key": "derived/75dabde10e7a0b16a42fcc73211ca64bc94db81363d3a3946888f627b940711d/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "wrong-schema",
+      "digest": "221254c5b49fe6863daa0a680e55340e563c8b52646a330614e1f83655d6ee08",
+      "expected_codes": [
+        "WRONG_SCHEMA"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "CHECK_UNAVAILABLE",
+        "WRONG_SCHEMA"
+      ],
+      "matched": true,
+      "report_key": "derived/221254c5b49fe6863daa0a680e55340e563c8b52646a330614e1f83655d6ee08/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "unexpected-stream",
+      "digest": "9e6e27605c64a34a4247088311acd87c480d985cfc6912622e7fd5665b4e6774",
+      "expected_codes": [
+        "UNEXPECTED_STREAM"
+      ],
+      "expected_verdict": "needs_review",
+      "actual_verdict": "needs_review",
+      "actual_codes": [
+        "UNEXPECTED_STREAM"
+      ],
+      "matched": true,
+      "report_key": "derived/9e6e27605c64a34a4247088311acd87c480d985cfc6912622e7fd5665b4e6774/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "unindexed",
+      "digest": "37da310c268ae806a2befb95fb28284c8608845de0bc7940d299b4985512e1a5",
+      "expected_codes": [
+        "CONTAINER_INCOMPLETE"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "CONTAINER_INCOMPLETE"
+      ],
+      "matched": true,
+      "report_key": "derived/37da310c268ae806a2befb95fb28284c8608845de0bc7940d299b4985512e1a5/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "complete-no-summary",
+      "digest": "6234a083d338612def054d6099d66c9781f0b844e04a21cd82a9c90c967fbdc0",
+      "expected_codes": [
+        "CONTAINER_INCOMPLETE"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "CONTAINER_INCOMPLETE"
+      ],
+      "matched": true,
+      "report_key": "derived/6234a083d338612def054d6099d66c9781f0b844e04a21cd82a9c90c967fbdc0/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "publish-stamp-offset",
+      "digest": "903b430408f947b64064d2465f13d2732c78956172ba71199b46366580afe97f",
+      "expected_codes": [
+        "PAYLOAD_TIMESTAMP_MISMATCH"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "PAYLOAD_TIMESTAMP_MISMATCH"
+      ],
+      "matched": true,
+      "report_key": "derived/903b430408f947b64064d2465f13d2732c78956172ba71199b46366580afe97f/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "undecodable-video",
+      "digest": "b17a86dc70fa8ae869e964529f690f9eb1e8e660d5693050ba68bd90bb34a230",
+      "expected_codes": [
+        "VIDEO_UNDECODABLE"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "VIDEO_UNDECODABLE"
+      ],
+      "matched": true,
+      "report_key": "derived/b17a86dc70fa8ae869e964529f690f9eb1e8e660d5693050ba68bd90bb34a230/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "black-video",
+      "digest": "dc1379e9e8bfdf1b4406f3289099ce5b96263e3fa8998fbd2f2c5bfa36d0c08b",
+      "expected_codes": [
+        "BLACK_RUN"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "BLACK_RUN",
+        "BLUR_RUN",
+        "FROZEN_RUN"
+      ],
+      "matched": true,
+      "report_key": "derived/dc1379e9e8bfdf1b4406f3289099ce5b96263e3fa8998fbd2f2c5bfa36d0c08b/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "frozen-video",
+      "digest": "b04fa3fbc781f2b0a60f9f10ca36e8726c8c7dc469d6173ed2c574af4631a0a9",
+      "expected_codes": [
+        "FROZEN_RUN"
+      ],
+      "expected_verdict": "needs_review",
+      "actual_verdict": "needs_review",
+      "actual_codes": [
+        "FROZEN_RUN"
+      ],
+      "matched": true,
+      "report_key": "derived/b04fa3fbc781f2b0a60f9f10ca36e8726c8c7dc469d6173ed2c574af4631a0a9/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "blur-video",
+      "digest": "f48e2f2902c3132d61c50ce12ce18933e34ef42839a2bb1a68ab25b3a09d3475",
+      "expected_codes": [
+        "BLUR_RUN"
+      ],
+      "expected_verdict": "needs_review",
+      "actual_verdict": "needs_review",
+      "actual_codes": [
+        "BLUR_RUN",
+        "FROZEN_RUN"
+      ],
+      "matched": true,
+      "report_key": "derived/f48e2f2902c3132d61c50ce12ce18933e34ef42839a2bb1a68ab25b3a09d3475/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "truncated-recoverable",
+      "digest": "ccc662b0e2fcf4d8151ef6a9d8b40e469b29a9a56ff1a3ce995b021a39cb5420",
+      "expected_codes": [
+        "CONTAINER_TRUNCATED_RECOVERABLE"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "CHECK_UNAVAILABLE",
+        "CONTAINER_TRUNCATED_RECOVERABLE"
+      ],
+      "matched": true,
+      "report_key": "derived/ccc662b0e2fcf4d8151ef6a9d8b40e469b29a9a56ff1a3ce995b021a39cb5420/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    },
+    {
+      "name": "unreadable",
+      "digest": "44f7f4bd7888c4dc004190c49e585cccd484ba4d2a04b26d4fcc6fb64d340915",
+      "expected_codes": [
+        "CONTAINER_UNREADABLE"
+      ],
+      "expected_verdict": "fail",
+      "actual_verdict": "fail",
+      "actual_codes": [
+        "CONTAINER_UNREADABLE",
+        "MISSING_STREAM"
+      ],
+      "matched": true,
+      "report_key": "derived/44f7f4bd7888c4dc004190c49e585cccd484ba4d2a04b26d4fcc6fb64d340915/runs/109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478/63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb/qc_report.json"
+    }
+  ],
+  "matched": 18,
+  "total": 18,
+  "confusion_table": {
+    "pass": {
+      "pass": 1,
+      "fail": 0,
+      "needs_review": 0
+    },
+    "fail": {
+      "pass": 0,
+      "fail": 14,
+      "needs_review": 0
+    },
+    "needs_review": {
+      "pass": 0,
+      "fail": 0,
+      "needs_review": 3
+    }
+  },
+  "scope": "Controlled fixture agreement; not real-dataset classification accuracy",
+  "source_unchanged": true
+}

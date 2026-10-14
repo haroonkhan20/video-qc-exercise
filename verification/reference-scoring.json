@@ -1,0 +1,66 @@
+{
+  "scored": 0,
+  "unscored": [
+    "ep_032e483c.mcap",
+    "ep_03d813ce.mcap",
+    "ep_0409bd35.mcap",
+    "ep_041eb856.mcap",
+    "ep_0444a8ac.mcap",
+    "ep_07e258d4.mcap",
+    "ep_082f4185.mcap",
+    "ep_0dec4ae7.mcap",
+    "ep_0e09c76b.mcap",
+    "ep_0e374ee6.mcap",
+    "ep_0ed34c0f.mcap",
+    "ep_112a825d.mcap",
+    "ep_1ee4bdaf.mcap",
+    "ep_20846435.mcap",
+    "ep_208961d3.mcap",
+    "ep_212a979d.mcap",
+    "ep_223529fa.mcap",
+    "ep_23212682.mcap",
+    "ep_23f5a0d2.mcap",
+    "ep_2c47cac2.mcap",
+    "ep_2cb4b3ea.mcap",
+    "ep_2e18f47f.mcap",
+    "ep_346eb2d7.mcap",
+    "ep_34e2d6e2.mcap",
+    "ep_357dc6b9.mcap",
+    "ep_39ec7993.mcap",
+    "ep_42d682ff.mcap",
+    "ep_459e3edd.mcap",
+    "ep_49df3c44.mcap",
+    "ep_4dd7ef84.mcap",
+    "ep_51347361.mcap",
+    "ep_52373c02.mcap",
+    "ep_52d930da.mcap",
+    "ep_554d5730.mcap",
+    "ep_5b171934.mcap",
+    "ep_5e2c1fd2.mcap",
+    "ep_66909bdd.mcap",
+    "ep_6d6fa903.mcap",
+    "ep_6e4d59a3.mcap",
+    "ep_6fed8bc1.mcap",
+    "ep_9fae2f39.mcap"
+  ],
+  "confusion_table": {
+    "pass": {
+      "pass": 0,
+      "fail": 0,
+      "needs_review": 0
+    },
+    "fail": {
+      "pass": 0,
+      "fail": 0,
+      "needs_review": 0
+    },
+    "needs_review": {
+      "pass": 0,
+      "fail": 0,
+      "needs_review": 0
+    }
+  },
+  "agreement": null,
+  "basis": "Independent review labels supplied by the engineer; machine outputs must not be copied as truth",
+  "cases": []
+}
