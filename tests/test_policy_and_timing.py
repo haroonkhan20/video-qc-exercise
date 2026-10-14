@@ -2,7 +2,7 @@ import copy,json,sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"worker"))
 from qc.model import finding,verdict
-from qc.checks import timing,payload_timestamp_findings
+from qc.checks import timing,payload_timestamp_findings,coverage
 CFG=json.loads((Path(__file__).resolve().parents[1]/"worker/config/qc.json").read_text())
 class PolicyTests(unittest.TestCase):
     def test_engineer_selected_defaults_allow_clean_recording(self):
@@ -20,6 +20,18 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual(events[0]["code"],"PAYLOAD_TIMESTAMP_MISMATCH")
         self.assertEqual(events[0]["metrics"]["offset_ms"],{"publish":-1000.0})
         self.assertEqual(payload_timestamp_findings(0,100_000_000,100_000_000,"pose",0,100),[])
+    def test_coverage_has_separate_start_and_end_budgets(self):
+        sensor={"topic":"sensor","timing":{"log":{"first_ns":0,"last_ns":10_000_000_000}}}
+        camera={"topic":"camera","timing":{"log":{"first_ns":3_000_000_000,"last_ns":9_800_000_000}}}
+        events,metrics=coverage([sensor,camera],0,CFG["timing"])
+        self.assertEqual(events,[]);self.assertAlmostEqual(metrics["camera"]["end_lag_s"],0.2)
+        camera["timing"]["log"]["last_ns"]=8_000_000_000
+        events,_=coverage([sensor,camera],0,CFG["timing"])
+        self.assertEqual(events[0]["metrics"]["boundary"],"end")
+        self.assertEqual((events[0]["start_s"],events[0]["end_s"]),(8.0,10.0))
+        camera["timing"]["log"].update(first_ns=7_000_000_000,last_ns=10_000_000_000)
+        events,_=coverage([sensor,camera],0,CFG["timing"])
+        self.assertEqual(events[0]["metrics"]["boundary"],"start")
     def test_unknown_reason_is_rejected(self):
         with self.assertRaises(ValueError):finding("probably bad")
     def test_gap_duplicate_and_reversal_ranges(self):

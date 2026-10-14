@@ -7,7 +7,7 @@ from psycopg.types.json import Jsonb
 from mcap.reader import make_reader
 from qc.model import canonical, finding, run_prefix, verdict, version
 from qc import storage as st
-from qc.checks import stream_check
+from qc.checks import stream_check,coverage
 
 def workdir(ref):
     path=st.CACHE/"work"/ref["digest"]/ref["config_version"]/ref["code_version"]
@@ -116,15 +116,8 @@ def cross_stream(request):
     reports=[st.get_json(item["report_key"]) for item in request["streams"] if "report_key" in item]
     findings=[];metrics={}
     active=[r for r in reports if r["kind"] in ("video","sensor") and r["timing"]["log"].get("messages")]
-    if active:
-        earliest=min(r["timing"]["log"]["first_ns"] for r in active)
-        latest=max(r["timing"]["log"]["last_ns"] for r in active)
-        tol=cfg["timing"]["coverage_tolerance_seconds"]*1e9
-        for r in active:
-            a=r["timing"]["log"]["first_ns"];b=r["timing"]["log"]["last_ns"]
-            if a-earliest>tol or latest-b>tol:
-                findings.append(finding("COVERAGE_MISMATCH",r["topic"],(a-inv["start_ns"])/1e9,
-                                        (b-inv["start_ns"])/1e9,{"start_lag_s":(a-earliest)/1e9,"end_lag_s":(latest-b)/1e9}))
+    coverage_findings,metrics=coverage(active,inv["start_ns"],cfg["timing"])
+    findings.extend(coverage_findings)
     cameras=sorted([r for r in active if r["kind"]=="video"],key=lambda r:r["topic"])
     if len(cameras)>1:
         base=cameras[0];reference=np.sort(np.asarray(st.get_json(base["times_key"]),dtype=np.int64))
@@ -137,8 +130,8 @@ def cross_stream(request):
             choose=np.where(np.abs(x[left]-a)<=np.abs(x[right]-a),left,right)
             skew=(x[choose]-a)/1e6;abs_skew=np.abs(skew)
             q=max(1,len(skew)//4);drift=float(np.median(skew[-q:])-np.median(skew[:q]))
-            metrics[other["topic"]]={"reference":base["topic"],"skew_p95_ms":float(np.percentile(abs_skew,95)),
-                                     "skew_max_ms":float(abs_skew.max()),"drift_ms":drift}
+            metrics[other["topic"]].update({"reference":base["topic"],"skew_p95_ms":float(np.percentile(abs_skew,95)),
+                                     "skew_max_ms":float(abs_skew.max()),"drift_ms":drift})
             mask=(abs_skew>cfg["timing"]["camera_sync_skew_ms"])
             if mask.any() or abs(drift)>cfg["timing"]["camera_sync_drift_ms"]:
                 findings.append(finding("CAMERA_SYNC",other["topic"],(a[0]-inv["start_ns"])/1e9,

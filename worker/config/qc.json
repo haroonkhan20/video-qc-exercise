@@ -117,10 +117,11 @@
   "timing": {
     "gap_period_multiple": 3,
     "rate_relative_tolerance": 0.3,
-    "coverage_tolerance_seconds": 6,
     "payload_stamp_tolerance_ms": 100,
     "camera_sync_skew_ms": 50,
-    "camera_sync_drift_ms": 30
+    "camera_sync_drift_ms": 30,
+    "coverage_start_tolerance_seconds": 6,
+    "coverage_end_tolerance_seconds": 0.5
   },
   "content": {
     "downscale_width": 160,

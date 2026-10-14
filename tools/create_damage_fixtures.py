@@ -32,6 +32,7 @@ def main():
       "reversed-timestamp":["TIMESTAMP_REVERSED"],
       "camera-gap":["GAP_RUN"],
       "coverage-ends-early":["COVERAGE_MISMATCH"],
+      "coverage-short-tail":["COVERAGE_MISMATCH"],
       "unknown-encoding":["WRONG_ENCODING","CHECK_UNAVAILABLE"],
       "wrong-schema":["WRONG_SCHEMA"],
       "unexpected-stream":["UNEXPECTED_STREAM"],
@@ -75,6 +76,7 @@ def main():
                 t=(msg.log_time-origin)/1e9
                 if name=="camera-gap" and ch.topic==camera and 6<=t<=7:continue
                 if name=="coverage-ends-early" and ch.topic==camera and t>4:continue
+                if name=="coverage-short-tail" and ch.topic==camera and t>10:continue
                 if schema.id not in schemas:
                     schemas[schema.id]=writer.register_schema("unexpected.Schema" if name=="wrong-schema" and ch.topic==sensor else schema.name,schema.encoding,schema.data)
                 if ch.id not in channels:

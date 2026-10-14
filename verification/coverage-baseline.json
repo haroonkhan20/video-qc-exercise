@@ -1,0 +1,830 @@
+{
+  "recordings": 41,
+  "camera_streams": 164,
+  "maximum_observed_end_lag_s": 0.07962208399999327,
+  "chosen_start_limit_s": 6,
+  "chosen_end_limit_s": 0.5,
+  "basis": "Frozen first-read timestamp measurements; user selected the tighter end limit",
+  "measurements": [
+    {
+      "file": "ep_0e374ee6.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.024207740999997895
+    },
+    {
+      "file": "ep_0e374ee6.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.024207740999997895
+    },
+    {
+      "file": "ep_0e374ee6.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.06415132499999743
+    },
+    {
+      "file": "ep_0e374ee6.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.06494432499999903
+    },
+    {
+      "file": "ep_5b171934.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.031299238999991985
+    },
+    {
+      "file": "ep_5b171934.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.031299238999991985
+    },
+    {
+      "file": "ep_5b171934.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.05144625599999131
+    },
+    {
+      "file": "ep_5b171934.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.055379255999994825
+    },
+    {
+      "file": "ep_23212682.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.00942111599999862
+    },
+    {
+      "file": "ep_23212682.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.009422115999996095
+    },
+    {
+      "file": "ep_23212682.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.04351605499999778
+    },
+    {
+      "file": "ep_23212682.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07639405499999441
+    },
+    {
+      "file": "ep_0ed34c0f.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.0054851419999977225
+    },
+    {
+      "file": "ep_0ed34c0f.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.0054851419999977225
+    },
+    {
+      "file": "ep_0ed34c0f.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07774229599999671
+    },
+    {
+      "file": "ep_0ed34c0f.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07056529600001227
+    },
+    {
+      "file": "ep_03d813ce.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.022033400999994512
+    },
+    {
+      "file": "ep_03d813ce.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.022033400999994512
+    },
+    {
+      "file": "ep_03d813ce.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.05156292799999562
+    },
+    {
+      "file": "ep_03d813ce.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.05156792799999721
+    },
+    {
+      "file": "ep_357dc6b9.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.0003875440000058461
+    },
+    {
+      "file": "ep_357dc6b9.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.0003875440000058461
+    },
+    {
+      "file": "ep_357dc6b9.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07341132800000594
+    },
+    {
+      "file": "ep_357dc6b9.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.077517327999999
+    },
+    {
+      "file": "ep_032e483c.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.00712919900000486
+    },
+    {
+      "file": "ep_032e483c.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.00712919900000486
+    },
+    {
+      "file": "ep_032e483c.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.049612727999999606
+    },
+    {
+      "file": "ep_032e483c.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.054479728000004
+    },
+    {
+      "file": "ep_112a825d.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.015851523999998562
+    },
+    {
+      "file": "ep_112a825d.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.015851523999998562
+    },
+    {
+      "file": "ep_112a825d.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.05106493200000273
+    },
+    {
+      "file": "ep_112a825d.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07518293199999704
+    },
+    {
+      "file": "ep_51347361.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.016503335999999535
+    },
+    {
+      "file": "ep_51347361.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.016503335999999535
+    },
+    {
+      "file": "ep_51347361.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07271897700000807
+    },
+    {
+      "file": "ep_51347361.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.0687309770000013
+    },
+    {
+      "file": "ep_0409bd35.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.03209832199999596
+    },
+    {
+      "file": "ep_0409bd35.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.03209832199999596
+    },
+    {
+      "file": "ep_0409bd35.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07346179900000038
+    },
+    {
+      "file": "ep_0409bd35.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.06627579899999603
+    },
+    {
+      "file": "ep_6d6fa903.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.033029307000006725
+    },
+    {
+      "file": "ep_6d6fa903.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.033031307000001675
+    },
+    {
+      "file": "ep_6d6fa903.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.06616410099999825
+    },
+    {
+      "file": "ep_6d6fa903.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.058291101000008894
+    },
+    {
+      "file": "ep_52373c02.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.004725912000004939
+    },
+    {
+      "file": "ep_52373c02.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.004725912000004939
+    },
+    {
+      "file": "ep_52373c02.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07306631499999838
+    },
+    {
+      "file": "ep_52373c02.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.06519331500000192
+    },
+    {
+      "file": "ep_66909bdd.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.0
+    },
+    {
+      "file": "ep_66909bdd.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.0
+    },
+    {
+      "file": "ep_66909bdd.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07962208399999327
+    },
+    {
+      "file": "ep_66909bdd.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.06944208400000207
+    },
+    {
+      "file": "ep_212a979d.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.03071861000000098
+    },
+    {
+      "file": "ep_212a979d.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.03071861000000098
+    },
+    {
+      "file": "ep_212a979d.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07293282199999851
+    },
+    {
+      "file": "ep_212a979d.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07371482199999946
+    },
+    {
+      "file": "ep_2c47cac2.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.005293265000005931
+    },
+    {
+      "file": "ep_2c47cac2.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.005293265000005931
+    },
+    {
+      "file": "ep_2c47cac2.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.047085729999992054
+    },
+    {
+      "file": "ep_2c47cac2.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07509872999999345
+    },
+    {
+      "file": "ep_0dec4ae7.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.012090483000001484
+    },
+    {
+      "file": "ep_0dec4ae7.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.012090483000001484
+    },
+    {
+      "file": "ep_0dec4ae7.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.0686708400000029
+    },
+    {
+      "file": "ep_0dec4ae7.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.06960083999999966
+    },
+    {
+      "file": "ep_23f5a0d2.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.012860336000017014
+    },
+    {
+      "file": "ep_23f5a0d2.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.012860336000017014
+    },
+    {
+      "file": "ep_23f5a0d2.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.051686959000022625
+    },
+    {
+      "file": "ep_23f5a0d2.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.047671959000012976
+    },
+    {
+      "file": "ep_49df3c44.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.04924528300000475
+    },
+    {
+      "file": "ep_49df3c44.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.05325228300000617
+    },
+    {
+      "file": "ep_49df3c44.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.0019619380000008846
+    },
+    {
+      "file": "ep_49df3c44.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.0019619380000008846
+    },
+    {
+      "file": "ep_6fed8bc1.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.029186972000005085
+    },
+    {
+      "file": "ep_6fed8bc1.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.029186972000005085
+    },
+    {
+      "file": "ep_6fed8bc1.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.06814823700000261
+    },
+    {
+      "file": "ep_6fed8bc1.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07215023700000245
+    },
+    {
+      "file": "ep_554d5730.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.0
+    },
+    {
+      "file": "ep_554d5730.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.0
+    },
+    {
+      "file": "ep_554d5730.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.05275840600000237
+    },
+    {
+      "file": "ep_554d5730.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.045554406000000824
+    },
+    {
+      "file": "ep_208961d3.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.0015795979999921883
+    },
+    {
+      "file": "ep_208961d3.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.0015795979999921883
+    },
+    {
+      "file": "ep_208961d3.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.057922051999995006
+    },
+    {
+      "file": "ep_208961d3.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.05404505199999221
+    },
+    {
+      "file": "ep_9fae2f39.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.023406610999998634
+    },
+    {
+      "file": "ep_9fae2f39.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.023406610999998634
+    },
+    {
+      "file": "ep_9fae2f39.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.04976883199999804
+    },
+    {
+      "file": "ep_9fae2f39.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.05378883199999507
+    },
+    {
+      "file": "ep_459e3edd.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.012156861999997659
+    },
+    {
+      "file": "ep_459e3edd.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.012156861999997659
+    },
+    {
+      "file": "ep_459e3edd.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07540100299999608
+    },
+    {
+      "file": "ep_459e3edd.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.03932800300000139
+    },
+    {
+      "file": "ep_0e09c76b.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.0266385269999887
+    },
+    {
+      "file": "ep_0e09c76b.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.0266385269999887
+    },
+    {
+      "file": "ep_0e09c76b.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.0685536239999891
+    },
+    {
+      "file": "ep_0e09c76b.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07264162399999918
+    },
+    {
+      "file": "ep_42d682ff.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.037407575999999665
+    },
+    {
+      "file": "ep_42d682ff.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.037407575999999665
+    },
+    {
+      "file": "ep_42d682ff.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.04663341300000212
+    },
+    {
+      "file": "ep_42d682ff.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.054522413000000824
+    },
+    {
+      "file": "ep_07e258d4.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.0010918320000001813
+    },
+    {
+      "file": "ep_07e258d4.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.0010918320000001813
+    },
+    {
+      "file": "ep_07e258d4.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.06240220600000157
+    },
+    {
+      "file": "ep_07e258d4.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.05829820599999991
+    },
+    {
+      "file": "ep_0444a8ac.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.025483813000008126
+    },
+    {
+      "file": "ep_0444a8ac.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.025483813000008126
+    },
+    {
+      "file": "ep_0444a8ac.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.049228892000002133
+    },
+    {
+      "file": "ep_0444a8ac.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07711289200000238
+    },
+    {
+      "file": "ep_52d930da.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.03682812800001045
+    },
+    {
+      "file": "ep_52d930da.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.03682812800001045
+    },
+    {
+      "file": "ep_52d930da.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.06909433200000592
+    },
+    {
+      "file": "ep_52d930da.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07709533199999896
+    },
+    {
+      "file": "ep_2cb4b3ea.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.02405625400000133
+    },
+    {
+      "file": "ep_2cb4b3ea.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.02405625400000133
+    },
+    {
+      "file": "ep_2cb4b3ea.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.06853532500001336
+    },
+    {
+      "file": "ep_2cb4b3ea.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.060515325000011444
+    },
+    {
+      "file": "ep_20846435.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.009038576999998327
+    },
+    {
+      "file": "ep_20846435.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.009038576999998327
+    },
+    {
+      "file": "ep_20846435.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07375531899999999
+    },
+    {
+      "file": "ep_20846435.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.0744073190000023
+    },
+    {
+      "file": "ep_041eb856.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.02395625199999074
+    },
+    {
+      "file": "ep_041eb856.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.02395625199999074
+    },
+    {
+      "file": "ep_041eb856.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.051859822999986704
+    },
+    {
+      "file": "ep_041eb856.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.05988182299999778
+    },
+    {
+      "file": "ep_082f4185.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.008049737999996864
+    },
+    {
+      "file": "ep_082f4185.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.008049737999996864
+    },
+    {
+      "file": "ep_082f4185.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07135275299999932
+    },
+    {
+      "file": "ep_082f4185.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.06738175300000648
+    },
+    {
+      "file": "ep_1ee4bdaf.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.017648840999996196
+    },
+    {
+      "file": "ep_1ee4bdaf.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.017648840999996196
+    },
+    {
+      "file": "ep_1ee4bdaf.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.06399455399998999
+    },
+    {
+      "file": "ep_1ee4bdaf.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.06860055399999965
+    },
+    {
+      "file": "ep_34e2d6e2.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.007352564999990818
+    },
+    {
+      "file": "ep_34e2d6e2.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.007352564999990818
+    },
+    {
+      "file": "ep_34e2d6e2.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.0681729329999996
+    },
+    {
+      "file": "ep_34e2d6e2.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.06101193300000318
+    },
+    {
+      "file": "ep_6e4d59a3.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.029572017999996092
+    },
+    {
+      "file": "ep_6e4d59a3.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.029572017999996092
+    },
+    {
+      "file": "ep_6e4d59a3.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.06390880400000043
+    },
+    {
+      "file": "ep_6e4d59a3.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.057889803999998435
+    },
+    {
+      "file": "ep_5e2c1fd2.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.0
+    },
+    {
+      "file": "ep_5e2c1fd2.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 9.999999974752427e-07
+    },
+    {
+      "file": "ep_5e2c1fd2.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07124566199999549
+    },
+    {
+      "file": "ep_5e2c1fd2.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07218866200000207
+    },
+    {
+      "file": "ep_4dd7ef84.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.03540711200000146
+    },
+    {
+      "file": "ep_4dd7ef84.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.03540711200000146
+    },
+    {
+      "file": "ep_4dd7ef84.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.07072573399999982
+    },
+    {
+      "file": "ep_4dd7ef84.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07281873400000194
+    },
+    {
+      "file": "ep_39ec7993.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.01447125699999674
+    },
+    {
+      "file": "ep_39ec7993.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.014470256999999265
+    },
+    {
+      "file": "ep_39ec7993.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.043310710000000086
+    },
+    {
+      "file": "ep_39ec7993.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.03539371000000813
+    },
+    {
+      "file": "ep_2e18f47f.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.01640033800001106
+    },
+    {
+      "file": "ep_2e18f47f.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.01640033800001106
+    },
+    {
+      "file": "ep_2e18f47f.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.06192334300000368
+    },
+    {
+      "file": "ep_2e18f47f.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.06665034300000627
+    },
+    {
+      "file": "ep_223529fa.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.02596423499999645
+    },
+    {
+      "file": "ep_223529fa.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.02596423499999645
+    },
+    {
+      "file": "ep_223529fa.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.05369036699999441
+    },
+    {
+      "file": "ep_223529fa.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.05763536699999605
+    },
+    {
+      "file": "ep_346eb2d7.mcap",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "end_lag_s": 0.031436830999993504
+    },
+    {
+      "file": "ep_346eb2d7.mcap",
+      "stream": "/quest3s/head_right/camera/compressed",
+      "end_lag_s": 0.031436830999993504
+    },
+    {
+      "file": "ep_346eb2d7.mcap",
+      "stream": "/gripper/left/camera0/compressed",
+      "end_lag_s": 0.07229954399998917
+    },
+    {
+      "file": "ep_346eb2d7.mcap",
+      "stream": "/gripper/right/camera0/compressed",
+      "end_lag_s": 0.06831854399999315
+    }
+  ]
+}

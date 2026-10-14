@@ -1,0 +1,31 @@
+{
+  "source": {
+    "code_version": "63a2d73c2b4385f2f760f6a212ce362faf782c9c69b82fae3e82a3193bd957eb",
+    "config_version": "109ec874b8eb859b85ba4a08cbf72da6768403f4c2750c9ec09cb9e7fe9d3478",
+    "measurement_fingerprint": "3e251f6e509040981e1a0f4a1c6b8dc3bf7ebb4f5e7be5a91cdb0b783f3c48cf",
+    "packages": {
+      "mcap": "1.5.0",
+      "mcap-protobuf-support": "0.5.4",
+      "av": "19.0.1",
+      "numpy": "2.5.4",
+      "protobuf": "5.29.6",
+      "Pillow": "12.3.0"
+    },
+    "functions": [
+      "stamps",
+      "nonfinite",
+      "payload_timestamp_findings",
+      "Runs",
+      "timing",
+      "stream_check"
+    ]
+  },
+  "measurement_reuse": true,
+  "recordings_reaggregated": 59,
+  "source_thresholds_unchanged_except_coverage": true,
+  "basis": "Initial execution completed 59 compatible source runs; all final dataset and fixture outcomes were separately verified",
+  "repeat_verification": {
+    "recordings_reaggregated": 0,
+    "completed_runs_unchanged": 59
+  }
+}

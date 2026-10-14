@@ -1,0 +1,28 @@
+{
+  "digest": "1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1",
+  "workflow_id": "rebuild-qc-1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1-bca36faad9ac190c64e523920ad7504ff83e20fd18ec36572640081b84d1f54c-01e855b3a19d112b1ec941f0ca591158b69c68a285344581aa62283c3bc53bbf",
+  "config_version": "bca36faad9ac190c64e523920ad7504ff83e20fd18ec36572640081b84d1f54c",
+  "code_version": "01e855b3a19d112b1ec941f0ca591158b69c68a285344581aa62283c3bc53bbf",
+  "workflow_status": "COMPLETED",
+  "workflow_seconds": 23.82,
+  "verdict": "pass",
+  "reason_codes": [],
+  "streams": 16,
+  "episode_rows": 1,
+  "verdict_rows": 1,
+  "finalized_run_rows": 1,
+  "raw_versions": 1,
+  "raw_retention_mode": "COMPLIANCE",
+  "aliases": [
+    "ep_032e483c.mcap"
+  ],
+  "clickhouse": {
+    "rows": 1275,
+    "unique_rows": 1275
+  },
+  "viewer_bytes": 2961952,
+  "viewer_verified": true,
+  "fleet_matches_reports": true,
+  "workflow_replay_passed": true,
+  "retried_activities": []
+}

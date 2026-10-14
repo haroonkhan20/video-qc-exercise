@@ -61,7 +61,7 @@ async def main():
     for item in reports:
         for stream in item[0]["streams"]:
             if stream["topic"].endswith("/compressed"):
-                expected[stream["topic"]]=expected.get(stream["topic"],0)+stream["timing"]["log"]["estimated_dropped_frames"]
+                expected[stream["topic"]]=expected.get(stream["topic"],0)+stream["timing"]["log"].get("estimated_dropped_frames",0)
     assert actual==expected, "Fleet camera-drop query differs from reports"
     temporal=await Client.connect("temporal-frontend:7233")
     workflow_id="qc-"+digest+"-"+cv+"-"+code

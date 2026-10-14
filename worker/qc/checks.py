@@ -82,6 +82,25 @@ def timing(values,topic,label,origin,expected,cfg):
                                     {"clock":label,"observed_hz":result["effective_hz"],"nominal_hz":expected}))
     return result,findings
 
+def coverage(active,origin,cfg):
+    if not active:return [],{}
+    earliest=min(r["timing"]["log"]["first_ns"] for r in active)
+    latest=max(r["timing"]["log"]["last_ns"] for r in active)
+    start_limit=cfg.get("coverage_start_tolerance_seconds",cfg.get("coverage_tolerance_seconds",0))
+    end_limit=cfg.get("coverage_end_tolerance_seconds",cfg.get("coverage_tolerance_seconds",0))
+    findings=[];metrics={}
+    for report in active:
+        a=report["timing"]["log"]["first_ns"];b=report["timing"]["log"]["last_ns"]
+        start=(a-earliest)/1e9;end=(latest-b)/1e9;topic=report["topic"]
+        metrics[topic]={"start_lag_s":start,"end_lag_s":end}
+        if start>start_limit:
+            findings.append(finding("COVERAGE_MISMATCH",topic,(earliest-origin)/1e9,(a-origin)/1e9,
+                                    {"boundary":"start","lag_s":start,"limit_s":start_limit}))
+        if end>end_limit:
+            findings.append(finding("COVERAGE_MISMATCH",topic,(b-origin)/1e9,(latest-origin)/1e9,
+                                    {"boundary":"end","lag_s":end,"limit_s":end_limit}))
+    return findings,metrics
+
 def stream_check(path,channel_id,inventory,config,work,beat):
     selected=next(c for c in inventory["channels"] if c["id"]==channel_id)
     topic=selected["topic"];origin=inventory["start_ns"]
