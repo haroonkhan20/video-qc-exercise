@@ -256,3 +256,11 @@ kept running so the reports and history remain available for the planned UI.
 
 Final outcomes: **29 pass, 1 fail, 11 needs_review** across all 41 supplied recordings.
 See [REPORT.md](REPORT.md) for evidence, acceptance decisions, and limitations.
+
+
+## Local web dashboard
+
+Run make web in WSL and open http://localhost:8090. The cluster must be running.
+Search recordings, filter verdicts, inspect findings and sampled camera images,
+download JSON reports, or upload an MCAP through the existing pipeline.
+See docs/WEB.md for limits and verification. Temporal remains on port 8080 via make ui.

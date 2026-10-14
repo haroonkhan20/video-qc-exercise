@@ -1,0 +1,30 @@
+{
+  "dataset_count": 41,
+  "verdict_counts": {
+    "pass": 29,
+    "fail": 1,
+    "needs_review": 11
+  },
+  "live_report_matches_export": true,
+  "camera_sample_count": 4,
+  "sample_times": [
+    22.62,
+    22.62,
+    22.679,
+    22.611
+  ],
+  "invalid_route_host_origin_and_file_tests_passed": true,
+  "duplicate_fixture_upload": {
+    "name": "unreadable.mcap",
+    "state": "Workflow submitted",
+    "bytes": 31,
+    "digest": "44f7f4bd7888c4dc004190c49e585cccd484ba4d2a04b26d4fcc6fb64d340915",
+    "workflow_id": "qc-44f7f4bd7888c4dc004190c49e585cccd484ba4d2a04b26d4fcc6fb64d340915-bca36faad9ac190c64e523920ad7504ff83e20fd18ec36572640081b84d1f54c-01e855b3a19d112b1ec941f0ca591158b69c68a285344581aa62283c3bc53bbf"
+  },
+  "notes": "Existing fixture reused; no cluster deletion or worker crash.",
+  "valid_control_upload": {
+    "bytes": 15020652,
+    "verdict": "pass",
+    "digest": "9c0e00e4e11ce242fafa25886be8fa77e083125ca3004da67a15fe04af88db62"
+  }
+}

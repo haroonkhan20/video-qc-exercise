@@ -83,3 +83,9 @@ qc-verify-dataset:
 # Compare machine results with the frozen first read and create a reference-review worksheet.
 qc-compare:
 	@python3 tools/compare_first_read.py
+
+.PHONY: web
+
+# Serve the local QC dashboard at http://localhost:8090; stop with Ctrl+C.
+web:
+	@source scripts/tool-env.sh; python3 web/server.py
