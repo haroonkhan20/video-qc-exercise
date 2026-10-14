@@ -1,0 +1,16 @@
+{
+  "default_standard_unchanged": true,
+  "black_run_rule_and_original_verdict_unchanged": true,
+  "default_score": 8.92,
+  "saved_simple_standard": "profile-0f530b36f06d4289be24d66b663c9ca3",
+  "seconds_and_percentage_conversion_verified": true,
+  "all_detailed_settings_retained": true,
+  "browser_checks": [
+    "Default label selected",
+    "simple preset choices",
+    "advanced disclosure",
+    "start from default reset",
+    "save continuous recording standard"
+  ],
+  "grading_and_timing_tests_passed": 25
+}

@@ -96,7 +96,7 @@ class Handler(BaseHTTPRequestHandler):
     return self.reply(probe("samples",m[1],str(seconds)))
    m=re.fullmatch(r"/api/reports/([0-9a-f]{64})",path)
    if m:return self.reply(cli("report",m[1]))
-   if path in ["/","/app.js","/style.css"]:
+   if path in ["/","/app.js","/style.css","/friendly.js"]:
     p=ROOT/"web"/("index.html" if path=="/" else path[1:]);data=p.read_bytes()
     self.send_response(200);self.send_header("Content-Type",mimetypes.guess_type(p)[0]);self.send_header("Content-Length",str(len(data)));self.end_headers();self.wfile.write(data);return
    self.reply({"error":"Not found"},404)

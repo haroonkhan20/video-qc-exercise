@@ -32,9 +32,18 @@ Upload activity is session-local and resets when the web server restarts; stored
 
 ## Grading
 
-Select a grading profile or choose Customize standard to save a new one. Original
+Select a grading profile or choose Create my standard to save a new one. Original
 verdict cards and tabs are unchanged; grade recommendations have their own filter.
 Inspect shows category points, worst streams, each parameter's mark and why.
 Grade downloads include the selected profile, evidence fingerprint and engine
 version. Profiles are saved under web/grading_profiles and persist across restarts.
 Missing evidence stays Not assessed. See docs/GRADING.md for exact calculations.
+
+
+The interface labels balanced-v1 as Default — recommended without changing its
+stored identity or calculations. Use default restores selection. The editor
+offers simple focus and demandingness choices first. All numerical settings
+remain under optional Detailed settings. Displayed times are seconds and speed
+variation is a percentage, converted to stored units when saved. Exact technical
+findings and versions remain in disclosures and downloads. BLACK_RUN is retained
+beside its plain-language explanation.

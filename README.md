@@ -1,89 +1,158 @@
-# video-qc
+# Video QC
 
-## Day 1: clone → one command → it works
+Video QC checks multi-camera robot recordings and produces quality scores with
+explainable findings. It preserves original MCAP files, detects recording and
+sensor issues, and presents results in a local dashboard. Saved quality standards
+let users choose how different issues affect the score.
 
-This local onboarding stack runs Postgres, Temporal, MinIO, ClickHouse, and a
-Python Temporal worker in the `qc` namespace of the `qc` kind cluster.
+## Quick start
 
-### Prerequisites
+### Requirements
 
-- WSL Ubuntu with Docker Engine running and usable without sudo.
-- Git, GNU Make, kind, Helm 3, Python 3, curl, and sha256sum in Ubuntu.
-- About 8 GB of RAM available to WSL/the cluster and space for image builds and volumes.
-- Internet access to GitHub, Docker Hub, Kubernetes downloads, and PyPI.
-- Keep an Ubuntu terminal open while using the stack. Unexplained host/node
-  restarts interrupted this exercise; an active WSL session kept subsequent checks stable.
+- WSL Ubuntu on Windows, or Ubuntu.
+- Docker Engine running and accessible without sudo.
+- Git, GNU Make, kind, Helm 3, Python 3, curl and sha256sum.
+- Approximately 8 GB available for the local cluster and disk space for recordings,
+  image builds, caches and derived outputs.
+- Network access to source repositories, image registries and Python packages.
 
-The scripts download and checksum-check kubectl `v1.30.0` into ignored
-`.cache/bin/` to match Kubernetes `v1.30.0`. They explicitly select
-`kind-qc`; they do not rely on your current context. kind manages its normal
-cluster access configuration. Helm caches stay under the repository's ignored
-`.cache/` directory.
+From an Ubuntu terminal:
 
-### Clone and start
+~~~bash
+git clone https://github.com/haroonkhan20/video-qc-exercise.git ~/video-qc
+cd ~/video-qc
+make up
+make web
+~~~
 
-Replace `REPOSITORY_URL` with the repository URL supplied by your mentor.
-Run these commands in Windows PowerShell; all work happens inside Ubuntu:
+Open **http://localhost:8090** and keep the web-server terminal open. First
+startup builds local images and downloads dependencies; later runs reuse caches.
 
-```powershell
-wsl -d Ubuntu -- bash -lc "git clone REPOSITORY_URL ~/video-qc"
-wsl -d Ubuntu -- bash -lc "cd ~/video-qc && make up"
-```
+For an existing checkout from Windows PowerShell:
 
-`make up` uses the verified pinned image references, creates kind cluster `qc`
-if needed, creates namespace `qc`, generates missing application Secrets,
-starts the databases, installs Temporal, builds/loads MinIO and the worker into
-kind, and waits for readiness. The first MinIO source build takes several minutes.
-Later builds reuse Docker's cache. The Dockerfiles also pin base-image digests,
-so cached builds do not have to resolve their tags again.
+~~~powershell
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && git pull"
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make up"
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make web"
+~~~
 
-Application passwords are generated in memory and sent directly to Kubernetes
-Secrets. Existing Secrets are preserved. Passwords are never written to files,
-printed, or committed. An existing Postgres volume must keep its existing Secret:
-changing that Secret does not change the password stored inside Postgres.
+The infrastructure uses kind cluster qc, context kind-qc and Kubernetes namespace
+qc. The dashboard runs on the host and is started separately. Original recordings
+are not included in Git.
 
-### Run hello-world and open the UI
+## Using the dashboard
 
-```powershell
-wsl -d Ubuntu -- bash -lc "cd ~/video-qc && make hello"
-wsl -d Ubuntu -- bash -lc "cd ~/video-qc && make ui"
-```
+1. Upload an MCAP recording. The application saves it and starts its checks.
+2. Open a report to see the check result, quality score and affected moments.
+3. Expand a quality area to understand why it received its mark.
+4. Choose a time to view saved camera snapshots.
+5. Download the original check report or the score report.
 
-The first command runs a client inside the worker pod. It prints a unique
-`workflow_id`, `run_id`, status `COMPLETED`, and result `Hello, world!`.
-The worker polls task queue `hello-world` in Temporal namespace `default`.
-Its workflow schedules one activity; only the activity writes the greeting to
-the log. The client and worker perform their connection I/O outside workflow code.
+Check results and scores serve different purposes. Checks identify issues under
+the processing policy; scores summarize their impact under the selected standard.
+A high score can still include an issue that needs review. BLACK_RUN remains
+visible with an explanation of its sustained dark interval. Camera snapshots
+are sampled images, not full video playback.
 
-The UI command stays running. Open **http://localhost:8080**, select namespace
-**default**, and locate the printed workflow ID; its status should be **Completed**.
-Stop the port-forward with Ctrl+C.
+## Quality standards
 
-For a direct port-forward, use the pinned kubectl:
+**Default — recommended** is selected on startup. It is a balanced starting point
+that requires no settings changes. Use default restores it while preserving all
+saved standards.
 
-```powershell
-wsl -d Ubuntu -- bash -lc "cd ~/video-qc && .cache/bin/kubectl --context kind-qc -n qc port-forward svc/temporal-web 8080:8080"
-```
+Create my standard begins with two choices:
 
-### Check and tear down
+- **What matters most:** balanced quality, clear pictures, or continuous recording.
+- **How demanding:** balanced, more demanding, or more forgiving score cutoffs.
 
-```powershell
-wsl -d Ubuntu -- bash -lc "cd ~/video-qc && make status"
-wsl -d Ubuntu -- bash -lc "cd ~/video-qc && make verify"
-wsl -d Ubuntu -- bash -lc "cd ~/video-qc && make down"
-```
+A short summary explains each choice. Optional detailed settings retain category
+importance, grading allowances, affected-time bands, scoring levels and acceptance
+cutoffs. Times are entered in seconds; recording-speed variation is a percentage.
+Start from default restores every setting in the editor.
 
-Service pods must be Running and Ready. Two retained Temporal bootstrap-job
-pods should be **Completed**, which is their successful final state.
-`make down` asks you to type `qc`, then deletes that cluster and **all its
-database volumes and workflow history**. Docker images/build caches remain.
+Scores range from 0 to 10, with parameter-level explanations. Serious file/data
+defects cap a complete score at 4 and prevent acceptance. Missing evidence is
+shown as not enough information, never a perfect score. Gripper stillness is
+advisory by default because unchanged readings can be legitimate.
 
-Repeated `make up` preserves the installed Temporal release and bootstrap jobs.
-It stops for review if an existing release is failed or uses another chart
-version. Changes to Temporal values require a separately reviewed upgrade;
-`make up` does not silently upgrade an existing release.
+Saved standards have new identities and persist under web/grading_profiles/.
+Downloaded scores include their full standard and version information. Regrading
+preserves original reports and does not decode video again. Changing underlying
+image or gap detection rules requires a new processing configuration.
 
-### Pinned versions
+See [grading calculations](docs/GRADING.md) for formulas and scope.
+
+## Operating commands
+
+Run from the repository in Ubuntu. From PowerShell, wrap the command with
+wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && COMMAND".
+
+| Command | Purpose |
+| --- | --- |
+| make up | Create or reuse infrastructure and wait for readiness |
+| make web | Serve the dashboard on port 8090 |
+| make status / make verify | Inspect workload and storage readiness |
+| make qc-submit FILE='/path/recording.mcap' | Upload, process and wait |
+| make qc-status | List registered recordings, including tests |
+| make qc-report DIGEST=SHA256 | Download a finalized JSON report |
+| make qc-viewer DIGEST=SHA256 | Download a sampled Rerun viewer artifact |
+| make qc-fleet | Aggregate camera drops for the reference dataset |
+| make qc-grade | Score exported reports using the default standard |
+| make qc-verify-dataset | Validate and export reference results |
+| make ui | Forward processing history to port 8080 |
+| make hello | Run an infrastructure workflow smoke check |
+
+Replace SHA256 with the full recording fingerprint. Downloads appear under
+.cache/qc-exports. Use a compatible Rerun viewer for .rrd artifacts.
+Temporal uses namespace default, separate from the Kubernetes namespace.
+
+Ctrl+C stops make web or make ui without deleting cluster data.
+**make down deletes qc and its database volumes, object storage and workflow
+history.** It requires confirmation and is not a way to close the dashboard.
+Preserve needed data before teardown.
+
+## Architecture
+
+- Temporal coordinates deterministic workflows, retries and heartbeats.
+- Two QC workers inspect containers, streams, timing and decoded content.
+- MinIO stores protected originals and rebuildable reports/viewer artifacts.
+- Postgres owns episode registration, aliases, run history and current verdicts.
+- ClickHouse stores rebuildable analytical metrics.
+- The local dashboard presents evidence and applies saved quality standards.
+
+SHA-256 contents identify a recording; filenames are aliases. Duplicate uploads
+reuse their identity. Raw objects use conditional creation and COMPLIANCE
+retention. Reports and metrics record code/configuration provenance. Application
+credentials remain in Kubernetes Secrets and do not enter the browser.
+
+See [design](docs/DESIGN.md), [operations](docs/OPERATING.md) and
+[dashboard behavior](docs/WEB.md).
+
+## Validation
+
+The reference dataset has 41 recordings: 29 passed the processing policy,
+1 failed and 11 require interpretation of encoder stillness. All have reports and
+verified sampled viewer artifacts. Nineteen controlled cases matched expected
+verdicts and required reasons. Duplicate handling, workflow replay, a historical
+worker-crash retry and a representative rebuild are recorded under verification/.
+
+~~~bash
+python3 -m unittest discover -s tests -p test_grading.py -v
+OPENBLAS_NUM_THREADS=1 .venv/bin/python -m unittest discover -s tests -p test_policy_and_timing.py -v
+python3 web/verify.py
+~~~
+
+make day2-tools prepares the optional inspection environment used by the timing
+tests. Web smoke checks require the cluster and make web; they reuse a controlled
+fixture when available. Controlled test agreement does not establish independent
+classification accuracy on unseen recordings.
+
+Empty-cluster startup was verified from a fresh clone while reusing Docker
+caches; later checks used the existing cluster. Uncached installations need
+registry/source access. The compatibility loader for Docker 29 and kind 0.23
+requires Docker image save --platform support.
+
+## Pinned software
 
 | Component | Pin |
 | --- | --- |
@@ -103,176 +172,24 @@ version. Changes to Temporal values require a separately reviewed upgrade;
 | Python Temporal SDK | `temporalio==1.14.1` |
 | SDK runtime dependencies | `nexus-rpc==1.1.0`, `protobuf==5.29.6`, `types-protobuf==7.35.1.20260906`, `typing-extensions==4.16.0` |
 
-MinIO's community distribution is now [source-only](https://github.com/minio/minio#source-only-distribution).
-The image is built from official upstream source, under its AGPLv3 license,
-with the source commit checked during the build. Local image tags are verified
-with `docker image inspect` after building, then loaded into kind; they are not
-pulled from a public registry.
+Worker Python dependencies are pinned in worker/requirements.txt and
+worker/pool-requirements.txt. Dockerfiles record base-image digests. The local
+worker tag is rebuilt from source; reports record the actual code hash.
 
-Reference: [Temporal's official chart](https://github.com/temporalio/helm-charts).
-Tooling exercised here: kind `v0.23.0`, Helm `v3.22.0`, Docker Engine `29.9.0`,
-and GNU Make `4.4.1`.
+MinIO is built from pinned official source under AGPLv3. Temporal uses its official
+Helm chart. make check-images rechecks upstream references separately from startup.
 
-### Verification notes
+## Operational limits
 
-Every listed upstream image reference was checked with `docker manifest inspect`
-during onboarding. `make check-images` repeats that registry audit on demand;
-it is separate from startup because repeated manifest queries exhausted Docker
-Hub's anonymous request allowance during verification. A first run still needs
-registry access to download uncached images.
+The dashboard is local, loopback-bound and unauthenticated, not a public
+multi-user service. Uploads are serialized and limited to 8 GiB. Staging files and
+caches require disk management. Human review decisions are not saved in the UI.
 
-The current tree contains no inline application Secrets. An earlier Postgres
-manifest committed before this exercise did contain development credentials;
-older local commits have not been rewritten.
+Raw retention does not protect against deleting the entire cluster or losing its
+host storage. Current application credentials are generated directly into
+Kubernetes; pre-cleanup development credentials remain in old Git history.
+Existing database volumes must retain their matching credentials.
 
-Verification evidence is recorded in [verification/day1.json](verification/day1.json).
-With user approval, `make down` deleted qc and its node containers. A fresh
-shallow clone then passed `make up` with no cluster, existing database volumes,
-or application Secrets. Docker image/build caches were reused. All 10 service
-pods became Ready, both bootstrap jobs completed, and all three PVCs were Bound.
-A new workflow returned `Hello, world!`, its history replay passed, and the UI
-API reported `WORKFLOW_EXECUTION_STATUS_COMPLETED`. Day 1 checks are complete.
-
-## Day 2 preparation
-
-Run `make day2-tools` to install checksum-verified MCAP CLI `0.3.0` and isolated,
-pinned Python inspection libraries under this repository.
-See [the Day 2 guide](docs/DAY2-GUIDE.md) for vocabulary, commands, and what to
-observe in each recording. The inventory helper is `tools/inspect_mcap.py`.
-
-Preparation was checked using a synthetic MCAP file, not mentor data.
-The mentor subsequently supplied 41 recordings. Their first-read inventories,
-AI-assisted camera observations, and preliminary guesses are now in [DATA.md](DATA.md).
-Per the mentor's revised guidance, AI examined decoded contact sheets instead
-of interactive viewer playback. Preserve DATA.md after Day 2; later automated
-verdicts belong in separate reports.
-
-### Local image loading compatibility
-
-With kind 0.23 and Docker Engine 29, Docker exports can include other architecture
-references and build attestations that old kind cannot import. Startup exports
-only the host platform, then loads Docker's compatibility manifest and the
-unchanged application config/layers. Generated archives are cached under
-ignored `.cache/image-archives/`. This loader needs Docker's
-`image save --platform` support (API 1.48 or newer).
-
-## Current completion status
-
-- Day 1: teardown, clean-clone empty-cluster startup, Ready workloads, and a
-  completed hello-world workflow verified; see `verification/day1.json`.
-- Day 2: all 41 supplied MCAPs inspected with CLI/Python and AI-assisted camera
-  sampling; DATA.md records the first guesses and limitations. One likely-bad
-  recording has an all-camera near-black interval; four lighting cases remain
-  uncertain. This is not a final automated QC verdict set.
-- Code and verification evidence are committed on branch main; originals and local caches stay outside Git.
-
-### Day 2 analysis tools
-
-Pinned additions: mcap-protobuf-support 0.5.4, protobuf 7.36.2, PyAV 19.0.1,
-NumPy 2.5.4, Pillow 12.3.0. They are isolated in the repo's Python environment.
-The offline explorer is tools/day2_probe.py; focused full-frame interval decoding
-is tools/day2_window_probe.py. Both read originals without modifying them.
-Numeric observations are in data/day2-observations/ and initial AI image notes
-are in data/day2-visual-notes.json. Settings are exploratory, not production
-pass/fail policy. Pilot recordings have now been uploaded and checked by the pipeline; the complete dataset is processed and verified using the commands below.
-
-## QC pipeline
-
-The same worker image runs the original hello-world example and two QC workers.
-QC workflows use Temporal namespace default and task queue video-qc. Kubernetes
-resources remain in namespace qc.
-
-From PowerShell, submit one file:
-
-~~~powershell
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-submit FILE='/mnt/c/Users/win 11/Downloads/data/ep_0ed34c0f.mcap'"
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-status"
-~~~
-
-The output includes its SHA-256 digest. Replace DIGEST below with that fingerprint:
-
-~~~powershell
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-report DIGEST=DIGEST"
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-viewer DIGEST=DIGEST"
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-verify DIGEST=DIGEST"
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-fleet"
-~~~
-
-Downloads appear under .cache/qc-exports, accessible in Windows at
-\\wsl$\Ubuntu\home\haroon\video-qc\.cache\qc-exports.
-The JSON report contains verdicts, typed reasons, stream names, and defect time
-ranges. The .rrd artifact contains sampled camera images and marked findings
-on the episode_seconds timeline; it is not full original-video playback.
-Temporal's UI shows processing history rather than camera playback.
-
-Raw objects are content-addressed under qc-raw/raw/<digest>.mcap with
-COMPLIANCE retention. A renamed duplicate adds an alias, not a second episode,
-object, or completed workflow for the same code/configuration. Derived reports,
-metrics, and viewers can be recomputed from raw recordings. Historical versioned
-runs remain available; Postgres has one current authoritative verdict per digest.
-
-Engineering defaults and their limitations are in [docs/qc-parameters.md](docs/qc-parameters.md).
-Worker dependency versions are pinned in worker/requirements.txt and
-worker/pool-requirements.txt; the container's MCAP CLI is 0.3.0.
-The reliability checkpoint and remaining work are documented in
-[docs/PIPELINE-CHECKPOINT.md](docs/PIPELINE-CHECKPOINT.md).
-
-Destructive recovery tests require separate explicit approval. They are never
-part of make up or the ordinary inspection commands. Do not run make down while
-you need these local recordings, reports, database volumes, or Temporal history.
-
-The strict crash checkpoint also passed: one separately approved busy-worker
-process was killed, Temporal retried that same activity at attempt 2 after a
-heartbeat timeout, and the workflow completed with one authoritative verdict
-and no duplicate metrics. Evidence: [verification/pipeline-crash.json](verification/pipeline-crash.json).
-Both destructive test approvals have been consumed; do not repeat them automatically.
-
-### Complete-run verification and standards
-
-~~~powershell
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-verify-dataset"
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-compare"
-~~~
-
-Per-recording JSON reports are exported under reports/. The full-dataset evidence
-is verification/full-dataset.json. The ordinary fleet command excludes synthetic
-fixtures; use python3 tools/fleet_query.py --all only when you intentionally want
-every upload included.
-
-The controlled suite covers 19 cases: one pass, 15 failures, and three review
-outcomes. All matched their expected verdicts and required reasons. This is
-controlled-test agreement, not a claimed accuracy figure for unseen recordings.
-The engineer owns the documented standard; no external answer key is assumed.
-The Day 2 comparison is explicitly preliminary agreement. Independently reviewed
-labels can be scored with tools/score_reference.py without inventing missing truth.
-
-Read [the acceptance standard](docs/ACCEPTANCE-STANDARD.md),
-[the short design note](docs/DESIGN.md),
-[the operating guide](docs/OPERATING.md), and
-[the 20-minute demo](docs/DEMO.md).
-Fresh-clone revalidation reuses the existing qc cluster and Docker cache; the
-earlier Day 1 evidence separately records an empty-cluster test. The cluster is
-kept running so the reports and history remain available for the planned UI.
-
-Final outcomes: **29 pass, 1 fail, 11 needs_review** across all 41 supplied recordings.
-See [REPORT.md](REPORT.md) for evidence, acceptance decisions, and limitations.
-
-
-## Local web dashboard
-
-Run make web in WSL and open http://localhost:8090. The cluster must be running.
-Search recordings, filter verdicts, inspect findings and sampled camera images,
-download JSON reports, or upload an MCAP through the existing pipeline.
-See docs/WEB.md for limits and verification. Temporal remains on port 8080 via make ui.
-
-### Explainable grades and personal standards
-
-The dashboard also shows 0–10 grades alongside the original QC verdict. Expand a
-category and stream to see parameter marks, measurements, weights and why. Use
-Customize standard to save different weights, scoring limits, severity bands and
-acceptance cutoffs. Saved profiles persist under web/grading_profiles/. Balanced
-and an Image-focused example are included. Critical defects cap assessed grades
-at 4; unavailable evidence is Not assessed. Changing profiles preserves the
-original verdict and does not re-decode recordings. Download grade JSON includes
-the complete profile and provenance. See docs/GRADING.md for the calculations and
-limits. make qc-grade grades exported reports offline into verification/grading.json.
+DATA.md preserves the initial observations. Current reports and decisions are
+documented separately in REPORT.md and
+[the acceptance standard](docs/ACCEPTANCE-STANDARD.md).
