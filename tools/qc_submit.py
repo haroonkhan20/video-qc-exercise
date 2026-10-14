@@ -24,6 +24,6 @@ def main():
         uploaded=json.loads(result.stdout);print(json.dumps({"file":path.name,**uploaded}),flush=True)
         started=exec_command("submit",sha,*(["--wait"] if a.wait else []),capture_output=True,text=True)
         if started.returncode:
-            print(started.stderr);raise SystemExit(started.returncode)
+            print(started.stderr,file=__import__("sys").stderr);raise SystemExit(started.returncode)
         print(started.stdout,end="",flush=True)
 if __name__=="__main__":main()

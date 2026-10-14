@@ -20,4 +20,8 @@ async def main():
             Path("/tmp/qc-worker-ready").touch()
             logging.info("QC worker polling video-qc")
             await stop.wait()
-if __name__=="__main__":asyncio.run(main())
+if __name__=="__main__":
+    try:asyncio.run(main())
+    finally:
+        from qc import storage as st
+        st.close_pool()

@@ -3,9 +3,14 @@
 import argparse,json,re,subprocess,time
 from pathlib import Path
 K=["kubectl","--context","kind-qc","-n","qc"]
-p=argparse.ArgumentParser();p.add_argument("digest");p.add_argument("--allow-one-worker-crash",action="store_true");a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument("digest");p.add_argument("--allow-one-worker-crash",action="store_true")
+p.add_argument("--record",type=Path,default=Path(".cache/worker-crash.json"))
+p.add_argument("--workflow-id",help="Explicit rebuild workflow ID for a separately approved future demo")
+a=p.parse_args()
 if not a.allow_one_worker_crash:raise SystemExit("Explicit permission to kill one busy worker process is required")
-output=Path(".cache/worker-crash.json")
+output=a.record
+if not output.resolve().is_relative_to(Path(".cache").resolve()):raise SystemExit("Crash records must stay under the repo cache")
+output.parent.mkdir(parents=True,exist_ok=True)
 if output.exists():raise SystemExit("A recovery-test record already exists; do not crash another worker automatically")
 probe="""import asyncio,json,sys
 from temporalio.client import Client
@@ -13,6 +18,9 @@ from qc import storage as st
 async def main():
     ref=st.ref_for(sys.argv[1])
     wid='qc-'+ref['digest']+'-'+ref['config_version']+'-'+ref['code_version']
+    if len(sys.argv)>2 and sys.argv[2]:
+        if sys.argv[2]!='rebuild-'+wid:raise ValueError("Only this episode's current rebuild workflow may be selected")
+        wid=sys.argv[2]
     client=await Client.connect('temporal-frontend:7233')
     handle=client.get_workflow_handle(wid)
     description=await handle.describe()
@@ -22,10 +30,11 @@ async def main():
         result['pending'].append({'type':item.activity_type.name,'attempt':item.attempt,'activity_id':item.activity_id,
                                   'worker':item.last_worker_identity,'details':details})
     print(json.dumps(result))
-asyncio.run(main())
+try:asyncio.run(main())
+finally:st.close_pool()
 """
 def snapshot():
-    result=subprocess.run([*K,"exec","-i","deployment/qc-worker","--","python","-",a.digest],input=probe,capture_output=True,text=True)
+    result=subprocess.run([*K,"exec","-i","deployment/qc-worker","--","python","-",a.digest,a.workflow_id or ""],input=probe,capture_output=True,text=True)
     if result.returncode:raise RuntimeError(result.stderr)
     return json.loads(result.stdout)
 chosen=None

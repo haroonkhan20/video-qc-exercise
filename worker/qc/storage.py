@@ -44,6 +44,11 @@ def pg_pool():
         "password":os.environ["POSTGRES_PASSWORD"],"connect_timeout":10,
         "options":"-c statement_timeout=30000"},
         min_size=1,max_size=2,num_workers=1,timeout=30)
+def close_pool():
+    if pg_pool.cache_info().currsize:
+        pg_pool().close(timeout=5)
+        pg_pool.cache_clear()
+
 @contextmanager
 def pg():
     with pg_pool().connection() as connection:

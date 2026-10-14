@@ -65,6 +65,9 @@ async def main():
     assert actual==expected, "Fleet camera-drop query differs from reports"
     temporal=await Client.connect("temporal-frontend:7233")
     workflow_id="qc-"+digest+"-"+cv+"-"+code
+    if len(sys.argv)>2 and sys.argv[2]:
+        assert sys.argv[2]=="rebuild-"+workflow_id,"Only this episode's current rebuild workflow may be verified"
+        workflow_id=sys.argv[2]
     handle=temporal.get_workflow_handle(workflow_id)
     description=await handle.describe()
     assert description.status.name=="COMPLETED"
@@ -85,13 +88,14 @@ async def main():
         "clickhouse":metric_counts,"viewer_bytes":viewer.stat().st_size,"viewer_verified":True,
         "fleet_matches_reports":True,"workflow_replay_passed":True,"retried_activities":retried}
     print(json.dumps(result,indent=2))
-asyncio.run(main())
+try:asyncio.run(main())
+finally:st.close_pool()
 """
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument("digest");p.add_argument("--output",type=Path);p.add_argument("--require-retry-of",help="Require a specific Temporal activity ID to have retried")
+    p=argparse.ArgumentParser();p.add_argument("digest");p.add_argument("--output",type=Path);p.add_argument("--workflow-id",help="Verify this episode's explicit current rebuild workflow");p.add_argument("--require-retry-of",help="Require a specific Temporal activity ID to have retried")
     a=p.parse_args()
-    command=["kubectl","--context","kind-qc","-n","qc","exec","-i","deployment/qc-worker","--","python","-",a.digest]
+    command=["kubectl","--context","kind-qc","-n","qc","exec","-i","deployment/qc-worker","--","python","-",a.digest,a.workflow_id or ""]
     result=subprocess.run(command,input=PROBE,capture_output=True,text=True)
     if result.returncode:
         raise SystemExit(result.stderr or result.stdout)

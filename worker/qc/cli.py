@@ -65,4 +65,6 @@ def main():
     elif a.command=="status":status()
     elif a.command=="report":report(a.digest)
     elif a.command=="fetch":fetch(a.digest,a.artifact)
-if __name__=="__main__":main()
+if __name__=="__main__":
+    try:main()
+    finally:st.close_pool()

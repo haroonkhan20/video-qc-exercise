@@ -30,11 +30,16 @@ def cli_scan(command,output):
 def inspect_container(ref):
     st.heartbeat({"stage":"inspect_container"})
     path=st.raw_path(ref);work=workdir(ref);cfg=st.run_config(ref)
-    report={"digest":ref["digest"],"findings":[],"channels":[],"start_ns":0,"end_ns":0}
+    report={"digest":ref["digest"],"findings":[],"channels":[],"start_ns":0,"end_ns":0,
+            "header_valid":False,"footer_magic_valid":False,"summary_present":False}
+    with path.open("rb") as tail:
+        if path.stat().st_size>=8:
+            tail.seek(-8,2);report["footer_magic_valid"]=tail.read()==b"\x89MCAP0\r\n"
     doctor=cli_scan(["mcap","doctor",str(path)],work/"doctor.txt")
     try:
         with path.open("rb") as stream:
-            reader=make_reader(stream,validate_crcs=True);reader.get_header();summary=reader.get_summary()
+            reader=make_reader(stream,validate_crcs=True);reader.get_header();report["header_valid"]=True
+            summary=reader.get_summary();report["summary_present"]=summary is not None
             if summary is None or summary.statistics is None:
                 raise ValueError("Missing summary")
             stats=summary.statistics
@@ -57,8 +62,19 @@ def inspect_container(ref):
                     recovered_summary=make_reader(stream).get_summary()
                     recoverable=bool(recovered_summary and recovered_summary.statistics and recovered_summary.statistics.message_count)
             except Exception:pass
-        report["findings"].append(finding("CONTAINER_TRUNCATED_RECOVERABLE" if recoverable else "CONTAINER_UNREADABLE",
-                                          metrics={"recovery_exit_code":recover_code}))
+        if recoverable:
+            stats=recovered_summary.statistics
+            report.update({"start_ns":stats.message_start_time,"end_ns":stats.message_end_time,
+                           "message_count":stats.message_count,"recovered_message_count":stats.message_count})
+            for ch in sorted(recovered_summary.channels.values(),key=lambda c:c.id):
+                schema=recovered_summary.schemas.get(ch.schema_id)
+                report["channels"].append({"id":ch.id,"topic":ch.topic,"schema":schema.name if schema else None,
+                    "encoding":ch.message_encoding,"schema_encoding":schema.encoding if schema else None,
+                    "message_count":stats.channel_message_counts.get(ch.id,0)})
+        code=("CONTAINER_INCOMPLETE" if report["header_valid"] and report["footer_magic_valid"]
+              else "CONTAINER_TRUNCATED_RECOVERABLE") if recoverable else "CONTAINER_UNREADABLE"
+        report["findings"].append(finding(code,metrics={"recovery_exit_code":recover_code,
+                                                     "footer_magic_valid":report["footer_magic_valid"]}))
     observed={c["topic"]:c for c in report["channels"]}
     duration=(report["end_ns"]-report["start_ns"])/1e9
     for expected in cfg["expected_streams"]:

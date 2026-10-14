@@ -33,6 +33,12 @@ def nonfinite(message):
         elif field.type==field.TYPE_MESSAGE:count+=sum(nonfinite(v) for v in values)
     return count
 
+def payload_timestamp_findings(stamp,log_time,publish_time,topic,origin,tolerance_ms):
+    offsets={"log":(stamp-log_time)/1e6,"publish":(stamp-publish_time)/1e6}
+    bad={clock:value for clock,value in offsets.items() if abs(value)>tolerance_ms}
+    t=(log_time-origin)/1e9
+    return [finding("PAYLOAD_TIMESTAMP_MISMATCH",topic,t,t,{"offset_ms":bad})] if bad else []
+
 class Runs:
     def __init__(self,code,topic,minimum):
         self.code,self.topic,self.minimum=code,topic,minimum;self.active=None;self.findings=[]
@@ -130,8 +136,10 @@ def stream_check(path,channel_id,inventory,config,work,beat):
                 except Exception:stats["protobuf_decode_errors"]+=1;continue
                 for stamp in stamps(decoded):
                     offset=stamp-raw.log_time;offsets.append(offset)
-                    if abs(offset)>config["timing"]["payload_stamp_tolerance_ms"]*1e6:
-                        findings.append(finding("PAYLOAD_TIMESTAMP_MISMATCH",topic,t,t,{"offset_ms":offset/1e6}))
+                    findings.extend(payload_timestamp_findings(stamp,raw.log_time,raw.publish_time,topic,origin,
+                                                               config["timing"]["payload_stamp_tolerance_ms"]))
+                    stats["payload_stamp_publish_offset_max_ms"]=max(stats.get("payload_stamp_publish_offset_max_ms",0),
+                                                                      abs(stamp-raw.publish_time)/1e6)
                 stats["nonfinite_values"]+=nonfinite(decoded)
                 if kind!="video":
                     if selected["schema"]=="foxglove.MagneticEncoderMeasurement":
