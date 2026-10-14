@@ -34,9 +34,9 @@ flowchart LR
 - make qc-report DIGEST=<sha>: download a report to .cache/qc-exports.
 - make qc-viewer DIGEST=<sha>: download its sampled .rrd artifact.
 - make qc-verify DIGEST=<sha>: verify a clean completed recording and replay its workflow.
-- make qc-fleet: camera-drop totals for the 41 mentor recordings; tests are excluded.
+- make qc-fleet: camera-drop totals for the 41 reference recordings; tests are excluded.
 - make qc-verify-dataset: validate all 41 and export their reports under reports/.
-- make qc-compare: compare results with Day 2 guesses and create a review worksheet.
+- make qc-compare: compare results with initial inspection labels and create a review worksheet.
 - make ui: keep the Temporal UI port-forward open, then visit http://localhost:8080.
 
 qc-verify intentionally rejects unavailable checks and incomplete decoding. For a
@@ -58,7 +58,7 @@ remain available. It does not delete raw, report history, or database rows.
 
 ## Repeat controlled validation
 
-First prepare the repo-local inspection libraries with make day2-tools.
+First prepare the repo-local inspection libraries with make inspect-tools.
 Generate stable fixtures once, then submit them; do not regenerate while they
 are being uploaded.
 
@@ -67,7 +67,7 @@ wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-damage-fixtures F
 wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-test-damage"
 ~~~
 
-These are separate test episodes, not additional mentor recordings. Some
+These are separate test episodes, not additional reference recordings. Some
 mutations have related secondary findings: a uniform black image may also look
 blurred or frozen. The expected verdict and required reasons remain explicit.
 

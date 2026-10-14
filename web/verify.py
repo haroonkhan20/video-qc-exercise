@@ -9,9 +9,9 @@ def rejected(path,headers=None,data=None):
  except urllib.error.HTTPError as e:return e.code
  raise AssertionError("Request unexpectedly accepted")
 rows=get("/api/recordings")["recordings"]
-mentor=[r for r in rows if r["dataset"]=="mentor"]
-counts={v:sum(r["verdict"]==v for r in mentor) for v in ["pass","fail","needs_review"]}
-assert len(mentor)==41 and counts=={"pass":29,"fail":1,"needs_review":11}
+reference=[r for r in rows if r["dataset"]=="reference"]
+counts={v:sum(r["verdict"]==v for r in reference) for v in ["pass","fail","needs_review"]}
+assert len(reference)==41 and counts=={"pass":29,"fail":1,"needs_review":11}
 bad=json.loads((ROOT/"reports/ep_346eb2d7.json").read_text())
 live=get("/api/reports/"+bad["digest"])
 assert live==bad
@@ -39,7 +39,7 @@ if fixture.exists():
    upload=current;break
   time.sleep(1)
  else:raise AssertionError("Upload did not submit")
-evidence={"dataset_count":len(mentor),"verdict_counts":counts,"live_report_matches_export":True,
+evidence={"dataset_count":len(reference),"verdict_counts":counts,"live_report_matches_export":True,
  "camera_sample_count":len(samples),"sample_times":[round(f["seconds"],3) for f in samples],
  "invalid_route_host_origin_and_file_tests_passed":True,"duplicate_fixture_upload":upload,
  "notes":"Existing fixture reused; no cluster deletion or worker crash."}

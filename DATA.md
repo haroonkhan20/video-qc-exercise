@@ -1,8 +1,8 @@
-# DATA.md — Day 2 first-read snapshot
+# Reference recording observations
 
-Date: 2026-10-13. Prepared with AI assistance under the mentor’s revised instruction to use AI rather than interactive Foxglove/Rerun playback. AI reviewed extracted camera contact sheets for every file. The mentor’s answer key was not consulted.
+Initial inspection date: 2026-10-13. Observations use decoded camera contact sheets, container inspection and selected full-frame intervals. These preliminary observations are not independent reference labels or comprehensive video review.
 
-**Preserve this first-read snapshot after Day 2.** Later automated QC verdicts and corrections belong in separate reports, not edits to this file.
+**Preserve the numerical observations and preliminary labels in this snapshot.** Later automated QC verdicts and corrections belong in separate reports, not edits to this file.
 
 ## What was inspected
 
@@ -10,7 +10,7 @@ Date: 2026-10-13. Prepared with AI assistance under the mentor’s revised instr
 - Durations: 28.24–153.11 seconds.
 - mcap info and mcap doctor ran on every file; doctor returned zero without reported issues for all 41. Python scanned every message with CRC validation where CRCs are supplied.
 - All files contain the same 16 topic/schema/encoding combinations. Observed message counts match their summaries; summaries and chunk indexes are present.
-- 11,917 H.264 keyframes were decoded and measured. Six keyframes spread across each camera timeline were shown in contact sheets and examined by AI.
+- 11,917 H.264 keyframes were decoded and measured. Six keyframes spread across each camera timeline were included in contact sheets for initial visual observations.
 - Additional full-frame windows were decoded: 18–26 s in ep_346eb2d7 and 30–40 s in ep_0ed34c0f. Decoding began at file start to preserve H.264 reference state.
 - SHA-256 was checked before and after each scan: all original files remained unchanged. No raw recordings were added to Git or uploaded to MinIO.
 
@@ -33,7 +33,7 @@ These are preliminary observations, **not final pass/fail/needs_review verdicts*
 - No protobuf decode errors or nonfinite floating payload values were found during the scans. No errors were reported by the keyframe sampling decoders. **Non-keyframe video health, every possible blur/freeze interval, quantitative camera-to-camera sync, sensor flatlines, and task success were not comprehensively checked.**
 - Keyframe luminance screening used downscaled images, mean below 10/above 245 and standard deviation below 2 on a 0–255 scale. These are exploratory settings, not agreed production QC thresholds. Dark box interiors, white cloth/plates, wide-angle distortion, and static backgrounds must not be auto-rejected.
 
-[Focused camera evidence for the blackout](data/day2-evidence/ep_346eb2d7-blackout.jpg). These are decoded source frames, not generated illustrations.
+[Focused camera evidence for the blackout](data/recording-evidence/ep_346eb2d7-blackout.jpg). These are decoded source frames, not generated illustrations.
 
 ## Shared inventory
 
@@ -64,47 +64,47 @@ Complete per-stream counts, time coverage, rate/jitter observations, keyframe me
 
 | File / evidence | MB | Duration (s) | Messages | Video messages HL / HR / GL / GR | Initial guess |
 | --- | ---: | ---: | ---: | --- | --- |
-| [ep_032e483c.mcap](data/day2-observations/ep_032e483c.json) | 80.12 | 49.23 | 28,591 | 1388 / 1388 / 1380 / 1382 | Likely good (initial sample) |
-| [ep_03d813ce.mcap](data/day2-observations/ep_03d813ce.json) | 62.29 | 38.88 | 22,164 | 1077 / 1077 / 1070 / 1070 | Likely good (initial sample) |
-| [ep_0409bd35.mcap](data/day2-observations/ep_0409bd35.json) | 130.43 | 79.79 | 47,612 | 2304 / 2304 / 2297 / 2298 | Likely good (initial sample) |
-| [ep_041eb856.mcap](data/day2-observations/ep_041eb856.json) | 130.23 | 79.78 | 47,596 | 2304 / 2304 / 2297 / 2297 | Likely good (initial sample) |
-| [ep_0444a8ac.mcap](data/day2-observations/ep_0444a8ac.json) | 118.23 | 71.25 | 42,250 | 2048 / 2048 / 2039 / 2040 | Likely good (initial sample) |
-| [ep_07e258d4.mcap](data/day2-observations/ep_07e258d4.json) | 42.24 | 28.24 | 15,557 | 758 / 758 / 751 / 751 | Likely good (initial sample) |
-| [ep_082f4185.mcap](data/day2-observations/ep_082f4185.json) | 184.33 | 108.57 | 65,473 | 3168 / 3168 / 3159 / 3159 | Likely good (initial sample) |
-| [ep_0dec4ae7.mcap](data/day2-observations/ep_0dec4ae7.json) | 50.84 | 32.31 | 18,068 | 880 / 880 / 872 / 874 | Likely good (initial sample) |
-| [ep_0e09c76b.mcap](data/day2-observations/ep_0e09c76b.json) | 188.13 | 111.25 | 67,184 | 3248 / 3248 / 3241 / 3241 | Likely good (initial sample) |
-| [ep_0e374ee6.mcap](data/day2-observations/ep_0e374ee6.json) | 185.44 | 110.48 | 66,598 | 3225 / 3225 / 3219 / 3218 | Likely good (initial sample) |
-| [ep_0ed34c0f.mcap](data/day2-observations/ep_0ed34c0f.json) | 255.74 | 153.11 | 93,204 | 4504 / 4504 / 4496 / 4497 | Likely good (initial sample) |
-| [ep_112a825d.mcap](data/day2-observations/ep_112a825d.json) | 95.01 | 57.92 | 33,996 | 1648 / 1648 / 1640 / 1641 | Likely good (initial sample) |
-| [ep_1ee4bdaf.mcap](data/day2-observations/ep_1ee4bdaf.json) | 149.06 | 92.84 | 54,163 | 2636 / 2636 / 2626 / 2628 | Likely good (initial sample) |
-| [ep_20846435.mcap](data/day2-observations/ep_20846435.json) | 65.41 | 40.51 | 23,177 | 1127 / 1127 / 1118 / 1119 | Likely good (initial sample) |
-| [ep_208961d3.mcap](data/day2-observations/ep_208961d3.json) | 154.74 | 93.54 | 56,152 | 2717 / 2717 / 2710 / 2710 | Likely good (initial sample) |
-| [ep_212a979d.mcap](data/day2-observations/ep_212a979d.json) | 81.50 | 50.07 | 29,119 | 1413 / 1413 / 1405 / 1406 | Likely good (initial sample) |
-| [ep_223529fa.mcap](data/day2-observations/ep_223529fa.json) | 62.34 | 38.89 | 22,165 | 1077 / 1077 / 1070 / 1070 | Uncertain: exposure context |
-| [ep_23212682.mcap](data/day2-observations/ep_23212682.json) | 107.27 | 64.79 | 38,272 | 1855 / 1855 / 1846 / 1849 | Likely good (initial sample) |
-| [ep_23f5a0d2.mcap](data/day2-observations/ep_23f5a0d2.json) | 222.62 | 130.59 | 79,183 | 3828 / 3828 / 3820 / 3820 | Likely good (initial sample) |
-| [ep_2c47cac2.mcap](data/day2-observations/ep_2c47cac2.json) | 153.72 | 93.21 | 55,955 | 2707 / 2707 / 2700 / 2699 | Likely good (initial sample) |
-| [ep_2cb4b3ea.mcap](data/day2-observations/ep_2cb4b3ea.json) | 145.39 | 89.62 | 53,710 | 2599 / 2599 / 2592 / 2592 | Likely good (initial sample) |
-| [ep_2e18f47f.mcap](data/day2-observations/ep_2e18f47f.json) | 161.15 | 96.54 | 58,029 | 2807 / 2807 / 2800 / 2801 | Likely good (initial sample) |
-| [ep_346eb2d7.mcap](data/day2-observations/ep_346eb2d7.json) | 164.26 | 98.41 | 59,152 | 2863 / 2863 / 2855 / 2855 | Likely bad |
-| [ep_34e2d6e2.mcap](data/day2-observations/ep_34e2d6e2.json) | 163.30 | 96.87 | 58,218 | 2817 / 2817 / 2809 / 2811 | Likely good (initial sample) |
-| [ep_357dc6b9.mcap](data/day2-observations/ep_357dc6b9.json) | 170.19 | 100.42 | 60,433 | 2924 / 2924 / 2915 / 2915 | Likely good (initial sample) |
-| [ep_39ec7993.mcap](data/day2-observations/ep_39ec7993.json) | 133.82 | 80.41 | 47,996 | 2323 / 2323 / 2316 / 2316 | Likely good (initial sample) |
-| [ep_42d682ff.mcap](data/day2-observations/ep_42d682ff.json) | 51.39 | 32.52 | 18,228 | 886 / 886 / 880 / 880 | Uncertain: exposure context |
-| [ep_459e3edd.mcap](data/day2-observations/ep_459e3edd.json) | 98.77 | 62.47 | 36,819 | 1785 / 1785 / 1776 / 1777 | Likely good (initial sample) |
-| [ep_49df3c44.mcap](data/day2-observations/ep_49df3c44.json) | 98.52 | 60.02 | 34,885 | 1682 / 1682 / 1704 / 1704 | Likely good (initial sample) |
-| [ep_4dd7ef84.mcap](data/day2-observations/ep_4dd7ef84.json) | 72.76 | 44.84 | 25,838 | 1255 / 1255 / 1248 / 1249 | Likely good (initial sample) |
-| [ep_51347361.mcap](data/day2-observations/ep_51347361.json) | 147.65 | 88.82 | 53,214 | 2575 / 2575 / 2567 / 2567 | Likely good (initial sample) |
-| [ep_52373c02.mcap](data/day2-observations/ep_52373c02.json) | 70.07 | 43.02 | 24,744 | 1202 / 1202 / 1194 / 1194 | Likely good (initial sample) |
-| [ep_52d930da.mcap](data/day2-observations/ep_52d930da.json) | 129.36 | 77.18 | 45,975 | 2226 / 2226 / 2218 / 2218 | Likely good (initial sample) |
-| [ep_554d5730.mcap](data/day2-observations/ep_554d5730.json) | 46.86 | 31.52 | 17,561 | 857 / 857 / 849 / 850 | Likely good (initial sample) |
-| [ep_5b171934.mcap](data/day2-observations/ep_5b171934.json) | 133.25 | 79.65 | 47,383 | 2300 / 2300 / 2293 / 2287 | Uncertain: exposure context |
-| [ep_5e2c1fd2.mcap](data/day2-observations/ep_5e2c1fd2.json) | 144.73 | 86.36 | 51,682 | 2502 / 2502 / 2493 / 2495 | Likely good (initial sample) |
-| [ep_66909bdd.mcap](data/day2-observations/ep_66909bdd.json) | 118.82 | 72.78 | 43,243 | 2095 / 2095 / 2086 / 2088 | Likely good (initial sample) |
-| [ep_6d6fa903.mcap](data/day2-observations/ep_6d6fa903.json) | 112.65 | 67.71 | 40,083 | 1942 / 1942 / 1934 / 1934 | Likely good (initial sample) |
-| [ep_6e4d59a3.mcap](data/day2-observations/ep_6e4d59a3.json) | 102.64 | 62.39 | 36,772 | 1782 / 1782 / 1774 / 1776 | Likely good (initial sample) |
-| [ep_6fed8bc1.mcap](data/day2-observations/ep_6fed8bc1.json) | 172.72 | 104.03 | 62,688 | 3031 / 3031 / 3024 / 3024 | Likely good (initial sample) |
-| [ep_9fae2f39.mcap](data/day2-observations/ep_9fae2f39.json) | 146.81 | 87.60 | 52,256 | 2539 / 2539 / 2532 / 2532 | Uncertain: exposure context |
+| [ep_032e483c.mcap](data/recording-observations/ep_032e483c.json) | 80.12 | 49.23 | 28,591 | 1388 / 1388 / 1380 / 1382 | Likely good (initial sample) |
+| [ep_03d813ce.mcap](data/recording-observations/ep_03d813ce.json) | 62.29 | 38.88 | 22,164 | 1077 / 1077 / 1070 / 1070 | Likely good (initial sample) |
+| [ep_0409bd35.mcap](data/recording-observations/ep_0409bd35.json) | 130.43 | 79.79 | 47,612 | 2304 / 2304 / 2297 / 2298 | Likely good (initial sample) |
+| [ep_041eb856.mcap](data/recording-observations/ep_041eb856.json) | 130.23 | 79.78 | 47,596 | 2304 / 2304 / 2297 / 2297 | Likely good (initial sample) |
+| [ep_0444a8ac.mcap](data/recording-observations/ep_0444a8ac.json) | 118.23 | 71.25 | 42,250 | 2048 / 2048 / 2039 / 2040 | Likely good (initial sample) |
+| [ep_07e258d4.mcap](data/recording-observations/ep_07e258d4.json) | 42.24 | 28.24 | 15,557 | 758 / 758 / 751 / 751 | Likely good (initial sample) |
+| [ep_082f4185.mcap](data/recording-observations/ep_082f4185.json) | 184.33 | 108.57 | 65,473 | 3168 / 3168 / 3159 / 3159 | Likely good (initial sample) |
+| [ep_0dec4ae7.mcap](data/recording-observations/ep_0dec4ae7.json) | 50.84 | 32.31 | 18,068 | 880 / 880 / 872 / 874 | Likely good (initial sample) |
+| [ep_0e09c76b.mcap](data/recording-observations/ep_0e09c76b.json) | 188.13 | 111.25 | 67,184 | 3248 / 3248 / 3241 / 3241 | Likely good (initial sample) |
+| [ep_0e374ee6.mcap](data/recording-observations/ep_0e374ee6.json) | 185.44 | 110.48 | 66,598 | 3225 / 3225 / 3219 / 3218 | Likely good (initial sample) |
+| [ep_0ed34c0f.mcap](data/recording-observations/ep_0ed34c0f.json) | 255.74 | 153.11 | 93,204 | 4504 / 4504 / 4496 / 4497 | Likely good (initial sample) |
+| [ep_112a825d.mcap](data/recording-observations/ep_112a825d.json) | 95.01 | 57.92 | 33,996 | 1648 / 1648 / 1640 / 1641 | Likely good (initial sample) |
+| [ep_1ee4bdaf.mcap](data/recording-observations/ep_1ee4bdaf.json) | 149.06 | 92.84 | 54,163 | 2636 / 2636 / 2626 / 2628 | Likely good (initial sample) |
+| [ep_20846435.mcap](data/recording-observations/ep_20846435.json) | 65.41 | 40.51 | 23,177 | 1127 / 1127 / 1118 / 1119 | Likely good (initial sample) |
+| [ep_208961d3.mcap](data/recording-observations/ep_208961d3.json) | 154.74 | 93.54 | 56,152 | 2717 / 2717 / 2710 / 2710 | Likely good (initial sample) |
+| [ep_212a979d.mcap](data/recording-observations/ep_212a979d.json) | 81.50 | 50.07 | 29,119 | 1413 / 1413 / 1405 / 1406 | Likely good (initial sample) |
+| [ep_223529fa.mcap](data/recording-observations/ep_223529fa.json) | 62.34 | 38.89 | 22,165 | 1077 / 1077 / 1070 / 1070 | Uncertain: exposure context |
+| [ep_23212682.mcap](data/recording-observations/ep_23212682.json) | 107.27 | 64.79 | 38,272 | 1855 / 1855 / 1846 / 1849 | Likely good (initial sample) |
+| [ep_23f5a0d2.mcap](data/recording-observations/ep_23f5a0d2.json) | 222.62 | 130.59 | 79,183 | 3828 / 3828 / 3820 / 3820 | Likely good (initial sample) |
+| [ep_2c47cac2.mcap](data/recording-observations/ep_2c47cac2.json) | 153.72 | 93.21 | 55,955 | 2707 / 2707 / 2700 / 2699 | Likely good (initial sample) |
+| [ep_2cb4b3ea.mcap](data/recording-observations/ep_2cb4b3ea.json) | 145.39 | 89.62 | 53,710 | 2599 / 2599 / 2592 / 2592 | Likely good (initial sample) |
+| [ep_2e18f47f.mcap](data/recording-observations/ep_2e18f47f.json) | 161.15 | 96.54 | 58,029 | 2807 / 2807 / 2800 / 2801 | Likely good (initial sample) |
+| [ep_346eb2d7.mcap](data/recording-observations/ep_346eb2d7.json) | 164.26 | 98.41 | 59,152 | 2863 / 2863 / 2855 / 2855 | Likely bad |
+| [ep_34e2d6e2.mcap](data/recording-observations/ep_34e2d6e2.json) | 163.30 | 96.87 | 58,218 | 2817 / 2817 / 2809 / 2811 | Likely good (initial sample) |
+| [ep_357dc6b9.mcap](data/recording-observations/ep_357dc6b9.json) | 170.19 | 100.42 | 60,433 | 2924 / 2924 / 2915 / 2915 | Likely good (initial sample) |
+| [ep_39ec7993.mcap](data/recording-observations/ep_39ec7993.json) | 133.82 | 80.41 | 47,996 | 2323 / 2323 / 2316 / 2316 | Likely good (initial sample) |
+| [ep_42d682ff.mcap](data/recording-observations/ep_42d682ff.json) | 51.39 | 32.52 | 18,228 | 886 / 886 / 880 / 880 | Uncertain: exposure context |
+| [ep_459e3edd.mcap](data/recording-observations/ep_459e3edd.json) | 98.77 | 62.47 | 36,819 | 1785 / 1785 / 1776 / 1777 | Likely good (initial sample) |
+| [ep_49df3c44.mcap](data/recording-observations/ep_49df3c44.json) | 98.52 | 60.02 | 34,885 | 1682 / 1682 / 1704 / 1704 | Likely good (initial sample) |
+| [ep_4dd7ef84.mcap](data/recording-observations/ep_4dd7ef84.json) | 72.76 | 44.84 | 25,838 | 1255 / 1255 / 1248 / 1249 | Likely good (initial sample) |
+| [ep_51347361.mcap](data/recording-observations/ep_51347361.json) | 147.65 | 88.82 | 53,214 | 2575 / 2575 / 2567 / 2567 | Likely good (initial sample) |
+| [ep_52373c02.mcap](data/recording-observations/ep_52373c02.json) | 70.07 | 43.02 | 24,744 | 1202 / 1202 / 1194 / 1194 | Likely good (initial sample) |
+| [ep_52d930da.mcap](data/recording-observations/ep_52d930da.json) | 129.36 | 77.18 | 45,975 | 2226 / 2226 / 2218 / 2218 | Likely good (initial sample) |
+| [ep_554d5730.mcap](data/recording-observations/ep_554d5730.json) | 46.86 | 31.52 | 17,561 | 857 / 857 / 849 / 850 | Likely good (initial sample) |
+| [ep_5b171934.mcap](data/recording-observations/ep_5b171934.json) | 133.25 | 79.65 | 47,383 | 2300 / 2300 / 2293 / 2287 | Uncertain: exposure context |
+| [ep_5e2c1fd2.mcap](data/recording-observations/ep_5e2c1fd2.json) | 144.73 | 86.36 | 51,682 | 2502 / 2502 / 2493 / 2495 | Likely good (initial sample) |
+| [ep_66909bdd.mcap](data/recording-observations/ep_66909bdd.json) | 118.82 | 72.78 | 43,243 | 2095 / 2095 / 2086 / 2088 | Likely good (initial sample) |
+| [ep_6d6fa903.mcap](data/recording-observations/ep_6d6fa903.json) | 112.65 | 67.71 | 40,083 | 1942 / 1942 / 1934 / 1934 | Likely good (initial sample) |
+| [ep_6e4d59a3.mcap](data/recording-observations/ep_6e4d59a3.json) | 102.64 | 62.39 | 36,772 | 1782 / 1782 / 1774 / 1776 | Likely good (initial sample) |
+| [ep_6fed8bc1.mcap](data/recording-observations/ep_6fed8bc1.json) | 172.72 | 104.03 | 62,688 | 3031 / 3031 / 3024 / 3024 | Likely good (initial sample) |
+| [ep_9fae2f39.mcap](data/recording-observations/ep_9fae2f39.json) | 146.81 | 87.60 | 52,256 | 2539 / 2539 / 2532 / 2532 | Uncertain: exposure context |
 
 ## Individual inventories and image observations
 
@@ -1340,7 +1340,7 @@ Complete per-stream counts, time coverage, rate/jitter observations, keyframe me
 
 ## Questions before automated QC
 
-- Are these 41 files the intended complete exercise set, rather than the suggested 8–12?
+- Does this collection cover the intended operating conditions?
 - What are the nominal rates and expected camera/sensor coverage for this recording type?
 - Is the observed 3–5 s camera startup delay intentional?
 - What lighting/exposure ranges are acceptable for the cool/dim scene group?
@@ -1349,13 +1349,13 @@ Complete per-stream counts, time coverage, rate/jitter observations, keyframe me
 
 ## Reproduction
 
-Install pinned tools with make day2-tools. Read-only exploration:
+Install pinned tools with make inspect-tools. Read-only exploration:
 
 ```bash
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/day2_probe.py /path/to/recordings
-.venv/bin/python tools/day2_window_probe.py /path/to/ep_346eb2d7.mcap --start 18 --end 26
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/recording_probe.py /path/to/recordings
+.venv/bin/python tools/recording_window_probe.py /path/to/ep_346eb2d7.mcap --start 18 --end 26
 ```
 
 From Windows, run those commands through WSL and change to ~/video-qc first.
-Exploratory settings are in tools/day2-observation-settings.json; pinned libraries are in tools/day2-requirements.txt. Contact sheets are rebuildable under ignored .cache/day2-analysis/; numeric evidence and AI notes are committed under data/.
-Do not regenerate or rewrite this first-read DATA.md after Day 2. Future pipeline outputs belong separately.
+Exploratory settings are in tools/inspection-settings.json; pinned libraries are in tools/inspection-requirements.txt. Contact sheets are rebuildable under ignored .cache/recording-analysis/; numeric evidence and visual notes are committed under data/.
+Preserve this initial observation record; Future pipeline outputs belong separately.

@@ -77,7 +77,7 @@ docs/qc-parameters.md and docs/ACCEPTANCE-STANDARD.md explain the policy.
 Each worker keeps local raw copies, scans a recording separately for each stream,
 and can publish many small objects. Object-store bandwidth, repeated decompression,
 cache growth, database connections, and startup bursts would become bottlenecks.
-The local 100-year retention is an exercise protection, not a production lifecycle
+The local 100-year retention is a local evidence-protection policy, not a production lifecycle
 proposal. A larger system needs retention governance, bounded cache eviction,
 batched publication, cheap/expensive task queues, connection budgets, backpressure,
 activity version routing, and observability. It also needs stronger concurrent

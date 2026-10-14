@@ -4,7 +4,7 @@ Run make up if the cluster is stopped, then make web from the repository in WSL.
 Open http://localhost:8090 on Windows. Keep the terminal running; Ctrl+C stops only the dashboard.
 
 The dashboard reads live PostgreSQL-backed results through the existing worker CLI.
-It defaults to the mentor dataset; select all uploads to include synthetic tests and new recordings.
+It defaults to the reference dataset; select all uploads to include synthetic tests and new recordings.
 Inspect opens actual report findings, episode-relative intervals, stream measurements,
 and configuration/software fingerprints. Download JSON preserves the full report.
 
@@ -16,7 +16,7 @@ detailed Temporal running/failed state. Temporal's separate UI requires make ui.
 
 The server binds only 127.0.0.1. Credentials stay in Kubernetes. No public hosting,
 login, destructive actions, or automatic deletion. Staging copies stay in .cache/web;
-account for disk usage. Filename aliases come from PostgreSQL; the mentor collection is identified by the 41 exported reports.
+account for disk usage. Filename aliases come from PostgreSQL; the reference collection is identified by the 41 exported reports.
 
 
 Camera evidence loads the nearest existing sampled JPEG for each camera at the selected

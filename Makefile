@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := up
-.PHONY: up down hello ui status verify check-images day2-tools
+.PHONY: up down hello ui status verify check-images inspect-tools
 
 # Build and load local images, install the stack, and wait for readiness.
 up:
@@ -30,9 +30,9 @@ verify:
 check-images:
 	@bash scripts/verify-images.sh
 
-# Prepare pinned MCAP CLI and Python libraries for manual Day 2 inspection.
-day2-tools:
-	@bash scripts/setup-day2.sh
+# Prepare pinned MCAP CLI and Python libraries for recording inspection.
+inspect-tools:
+	@bash scripts/prepare-inspection.sh
 
 .PHONY: qc-submit qc-status qc-report qc-viewer qc-verify qc-fleet
 
@@ -60,7 +60,7 @@ qc-verify:
 	@test -n "$(DIGEST)" || (echo 'Usage: make qc-verify DIGEST=<sha256>'; exit 2)
 	@source scripts/tool-env.sh; python3 tools/verify_qc_result.py "$(DIGEST)"
 
-# Sum camera drops for the 41 mentor files, excluding synthetic fixtures.
+# Sum camera drops for the 41 reference files, excluding synthetic fixtures.
 qc-fleet:
 	@source scripts/tool-env.sh; python3 tools/fleet_query.py
 
@@ -76,7 +76,7 @@ qc-test-damage:
 	@source scripts/tool-env.sh; python3 tools/qc_submit.py .cache/damage-fixtures --wait
 	@source scripts/tool-env.sh; python3 tools/verify_damage_fixtures.py
 
-# Verify all mentor files, export JSON reports, and validate the dataset-wide camera query.
+# Verify all reference files, export JSON reports, and validate the dataset-wide camera query.
 qc-verify-dataset:
 	@source scripts/tool-env.sh; python3 tools/verify_dataset.py
 

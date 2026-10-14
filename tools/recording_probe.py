@@ -16,7 +16,7 @@ from PIL import Image, ImageDraw
 from mcap.reader import make_reader
 from mcap_protobuf.decoder import DecoderFactory
 
-SETTINGS = json.loads((Path(__file__).parent / "day2-observation-settings.json").read_text())
+SETTINGS = json.loads((Path(__file__).parent / "inspection-settings.json").read_text())
 av.logging.set_level(av.logging.PANIC)
 
 def fingerprint(path):
@@ -265,8 +265,8 @@ if __name__ == "__main__":
     from concurrent.futures import ProcessPoolExecutor, as_completed
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source",type=Path)
-    parser.add_argument("--output",type=Path,default=Path("data/day2-observations"))
-    parser.add_argument("--samples",type=Path,default=Path(".cache/day2-analysis/samples"))
+    parser.add_argument("--output",type=Path,default=Path("data/recording-observations"))
+    parser.add_argument("--samples",type=Path,default=Path(".cache/recording-analysis/samples"))
     parser.add_argument("--file",help="Inspect only this filename")
     parser.add_argument("--workers",type=int,default=2,choices=[1,2])
     args=parser.parse_args()

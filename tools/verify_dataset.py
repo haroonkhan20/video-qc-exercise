@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export mentor-data reports and verify the complete dataset, excluding test fixtures."""
+"""Export reference-data reports and verify the complete dataset, excluding test fixtures."""
 import argparse,csv,json,subprocess
 from pathlib import Path
 
@@ -86,7 +86,7 @@ def main():
     p=argparse.ArgumentParser();p.add_argument("--reports",type=Path,default=Path("reports"))
     p.add_argument("--evidence",type=Path,default=Path("verification/full-dataset.json"));a=p.parse_args()
     expected=[]
-    for path in sorted(Path("data/day2-observations").glob("ep_*.json")):
+    for path in sorted(Path("data/recording-observations").glob("ep_*.json")):
         item=json.loads(path.read_text())
         if "file" in item and "sha256" in item and path.stem==Path(item["file"]).stem:expected.append({"file":item["file"],"digest":item["sha256"]})
     assert len(expected)==41,"Expected the supplied 41-recording inventory"

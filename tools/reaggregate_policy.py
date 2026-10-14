@@ -58,7 +58,7 @@ def main():
     p.add_argument("--output",type=Path,default=Path("verification/policy-reaggregation.json"))
     a=p.parse_args();source=json.loads(a.source.read_text())
     digests=set()
-    for path in Path("data/day2-observations").glob("ep_*.json"):
+    for path in Path("data/recording-observations").glob("ep_*.json"):
         item=json.loads(path.read_text())
         if path.stem==Path(item.get("file","")).stem and "sha256" in item:digests.add(item["sha256"])
     manifest=json.loads(Path(".cache/damage-fixtures/manifest.json").read_text())

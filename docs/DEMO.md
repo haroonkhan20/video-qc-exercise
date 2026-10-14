@@ -1,75 +1,52 @@
-# Twenty-minute mentor demo
+# Product walkthrough
 
-All shell commands run inside WSL Ubuntu. The repo is
-/home/haroon/video-qc; the recordings remain in the Windows Downloads/data folder.
-The demo uses the engineer-selected acceptance policy, not an external answer key.
+This walkthrough demonstrates recording review, personal quality standards and
+evidence exports. Start the application with make up and make web, then open
+http://localhost:8090.
 
-## Minutes 0–3: explain the route and show readiness
+## Browse recordings
 
-From PowerShell:
+Select Reference recordings. The overview separates automatic check results from
+scores under your selected quality standard. Search by filename and use filters
+to find recordings with issues or those needing interpretation.
 
-~~~powershell
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make status && make verify"
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make ui"
-~~~
+## Review an issue
 
-Keep the UI command running and open http://localhost:8080. Temporal namespace
-default shows workflows; Kubernetes namespace qc holds the pods.
-A recording moves through protected raw storage, Temporal activities, and then
-Postgres verdicts, ClickHouse metrics, and derived reports/viewers.
+Open ep_346eb2d7.mcap. BLACK_RUN identifies very dark images in all four cameras
+around 21.76 to 23.12 seconds. Expand Picture quality to see its mark and affected
+time. Load snapshots near 22.44 seconds to inspect the camera evidence.
 
-## Minutes 3–7: good file and identity
+A high overall score can include an issue. The original check result remains
+visible so a different grading standard does not erase the finding.
 
-~~~powershell
-wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-submit FILE='/mnt/c/Users/win 11/Downloads/data/ep_23f5a0d2.mcap'"
-~~~
+## Choose a standard
 
-The completed workflow is reused. Its digest is
-0f2f31579a90e8c87062772109699a5f242c2c6b6f43ebf8b86630815fc3fd6b.
-Show its JSON report and verifier. Explain that renaming a file does not change
-its identity; the saved pilot evidence shows a second alias without another raw
-version, episode, verdict, or metric row.
+Default — recommended requires no configuration. Create my standard offers
+choices about what matters most and how demanding the score should be.
+Detailed settings are optional and retain every numerical control.
 
-## Minutes 7–11: bad file and visible evidence
+Use the Image-focused example to see how giving picture quality more influence
+changes the score. Use default restores the balanced standard without removing
+saved standards. Serious defects always prevent acceptance; missing evidence
+never earns a perfect score.
 
-Submit ep_346eb2d7.mcap the same way. Its digest is
-05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d.
-Fetch the report and viewer with make qc-report DIGEST=<digest> and
-make qc-viewer DIGEST=<digest>. Show BLACK_RUN camera/time ranges around
-21.76–23.16 seconds. The committed Day 2 blackout image is direct decoded evidence.
-The viewer contains one-second image samples; use report ranges for exact timing.
+## Inspect a review case
 
-## Minutes 11–15: failure recovery
+Open ep_0ed34c0f.mcap. Its gripper reading stayed unchanged for sustained periods.
+This can indicate legitimate stillness, so interpretation is required. The
+default standard keeps stillness advisory. The report preserves the exact
+intervals and original result.
 
-Show verification/pipeline-crash.json: the busy container exited 137, restarted
-once, and activity 5 retried at attempt 2 after a heartbeat timeout. The workflow
-finished with one authoritative verdict and distinct metric rows.
+## Export and understand scope
 
-A new live kill needs fresh explicit approval; the prior approvals are consumed.
-After that approval, start an explicit rebuild workflow for the good file and
-use tools/verify_worker_crash.py with --allow-one-worker-crash,
---workflow-id <printed rebuild ID>, and a new unused --record path under .cache.
-Then verify that rebuild ID with tools/verify_qc_result.py --workflow-id <ID>
---require-retry-of <activity ID from the new record>. Do not erase old guard
-records or run a destructive test merely because these instructions exist.
+Download the original check report or score report. Score exports include the
+selected standard, parameter explanations and version information. Saved
+camera artifacts contain snapshots, not full original-video playback.
 
-## Minutes 15–18: fleet metrics and controlled validation
+Reports are backed by repeatable processing, duplicate protection and recovery
+checks. Historical verification is available under verification/. Destructive
+recovery tests are separate maintenance operations, not part of this walkthrough.
 
-Show verification/full-dataset.json, especially the dataset-scoped camera-drop
-query and totals. It excludes intentionally damaged fixtures.
-Show verification/damage-fixtures.json: known mutations versus actual verdicts
-and typed reasons. The unchanged control is the negative test.
-Explain the fixes discovered by these tests: both payload clocks, correct
-missing-summary classification, and clean database-client shutdown.
-
-## Minutes 18–20: defend the standard
-
-Use docs/ACCEPTANCE-STANDARD.md and docs/DESIGN.md. Explain why ambiguous stillness
-and blur request review, what raw/state/derived mean, and why a worker may repeat
-a task but must not duplicate results.
-
-The controlled-fixture confusion table measures known test cases. The Day 2
-comparison is agreement with preliminary guesses, not independent accuracy.
-Use verification/reference-review.csv for further independently reviewed labels;
-tools/score_reference.py requires reviewer evidence and explanations for misses.
-Do not claim a perfect classifier from self-generated labels.
+The application currently runs locally without multi-user authentication. It
+does not yet save manual review decisions. Quality scores reflect declared
+standards; they are not independently calibrated probabilities or accuracy claims.

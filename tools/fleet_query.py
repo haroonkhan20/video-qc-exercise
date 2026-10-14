@@ -16,7 +16,7 @@ def main():
     if a.all:
         subprocess.run([*prefix,"deployment/qc-worker","--","python","-m","qc.cli","fleet"],check=True);return
     digests=[]
-    for path in sorted(Path("data/day2-observations").glob("ep_*.json")):
+    for path in sorted(Path("data/recording-observations").glob("ep_*.json")):
         item=json.loads(path.read_text())
         if "file" in item and "sha256" in item and path.stem==Path(item["file"]).stem:digests.append(item["sha256"])
     assert len(digests)==41

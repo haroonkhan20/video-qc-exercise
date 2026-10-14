@@ -54,7 +54,7 @@ production population. A passing control does not establish a false-positive
 rate over diverse clean scenes.
 
 For the real dataset we publish every machine verdict, defect stream/time range,
-and the frozen Day 2 first guess. Agreement with our first guesses is reported as
+and the frozen initial inspection label. Agreement with our first guesses is reported as
 agreement, not independent accuracy. A reference-review worksheet records human
 labels, evidence, reviewer, and rationale. Once independently reviewed labels
 exist, the scoring tool can produce a confusion table and per-miss explanations.

@@ -3,7 +3,7 @@ mcap==1.5.0
 lz4==4.4.5
 zstandard==0.25.0
 
-# AI-assisted decoding and frame sampling for Day 2 observations.
+# Recording decoding and frame sampling dependencies.
 mcap-protobuf-support==0.5.4
 protobuf==7.36.2
 av==19.0.1

@@ -1,9 +1,9 @@
-# Initial QC parameters
+# QC parameters
 
-These are engineer-selected defaults for the supplied Quest/gripper recordings.
-They are not mentor-confirmed hardware specifications. Missing mentor confirmation
-does not itself produce a review verdict. Every report records its configuration
-and code versions so later parameter changes remain traceable.
+These operational defaults apply to the supported Quest/gripper recording type.
+They are based on observed data and are not independently certified hardware
+specifications. Reports retain their configuration and software versions so
+policy changes remain traceable.
 
 | Check | Initial choice | Reason and limitation |
 |---|---|---|
@@ -26,5 +26,4 @@ a claim that the recording is suitable for every downstream task.
 
 Next calibration step: compare full-dataset metric distributions and observed
 defect ranges with these budgets. Change thresholds for a documented reason,
-not simply to make recordings pass. A mentor answer key is needed to measure
-classification accuracy, but is not needed to choose this first policy.
+not simply to make recordings pass. Independent reference labels are needed to measure classification accuracy; they are not required to select an initial policy.

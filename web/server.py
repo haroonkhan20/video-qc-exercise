@@ -49,7 +49,7 @@ def snapshot():
    except (ValueError,KeyError):pass
   rows=probe("list")
   for r in rows:
-   r["dataset"]="mentor" if r["digest"] in names else "other"
+   r["dataset"]="reference" if r["digest"] in names else "other"
    if r["digest"] in names:r["name"]=names[r["digest"]]
   LIST_CACHE.update(time=time.time(),rows=rows)
   return rows

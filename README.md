@@ -142,7 +142,7 @@ OPENBLAS_NUM_THREADS=1 .venv/bin/python -m unittest discover -s tests -p test_po
 python3 web/verify.py
 ~~~
 
-make day2-tools prepares the optional inspection environment used by the timing
+make inspect-tools prepares the optional inspection environment used by the timing
 tests. Web smoke checks require the cluster and make web; they reuse a controlled
 fixture when available. Controlled test agreement does not establish independent
 classification accuracy on unseen recordings.

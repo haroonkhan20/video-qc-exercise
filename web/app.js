@@ -11,7 +11,7 @@ const names=Friendly.areas;
 let editorBase=null;
 async function api(url,opts){const r=await fetch(url,opts),d=await r.json();if(!r.ok)throw Error(d.error||'Request failed');return d;}
 function render(){
- const base=records.filter(r=>$('collection').value==='all'||r.dataset==='mentor');
+ const base=records.filter(r=>$('collection').value==='all'||r.dataset==='reference');
  $('total').textContent=base.length;
  for(const [id,v] of [['passes','pass'],['fails','fail'],['reviews','needs_review']])$(id).textContent=base.filter(r=>r.verdict===v).length;
  const search=$('search').value.toLowerCase(),rows=base.filter(r=>(filter==='all'||(r.verdict||'pending')===filter)&&($('gradeFilter').value==='all'||(r.grading?.recommendation||'not_assessed')===$('gradeFilter').value)&&(r.name+r.digest+(r.aliases||[]).join(' ')).toLowerCase().includes(search));

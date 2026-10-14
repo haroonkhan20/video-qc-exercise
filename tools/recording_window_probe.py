@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 from mcap.reader import make_reader
 from mcap_protobuf.decoder import DecoderFactory
-from day2_probe import fingerprint, SETTINGS
+from recording_probe import fingerprint, SETTINGS
 
 parser=argparse.ArgumentParser()
 parser.add_argument("file",type=Path)
@@ -63,7 +63,7 @@ for topic,s in state.items():
         "exactly_equal_downscaled_adjacent_frames":sum(x==0 for x in changes)}
 after=fingerprint(args.file);assert before==after
 report.update({"sha256":before,"input_unchanged":True})
-dest=Path("data/day2-observations")/(args.file.stem+"-window.json")
+dest=Path("data/recording-observations")/(args.file.stem+"-window.json")
 dest.write_text(json.dumps(report,indent=2)+chr(10))
 sheet=Image.new("RGB",(7*180,4*205+40),"white");draw=ImageDraw.Draw(sheet)
 draw.text((5,5),args.file.name+" | full-decode focused interval",fill="black")
@@ -74,5 +74,5 @@ for row,(topic,s) in enumerate(state.items()):
         draw.text((x+3,y),label,fill="black")
         if sample:
             _,image,t=sample;sheet.paste(image,(x+3,y+20));draw.text((x+3,y+180),f"{t:.3f}s",fill="black")
-sheet.save(Path(".cache/day2-analysis")/(args.file.stem+"-window.jpg"),quality=90)
+sheet.save(Path(".cache/recording-analysis")/(args.file.stem+"-window.jpg"),quality=90)
 print(json.dumps(report,indent=2))

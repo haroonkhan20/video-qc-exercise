@@ -3,7 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 bash scripts/prepare-tools.sh
 source scripts/tool-env.sh
-# All pins were verified with docker manifest inspect during onboarding.
+# All pins were verified with docker manifest inspect during dependency validation.
 # Run make check-images for an explicit registry audit; repeated audits consume pull quota.
 
 # Never switch contexts: every operation explicitly names the qc cluster.

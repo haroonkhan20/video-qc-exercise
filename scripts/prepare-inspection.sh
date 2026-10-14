@@ -35,6 +35,6 @@ PYTHONPATH="$PWD/.cache/pip-bootstrap/pip-26.2.1-py3-none-any.whl" \
   .venv/bin/python -m pip install --no-cache-dir --disable-pip-version-check --no-deps \
   .cache/pip-bootstrap/pip-26.2.1-py3-none-any.whl
 .venv/bin/python -m pip install --no-cache-dir --disable-pip-version-check --timeout 120 --retries 5 \
-  -r tools/day2-requirements.txt
+  -r tools/inspection-requirements.txt
 .cache/bin/mcap --version
 .venv/bin/python -c 'import importlib.metadata; print("Python mcap:", importlib.metadata.version("mcap"))'

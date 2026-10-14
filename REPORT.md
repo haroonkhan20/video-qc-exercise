@@ -25,7 +25,7 @@ They are not pipeline errors.
 - A full rebuild under the final policy preserves 1,275 distinct metric rows
   and one verdict for the representative file. Its viewer and rebuild replay pass.
 - Startup and a fresh checkout were revalidated on the existing cluster.
-  Earlier Day 1 evidence separately proves empty-cluster startup/teardown.
+  Earlier infrastructure verification separately proves empty-cluster startup/teardown.
   Two QC workers remain configured, following the user's memory preference.
 
 ## Acceptance decisions
@@ -49,7 +49,7 @@ choices with limits, not a claim of a perfect classifier.
 ## Scoring and deliverables
 
 The controlled confusion table measures known mutations. Agreement with frozen
-Day 2 first guesses is 26/41; those guesses were preliminary, so this is not
+initial inspection labels is 26/41; those guesses were preliminary, so this is not
 independent accuracy. Each disagreement has an explanation. No external answer
 key is assumed or fabricated.
 
@@ -67,9 +67,6 @@ key is assumed or fabricated.
 The 11 review outcomes need human interpretation if the downstream task requires
 a binary shipping label. The viewer stores one-second samples, not full playback.
 Our curated tests do not establish accuracy on unseen recordings. The design
-note covers scale, cache, retention, and concurrency limits. A mentor presentation
-has not been performed by this software run.
+note covers scale, cache, retention, and concurrency limits.
 
-The pipeline and demo materials are ready. Next is the planned local web interface
-for uploads, workflow progress, metrics, findings, and the review queue.
-The cluster remains available for it.
+The local dashboard supports uploads, quality standards, scores, findings and sampled camera inspection. Full playback and saved human review decisions remain product improvements. Processing services run locally and require the cluster to remain available.
