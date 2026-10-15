@@ -127,6 +127,25 @@ class ScorecardTests(unittest.TestCase):
         self.assertIsNone(result["score"])
         self.assertEqual(result["assessment_state"],"blocked_by_fault")
 
+    def test_head_invalid_data_caps_without_mutating_original(self):
+        report=clean();before=copy.deepcopy(report)
+        head={"status":"checked","severity":"fail","findings":[{"code":"HEAD_ZERO_ROTATION","severity":"fail","why":"Zero rotation cannot be used."}]}
+        result=build(grade(report,PROFILE),evidence(),head)
+        self.assertEqual(result["score"],4);self.assertEqual(result["recommendation"],"unacceptable")
+        self.assertEqual(report,before);self.assertEqual(result["model"],"overall-score-v4-head")
+    def test_head_motion_warning_caps_at_eight(self):
+        head={"status":"checked","severity":"review","findings":[{"code":"HEAD_POSITION_JUMP","severity":"review","why":"Relative movement spike."}]}
+        result=build(grade(clean(),PROFILE),evidence(),head)
+        self.assertEqual(result["score"],8);self.assertEqual(result["recommendation"],"review")
+    def test_unavailable_head_check_does_not_get_healthy_overall_score(self):
+        head={"status":"not_assessed","severity":"not_assessed","findings":[]}
+        result=build(grade(clean(),PROFILE),evidence(),head)
+        self.assertIsNone(result["score"]);self.assertEqual(result["assessment_state"],"limited_evidence")
+    def test_missing_head_stream_uses_essential_limit(self):
+        head={"status":"checked","severity":"fail","findings":[{"code":"HEAD_MISSING_STREAM","severity":"fail","why":"Required head stream absent."}]}
+        result=build(grade(clean(),PROFILE),evidence(),head)
+        self.assertEqual(result["score"],2)
+
 class ObstructionTests(unittest.TestCase):
     def test_dark_edge_candidate(self):self.assertIsNotNone(inspect_image(picture(block=True)))
     def test_clean_black_and_letterbox_are_not_partial_blockage(self):

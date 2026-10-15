@@ -48,3 +48,11 @@ button:disabled{cursor:wait;opacity:.55;box-shadow:none}
 .issue-review button[type=submit]{background:#176b50;color:white;border-color:#10543f}
 .issue-review .review-status{color:#315f45}.issue-review details{margin-top:12px}.issue-review summary{cursor:pointer}
 #reviewNotice{font-size:12px;color:#415b4b}
+
+.head-motion{border:1px solid #a7c8b4;background:#f5faf7;padding:20px;border-radius:10px;margin:20px 0}
+.head-motion p{font-size:12px;color:#3e584a}.head-summary{display:flex;gap:15px;align-items:center;flex-wrap:wrap;margin:15px 0}.head-summary strong{font-size:18px}
+.head-summary span{font-size:12px;color:#465f51}.head-categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.head-categories article{background:white;border:1px solid #ceded3;border-radius:8px;padding:14px}.head-categories h3{font-size:14px;margin:0 0 10px}
+.head-state{font-size:12px}.head-state.pass{color:#176b50}.head-state.review{color:#87601c}.head-state.fail{color:#a6372d}
+.head-metrics{display:flex;gap:18px;flex-wrap:wrap}.head-metrics div{flex:1;min-width:180px}.head-metrics dt{font-size:12px;color:#425d4c}.head-metrics dd{margin:6px 0;font-size:14px;font-weight:600}
+.head-finding{padding:15px;border-left:3px solid #c58d39;background:#fff;border-radius:6px;margin:12px 0}.head-motion .head-scope{font-size:11px}

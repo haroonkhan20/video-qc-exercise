@@ -1,0 +1,135 @@
+{
+  "detector": {
+    "version": "head-motion-v1",
+    "source_hash": "8c95617072ad3ce892861babd7fc3dda21e31c9ffa1fd872628b6f36e14e2862",
+    "probe_hash": "a1175290ed30f80d29416febbd3b59fb7fd569ce150e4fe37660289e24781712",
+    "settings": {
+      "rotation_norm_tolerance": 0.001,
+      "position_jump_multiple": 20,
+      "baseline_seconds": 1,
+      "baseline_min_pairs": 10,
+      "baseline_max_mad_relative": 1,
+      "rotation_step_degrees": 45,
+      "maximum_pair_seconds": 0.1,
+      "nominal_hz": 50,
+      "gap_period_multiple": 3
+    }
+  },
+  "synthetic_cases": [
+    {
+      "name": "Clean movement",
+      "expected": "pass",
+      "actual": "pass",
+      "codes": []
+    },
+    {
+      "name": "Invalid rotation",
+      "expected": "fail",
+      "actual": "fail",
+      "codes": [
+        "HEAD_ZERO_ROTATION"
+      ]
+    },
+    {
+      "name": "Invalid numeric value",
+      "expected": "fail",
+      "actual": "fail",
+      "codes": [
+        "HEAD_INVALID_VALUES"
+      ]
+    },
+    {
+      "name": "Missing position",
+      "expected": "fail",
+      "actual": "fail",
+      "codes": [
+        "HEAD_MISSING_FIELDS"
+      ]
+    },
+    {
+      "name": "Rotation scaling",
+      "expected": "review",
+      "actual": "review",
+      "codes": [
+        "HEAD_ROTATION_SCALE"
+      ]
+    },
+    {
+      "name": "Position jump",
+      "expected": "review",
+      "actual": "review",
+      "codes": [
+        "HEAD_POSITION_JUMP"
+      ]
+    },
+    {
+      "name": "Sudden turn",
+      "expected": "review",
+      "actual": "review",
+      "codes": [
+        "HEAD_ROTATION_JUMP"
+      ]
+    },
+    {
+      "name": "Tracking reset",
+      "expected": "review",
+      "actual": "review",
+      "codes": [
+        "HEAD_FRAME_CHANGE"
+      ]
+    },
+    {
+      "name": "Missing reference",
+      "expected": "review",
+      "actual": "review",
+      "codes": [
+        "HEAD_FRAME_MISSING"
+      ]
+    },
+    {
+      "name": "Reading gap",
+      "expected": "review",
+      "actual": "review",
+      "codes": [
+        "HEAD_TIME_GAP"
+      ]
+    },
+    {
+      "name": "Repeated time",
+      "expected": "review",
+      "actual": "review",
+      "codes": [
+        "HEAD_TIME_ORDER"
+      ]
+    },
+    {
+      "name": "Equivalent rotation signs",
+      "expected": "pass",
+      "actual": "pass",
+      "codes": []
+    },
+    {
+      "name": "Legitimate stillness",
+      "expected": "pass",
+      "actual": "pass",
+      "codes": []
+    },
+    {
+      "name": "Undecodable message",
+      "expected": "not_assessed",
+      "actual": "not_assessed",
+      "codes": [
+        "HEAD_CHECK_UNAVAILABLE"
+      ]
+    },
+    {
+      "name": "Missing head stream",
+      "expected": "fail",
+      "actual": "fail",
+      "codes": [
+        "HEAD_MISSING_STREAM"
+      ]
+    }
+  ],
+  "scope": "Controlled synthetic head-only MCAPs, not real recording findings or classification accuracy."
+}

@@ -9,6 +9,7 @@ const marks=v=>v==null?'No rating':Number(v).toFixed(2)+'/10';
 const gradeBadge=g=>g&&g.score==null&&['blocked_by_fault','limited_evidence'].includes(g.assessment_state)?'<strong class="grade-mark">Cannot rate</strong><small class="grade-state">'+(g.assessment_state==='blocked_by_fault'?'File or data fault prevents a full rating':'Checked; evidence is incomplete')+'</small>':g?'<strong class="grade-mark">'+marks(g.score)+'</strong><small class="grade-state '+g.recommendation+'">'+gradeLabels[g.recommendation]+'</small>':'<span class="grade-state">Pending</span>';
 const names=Friendly.areas;
 let editorBase=null;
+let headMotionEnabled=false,headScanningEnabled=false;
 async function api(url,opts){const r=await fetch(url,opts),d=await r.json();if(!r.ok)throw Error(d.error||'Request failed');return d;}
 function render(){
  const base=records.filter(r=>$('collection').value==='all'||r.dataset==='reference');
@@ -26,8 +27,9 @@ function problemButton(topic,start,end){
  if(!Number.isFinite(start)||!Number.isFinite(end)||start<0||end<=start||end>86400)return '';
  return '<button class="show-problem" data-problem-topic="'+esc(topic||'')+'" data-problem-start="'+start+'" data-problem-end="'+end+'">Show me the problem ↗</button>';
 }
-function timelinePanel(report,obstruction){
- const timeline=IssueTimeline.model(report,obstruction);
+function timelinePanel(report,obstruction,head=null){
+ const source=head?{...report,findings:[...report.findings,...head.findings.filter(f=>f.severity!=='source_policy')]}:report;
+ const timeline=IssueTimeline.model(source,obstruction);
  const label=code=>code==='POSSIBLE_OBSTRUCTION'?'Possible blocked view':Friendly.issues[code]||code.replaceAll('_',' ').toLowerCase();
  const time=value=>Number(value).toFixed(2)+'s';
  let html='<section class="issue-timeline" aria-labelledby="timelineTitle"><h2 id="timelineTitle">Where are the problems?</h2><p>Read from the start to the end of the recording. Each coloured mark is a flagged moment. Select a mark or its time to see saved camera images.</p>';
@@ -71,7 +73,7 @@ function gradingPanel(g){
  (card.review_limit?'<p class="attention-note">'+esc(card.review_limit.why)+(card.weighted_average==null?'':' Calculated rating before this limit: '+Number(card.weighted_average).toFixed(2)+'/10.')+'</p>':'')+
  (card.assessment_state==='blocked_by_fault'?'<p class="attention-note">This recording was checked. Its file or data faults prevent some required checks from completing, so those aspects have no rating. The automatic failure still applies.</p>':'')+
  (card.possible_obstruction?'<p class="attention-note">A possible blocked view needs a look before use. A dark object in the scene can also cause this warning.</p>':'')+
- (!card.assessment_complete&&card.assessment_state!=='blocked_by_fault'?'<p class="attention-note">'+(card.assessment_state==='limited_evidence'?'The check ran, but the retained evidence cannot support a complete rating. You can retry the snapshot check; missing evidence is never given a perfect score.':'The Overall Score is waiting for complete information. Use Check for a blocked view below to check the saved camera snapshots.')+'</p>':'')+
+ (!card.assessment_complete&&card.assessment_state!=='blocked_by_fault'?'<p class="attention-note">'+(card.head_motion&&(card.head_motion.status!=='checked'||card.head_motion.severity==='not_assessed')?'Head movement has insufficient evidence for a complete rating. See the Head movement section.':card.assessment_state==='limited_evidence'?'The check ran, but the retained evidence cannot support a complete rating. You can retry the snapshot check; missing evidence is never given a perfect score.':'The Overall Score is waiting for complete information. Use Check for a blocked view below to check the saved camera snapshots.')+'</p>':'')+
  '<div class="aspect-grid">'+card.aspects.map(a=>'<article class="aspect-card"><div class="aspect-heading"><h3>'+esc(a.name)+'</h3><strong>'+marks(a.score)+'</strong></div><p>'+esc(why(a))+'</p><small>Importance: '+Number(a.weight.toFixed(2))+'%'+(a.contribution==null?'':' · Adds '+a.contribution.toFixed(2)+' points before serious-issue limits')+'</small><details><summary>Camera and sensor breakdown</summary>'+a.streams.map(t=>'<p><strong>'+esc(Friendly.stream(t.topic))+'</strong> · '+marks(t.score)+'<br>'+esc(t.parameters?.length?Friendly.why([...t.parameters].filter(p=>p.applicable!==false).sort((x,y)=>x.score-y.score)[0]):t.why)+'</p>'+((t.evidence?.runs||[]).map(r=>'<p>Possible blockage: '+r.start_s.toFixed(1)+'–'+r.end_s.toFixed(1)+' seconds; up to '+Math.round(r.maximum_area_fraction*100)+'% of the picture.</p>'+problemButton(t.topic,r.start_s,r.end_s)).join(''))).join('')+'</details></article>').join('')+'</div>'+
  '<h3>Check for a blocked view</h3><p>Checks saved snapshots, about one per second, for a persistent dark area covering part of the picture. This can miss brief or non-dark blockages. It is a review aid, not proof of an obstruction.</p><button id="checkObstruction">Check saved snapshots</button><p id="obstructionStatus" role="status">'+(card.obstruction.status==='checked'?'Saved snapshots checked. Results are included above.':'This additional check has not completed for this recording.')+'</p>'+
  '<p class="grade-scope">10 means no measured reason to lower this mark under your chosen standard. It does not guarantee a perfect recording. The original automatic findings remain below.</p><a class="download" id="gradeDownload">Download score report</a><details class="technical"><summary>Calculation and version details</summary><pre>'+esc(JSON.stringify({model:card.model,weights:card.aspects.map(a=>({aspect:a.name,weight:a.weight,score:a.score,contribution:a.contribution})),beforeCap:card.weighted_average,review_limit:card.review_limit,serious_issue_limit:card.serious_issue_limit,profile_version:g.profile_version,source_report_hash:g.source_report_hash,detector:card.obstruction.detector,legacy_category_grade:g.legacy_category_grade},null,2))+'</pre></details></section>';
@@ -82,9 +84,9 @@ async function detail(digest){
  const selected=records.find(r=>r.digest===digest);$('detailTitle').textContent=selected?.name||digest.slice(0,12);$('detailBody').textContent='Loading report and grade…';if(!$('detail').open)$('detail').showModal();
  try{
  const [r,g,reviewData]=await Promise.all([api('/api/reports/'+digest),api('/api/grades/'+digest+'?profile='+encodeURIComponent(activeProfile)),api('/api/reviews/'+digest).catch(e=>({error:e.message,issues:[]}))]);if(sequence!==detailSequence)return;
- $('detailBody').innerHTML='<p>Automatic check result: '+badge(r.verdict)+'</p><div id="timelinePanel">'+timelinePanel(r,g.scorecard?.obstruction)+'</div><div id="scorecard">'+gradingPanel(g)+'</div><h2>What needs attention ('+r.findings.length+')</h2>'+
+ $('detailBody').innerHTML='<p>Automatic check result: '+badge(r.verdict)+'</p><div id="timelinePanel">'+timelinePanel(r,g.scorecard?.obstruction,g.scorecard?.head_motion)+'</div><div id="headPanel">'+(headMotionEnabled?HeadMotionUI.render(g.scorecard?.head_motion,headScanningEnabled):'')+'</div><div id="scorecard">'+gradingPanel(g)+'</div><h2>What needs attention ('+r.findings.length+')</h2>'+
  (r.findings.length?r.findings.map((f,index)=>'<article class="finding"><strong>'+esc(Friendly.issues[f.code]||'An issue needs attention')+'</strong><p>'+esc(descriptions[f.code]||'This check found a problem. See the affected moments and optional technical details.')+'</p><p>'+esc(Friendly.stream(f.stream))+'</p><p>'+(f.start_s!=null?Number(f.start_s).toFixed(2)+'–'+Number(f.end_s).toFixed(2)+' seconds into the recording':'Applies to the whole recording')+'</p>'+problemButton(f.stream,f.start_s,f.end_s)+'<details class="technical"><summary>Technical details</summary><pre>'+esc(JSON.stringify(f,null,2))+'</pre></details><div data-review-mount="'+index+'">'+reviewPanel(reviewData.issues.find(item=>item.origin==='automatic'&&item.finding_index===index))+'</div></article>').join(''):'<p>The automatic checks did not find an issue under their current rules.</p>')+
-  '<div id="obstructionReviews"></div><p id="reviewNotice" role="status"></p><div id="previousReviewHistory"></div><a class="download" id="reviewDownload">Download human reviews</a><section class="samples" id="problemImages"><h2 id="sampleHeading" tabindex="-1">Look at the recording</h2><p>These are saved snapshots, about one per second. The time below each picture is when it was taken.</p><div class="sample-controls"><label>Seconds into recording <input id="sampleTime" type="number" min="0" max="86400" step="0.1" value="0"></label><button id="loadSamples">Show images</button></div><p id="sampleContext" role="status" aria-live="polite"></p><div id="sampleGrid" aria-busy="false"></div></section><details class="technical"><summary>Detailed camera and sensor measurements</summary><div class="table-wrap"><table><thead><tr><th>CAMERA OR SENSOR</th><th>READINGS</th><th>READINGS / SECOND</th><th>PLAYBACK ERRORS</th><th>EST. MISSING READINGS</th></tr></thead><tbody>'+r.streams.map(s=>'<tr><td>'+esc(Friendly.stream(s.topic))+'</td><td>'+esc(s.timing?.log?.messages??'—')+'</td><td>'+(s.timing?.log?.effective_hz==null?'—':Number(s.timing.log.effective_hz).toFixed(2))+'</td><td>'+esc(s.stats?.video_decode_errors??'—')+'</td><td>'+esc(s.timing?.log?.estimated_dropped_frames??'—')+'</td></tr>').join('')+'</tbody></table></div></details><a class="download" id="download">Download original check report</a><details class="technical"><summary>File and processing details</summary><p class="mono">Recording: '+esc(r.digest)+'<br>Rules: '+esc(r.config_version)+'<br>Software: '+esc(r.code_version)+'</p></details>';
+  '<div id="obstructionReviews"></div><div id="headReviews"></div><p id="reviewNotice" role="status"></p><div id="previousReviewHistory"></div><a class="download" id="reviewDownload">Download human reviews</a><section class="samples" id="problemImages"><h2 id="sampleHeading" tabindex="-1">Look at the recording</h2><p>These are saved snapshots, about one per second. The time below each picture is when it was taken.</p><div class="sample-controls"><label>Seconds into recording <input id="sampleTime" type="number" min="0" max="86400" step="0.1" value="0"></label><button id="loadSamples">Show images</button></div><p id="sampleContext" role="status" aria-live="polite"></p><div id="sampleGrid" aria-busy="false"></div></section><details class="technical"><summary>Detailed camera and sensor measurements</summary><div class="table-wrap"><table><thead><tr><th>CAMERA OR SENSOR</th><th>READINGS</th><th>READINGS / SECOND</th><th>PLAYBACK ERRORS</th><th>EST. MISSING READINGS</th></tr></thead><tbody>'+r.streams.map(s=>'<tr><td>'+esc(Friendly.stream(s.topic))+'</td><td>'+esc(s.timing?.log?.messages??'—')+'</td><td>'+(s.timing?.log?.effective_hz==null?'—':Number(s.timing.log.effective_hz).toFixed(2))+'</td><td>'+esc(s.stats?.video_decode_errors??'—')+'</td><td>'+esc(s.timing?.log?.estimated_dropped_frames??'—')+'</td></tr>').join('')+'</tbody></table></div></details><a class="download" id="download">Download original check report</a><details class="technical"><summary>File and processing details</summary><p class="mono">Recording: '+esc(r.digest)+'<br>Rules: '+esc(r.config_version)+'<br>Software: '+esc(r.code_version)+'</p></details>';
  let reviews=reviewData;
  function refreshReviewDownload(){
   const link=$('reviewDownload');link.hidden=!!reviews.error;
@@ -94,6 +96,7 @@ async function detail(digest){
   $('reviewNotice').textContent=reviews.error?'Human reviews could not load. Automatic results are still available.':reviews.previous_report_review_count?'Reviews from earlier processing or snapshot evidence are retained separately and are not applied to these findings.':'Human reviews are stored locally and do not replace the automatic result.';
  }
  function obstructionReviewPanels(){
+  $('headReviews').innerHTML=reviews.issues.filter(item=>item.origin==='head_motion').map(item=>'<article class="finding"><strong>'+esc(Friendly.issues[item.finding.code]||'Head movement finding')+'</strong><p>'+esc(item.finding.why)+'</p>'+reviewPanel(item)+'</article>').join('');
   $('obstructionReviews').innerHTML=reviews.issues.filter(item=>item.origin==='snapshot_screen').map(item=>'<article class="finding"><strong>Possible blocked view · '+esc(Friendly.stream(item.finding.stream))+'</strong><p>'+Number(item.finding.start_s).toFixed(2)+'–'+Number(item.finding.end_s).toFixed(2)+' seconds</p>'+problemButton(item.finding.stream,item.finding.start_s,item.finding.end_s)+reviewPanel(item)+'</article>').join('');
  }
  refreshReviewDownload();obstructionReviewPanels();
@@ -108,6 +111,24 @@ async function detail(digest){
    form.outerHTML=reviewPanel(item);refreshReviewDownload();
   }catch(error){if(sequence===detailSequence&&$('detail').open){status.textContent=error.message;button.disabled=false;}}
  };
+ function bindHead(current){
+  if(!headMotionEnabled)return;
+  const evidence=current.scorecard?.head_motion,link=$('headDownload');
+  if(link&&evidence){link.href=URL.createObjectURL(new Blob([JSON.stringify(evidence,null,2)],{type:'application/json'}));link.download=digest+'.head-motion.json';}
+  const button=$('checkHead');if(!button||!headScanningEnabled)return;
+  button.onclick=async()=>{
+   button.disabled=true;$('headStatus').textContent='Reading every head-pose message in this recording…';
+   try{
+    await api('/api/head-motion/'+digest,{method:'POST',headers:{'X-QC-Analysis':'1'}});
+    const [updated,updatedReviews]=await Promise.all([api('/api/grades/'+digest+'?profile='+encodeURIComponent(activeProfile)),api('/api/reviews/'+digest)]);
+    if(sequence!==detailSequence||!$('detail').open)return;
+    reviews=updatedReviews;$('headPanel').innerHTML=HeadMotionUI.render(updated.scorecard.head_motion,headScanningEnabled);
+    $('scorecard').innerHTML=gradingPanel(updated);$('timelinePanel').innerHTML=timelinePanel(r,updated.scorecard.obstruction,updated.scorecard.head_motion);
+    bindHead(updated);bindScorecard(updated);obstructionReviewPanels();refreshReviewDownload();refresh();
+   }catch(error){if(sequence===detailSequence&&$('headStatus')){$('headStatus').textContent=error.message;button.disabled=false;}}
+  };
+ }
+ bindHead(g);
  function bindScorecard(current){
   const link=$('gradeDownload');link.href=URL.createObjectURL(new Blob([JSON.stringify(current,null,2)],{type:'application/json'}));link.download=digest+'.grade.json';
   $('checkObstruction').onclick=async()=>{
@@ -116,7 +137,7 @@ async function detail(digest){
     await api('/api/obstruction/'+digest,{method:'POST',headers:{'X-QC-Analysis':'1'}});
     const updated=await api('/api/grades/'+digest+'?profile='+encodeURIComponent(activeProfile));
     if(sequence!==detailSequence||!$('detail').open)return;
-    $('timelinePanel').innerHTML=timelinePanel(r,updated.scorecard?.obstruction);$('scorecard').innerHTML=gradingPanel(updated);bindScorecard(updated);refresh();
+    $('timelinePanel').innerHTML=timelinePanel(r,updated.scorecard?.obstruction,updated.scorecard?.head_motion);$('scorecard').innerHTML=gradingPanel(updated);bindScorecard(updated);refresh();
     reviews=await api('/api/reviews/'+digest);if(sequence===detailSequence&&$('detail').open){obstructionReviewPanels();refreshReviewDownload();}
    }catch(e){if(sequence===detailSequence&&$('obstructionStatus')){$('obstructionStatus').textContent=e.message;$('checkObstruction').disabled=false;}}
   };
@@ -222,7 +243,13 @@ $('file').onchange=()=>{
  xhr.onerror=()=>{$('notice').textContent='Upload connection failed. Retry the same file safely.';$('uploadButton').disabled=false;};xhr.send(file);
 };
 async function pollJobs(){try{const jobs=await api('/api/jobs');$('jobs').hidden=!jobs.length;$('jobRows').innerHTML=jobs.map(j=>'<p><strong>'+esc(j.name)+'</strong> · '+esc(({'Received':'Upload received','Storing raw data':'Saving your recording','Workflow submitted':'Checks started','Error':'Upload needs attention'}[j.state]||j.state))+(j.error?' · '+esc(j.error):'')+(j.digest?' · '+j.digest.slice(0,12):'')+'</p>').join('');}catch{}}
-async function initialize(){try{const data=await api('/api/profiles');profiles=data.profiles;activeProfile=data.default;profileOptions();await refresh();}catch(e){$('notice').textContent=e.message;}}
+async function initialize(){try{
+ const features=await api('/api/features').catch(()=>({head_motion:false}));
+ if(features.head_motion){
+  await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='/head-motion.js';script.onload=resolve;script.onerror=reject;document.head.append(script);});
+  headMotionEnabled=true;headScanningEnabled=features.head_analysis;Object.assign(Friendly.issues,HeadMotionUI.names);
+ }
+ const data=await api('/api/profiles');profiles=data.profiles;activeProfile=data.default;profileOptions();await refresh();}catch(e){$('notice').textContent=e.message;}}
 initialize();pollJobs();setInterval(()=>{refresh();pollJobs();},15000);
 
 function friendlyError(message){

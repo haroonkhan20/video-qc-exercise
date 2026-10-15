@@ -7,6 +7,11 @@ from grading import grade,validate_profile,fingerprint
 from scorecard import build as scorecard
 from obstruction import provenance
 from reviews import ReviewStore
+from head_results import evidence_for as head_evidence, cache_path as head_cache_path, store as store_head, SOURCE as HEAD_SOURCE
+HEAD_ENABLED=os.environ.get("QC_HEAD_MOTION_ENABLED")=="1"
+HEAD_SCAN_ENABLED=os.environ.get("QC_HEAD_ANALYSIS_ENABLED")=="1"
+HEAD_PREVIEW=os.environ.get("QC_HEAD_PREVIEW")=="1"
+HEAD_LOCK=threading.Lock()
 PORT=int(os.environ.get("QC_WEB_PORT","8090"))
 ANALYSIS_LOCK=threading.Lock()
 ROOT=Path(__file__).resolve().parents[1]
@@ -65,7 +70,8 @@ def graded(report,profile):
  result=grade(report,profile)
  path=obstruction_path(report)
  evidence=json.loads(path.read_text()) if path.exists() else None
- result["scorecard"]=scorecard(result,evidence)
+ head=head_evidence(report) if HEAD_ENABLED else None
+ result["scorecard"]=scorecard(result,evidence,head)
  result["legacy_category_grade"]={k:result[k] for k in ["score","weighted_average","recommendation","assessment_complete"]}
  result["critical_cap"]=result["scorecard"]["serious_issue_limit"]
  for key in ["score","weighted_average","recommendation","assessment_complete","why","assessment_state"]:
@@ -78,6 +84,18 @@ def graded(report,profile):
  result["engine_hash"]=fingerprint({name:hashlib.sha256((ROOT/"web"/name).read_bytes()).hexdigest() for name in ["grading.py","scorecard.py","obstruction.py","pod_read.py","server.py"]})
  result["scope"]=result["scorecard"]["scope"]
  return result
+def analyze_head(digest):
+ if not HEAD_ENABLED or not HEAD_SCAN_ENABLED:raise ValueError("Head analysis is disabled pending deployment approval")
+ if not HEAD_LOCK.acquire(False):raise ValueError("Another head scan is running. Try again shortly.")
+ try:
+  report=cli("report",digest)
+  existing=head_evidence(report)
+  if existing and existing.get("status")=="checked":return existing
+  command=K[:-3]+["python","-",digest,base64.b64encode(HEAD_SOURCE.read_bytes()).decode()]
+  result=subprocess.run(command,input=(ROOT/"web/head_probe.py").read_bytes(),capture_output=True,timeout=180)
+  if result.returncode:raise RuntimeError("Head scan unavailable. Check the worker and source recording.")
+  return store_head(report,json.loads(result.stdout))
+ finally:HEAD_LOCK.release()
 def analyze(digest):
  if not ANALYSIS_LOCK.acquire(False):raise ValueError("Another snapshot check is running. Try again shortly.")
  try:
@@ -123,6 +141,12 @@ class Handler(BaseHTTPRequestHandler):
   if self.headers.get("Host","") not in [f"localhost:{PORT}",f"127.0.0.1:{PORT}"]:return self.reply({"error":"Invalid host"},403)
   try:
    if path=="/api/profiles":return self.reply({"profiles":profiles(),"default":"balanced-v1"})
+   if path=="/api/features":return self.reply({"head_motion":HEAD_ENABLED,"head_analysis":HEAD_ENABLED and HEAD_SCAN_ENABLED,"head_preview":HEAD_PREVIEW})
+   if path=="/api/head-examples" and HEAD_PREVIEW:
+    return self.reply(json.loads((ROOT/".cache/head-motion-preview/examples.json").read_text()))
+   m=re.fullmatch(r"/api/head-motion/([0-9a-f]{64})",path)
+   if m and HEAD_ENABLED:
+    report=cli("report",m[1]);return self.reply({"evidence":head_evidence(report),"can_analyze":HEAD_SCAN_ENABLED})
    profile_id=parse_qs(parsed.query).get("profile",["balanced-v1"])[0]
    if path=="/api/recordings":return self.reply({"recordings":records(profile_for(profile_id)),"updated_at":time.time()})
    m=re.fullmatch(r"/api/grades/([0-9a-f]{64})",path)
@@ -131,7 +155,7 @@ class Handler(BaseHTTPRequestHandler):
    m=re.fullmatch(r"/api/reviews/([0-9a-f]{64})",path)
    if m:
     report=cli("report",m[1]);cached=obstruction_path(report)
-    return self.reply(REVIEWS.read(m[1],report,json.loads(cached.read_text()) if cached.exists() else None))
+    return self.reply(REVIEWS.read(m[1],report,json.loads(cached.read_text()) if cached.exists() else None,head_evidence(report) if HEAD_ENABLED else None))
    m=re.fullmatch(r"/api/samples/([0-9a-f]{64})/([0-9]+(?:[.][0-9]+)?)",path)
    if m:
     seconds=float(m[2])
@@ -139,7 +163,7 @@ class Handler(BaseHTTPRequestHandler):
     return self.reply(probe("samples",m[1],str(seconds)))
    m=re.fullmatch(r"/api/reports/([0-9a-f]{64})",path)
    if m:return self.reply(cli("report",m[1]))
-   if path in ["/","/app.js","/style.css","/friendly.js","/timeline.js"]:
+   if path in ["/","/app.js","/style.css","/friendly.js","/timeline.js","/head-motion.js"] or path=="/head-preview.html" and HEAD_PREVIEW:
     p=ROOT/"web"/("index.html" if path=="/" else path[1:]);data=p.read_bytes()
     self.send_response(200);self.send_header("Content-Type",mimetypes.guess_type(p)[0]);self.send_header("Content-Length",str(len(data)));self.end_headers();self.wfile.write(data);return
    self.reply({"error":"Not found"},404)
@@ -148,9 +172,14 @@ class Handler(BaseHTTPRequestHandler):
   except Exception as e:self.reply({"error":str(e)},503)
  def do_POST(self):
   if self.headers.get("Host","") not in [f"localhost:{PORT}",f"127.0.0.1:{PORT}"]:return self.reply({"error":"Invalid host"},403)
-  if self.path not in ["/api/upload","/api/profiles"] and not re.fullmatch(r"/api/(obstruction|reviews)/[0-9a-f]{64}",self.path):return self.reply({"error":"Not found"},404)
+  if self.path not in ["/api/upload","/api/profiles"] and not re.fullmatch(r"/api/(obstruction|reviews|head-motion)/[0-9a-f]{64}",self.path):return self.reply({"error":"Not found"},404)
   origin=self.headers.get("Origin")
   if origin and origin!="http://"+self.headers.get("Host",""):return self.reply({"error":"Cross-origin request refused"},403)
+  if self.path.startswith("/api/head-motion/"):
+   if self.headers.get("X-QC-Analysis")!="1":return self.reply({"error":"Missing analysis header"},403)
+   try:return self.reply(analyze_head(self.path.rsplit("/",1)[1]))
+   except ValueError as e:return self.reply({"error":str(e)},409)
+   except Exception:return self.reply({"error":"Head scan unavailable. Check worker availability and retry."},503)
   if self.path.startswith("/api/reviews/"):
    if self.headers.get("X-QC-Review")!="1":return self.reply({"error":"Missing review header"},403)
    try:
@@ -158,7 +187,7 @@ class Handler(BaseHTTPRequestHandler):
     if not 0<length<=16384:raise ValueError("Review body must be at most 16 KiB")
     data=json.loads(self.rfile.read(length));digest=self.path.rsplit("/",1)[1]
     report=cli("report",digest);cached=obstruction_path(report)
-    return self.reply(REVIEWS.save(digest,report,json.loads(cached.read_text()) if cached.exists() else None,data),201)
+    return self.reply(REVIEWS.save(digest,report,json.loads(cached.read_text()) if cached.exists() else None,data,head_evidence(report) if HEAD_ENABLED else None),201)
    except (ValueError,TypeError) as e:return self.reply({"error":str(e)},400)
    except Exception:return self.reply({"error":"Review could not be saved. Try again; your automatic result is unchanged."},503)
   if self.path.startswith("/api/obstruction/"):

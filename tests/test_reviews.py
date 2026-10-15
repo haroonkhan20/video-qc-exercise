@@ -58,4 +58,16 @@ class ReviewTests(unittest.TestCase):
         with self.assertRaises(ValueError):self.store.save(self.digest,self.report,evidence,payload)
         self.assertEqual(self.store.read(self.digest,self.report,evidence)["previous_report_review_count"],1)
 
+    def test_head_reviews_preserve_existing_issue_identity_and_archive_changed_evidence(self):
+        automatic=self.store.read(self.digest,self.report)["issues"][0]["id"]
+        head={"detector":{"version":"head-one"},"findings":[{"code":"HEAD_POSITION_JUMP","stream":"/quest3s/head_pose","severity":"review","start_s":1,"end_s":2,"why":"Movement spike"}]}
+        result=self.store.read(self.digest,self.report,None,head)
+        self.assertEqual(result["issues"][0]["id"],automatic)
+        issue=next(i for i in result["issues"] if i["origin"]=="head_motion")
+        payload={"issue_id":issue["id"],"source_report_hash":result["source_report_hash"],"decision":"unsure","note":"Check tracking reset"}
+        self.store.save(self.digest,self.report,None,payload,head)
+        head["detector"]["version"]="head-two"
+        with self.assertRaises(ValueError):self.store.save(self.digest,self.report,None,payload,head)
+        self.assertEqual(self.store.read(self.digest,self.report,None,head)["previous_report_review_count"],1)
+
 if __name__=="__main__":unittest.main()

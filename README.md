@@ -292,3 +292,15 @@ failure findings remain visible; unavailable aspects do not receive invented
 marks. Completed checks with limited retained evidence are distinguished from
 checks still awaiting the snapshot screen. Snapshot checks with incomplete
 evidence can be retried.
+
+## Head movement checks
+
+An optional head position and rotation checker reads every head-pose message and
+shows six understandable check categories, measurements, reasons and issue times.
+New findings support the timeline and human review while preserving original
+reports. Serious problems limit the Overall Score to 2 or 4; review findings
+limit it to 8. Incomplete evidence is not given an invented healthy rating.
+
+This feature defaults off pending deployment approval. It does not automatically
+reprocess recordings. See [head movement checks](docs/HEAD-MOVEMENT.md) for the
+thresholds, limitations, controlled preview and activation settings.

@@ -1,0 +1,45 @@
+/* Head evidence presentation. No detector logic and no fabricated measurements. */
+const HeadMotionUI=(()=>{
+ const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const number=value=>Number.isFinite(value)?Number(value).toLocaleString(undefined,{maximumFractionDigits:4}):'Unavailable';
+ const labels={pass:'No issue found',review:'Needs review',fail:'Invalid data',not_assessed:'Not enough evidence',not_applicable:'No movement to compare',source_findings:'Original timing findings'};
+ const names={HEAD_MISSING_STREAM:'Head readings are missing',HEAD_MISSING_FIELDS:'Missing position or rotation',HEAD_INVALID_VALUES:'Invalid position or rotation numbers',HEAD_ZERO_ROTATION:'Unusable rotation',HEAD_INVALID_TIMESTAMP:'Missing or invalid time',HEAD_ROTATION_SCALE:'Rotation needs checking',HEAD_POSITION_JUMP:'Sudden position change',HEAD_ROTATION_JUMP:'Sudden direction change',HEAD_FRAME_CHANGE:'Tracking reference changed',HEAD_FRAME_MISSING:'Tracking reference is missing',HEAD_TIME_ORDER:'Head times repeat or go backwards',HEAD_TIME_GAP:'Gap in head readings',HEAD_CHECK_UNAVAILABLE:'Head check could not complete',HEAD_MOTION_UNAVAILABLE:'Too few readings to compare movement'};
+ function render(evidence,canAnalyze=false){
+  let html='<section class="head-motion"><h2>Head movement</h2><p>Checks the headset’s position and facing direction using every head-pose reading, not camera snapshots.</p>';
+  if(!evidence)return html+'<p>This recording has not received the new head-movement checks. Its existing automatic results are preserved; untested head movement is not assumed healthy.</p><button id="checkHead"'+(canAnalyze?'':' disabled')+'>Check head movement</button><p id="headStatus" role="status">'+(canAnalyze?'Checks only this recording.':'Scanning is disabled pending deployment approval.')+'</p></section>';
+  const metrics=evidence.metrics||{},settings=evidence.settings||{};
+  html+='<div class="head-summary"><strong>'+esc(labels[evidence.severity]||'Not enough evidence')+'</strong><span>'+number(evidence.decoded_messages)+' / '+number(evidence.expected_messages??evidence.messages)+' readings decoded</span></div>';
+  html+='<p>Reference: <strong>'+esc((evidence.frame_ids||[]).join(', ')||'Unavailable')+'</strong>. Position units have not been confirmed; they are shown as coordinate units, not metres.</p>';
+  if(evidence.severity==='review')html+='<p class="attention-note">Unusual movement needs interpretation. It is not proof of a tracking failure; reviewed findings limit the Overall Score to 8.</p>';
+  if(evidence.severity==='fail')html+='<p class="attention-note">Head data has an invalid or missing value. Known invalid head data limits the Overall Score to 4; an absent required head stream has a limit of 2. Incomplete evidence can still prevent a final score.</p>';
+  html+='<div class="head-categories">'+(evidence.categories||[]).map(category=>'<article><h3>'+esc(category.name)+'</h3><strong class="head-state '+esc(category.state)+'">'+esc(labels[category.state]||'Not enough evidence')+'</strong><p>'+esc(reason(category,evidence))+'</p></article>').join('')+'</div>';
+  html+='<dl class="head-metrics"><div><dt>Largest position step</dt><dd>'+number(metrics.largest_position_step)+' coordinate units</dd></div><div><dt>Largest direction change</dt><dd>'+number(metrics.largest_rotation_step_degrees)+'° between nearby readings</dd></div><div><dt>Rotation scaling difference</dt><dd>'+number(metrics.largest_rotation_norm_error)+' (allowance '+number(settings.rotation_norm_tolerance)+')</dd></div></dl>';
+  if(metrics.position_min_xyz)html+='<details class="technical"><summary>Position range and check settings</summary><p>X: '+number(metrics.position_min_xyz[0])+' to '+number(metrics.position_max_xyz[0])+'<br>Y: '+number(metrics.position_min_xyz[1])+' to '+number(metrics.position_max_xyz[1])+'<br>Z: '+number(metrics.position_min_xyz[2])+' to '+number(metrics.position_max_xyz[2])+'</p><pre>'+esc(JSON.stringify(settings,null,2))+'</pre></details>';
+  const findings=(evidence.findings||[]).filter(f=>f.severity!=='source_policy');
+  html+='<h3>Head findings ('+findings.length+')</h3>'+(findings.length?findings.map(f=>'<article class="head-finding"><strong>'+esc(names[f.code]||f.code)+'</strong><p>'+esc(f.why)+'</p><p>'+ (Number.isFinite(f.start_s)&&Number.isFinite(f.end_s)?number(f.start_s)+'–'+number(f.end_s)+' seconds into the recording':'No exact time available')+'</p>'+measurement(f)+contextButton(f)+'<details class="technical"><summary>Measured evidence</summary><pre>'+esc(JSON.stringify(f,null,2))+'</pre></details></article>').join(''):'<p>No additional head finding was reported. This describes the checks that had enough evidence, not an independent guarantee of tracking accuracy.</p>');
+  html+='<p class="head-scope">Movement limits are provisional review rules. Comparisons restart after gaps, invalid readings and coordinate-reference changes. Normal stillness and equivalent rotation signs are not treated as tracking faults.</p><button id="checkHead"'+(canAnalyze?'':' disabled')+'>Recheck this recording</button><p id="headStatus" role="status">'+(canAnalyze?'Reads the head stream only.':'Deployment and dataset-wide processing have not been approved; this is retained local evidence.')+'</p><a id="headDownload" class="download">Download head report</a></section>';
+  return html;
+ }
+ function reason(category,evidence){
+  if(category.state==='not_assessed')return 'There is not enough usable evidence for this check. No healthy result is inferred.';
+  if(category.state==='not_applicable')return 'No position movement was observed, so a relative movement baseline is not needed. Stillness can be legitimate.';
+  if(category.state==='source_findings')return 'Existing timing or coverage findings remain in the original report and timeline.';
+  const finding=(evidence.findings||[]).find(f=>f.category===category.id);
+  if(finding)return finding.why;
+  return ({values:'Required fields are present and numeric values are usable.',rotation:'Rotation magnitude stayed within the approved allowance.',position:'No step exceeded 20 times a stable recent movement baseline.',turns:'No direction step exceeded 45° within 0.1 seconds.',timing:'No head timestamp gap or ordering warning was found.',reference:'The coordinate reference remained named and consistent.'})[category.id];
+ }
+ function measurement(f){
+  const m=f.metrics||{};
+  if(f.code==='HEAD_POSITION_JUMP')return '<p>Measured step: '+number(m.step_coordinate_units)+' coordinate units; '+number(m.multiple)+' times the recent typical step. Review threshold: '+number(m.allowed_multiple)+' times.</p>';
+  if(f.code==='HEAD_ROTATION_JUMP')return '<p>Measured turn: '+number(m.angle_degrees)+'° in '+number(m.interval_seconds)+' seconds. Review threshold: '+number(m.allowed_degrees)+'°.</p>';
+  if(f.code==='HEAD_ROTATION_SCALE')return '<p>Rotation magnitude: '+number(m.magnitude)+'; expected near 1. Difference: '+number(m.error)+'; allowance: '+number(m.allowed_error)+'.</p>';
+  if(f.code==='HEAD_TIME_GAP')return '<p>Measured gap: '+number(m.gap_seconds)+' seconds. Allowance: '+number(m.allowed_seconds)+' seconds.</p>';
+  return '';
+ }
+ function contextButton(f){
+  if(!Number.isFinite(f.start_s)||!Number.isFinite(f.end_s)||f.start_s<0||f.end_s<f.start_s)return '';
+  return '<button class="show-problem" data-problem-topic="'+esc(f.stream)+'" data-problem-start="'+f.start_s+'" data-problem-end="'+f.end_s+'">Show related camera images ↗</button><p>Camera images provide context; they do not prove a movement-data error.</p>';
+ }
+ return {render,names};
+})();
+if(typeof module!=='undefined')module.exports=HeadMotionUI;
