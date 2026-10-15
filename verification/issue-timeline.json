@@ -1,0 +1,11 @@
+{
+  "scope": "Presentation of existing timed findings and retained obstruction evidence; no detector or scoring changes",
+  "checks": {
+    "timeline_model": "Passed: proportional positions, duplicate removal, overlapping lanes, invalid/untimed findings, boundary clipping, point markers, missing duration and obstruction intervals",
+    "javascript_syntax": "passed",
+    "static_script_route": "passed",
+    "browser_timed_recording": "Four camera rows for BLACK_RUN around 21.76\u201323.12 seconds in a 98.4-second recording",
+    "browser_navigation": "Timeline mark selected head camera left; saved snapshot at 22.62 seconds",
+    "browser_empty_state": "Recording without timed findings explicitly distinguishes no timed findings from completed checks"
+  }
+}

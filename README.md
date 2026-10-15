@@ -243,3 +243,18 @@ Action buttons use clear borders, contrasting colours and subtle shadows. Keyboa
 focus remains visible, and disabled buttons indicate work in progress. Problem
 images are saved snapshots, not video playback; a warning appears when the nearest
 available image falls outside the flagged interval.
+
+## Issue timeline
+
+Open a recording report and look at **Where are the problems?** near the top.
+Each row names an issue and its camera or sensor. Marks show where the issue
+occurred between the recording's start and end; exact times are written below.
+Select a mark to open the same saved images as **Show me the problem**.
+
+Overlapping intervals remain separately selectable. Very short marks are widened
+for easier selection; their written times remain authoritative. Findings without
+a reliable time appear under **Other issues — no exact time available**.
+An empty timeline means no timed findings were reported, not that every check
+completed or that the recording is perfect. Completed possible blocked-view
+findings are included, with an explicit notice while that check is incomplete.
+The timeline displays existing evidence and does not change detection or scoring.

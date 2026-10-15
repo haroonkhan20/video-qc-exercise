@@ -26,6 +26,24 @@ function problemButton(topic,start,end){
  if(!Number.isFinite(start)||!Number.isFinite(end)||start<0||end<=start||end>86400)return '';
  return '<button class="show-problem" data-problem-topic="'+esc(topic||'')+'" data-problem-start="'+start+'" data-problem-end="'+end+'">Show me the problem ↗</button>';
 }
+function timelinePanel(report,obstruction){
+ const timeline=IssueTimeline.model(report,obstruction);
+ const label=code=>code==='POSSIBLE_OBSTRUCTION'?'Possible blocked view':Friendly.issues[code]||code.replaceAll('_',' ').toLowerCase();
+ const time=value=>Number(value).toFixed(2)+'s';
+ let html='<section class="issue-timeline" aria-labelledby="timelineTitle"><h2 id="timelineTitle">Where are the problems?</h2><p>Read from the start to the end of the recording. Each coloured mark is a flagged moment. Select a mark or its time to see saved camera images.</p>';
+ if(timeline.duration!=null){
+  html+='<div class="timeline-axis"><span>Start · 0s</span><span>'+time(timeline.duration/2)+'</span><span>End · '+time(timeline.duration)+'</span></div>';
+  html+=timeline.groups.map(group=>'<div class="timeline-row"><div class="timeline-label"><strong>'+esc(label(group.code))+'</strong><small>'+esc(Friendly.stream(group.stream))+'</small></div><div class="timeline-tracks">'+group.lanes.map(lane=>'<div class="timeline-track">'+lane.map(item=>{
+   const title=label(item.code)+' · '+Friendly.stream(item.stream)+' · '+time(item.start)+(item.end===item.start?'':'–'+time(item.end));
+   return '<button class="timeline-mark '+(item.code==='POSSIBLE_OBSTRUCTION'?'timeline-review':'')+'" style="left:'+item.left+'%;width:'+item.width+'%" title="'+esc(title)+'" aria-label="Show problem: '+esc(title)+'" data-problem-topic="'+esc(item.stream)+'" data-problem-start="'+item.start+'" data-problem-end="'+item.end+'"><span class="sr-only">'+esc(title)+'</span></button>';
+  }).join('')+'</div>').join('')+'</div><small class="timeline-times">'+group.items.map(item=>'<button class="timeline-time" data-problem-topic="'+esc(item.stream)+'" data-problem-start="'+item.start+'" data-problem-end="'+item.end+'">'+time(item.start)+(item.end===item.start?'':'–'+time(item.end))+'</button>').join(' ')+'</small></div>').join('');
+  if(!timeline.groups.length)html+='<p class="timeline-empty">No timed issues were reported. This does not mean every check completed; see the check result and ratings below.</p>';
+  if(timeline.groups.length)html+='<p class="timeline-note">Short marks are widened so they are easy to select. The written times give the actual interval. Unmarked areas have no reported timed issue; they are not a guarantee of perfect data.</p>';
+ }else html+='<p>The recording length is unavailable, so we cannot position issues on a timeline.</p>';
+ if(timeline.untimed.length)html+='<div class="timeline-untimed"><strong>Other issues — no exact time available</strong><ul>'+timeline.untimed.map(f=>'<li>'+esc(label(f.code))+' · '+esc(Friendly.stream(f.stream))+'</li>').join('')+'</ul></div>';
+ if(!timeline.obstructionChecked)html+='<p class="timeline-note">The possible blocked-view check has not completed. Its results will appear here after you run it.</p>';
+ return html+'</section>';
+}
 function gradingPanel(g){
  const card=g.scorecard;
  if(!card)return '<p>This report needs the current dashboard version.</p>';
@@ -55,7 +73,7 @@ async function detail(digest){
  const selected=records.find(r=>r.digest===digest);$('detailTitle').textContent=selected?.name||digest.slice(0,12);$('detailBody').textContent='Loading report and grade…';if(!$('detail').open)$('detail').showModal();
  try{
  const [r,g]=await Promise.all([api('/api/reports/'+digest),api('/api/grades/'+digest+'?profile='+encodeURIComponent(activeProfile))]);if(sequence!==detailSequence)return;
- $('detailBody').innerHTML='<p>Automatic check result: '+badge(r.verdict)+'</p><div id="scorecard">'+gradingPanel(g)+'</div><h2>What needs attention ('+r.findings.length+')</h2>'+
+ $('detailBody').innerHTML='<p>Automatic check result: '+badge(r.verdict)+'</p><div id="timelinePanel">'+timelinePanel(r,g.scorecard?.obstruction)+'</div><div id="scorecard">'+gradingPanel(g)+'</div><h2>What needs attention ('+r.findings.length+')</h2>'+
  (r.findings.length?r.findings.map(f=>'<article class="finding"><strong>'+esc(Friendly.issues[f.code]||'An issue needs attention')+'</strong><p>'+esc(descriptions[f.code]||'This check found a problem. See the affected moments and optional technical details.')+'</p><p>'+esc(Friendly.stream(f.stream))+'</p><p>'+(f.start_s!=null?Number(f.start_s).toFixed(2)+'–'+Number(f.end_s).toFixed(2)+' seconds into the recording':'Applies to the whole recording')+'</p>'+problemButton(f.stream,f.start_s,f.end_s)+'<details class="technical"><summary>Technical details</summary><pre>'+esc(JSON.stringify(f,null,2))+'</pre></details></article>').join(''):'<p>The automatic checks did not find an issue under their current rules.</p>')+
   '<section class="samples" id="problemImages"><h2 id="sampleHeading" tabindex="-1">Look at the recording</h2><p>These are saved snapshots, about one per second. The time below each picture is when it was taken.</p><div class="sample-controls"><label>Seconds into recording <input id="sampleTime" type="number" min="0" max="86400" step="0.1" value="0"></label><button id="loadSamples">Show images</button></div><p id="sampleContext" role="status" aria-live="polite"></p><div id="sampleGrid" aria-busy="false"></div></section><details class="technical"><summary>Detailed camera and sensor measurements</summary><div class="table-wrap"><table><thead><tr><th>CAMERA OR SENSOR</th><th>READINGS</th><th>READINGS / SECOND</th><th>PLAYBACK ERRORS</th><th>EST. MISSING READINGS</th></tr></thead><tbody>'+r.streams.map(s=>'<tr><td>'+esc(Friendly.stream(s.topic))+'</td><td>'+esc(s.timing?.log?.messages??'—')+'</td><td>'+(s.timing?.log?.effective_hz==null?'—':Number(s.timing.log.effective_hz).toFixed(2))+'</td><td>'+esc(s.stats?.video_decode_errors??'—')+'</td><td>'+esc(s.timing?.log?.estimated_dropped_frames??'—')+'</td></tr>').join('')+'</tbody></table></div></details><a class="download" id="download">Download original check report</a><details class="technical"><summary>File and processing details</summary><p class="mono">Recording: '+esc(r.digest)+'<br>Rules: '+esc(r.config_version)+'<br>Software: '+esc(r.code_version)+'</p></details>';
  function bindScorecard(current){
@@ -66,7 +84,7 @@ async function detail(digest){
     await api('/api/obstruction/'+digest,{method:'POST',headers:{'X-QC-Analysis':'1'}});
     const updated=await api('/api/grades/'+digest+'?profile='+encodeURIComponent(activeProfile));
     if(sequence!==detailSequence||!$('detail').open)return;
-    $('scorecard').innerHTML=gradingPanel(updated);bindScorecard(updated);refresh();
+    $('timelinePanel').innerHTML=timelinePanel(r,updated.scorecard?.obstruction);$('scorecard').innerHTML=gradingPanel(updated);bindScorecard(updated);refresh();
    }catch(e){if(sequence===detailSequence&&$('obstructionStatus')){$('obstructionStatus').textContent=e.message;$('checkObstruction').disabled=false;}}
   };
  }
