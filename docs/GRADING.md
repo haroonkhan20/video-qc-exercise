@@ -24,7 +24,7 @@ are needed.
 | Cameras recording together | 15% |
 | Sensor readings | 5% |
 
-The model is overall-score-v2. Every aspect averages the marks of its required
+The model is overall-score-v3. Every aspect averages the marks of its required
 cameras or sensors equally. Within a stream, the worst applicable parameter
 controls that aspect's stream mark. The calculated rating before serious-issue limits is
 sum(aspect mark × importance / 100). Each card shows its contribution.
@@ -123,7 +123,7 @@ missing. Imported inventory inconsistencies also trigger the 2/10 guard.
 Limits cannot be relaxed by scoring weights or acceptance cutoffs. BLACK_RUN
 continues to use the source detector's sustained-darkness thresholds, not an
 isolated dark frame. Original review findings, including sensor stillness, blur
-and freezing, retain a review recommendation without an automatic numeric cap.
+and freezing, retain a review recommendation and limit the Overall Score to 8/10. Lower calculated scores stay lower; serious limits of 2 or 4 take priority.
 If multiple issues apply, the lowest limit wins. A lower calculated rating stays
 lower; limits never award points. Downloads include serious_issue_limit with its
 limit, reason codes, explanations, source findings and whether it reduced the
@@ -189,3 +189,10 @@ Raw reports are downloaded separately unchanged.
 
 Grades are policy summaries of retained evidence, not probabilities of success,
 calibrated sensor health, or independently measured classification accuracy.
+
+Human review decisions are separate annotations and never replace automatic
+measurements or clear score limits. The local append-only SQLite store retains
+decision/note history, source-report identity and the original finding snapshot.
+Changed reports and detector findings require a fresh review. A known fault that
+prevents a complete rating is explicitly labelled Cannot rate; it is not an
+unchecked or healthy recording.

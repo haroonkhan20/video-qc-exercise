@@ -6,10 +6,12 @@ from urllib.parse import urlparse,unquote,parse_qs
 from grading import grade,validate_profile,fingerprint
 from scorecard import build as scorecard
 from obstruction import provenance
+from reviews import ReviewStore
 PORT=int(os.environ.get("QC_WEB_PORT","8090"))
 ANALYSIS_LOCK=threading.Lock()
 ROOT=Path(__file__).resolve().parents[1]
 CACHE=ROOT/".cache/web";CACHE.mkdir(parents=True,exist_ok=True)
+REVIEWS=ReviewStore(CACHE/"human-reviews.sqlite3")
 JOBS={};LOCK=threading.Lock();UPLOAD=threading.Lock()
 LIST_LOCK=threading.Lock();LIST_CACHE={"time":0,"rows":None}
 PROFILE_LOCK=threading.Lock()
@@ -66,11 +68,12 @@ def graded(report,profile):
  result["scorecard"]=scorecard(result,evidence)
  result["legacy_category_grade"]={k:result[k] for k in ["score","weighted_average","recommendation","assessment_complete"]}
  result["critical_cap"]=result["scorecard"]["serious_issue_limit"]
- for key in ["score","weighted_average","recommendation","assessment_complete","why"]:
+ for key in ["score","weighted_average","recommendation","assessment_complete","why","assessment_state"]:
   result[key]=result["scorecard"][key]
  lower=sum(a["contribution"] or 0 for a in result["scorecard"]["aspects"])
  upper=lower+sum(a["weight"]/10 for a in result["scorecard"]["aspects"] if a["score"] is None)
- result["possible_range"]=[min(v,result["critical_cap"]["limit"]) if result["critical_cap"] else v for v in [lower,upper]]
+ ceiling=result["critical_cap"]["limit"] if result["critical_cap"] else 8 if result["scorecard"]["review_limit"] else 10
+ result["possible_range"]=[min(v,ceiling) for v in [lower,upper]]
  result["engine_version"]=result["scorecard"]["model"]
  result["engine_hash"]=fingerprint({name:hashlib.sha256((ROOT/"web"/name).read_bytes()).hexdigest() for name in ["grading.py","scorecard.py","obstruction.py","pod_read.py","server.py"]})
  result["scope"]=result["scorecard"]["scope"]
@@ -79,11 +82,13 @@ def analyze(digest):
  if not ANALYSIS_LOCK.acquire(False):raise ValueError("Another snapshot check is running. Try again shortly.")
  try:
   report=cli("report",digest);path=obstruction_path(report)
-  if path.exists():return json.loads(path.read_text())
+  if path.exists():
+   existing=json.loads(path.read_text())
+   if existing.get("status")=="checked":return existing
   evidence=probe("obstruction",digest,base64.b64encode((ROOT/"web/obstruction.py").read_bytes()).decode())
   evidence.update(status="checked" if evidence["streams"] and all(s["status"]=="checked" for s in evidence["streams"]) else "not_assessed",
                   source_report_hash=fingerprint(report),detector=provenance())
-  if evidence["status"]=="checked":
+  if evidence["streams"]:
    temporary=path.with_suffix("."+uuid.uuid4().hex+".tmp");temporary.write_text(json.dumps(evidence,allow_nan=False));temporary.replace(path)
   return evidence
  finally:ANALYSIS_LOCK.release()
@@ -94,7 +99,7 @@ def records(profile):
   report=row.get("_report")
   if report:
    result=graded(report,profile)
-   visible["grading"]={k:result[k] for k in ["score","weighted_average","recommendation","why","assessment_complete","possible_range","critical_cap","profile_version"]}
+   visible["grading"]={k:result[k] for k in ["score","weighted_average","recommendation","why","assessment_complete","possible_range","critical_cap","profile_version","assessment_state"]}
   else:visible["grading"]=None
   rows.append(visible)
  return rows
@@ -123,6 +128,10 @@ class Handler(BaseHTTPRequestHandler):
    m=re.fullmatch(r"/api/grades/([0-9a-f]{64})",path)
    if m:return self.reply(graded(cli("report",m[1]),profile_for(profile_id)))
    if path=="/api/jobs":return self.reply(list(JOBS.values()))
+   m=re.fullmatch(r"/api/reviews/([0-9a-f]{64})",path)
+   if m:
+    report=cli("report",m[1]);cached=obstruction_path(report)
+    return self.reply(REVIEWS.read(m[1],report,json.loads(cached.read_text()) if cached.exists() else None))
    m=re.fullmatch(r"/api/samples/([0-9a-f]{64})/([0-9]+(?:[.][0-9]+)?)",path)
    if m:
     seconds=float(m[2])
@@ -139,9 +148,19 @@ class Handler(BaseHTTPRequestHandler):
   except Exception as e:self.reply({"error":str(e)},503)
  def do_POST(self):
   if self.headers.get("Host","") not in [f"localhost:{PORT}",f"127.0.0.1:{PORT}"]:return self.reply({"error":"Invalid host"},403)
-  if self.path not in ["/api/upload","/api/profiles"] and not re.fullmatch(r"/api/obstruction/[0-9a-f]{64}",self.path):return self.reply({"error":"Not found"},404)
+  if self.path not in ["/api/upload","/api/profiles"] and not re.fullmatch(r"/api/(obstruction|reviews)/[0-9a-f]{64}",self.path):return self.reply({"error":"Not found"},404)
   origin=self.headers.get("Origin")
   if origin and origin!="http://"+self.headers.get("Host",""):return self.reply({"error":"Cross-origin request refused"},403)
+  if self.path.startswith("/api/reviews/"):
+   if self.headers.get("X-QC-Review")!="1":return self.reply({"error":"Missing review header"},403)
+   try:
+    length=int(self.headers.get("Content-Length","0"))
+    if not 0<length<=16384:raise ValueError("Review body must be at most 16 KiB")
+    data=json.loads(self.rfile.read(length));digest=self.path.rsplit("/",1)[1]
+    report=cli("report",digest);cached=obstruction_path(report)
+    return self.reply(REVIEWS.save(digest,report,json.loads(cached.read_text()) if cached.exists() else None,data),201)
+   except (ValueError,TypeError) as e:return self.reply({"error":str(e)},400)
+   except Exception:return self.reply({"error":"Review could not be saved. Try again; your automatic result is unchanged."},503)
   if self.path.startswith("/api/obstruction/"):
    if self.headers.get("X-QC-Analysis")!="1":return self.reply({"error":"Missing analysis header"},403)
    try:return self.reply(analyze(self.path.rsplit("/",1)[1]))

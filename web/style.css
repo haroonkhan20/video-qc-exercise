@@ -41,3 +41,10 @@ button:disabled{cursor:wait;opacity:.55;box-shadow:none}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 
 .timeline-time{font-size:11px;padding:5px 9px;margin:3px 5px 0 0;background:#fff;border-color:#9cb7a7}
+
+.issue-review{margin-top:18px;padding:16px;border:1px solid #acc7b6;border-radius:8px;background:#f4faf6}
+.issue-review h4{margin:0 0 8px}.issue-review label{display:block;margin:12px 0;color:#304e40;font-size:12px;font-weight:600}
+.issue-review select,.issue-review textarea{display:block;width:100%;max-width:100%;margin-top:6px;padding:10px;border:1px solid #93b29f;border-radius:6px;background:white;color:#203d2e;font:inherit}
+.issue-review button[type=submit]{background:#176b50;color:white;border-color:#10543f}
+.issue-review .review-status{color:#315f45}.issue-review details{margin-top:12px}.issue-review summary{cursor:pointer}
+#reviewNotice{font-size:12px;color:#415b4b}

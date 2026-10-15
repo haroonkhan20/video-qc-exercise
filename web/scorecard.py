@@ -1,7 +1,7 @@
 """Visible aspect grades, with weights inherited from the selected standard."""
 from grading import fraction_score, numeric, fingerprint
 
-MODEL = "overall-score-v2"
+MODEL = "overall-score-v3"
 ESSENTIAL_CODES = frozenset({"CONTAINER_UNREADABLE", "MISSING_STREAM", "WRONG_SCHEMA",
     "WRONG_ENCODING", "VIDEO_UNDECODABLE", "VIDEO_NOT_KEYFRAME_START", "MISSING_OR_INVALID_REQUIRED_STREAM"})
 REASONS = {
@@ -81,6 +81,9 @@ def build(legacy, obstruction=None):
     if score is not None:score=min(9.99,round(score,2)) if score<10 else 10.0
     suspected=any(s.get("runs") for s in obstruction.get("streams",[]))
     review=suspected or legacy.get("original_verdict")=="needs_review" or any(f["code"] in {"BLUR_RUN","FROZEN_RUN","SENSOR_FLATLINE","UNEXPECTED_STREAM"} for f in legacy.get("source_findings",[]))
+    review_limit={"limit":8,"applied":score is not None and score>8,"why":"A finding still needs review, so the Overall Score cannot exceed 8/10."} if review and not cap else None
+    if review_limit and score is not None:score=min(score,8)
+    blocked=not complete and cap is not None and (obstruction.get("status")=="not_assessed" or any(a["score"] is None and a["id"]!="obstruction" for a in aspects))
     cutoffs=legacy["profile"]["cutoffs"]
     recommendation="not_assessed" if score is None else "unacceptable" if cap or score<cutoffs["review"] else "review" if review or score<cutoffs["acceptable"] else "acceptable"
     if cap:cap["applied"]=average is not None and average>cap["limit"]
@@ -89,10 +92,13 @@ def build(legacy, obstruction=None):
         why+=" "+" ".join(cap["explanations"])+f" The Overall Score cannot exceed {cap['limit']}/10."
         if average is not None:why+=f" Calculated score before the limit: {average:.2f}/10."
     if not complete:why+=" Required checks are incomplete, so no final Overall Score is issued."
+    if blocked:why+=" Known file or data faults prevent a complete assessment; this recording was checked, but some aspects cannot be rated."
+    if review_limit:why+=" "+review_limit["why"]
     return {"model":MODEL,"score":round(score,2) if score is not None else None,
             "weighted_average":average,"assessment_complete":complete,"recommendation":recommendation,
             "aspects":aspects,"obstruction":obstruction,"possible_obstruction":suspected,
             "serious_issue_limit":cap,
+            "review_limit":review_limit,"assessment_state":"blocked_by_fault" if blocked else "complete" if complete else "limited_evidence" if obstruction.get("status")=="not_assessed" else "incomplete",
             "why":why,
-            "model_hash":fingerprint({"aspects":aspects,"model":MODEL,"serious_issue_limit":cap}),
+            "model_hash":fingerprint({"aspects":aspects,"model":MODEL,"serious_issue_limit":cap,"review_limit":review_limit}),
             "scope":"Scores describe measured evidence under the chosen standard, not classification accuracy. Snapshot blockage screening can miss events and can flag legitimate dark objects."}

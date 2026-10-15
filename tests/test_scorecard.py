@@ -94,7 +94,9 @@ class ScorecardTests(unittest.TestCase):
     def test_review_findings_do_not_become_accepted(self):
         report=clean();report["verdict"]="needs_review";report["findings"]=[event("SENSOR_FLATLINE","pose",0,5)]
         result=build(grade(report,PROFILE),evidence())
-        self.assertEqual(result["score"],10)
+        self.assertEqual(result["weighted_average"],10)
+        self.assertEqual(result["score"],8)
+        self.assertTrue(result["review_limit"]["applied"])
         self.assertIsNone(result["serious_issue_limit"])
         self.assertEqual(result["recommendation"],"review")
 
@@ -111,6 +113,19 @@ class ScorecardTests(unittest.TestCase):
         self.assertEqual(result["score"],2)
         self.assertEqual(result["serious_issue_limit"]["limit"],2)
         self.assertEqual(result["serious_issue_limit"]["reasons"],["BLACK_RUN","VIDEO_UNDECODABLE"])
+
+    def test_low_review_score_is_not_raised(self):
+        profile=copy.deepcopy(PROFILE);profile["weights"]={k:0 for k in profile["weights"]};profile["weights"]["image"]=100
+        report=clean();report["verdict"]="needs_review";report["findings"]=[event(code,t,0,100) for t in ["left","right"] for code in ["BLUR_RUN","FROZEN_RUN"]]
+        result=build(grade(report,profile),evidence())
+        self.assertEqual(result["score"],6)
+        self.assertFalse(result["review_limit"]["applied"])
+
+    def test_damaged_file_is_not_labelled_as_unchecked(self):
+        report=clean();report["findings"]=[event("CONTAINER_UNREADABLE")];report["verdict"]="fail"
+        result=build(grade(report,PROFILE))
+        self.assertIsNone(result["score"])
+        self.assertEqual(result["assessment_state"],"blocked_by_fault")
 
 class ObstructionTests(unittest.TestCase):
     def test_dark_edge_candidate(self):self.assertIsNotNone(inspect_image(picture(block=True)))

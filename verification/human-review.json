@@ -1,0 +1,17 @@
+{
+  "checks": {
+    "grading_tests": 18,
+    "scorecard_tests": 21,
+    "review_store_tests": 6,
+    "policy_and_timing_tests": 7,
+    "javascript_syntax": "passed",
+    "review_request_protection": "passed",
+    "review_persisted_after_server_restart": true,
+    "automatic_report_identity_retained": true
+  },
+  "review_limit": 8,
+  "extra_recordings": 21,
+  "complete_extra_ratings": 14,
+  "extra_blocked_by_fault": 7,
+  "scope": "Human review is local and separate from automatic results. Unavailable measurements never receive invented marks."
+}

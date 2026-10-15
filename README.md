@@ -223,7 +223,7 @@ the calculated weighted rating and any applicable serious-issue limit:
 | --- | ---: | --- |
 | Unreadable file, missing/invalid required data, or required video that cannot play correctly | 2/10 | Issues found |
 | Sustained unacceptable darkness (BLACK_RUN), another failure identified by the original processing policy, or other critical data faults | 4/10 | Issues found |
-| Possible blocked view, suspicious stillness, blur or freezing identified for review | No automatic numeric cap | Needs review |
+| Possible blocked view, suspicious stillness, blur or freezing identified for review | 8/10 | Needs review |
 | Required evidence is incomplete | No final score | Check incomplete |
 
 The strictest applicable limit wins. A limit never raises a lower calculated
@@ -258,3 +258,37 @@ An empty timeline means no timed findings were reported, not that every check
 completed or that the recording is perfect. Completed possible blocked-view
 findings are included, with an explicit notice while that check is incomplete.
 The timeline displays existing evidence and does not change detection or scoring.
+
+## Human review
+
+Each finding has a separate **Your review** form. Choose **Confirmed problem**,
+**Normal scene** or **Unsure**, add an optional note, and select **Save review**.
+The latest decision and review history remain available after restarting the
+dashboard. Original automatic findings, verdicts, detector measurements and
+Overall Scores remain unchanged by human decisions. A normal-scene review is
+context, not an automatic pass or an override of a serious-issue limit.
+
+Reviews are attached to the exact source report and finding. If processing or
+obstruction evidence changes, previous reviews are retained but are not silently
+applied to the new issue. Download human reviews separately from the original
+automatic report. This local dashboard does not authenticate reviewer identities.
+
+Review data is stored in .cache/web/human-reviews.sqlite3 in this checkout,
+excluded from Git. Keep that database when moving or backing up the application;
+it is local data, not shared automatically through GitHub. Downloaded review
+reports provide a portable copy of the current findings and their review history.
+
+## Review scores and incomplete evidence
+
+Findings that need human interpretation limit the Overall Score to **8/10**.
+A lower calculated score stays lower. Serious-issue limits of 2 or 4 still take
+priority. Individual aspect ratings and the calculated rating before a limit are
+preserved, with the limit explained in the report.
+
+A failed recording may lack the evidence needed to calculate a complete rating:
+for example, an unreadable file, missing camera or undecodable video. These are
+labelled **Cannot rate**, not as files that were never checked. Their original
+failure findings remain visible; unavailable aspects do not receive invented
+marks. Completed checks with limited retained evidence are distinguished from
+checks still awaiting the snapshot screen. Snapshot checks with incomplete
+evidence can be retried.

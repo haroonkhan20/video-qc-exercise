@@ -1,0 +1,173 @@
+{
+  "recordings": [
+    {
+      "name": "camera-gap.mcap",
+      "snapshot_check": "checked",
+      "score": 4,
+      "state": "complete",
+      "recommendation": "unacceptable",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "control.mcap",
+      "snapshot_check": "checked",
+      "score": 9.98,
+      "state": "complete",
+      "recommendation": "acceptable",
+      "original_verdict": "pass"
+    },
+    {
+      "name": "coverage-ends-early.mcap",
+      "snapshot_check": "not_assessed",
+      "score": null,
+      "state": "blocked_by_fault",
+      "recommendation": "not_assessed",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "duplicate-timestamp.mcap",
+      "snapshot_check": "checked",
+      "score": 4,
+      "state": "complete",
+      "recommendation": "unacceptable",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "missing-camera.mcap",
+      "snapshot_check": "checked",
+      "score": null,
+      "state": "blocked_by_fault",
+      "recommendation": "not_assessed",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "publish-stamp-offset.mcap",
+      "snapshot_check": "checked",
+      "score": 4,
+      "state": "complete",
+      "recommendation": "unacceptable",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "reversed-timestamp.mcap",
+      "snapshot_check": "checked",
+      "score": 4,
+      "state": "complete",
+      "recommendation": "unacceptable",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "complete-no-summary.mcap",
+      "snapshot_check": "checked",
+      "score": 4,
+      "state": "complete",
+      "recommendation": "unacceptable",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "truncated-recoverable.mcap",
+      "snapshot_check": "not_assessed",
+      "score": null,
+      "state": "blocked_by_fault",
+      "recommendation": "not_assessed",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "unexpected-stream.mcap",
+      "snapshot_check": "checked",
+      "score": 8,
+      "state": "complete",
+      "recommendation": "review",
+      "original_verdict": "needs_review"
+    },
+    {
+      "name": "unindexed.mcap",
+      "snapshot_check": "checked",
+      "score": 4,
+      "state": "complete",
+      "recommendation": "unacceptable",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "unknown-encoding.mcap",
+      "snapshot_check": "checked",
+      "score": null,
+      "state": "blocked_by_fault",
+      "recommendation": "not_assessed",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "unreadable.mcap",
+      "snapshot_check": "not_assessed",
+      "score": null,
+      "state": "blocked_by_fault",
+      "recommendation": "not_assessed",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "wrong-schema.mcap",
+      "snapshot_check": "checked",
+      "score": null,
+      "state": "blocked_by_fault",
+      "recommendation": "not_assessed",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "black-video.mcap",
+      "snapshot_check": "checked",
+      "score": 4,
+      "state": "complete",
+      "recommendation": "unacceptable",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "blur-video.mcap",
+      "snapshot_check": "checked",
+      "score": 8,
+      "state": "complete",
+      "recommendation": "review",
+      "original_verdict": "needs_review"
+    },
+    {
+      "name": "frozen-video.mcap",
+      "snapshot_check": "checked",
+      "score": 8,
+      "state": "complete",
+      "recommendation": "review",
+      "original_verdict": "needs_review"
+    },
+    {
+      "name": "undecodable-video.mcap",
+      "snapshot_check": "checked",
+      "score": null,
+      "state": "blocked_by_fault",
+      "recommendation": "not_assessed",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "coverage-short-tail.mcap",
+      "snapshot_check": "checked",
+      "score": 4,
+      "state": "complete",
+      "recommendation": "unacceptable",
+      "original_verdict": "fail"
+    },
+    {
+      "name": "ep_fe97319f.mcap",
+      "snapshot_check": "checked",
+      "score": 8,
+      "state": "complete",
+      "recommendation": "review",
+      "original_verdict": "needs_review"
+    },
+    {
+      "name": "ep_f86bda88.mcap",
+      "snapshot_check": "checked",
+      "score": 10.0,
+      "state": "complete",
+      "recommendation": "acceptable",
+      "original_verdict": "pass"
+    }
+  ],
+  "scope": "Retained evidence screening; unavailable aspects are not assigned invented scores."
+}
