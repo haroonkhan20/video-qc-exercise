@@ -1,0 +1,10 @@
+{
+  "checks": {
+    "javascript_syntax": "passed",
+    "browser_head_camera": "Head camera left selected; snapshot 22.62 seconds for interval 21.76\u201323.12",
+    "browser_gripper_camera": "Gripper camera left selected; snapshot 22.68 seconds for interval 21.77\u201323.11",
+    "manual_view": "Restored four camera images",
+    "visual_review": "Problem buttons have contrasting fill, borders and shadows; selected image heading receives keyboard focus"
+  },
+  "scope": "Saved snapshots, not video playback. This UI change does not alter detection or scoring."
+}

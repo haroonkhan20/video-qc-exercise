@@ -47,7 +47,10 @@ are not included in Git.
 3. Read the visible aspect cards: each shows its mark, reason and importance.
 4. Choose **Check saved snapshots** to assess a possible blocked camera view.
    Until all required evidence is checked, the overall score stays incomplete.
-5. Choose a time to view saved camera snapshots.
+5. Choose **Show me the problem** on a timed issue to jump directly to the affected
+   camera's nearest saved image. The report shows the flagged interval and actual
+   snapshot time. Sensor issues show related camera context, not visual proof of
+   a sensor fault. You can also enter a time to view all cameras.
 6. Download the original check report or the score report.
 
 Check results and scores serve different purposes. Checks identify issues under
@@ -235,3 +238,8 @@ For example, a calculated rating of 9.76/10 with BLACK_RUN becomes an
 score before the limit and keeps all individual aspect ratings unchanged.
 A review finding remains visible even when its numerical rating is high.
 Original QC reports and recording files are unchanged.
+
+Action buttons use clear borders, contrasting colours and subtle shadows. Keyboard
+focus remains visible, and disabled buttons indicate work in progress. Problem
+images are saved snapshots, not video playback; a warning appears when the nearest
+available image falls outside the flagged interval.

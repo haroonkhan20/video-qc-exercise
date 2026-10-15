@@ -11,3 +11,22 @@
 .aspect-card p{line-height:1.55}.aspect-card small{display:block;color:#526077}
 .aspect-card details{margin-top:14px}.aspect-card summary{cursor:pointer;font-size:13px}
 .grade-panel p{color:#405166}.grade-panel .attention-note{color:#735317}
+
+/* Clear action hierarchy, with visible keyboard focus and disabled states. */
+button{border-color:#aabbb4;color:#294b40;font-weight:600;box-shadow:0 2px 4px #183c2914;transition:background .15s,border-color .15s,box-shadow .15s}
+button:hover:not(:disabled){background:#edf5f0;border-color:#48856b;box-shadow:0 3px 8px #183c2924}
+button:active:not(:disabled){box-shadow:0 1px 2px #183c2920}
+button:disabled{cursor:wait;opacity:.55;box-shadow:none}
+.primary,.show-problem,#saveProfile{background:#176b50;color:white;border:1px solid #10543f;box-shadow:0 3px 8px #123f302e}
+.primary:hover:not(:disabled),.show-problem:hover:not(:disabled),#saveProfile:hover:not(:disabled){background:#10543f;color:white;border-color:#0a422f}
+.inspect{background:#edf6f0;border:1px solid #85ad98;color:#185e44;box-shadow:0 2px 4px #183c2914;white-space:nowrap}
+.tabs button{border:1px solid #c7d5cd;background:#fff;color:#465e53;box-shadow:none}
+.tabs .selected{border-color:#36775b;background:#dfefe5;color:#145237}
+.tabs{gap:6px}.show-problem{margin:8px 0;padding:10px 15px}
+.download{padding:9px 13px;border:1px solid #8cae9d;border-radius:6px;background:#f0f7f3;text-decoration:none;font-weight:600;box-shadow:0 2px 4px #183c2914}
+.download:hover{background:#dfefe5;border-color:#36775b}
+#problemImages{scroll-margin-top:18px}#sampleHeading:focus{outline:3px solid #83c7b0;outline-offset:5px}
+#sampleContext{padding:10px 12px;border-left:3px solid #397d5e;background:#eef6f1;color:#294b40}
+#sampleContext:empty{display:none}.affected-camera{border:2px solid #397d5e}
+.snapshot-warning{color:#805618;font-weight:600}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
