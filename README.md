@@ -304,3 +304,8 @@ limit it to 8. Incomplete evidence is not given an invented healthy rating.
 This feature defaults off pending deployment approval. It does not automatically
 reprocess recordings. See [head movement checks](docs/HEAD-MOVEMENT.md) for the
 thresholds, limitations, controlled preview and activation settings.
+
+The dashboard uses a basic recordings table. Upload, search and the selected
+quality standard stay visible; additional filters are under **More filters**.
+Reports retain individual ratings and issue reasons. Head measurements and
+technical evidence are available under **Check details**.
