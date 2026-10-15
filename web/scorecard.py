@@ -1,6 +1,38 @@
 """Visible aspect grades, with weights inherited from the selected standard."""
 from grading import fraction_score, numeric, fingerprint
 
+MODEL = "overall-score-v2"
+ESSENTIAL_CODES = frozenset({"CONTAINER_UNREADABLE", "MISSING_STREAM", "WRONG_SCHEMA",
+    "WRONG_ENCODING", "VIDEO_UNDECODABLE", "VIDEO_NOT_KEYFRAME_START", "MISSING_OR_INVALID_REQUIRED_STREAM"})
+REASONS = {
+    "BLACK_RUN": "Pictures stayed unacceptably dark for a sustained interval.",
+    "BRIGHT_RUN": "Pictures stayed unacceptably bright for a sustained interval.",
+    "CONTAINER_UNREADABLE": "The recording file cannot be read.",
+    "VIDEO_UNDECODABLE": "Required video could not be played correctly.",
+    "VIDEO_NOT_KEYFRAME_START": "Required video starts without a complete picture.",
+    "MISSING_STREAM": "A required camera or sensor is missing.",
+    "WRONG_SCHEMA": "Required data uses an unexpected format.",
+    "WRONG_ENCODING": "Required data cannot be interpreted.",
+    "MISSING_OR_INVALID_REQUIRED_STREAM": "Required camera or sensor data is missing or invalid.",
+    "SENSOR_NONFINITE": "Some sensor readings are invalid.",
+    "SOURCE_POLICY_FAILURE": "The original recording checks reported an unacceptable issue.",
+}
+
+def serious_limit(legacy):
+    findings=legacy.get("source_findings",[])
+    codes={f["code"] for f in findings}
+    critical=set((legacy.get("critical_cap") or {}).get("reasons",[]))
+    # Scoring standards cannot clear faults rejected by the recorded processing policy.
+    serious=(codes & set(legacy.get("source_failure_codes",[]))) | critical | (codes & {"BLACK_RUN"})
+    serious.discard("CHECK_UNAVAILABLE")
+    if legacy.get("original_verdict")=="fail" and not serious and "CHECK_UNAVAILABLE" not in codes:
+        serious.add("SOURCE_POLICY_FAILURE")
+    if not serious:return None
+    limit=2 if serious & ESSENTIAL_CODES else 4
+    return {"limit":limit,"reasons":sorted(serious),
+            "explanations":[REASONS.get(code,"An unacceptable "+code.replace("_"," ").lower()+" issue was detected by the original checks.") for code in sorted(serious)],
+            "findings":[f for f in findings if f["code"] in serious]}
+
 def build(legacy, obstruction=None):
     categories = {c["id"]: c for c in legacy["categories"]}
     weights = legacy["profile"]["weights"]
@@ -44,15 +76,23 @@ def build(legacy, obstruction=None):
         add(identity,name,weight,parameters(category,select))
     complete=all(a["score"] is not None for a in aspects)
     average=sum(a["contribution"] or 0 for a in aspects) if complete else None
-    critical=legacy["critical_cap"]
-    score=min(average,4) if critical and complete else average
+    cap=serious_limit(legacy)
+    score=min(average,cap["limit"]) if cap and complete else average
     if score is not None:score=min(9.99,round(score,2)) if score<10 else 10.0
     suspected=any(s.get("runs") for s in obstruction.get("streams",[]))
+    review=suspected or legacy.get("original_verdict")=="needs_review" or any(f["code"] in {"BLUR_RUN","FROZEN_RUN","SENSOR_FLATLINE","UNEXPECTED_STREAM"} for f in legacy.get("source_findings",[]))
     cutoffs=legacy["profile"]["cutoffs"]
-    recommendation="not_assessed" if score is None else "unacceptable" if critical or score<cutoffs["review"] else "review" if suspected or score<cutoffs["acceptable"] else "acceptable"
-    return {"model":"visible-aspects-v1","score":round(score,2) if score is not None else None,
+    recommendation="not_assessed" if score is None else "unacceptable" if cap or score<cutoffs["review"] else "review" if review or score<cutoffs["acceptable"] else "acceptable"
+    if cap:cap["applied"]=average is not None and average>cap["limit"]
+    why="Overall Score combines the individual ratings with serious-issue limits."
+    if cap:
+        why+=" "+" ".join(cap["explanations"])+f" The Overall Score cannot exceed {cap['limit']}/10."
+        if average is not None:why+=f" Calculated score before the limit: {average:.2f}/10."
+    if not complete:why+=" Required checks are incomplete, so no final Overall Score is issued."
+    return {"model":MODEL,"score":round(score,2) if score is not None else None,
             "weighted_average":average,"assessment_complete":complete,"recommendation":recommendation,
             "aspects":aspects,"obstruction":obstruction,"possible_obstruction":suspected,
-            "why":"The total is the weighted average of the aspect scores below. Serious faults cap the total at 4. Possible blockage requires review.",
-            "model_hash":fingerprint({"aspects":aspects,"model":"visible-aspects-v1"}),
+            "serious_issue_limit":cap,
+            "why":why,
+            "model_hash":fingerprint({"aspects":aspects,"model":MODEL,"serious_issue_limit":cap}),
             "scope":"Scores describe measured evidence under the chosen standard, not classification accuracy. Snapshot blockage screening can miss events and can flag legitimate dark objects."}

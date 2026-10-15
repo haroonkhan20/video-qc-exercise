@@ -73,7 +73,7 @@ cutoffs. Times are entered in seconds; recording-speed variation is a percentage
 Start from default restores every setting in the editor.
 
 Scores range from 0 to 10, with parameter-level explanations. Serious file/data
-defects cap a complete score at 4 and prevent acceptance. Missing evidence is
+defects limit the Overall Score and prevent acceptance. Missing evidence is
 shown as not enough information, never a perfect score. Gripper stillness is
 advisory by default because unchanged readings can be legitimate.
 
@@ -85,7 +85,7 @@ image or gap detection rules requires a new processing configuration.
 The scorecard shows darkness, brightness, blur, frozen images, possible blocked
 view, missing moments, recording speed/timestamps, camera alignment, sensor
 readings, file condition, required equipment and video playback. Its total is
-the weighted average of those 12 aspects under the chosen standard. This model
+an Overall Score: the weighted rating of those 12 aspects, subject to serious-issue limits. This model
 replaces the earlier seven-category total; earlier totals are retained in score
 downloads for comparison.
 
@@ -210,3 +210,28 @@ Existing database volumes must retain their matching credentials.
 DATA.md preserves the initial observations. Current reports and decisions are
 documented separately in REPORT.md and
 [the acceptance standard](docs/ACCEPTANCE-STANDARD.md).
+
+## Overall Score and serious issues
+
+Individual aspect ratings remain visible. The **Overall Score** is the lower of
+the calculated weighted rating and any applicable serious-issue limit:
+
+| Condition | Maximum Overall Score | Outcome |
+| --- | ---: | --- |
+| Unreadable file, missing/invalid required data, or required video that cannot play correctly | 2/10 | Issues found |
+| Sustained unacceptable darkness (BLACK_RUN), another failure identified by the original processing policy, or other critical data faults | 4/10 | Issues found |
+| Possible blocked view, suspicious stillness, blur or freezing identified for review | No automatic numeric cap | Needs review |
+| Required evidence is incomplete | No final score | Check incomplete |
+
+The strictest applicable limit wins. A limit never raises a lower calculated
+score. Serious-issue limits apply to every scoring standard, including standards
+that give the affected aspect zero importance or use forgiving acceptance cutoffs.
+The recording's versioned processing policy defines its other failure findings;
+changing scoring weights cannot clear those findings. BLACK_RUN keeps its
+existing sustained-darkness detection rule and is always a serious issue.
+
+For example, a calculated rating of 9.76/10 with BLACK_RUN becomes an
+**Overall Score of 4/10 — Issues found**. The report names the reason, shows the
+score before the limit and keeps all individual aspect ratings unchanged.
+A review finding remains visible even when its numerical rating is high.
+Original QC reports and recording files are unchanged.

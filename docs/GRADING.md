@@ -24,9 +24,9 @@ are needed.
 | Cameras recording together | 15% |
 | Sensor readings | 5% |
 
-The model is visible-aspects-v1. Every aspect averages the marks of its required
+The model is overall-score-v2. Every aspect averages the marks of its required
 cameras or sensors equally. Within a stream, the worst applicable parameter
-controls that aspect's stream mark. The overall average is
+controls that aspect's stream mark. The calculated rating before serious-issue limits is
 sum(aspect mark × importance / 100). Each card shows its contribution.
 For example, a 5/10 darkness mark at 4% adds 0.20 points, compared with 0.40
 points for a 10/10 darkness mark. All aspect marks of 10 produce 10 overall.
@@ -112,12 +112,22 @@ hash, original code/config versions and grading engine version/hash.
 
 ## Critical defects and missing evidence
 
-Critical findings are unreadable, truncated or incomplete containers; missing,
-wrong-schema or wrong-encoding required streams; undecodable video or invalid
-initial keyframe; and nonfinite sensor values. A fully assessed weighted average
-is capped at 4 and is unacceptable when any of these exists, even under relaxed
-acceptance cutoffs. The calculated average, cap and reasons are displayed.
-Inventory mismatches also trigger the guard if an imported report omitted a code.
+The Overall Score is min(calculated weighted rating, strictest applicable limit).
+Unreadable containers, missing/invalid required streams and video decoding/initial
+keyframe faults have a maximum of 2/10. Other legacy critical faults, BLACK_RUN,
+and findings in the source report's config.policy.failure_codes have a maximum
+of 4/10. CHECK_UNAVAILABLE is an incomplete assessment rather than proof of
+usable or unusable content; no final score is issued when required evidence is
+missing. Imported inventory inconsistencies also trigger the 2/10 guard.
+
+Limits cannot be relaxed by scoring weights or acceptance cutoffs. BLACK_RUN
+continues to use the source detector's sustained-darkness thresholds, not an
+isolated dark frame. Original review findings, including sensor stillness, blur
+and freezing, retain a review recommendation without an automatic numeric cap.
+If multiple issues apply, the lowest limit wins. A lower calculated rating stays
+lower; limits never award points. Downloads include serious_issue_limit with its
+limit, reason codes, explanations, source findings and whether it reduced the
+calculated rating. The original verdict is preserved.
 
 Missing required check evidence produces a null mark and Not assessed, never 10.
 The overall grade is null if any required aspect cannot be assessed, including
@@ -140,11 +150,11 @@ standard. Set a name, category weights totaling 100%, acceptable/review cutoffs,
 grading allowances, affected-fraction bands and limit-multiple bands. Save creates
 a new immutable profile identity under web/grading_profiles; it does not overwrite
 an old standard. Profiles persist across web-server restarts and are shareable
-configuration files. The critical cap stays fixed at 4. A subsequent edit creates
+configuration files. Serious-issue limits stay fixed at 2 or 4. A subsequent edit creates
 another profile so old exports remain interpretable.
 
 Default recommendations are acceptable from 8, review from 5, and unacceptable
-below 5. Critical defects always block acceptance. Unknown evidence never earns
+below 5. Serious issues always block acceptance. Unknown evidence never earns
 an acceptance decision. Marks are displayed to two decimal places; a sub-10 mark
 is never rounded up to a displayed 10. Recommendations use the displayed overall mark. Possible blockage always requires review.
 

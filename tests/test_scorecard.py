@@ -46,7 +46,7 @@ class ScorecardTests(unittest.TestCase):
     def test_critical_cannot_be_averaged_away(self):
         report=clean();report["findings"]=[event("VIDEO_UNDECODABLE")]
         result=build(grade(report,PROFILE),evidence())
-        self.assertLessEqual(result["score"],4)
+        self.assertLessEqual(result["score"],2)
         self.assertEqual(result["recommendation"],"unacceptable")
 
     def test_custom_standard_changes_visible_importance(self):
@@ -55,13 +55,62 @@ class ScorecardTests(unittest.TestCase):
         profile["weights"]["image"]=100
         report=clean();report["findings"]=[event("BLACK_RUN",t,0,100) for t in ["left","right"]]
         result=build(grade(report,profile),evidence())
-        self.assertEqual(result["score"],8)
+        self.assertEqual(result["weighted_average"],8)
+        self.assertEqual(result["score"],4)
         self.assertEqual(next(a for a in result["aspects"] if a["id"]=="BLACK_RUN")["weight"],20)
         self.assertIsNone(build(grade(report,profile))["score"])
 
     def test_partial_camera_evidence_blocks_total(self):
         partial=evidence();partial["streams"].pop()
         self.assertIsNone(build(grade(clean(),PROFILE),partial)["score"])
+
+    def test_black_run_caps_overall_but_keeps_individual_marks(self):
+        report=clean();report["findings"]=[event("BLACK_RUN","left",0,2)]
+        result=build(grade(report,PROFILE),evidence())
+        self.assertGreater(result["weighted_average"],9)
+        self.assertEqual(result["score"],4)
+        self.assertEqual(result["recommendation"],"unacceptable")
+        self.assertTrue(result["serious_issue_limit"]["applied"])
+        self.assertIn("dark",result["why"])
+        self.assertEqual(next(a for a in result["aspects"] if a["id"]=="decoding")["score"],10)
+
+    def test_policy_failure_caps_even_under_forgiving_zero_weight_standard(self):
+        profile=copy.deepcopy(PROFILE);profile["cutoffs"]={"acceptable":3,"review":1}
+        profile["weights"]["image"]=0;profile["weights"]["integrity"]+=20
+        report=clean();report["config"]["policy"]={"failure_codes":["GAP_RUN"]}
+        report["findings"]=[event("GAP_RUN","left",0,1)]
+        result=build(grade(report,profile),evidence())
+        self.assertEqual(result["score"],4)
+        self.assertEqual(result["recommendation"],"unacceptable")
+
+    def test_lower_score_is_never_raised_to_cap(self):
+        profile=copy.deepcopy(PROFILE);profile["weights"]={k:0 for k in profile["weights"]};profile["weights"]["integrity"]=100
+        report=clean();report["findings"]=[event("CONTAINER_TRUNCATED_RECOVERABLE")]
+        result=build(grade(report,profile),evidence())
+        self.assertEqual(result["weighted_average"],2)
+        self.assertEqual(result["score"],2)
+        self.assertFalse(result["serious_issue_limit"]["applied"])
+
+    def test_review_findings_do_not_become_accepted(self):
+        report=clean();report["verdict"]="needs_review";report["findings"]=[event("SENSOR_FLATLINE","pose",0,5)]
+        result=build(grade(report,PROFILE),evidence())
+        self.assertEqual(result["score"],10)
+        self.assertIsNone(result["serious_issue_limit"])
+        self.assertEqual(result["recommendation"],"review")
+
+    def test_missing_evidence_stays_incomplete_despite_serious_issue(self):
+        report=clean();report["findings"]=[event("BLACK_RUN","left",0,2)]
+        result=build(grade(report,PROFILE))
+        self.assertIsNone(result["score"])
+        self.assertEqual(result["recommendation"],"not_assessed")
+        self.assertEqual(result["serious_issue_limit"]["limit"],4)
+
+    def test_strictest_limit_wins_when_multiple_issues_exist(self):
+        report=clean();report["findings"]=[event("BLACK_RUN","left",0,2),event("VIDEO_UNDECODABLE","right")]
+        result=build(grade(report,PROFILE),evidence())
+        self.assertEqual(result["score"],2)
+        self.assertEqual(result["serious_issue_limit"]["limit"],2)
+        self.assertEqual(result["serious_issue_limit"]["reasons"],["BLACK_RUN","VIDEO_UNDECODABLE"])
 
 class ObstructionTests(unittest.TestCase):
     def test_dark_edge_candidate(self):self.assertIsNotNone(inspect_image(picture(block=True)))

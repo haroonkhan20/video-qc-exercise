@@ -1,0 +1,72 @@
+{
+  "model": "overall-score-v2",
+  "engine_hash": "f7e7d8327b613a295d361346ef20c76168cf88fbb0e0c0196d20dd069fbf76e3",
+  "profile_version": "56fca16b5889c28ab15cea55cf9f297d7d7b1db040e47e0bd750d0aeb7363aac",
+  "tests": {
+    "scorecard_and_obstruction": 19,
+    "legacy_grading": 18,
+    "policy_and_timing": 7,
+    "browser": "Verified Overall Score 4.00/10, pre-limit 9.76/10, darkness explanation and individual ratings."
+  },
+  "reference_count": 41,
+  "recommendations": {
+    "acceptable": 29,
+    "review": 11,
+    "unacceptable": 1
+  },
+  "known_dark_recording": {
+    "file": "ep_346eb2d7.mcap",
+    "score": 4,
+    "weighted_average": 9.758333333333333,
+    "recommendation": "unacceptable",
+    "critical_cap": {
+      "limit": 4,
+      "reasons": [
+        "BLACK_RUN"
+      ],
+      "explanations": [
+        "Pictures stayed unacceptably dark for a sustained interval."
+      ],
+      "findings": [
+        {
+          "code": "BLACK_RUN",
+          "end_s": 23.119963545,
+          "stream": "/quest3s/head_left/camera/compressed",
+          "metrics": {
+            "observations": 42
+          },
+          "start_s": 21.759965454
+        },
+        {
+          "code": "BLACK_RUN",
+          "end_s": 23.119963545,
+          "stream": "/quest3s/head_right/camera/compressed",
+          "metrics": {
+            "observations": 42
+          },
+          "start_s": 21.759965454
+        },
+        {
+          "code": "BLACK_RUN",
+          "end_s": 23.11047698,
+          "stream": "/gripper/left/camera0/compressed",
+          "metrics": {
+            "observations": 41
+          },
+          "start_s": 21.77040298
+        },
+        {
+          "code": "BLACK_RUN",
+          "end_s": 23.10649398,
+          "stream": "/gripper/right/camera0/compressed",
+          "metrics": {
+            "observations": 41
+          },
+          "start_s": 21.77453298
+        }
+      ],
+      "applied": true
+    },
+    "source_report_hash": "727a2aef926cb14da2faeda3bd059156ff1e7026a31269e790c924893bb402d5"
+  }
+}

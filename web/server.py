@@ -65,13 +65,13 @@ def graded(report,profile):
  evidence=json.loads(path.read_text()) if path.exists() else None
  result["scorecard"]=scorecard(result,evidence)
  result["legacy_category_grade"]={k:result[k] for k in ["score","weighted_average","recommendation","assessment_complete"]}
+ result["critical_cap"]=result["scorecard"]["serious_issue_limit"]
  for key in ["score","weighted_average","recommendation","assessment_complete","why"]:
   result[key]=result["scorecard"][key]
  lower=sum(a["contribution"] or 0 for a in result["scorecard"]["aspects"])
  upper=lower+sum(a["weight"]/10 for a in result["scorecard"]["aspects"] if a["score"] is None)
- result["possible_range"]=[min(v,4) if result["critical_cap"] else v for v in [lower,upper]]
- if result["critical_cap"]:result["critical_cap"]["applied"]=result["weighted_average"] is not None and result["weighted_average"]>4
- result["engine_version"]="visible-aspects-v1"
+ result["possible_range"]=[min(v,result["critical_cap"]["limit"]) if result["critical_cap"] else v for v in [lower,upper]]
+ result["engine_version"]=result["scorecard"]["model"]
  result["engine_hash"]=fingerprint({name:hashlib.sha256((ROOT/"web"/name).read_bytes()).hexdigest() for name in ["grading.py","scorecard.py","obstruction.py","pod_read.py","server.py"]})
  result["scope"]=result["scorecard"]["scope"]
  return result

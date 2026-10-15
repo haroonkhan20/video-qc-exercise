@@ -257,6 +257,8 @@ def grade(report, profile):
             "source_report_hash": fingerprint(report), "digest": report.get("digest"),
             "source_config_version": report.get("config_version"), "source_code_version": report.get("code_version"),
             "original_verdict": report.get("verdict"), "score": final,
+            "source_findings": findings,
+            "source_failure_codes": report.get("config", {}).get("policy", {}).get("failure_codes", []),
             "weighted_average": round(weighted, 4) if weighted is not None else None,
             "possible_range": [round(min(lower, 4) if critical else lower, 4), round(min(upper, 4) if critical else upper, 4)],
             "assessment_complete": complete, "recommendation": recommendation,
