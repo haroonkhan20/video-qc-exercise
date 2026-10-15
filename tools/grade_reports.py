@@ -7,7 +7,8 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "web"))
-from grading import grade, validate_profile
+from grading import validate_profile
+from server import graded
 
 def main():
     parser = argparse.ArgumentParser()
@@ -21,11 +22,12 @@ def main():
     rows = []
     for path in sorted((ROOT / "reports").glob("ep_*.json")):
         report = json.loads(path.read_text())
-        result = grade(report, profile)
+        result = graded(report, profile)
         rows.append({"file": path.stem + ".mcap", **{k: result[k] for k in (
             "digest", "original_verdict", "score", "weighted_average", "recommendation",
             "assessment_complete", "possible_range", "critical_cap", "why", "source_report_hash")},
-            "categories": [{k: c[k] for k in ("id", "score", "weight", "contribution", "worst_stream")} for c in result["categories"]]})
+            "scorecard": result["scorecard"],
+            "legacy_category_grade": result["legacy_category_grade"]})
     if not rows:
         parser.error("No exported episode reports found")
     evidence = {"engine_version": result["engine_version"], "engine_hash": result["engine_hash"],

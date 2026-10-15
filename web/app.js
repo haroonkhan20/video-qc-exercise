@@ -4,8 +4,8 @@ const labels={pass:'Passed checks',fail:'Issues found',needs_review:'Needs a loo
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const size=n=>n>=1e9?(n/1e9).toFixed(2)+' GB':(n/1e6).toFixed(1)+' MB';
 const badge=v=>'<span class="badge '+(labels[v]?v:'pending')+'">'+(labels[v]||'Pending')+'</span>';
-const gradeLabels={acceptable:'Meets this standard',review:'Check before use',unacceptable:'Below this standard',not_assessed:'Not enough information'};
-const marks=v=>v==null?'Not enough information':Number(v).toFixed(2)+'/10';
+const gradeLabels={acceptable:'Meets this standard',review:'Check before use',unacceptable:'Below this standard',not_assessed:'Check not finished'};
+const marks=v=>v==null?'Not checked':Number(v).toFixed(2)+'/10';
 const gradeBadge=g=>g?'<strong class="grade-mark">'+marks(g.score)+'</strong><small class="grade-state '+g.recommendation+'">'+gradeLabels[g.recommendation]+'</small>':'<span class="grade-state">Pending</span>';
 const names=Friendly.areas;
 let editorBase=null;
@@ -23,15 +23,27 @@ async function refresh(){
  try{const d=await api('/api/recordings?profile='+encodeURIComponent(profile));if(sequence!==loadSequence)return;records=d.recordings;render();$('updated').textContent='Updated · '+new Date(d.updated_at*1000).toLocaleTimeString();}catch(e){if(sequence===loadSequence)$('notice').textContent='We could not load the results. Start the local services, then choose Refresh.';}finally{if(sequence===loadSequence)$('refresh').disabled=false;}
 }
 function gradingPanel(g){
- const losses=g.categories.filter(c=>c.score!=null&&c.score<10).sort((a,b)=>(10-b.score)*b.weight-(10-a.score)*a.weight);
- const why=g.score==null?'Some checks could not provide enough information, so a reliable overall score is not available.':g.critical_cap?'A serious file or data issue limits the score to 4, even if other areas look good.':losses.length?names[losses[0].id]+' lowered the score most. '+Friendly.category(losses[0]):'All checked areas met this standard without a score reduction.';
- return '<section class="grade-panel"><div class="grade-heading"><div><div class="eyebrow">YOUR STANDARD · '+esc(g.profile.id==='balanced-v1'?'Default':g.profile.name)+'</div><strong class="overall-grade">'+marks(g.score)+'</strong><span>'+gradeLabels[g.recommendation]+'</span></div></div><h3>Why this score?</h3><p>'+esc(why)+'</p>'+
- (g.original_verdict!=='pass'?'<p class="attention-note">The automatic checks found something that needs attention. A high score does not clear those issues; review the flagged moments below.</p>':'')+
- (g.critical_cap?'<p class="cap">Serious issue: '+esc(g.critical_cap.reasons.map(c=>Friendly.issues[c]||'Unusable recording data').join(', '))+'</p>':'')+
- '<p class="grade-scope">10 means this standard found no reason to lower the score. Open an area below to see what affected its mark.</p>'+
- g.categories.map(c=>'<details class="category"><summary><span>'+esc(names[c.id])+'</span><strong>'+marks(c.score)+'</strong><small>'+c.weight+'% of the final score</small></summary><p>'+esc(Friendly.category(c))+'</p><p class="help-text">'+(c.contribution==null?'This area needs more information.':'This area adds '+Number(c.contribution).toFixed(2)+' points to the total out of 10.')+(c.worst_stream?' Lowest measured mark: '+esc(Friendly.stream(c.worst_stream))+'.':'')+'</p>'+
- c.streams.map(t=>'<details class="stream-grade"><summary>'+esc(Friendly.stream(t.topic))+' · '+marks(t.score)+'</summary><div class="table-wrap"><table><thead><tr><th>WHAT WE CHECKED</th><th>MARK</th><th>WHY</th></tr></thead><tbody>'+t.parameters.map(p=>'<tr><td>'+esc(Friendly.parameter(p))+'</td><td>'+(!p.applicable?'Does not apply':marks(p.score))+'</td><td>'+esc(Friendly.why(p))+'</td></tr>').join('')+'</tbody></table></div><details class="technical"><summary>Technical details</summary><pre>'+esc(JSON.stringify(t,null,2))+'</pre></details></details>').join('')+'</details>').join('')+
- '<a class="download" id="gradeDownload">Download score report</a><details class="technical"><summary>Calculation and version details</summary><p>Calculated total before any serious-issue limit: '+(g.weighted_average==null?'not available':Number(g.weighted_average).toFixed(4)+'/10')+'</p><p class="mono">Standard version: '+esc(g.profile_version)+'<br>Grading engine: '+esc(g.engine_version)+'<br>Report ID: '+esc(g.source_report_hash)+'</p></details></section>';
+ const card=g.scorecard;
+ if(!card)return '<p>This report needs the current dashboard version.</p>';
+ const why=a=>{
+  if(a.score==null)return 'Not checked completely. Missing information is never given 10.';
+  const worst=[...a.streams].sort((x,y)=>x.score-y.score)[0];
+  const parameter=worst?.parameters?.filter(p=>p.applicable!==false).sort((x,y)=>x.score-y.score)[0];
+  if(parameter)return Friendly.why(parameter);
+  if(a.id==='integrity')return a.score===10?'The file inspection found no structural problem.':'The file is damaged or incomplete. Check the original findings below.';
+  if(a.id==='inventory')return a.score===10?'All required cameras and sensors were present in the expected format.':'A required camera or sensor is missing or uses an unexpected format.';
+  if(a.id==='decoding')return a.score===10?'All required videos could be read without a playback fault.':'Some video could not be read correctly. Check the affected camera below.';
+  return worst?.why||a.why;
+ };
+ return '<section class="grade-panel"><div class="eyebrow">CHOSEN STANDARD · '+esc(g.profile.id==='balanced-v1'?'Default':g.profile.name)+'</div><strong class="overall-grade">'+marks(card.score)+'</strong><p>'+gradeLabels[card.recommendation]+'</p>'+
+ '<h3>What makes up this score?</h3><p>Each aspect below has a mark out of 10. The overall score is their weighted average: aspects with a higher importance count more. Each aspect averages the required cameras or sensors; its explanation highlights the lowest mark.</p>'+
+ (g.original_verdict!=='pass'?'<p class="attention-note">The original checks found issues. A high average does not clear them: review the flagged moments below before using this recording.</p>':'')+
+ (g.critical_cap?'<p class="cap">A serious file or data fault limits the overall score to 4. An average cannot hide an unusable recording.</p>':'')+
+ (card.possible_obstruction?'<p class="attention-note">A possible blocked view needs a look before use. A dark object in the scene can also cause this warning.</p>':'')+
+ (!card.assessment_complete?'<p class="attention-note">The overall score is waiting for complete information. Use Check for a blocked view below to check the saved camera snapshots.</p>':'')+
+ '<div class="aspect-grid">'+card.aspects.map(a=>'<article class="aspect-card"><div class="aspect-heading"><h3>'+esc(a.name)+'</h3><strong>'+marks(a.score)+'</strong></div><p>'+esc(why(a))+'</p><small>Importance: '+Number(a.weight.toFixed(2))+'%'+(a.contribution==null?'':' · Adds '+a.contribution.toFixed(2)+' points to the overall score')+'</small><details><summary>Camera and sensor breakdown</summary>'+a.streams.map(t=>'<p><strong>'+esc(Friendly.stream(t.topic))+'</strong> · '+marks(t.score)+'<br>'+esc(t.parameters?.length?Friendly.why([...t.parameters].filter(p=>p.applicable!==false).sort((x,y)=>x.score-y.score)[0]):t.why)+'</p>'+((t.evidence?.runs||[]).map(r=>'<p>Possible blockage: '+r.start_s.toFixed(1)+'–'+r.end_s.toFixed(1)+' seconds; up to '+Math.round(r.maximum_area_fraction*100)+'% of the picture.</p>').join(''))).join('')+'</details></article>').join('')+'</div>'+
+ '<h3>Check for a blocked view</h3><p>Checks saved snapshots, about one per second, for a persistent dark area covering part of the picture. This can miss brief or non-dark blockages. It is a review aid, not proof of an obstruction.</p><button id="checkObstruction">Check saved snapshots</button><p id="obstructionStatus" role="status">'+(card.obstruction.status==='checked'?'Saved snapshots checked. Results are included above.':'This additional check has not completed for this recording.')+'</p>'+
+ '<p class="grade-scope">10 means no measured reason to lower this mark under your chosen standard. It does not guarantee a perfect recording. The original automatic findings remain below.</p><a class="download" id="gradeDownload">Download score report</a><details class="technical"><summary>Calculation and version details</summary><pre>'+esc(JSON.stringify({model:card.model,weights:card.aspects.map(a=>({aspect:a.name,weight:a.weight,score:a.score,contribution:a.contribution})),beforeCap:card.weighted_average,profile_version:g.profile_version,source_report_hash:g.source_report_hash,detector:card.obstruction.detector,legacy_category_grade:g.legacy_category_grade},null,2))+'</pre></details></section>';
 }
 const descriptions={BLACK_RUN:'Images stayed very dark. Inspect the scene to understand why.',BRIGHT_RUN:'Images stayed very bright. Check whether the scene explains this.',SENSOR_FLATLINE:'The sensor value stayed unchanged. A stationary gripper can be legitimate.',FROZEN_RUN:'Images changed very little. Check whether the scene was stationary.',BLUR_RUN:'Low image sharpness was detected. Inspect the scene and focus.',GAP_RUN:'A long interval between recorded messages was detected.',COVERAGE_MISMATCH:'A stream started late or ended early beyond the allowed boundary.',CHECK_UNAVAILABLE:'A required check could not finish. This is not evidence of healthy data.'};
 async function detail(digest){
@@ -39,9 +51,22 @@ async function detail(digest){
  const selected=records.find(r=>r.digest===digest);$('detailTitle').textContent=selected?.name||digest.slice(0,12);$('detailBody').textContent='Loading report and grade…';if(!$('detail').open)$('detail').showModal();
  try{
  const [r,g]=await Promise.all([api('/api/reports/'+digest),api('/api/grades/'+digest+'?profile='+encodeURIComponent(activeProfile))]);if(sequence!==detailSequence)return;
- $('detailBody').innerHTML='<p>Automatic check result: '+badge(r.verdict)+'</p>'+gradingPanel(g)+ '<h2>What needs attention ('+r.findings.length+')</h2>'+
+ $('detailBody').innerHTML='<p>Automatic check result: '+badge(r.verdict)+'</p><div id="scorecard">'+gradingPanel(g)+'</div><h2>What needs attention ('+r.findings.length+')</h2>'+
  (r.findings.length?r.findings.map(f=>'<article class="finding"><strong>'+esc(Friendly.issues[f.code]||'An issue needs attention')+'</strong><p>'+esc(descriptions[f.code]||'This check found a problem. See the affected moments and optional technical details.')+'</p><p>'+esc(Friendly.stream(f.stream))+'</p><p>'+(f.start_s!=null?Number(f.start_s).toFixed(2)+'–'+Number(f.end_s).toFixed(2)+' seconds into the recording':'Applies to the whole recording')+'</p><details class="technical"><summary>Technical details</summary><pre>'+esc(JSON.stringify(f,null,2))+'</pre></details></article>').join(''):'<p>The automatic checks did not find an issue under their current rules.</p>')+
   '<section class="samples"><h2>Look at the recording</h2><p>These are saved snapshots, about one per second. The time below each picture is when it was taken.</p><div class="sample-controls"><label>Seconds into recording <input id="sampleTime" type="number" min="0" max="86400" step="0.1" value="0"></label><button id="loadSamples">Show images</button></div><div id="sampleGrid"></div></section><details class="technical"><summary>Detailed camera and sensor measurements</summary><div class="table-wrap"><table><thead><tr><th>CAMERA OR SENSOR</th><th>READINGS</th><th>READINGS / SECOND</th><th>PLAYBACK ERRORS</th><th>EST. MISSING READINGS</th></tr></thead><tbody>'+r.streams.map(s=>'<tr><td>'+esc(Friendly.stream(s.topic))+'</td><td>'+esc(s.timing?.log?.messages??'—')+'</td><td>'+(s.timing?.log?.effective_hz==null?'—':Number(s.timing.log.effective_hz).toFixed(2))+'</td><td>'+esc(s.stats?.video_decode_errors??'—')+'</td><td>'+esc(s.timing?.log?.estimated_dropped_frames??'—')+'</td></tr>').join('')+'</tbody></table></div></details><a class="download" id="download">Download original check report</a><details class="technical"><summary>File and processing details</summary><p class="mono">Recording: '+esc(r.digest)+'<br>Rules: '+esc(r.config_version)+'<br>Software: '+esc(r.code_version)+'</p></details>';
+ function bindScorecard(current){
+  const link=$('gradeDownload');link.href=URL.createObjectURL(new Blob([JSON.stringify(current,null,2)],{type:'application/json'}));link.download=digest+'.grade.json';
+  $('checkObstruction').onclick=async()=>{
+   $('checkObstruction').disabled=true;$('obstructionStatus').textContent='Checking saved snapshots. This may take a minute…';
+   try{
+    await api('/api/obstruction/'+digest,{method:'POST',headers:{'X-QC-Analysis':'1'}});
+    const updated=await api('/api/grades/'+digest+'?profile='+encodeURIComponent(activeProfile));
+    if(sequence!==detailSequence||!$('detail').open)return;
+    $('scorecard').innerHTML=gradingPanel(updated);bindScorecard(updated);refresh();
+   }catch(e){if(sequence===detailSequence&&$('obstructionStatus')){$('obstructionStatus').textContent=e.message;$('checkObstruction').disabled=false;}}
+  };
+ }
+ bindScorecard(g);
  const initial=r.findings.find(f=>f.start_s!=null);
  $('sampleTime').value=initial?((initial.start_s+initial.end_s)/2).toFixed(2):0;
  $('loadSamples').onclick=async()=>{

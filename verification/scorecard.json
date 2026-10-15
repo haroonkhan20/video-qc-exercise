@@ -1,0 +1,347 @@
+{
+  "elapsed_seconds": 266.7,
+  "scope": "Saved-snapshot screening, not independently measured classification accuracy",
+  "recordings": [
+    {
+      "file": "ep_032e483c",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 182
+    },
+    {
+      "file": "ep_03d813ce",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 140
+    },
+    {
+      "file": "ep_0409bd35",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 300
+    },
+    {
+      "file": "ep_041eb856",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 300
+    },
+    {
+      "file": "ep_0444a8ac",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 268
+    },
+    {
+      "file": "ep_07e258d4",
+      "status": "checked",
+      "score": 9.98,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 100
+    },
+    {
+      "file": "ep_082f4185",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 412
+    },
+    {
+      "file": "ep_0dec4ae7",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 116
+    },
+    {
+      "file": "ep_0e09c76b",
+      "status": "checked",
+      "score": 9.94,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 424
+    },
+    {
+      "file": "ep_0e374ee6",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 420
+    },
+    {
+      "file": "ep_0ed34c0f",
+      "status": "checked",
+      "score": 9.94,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 588
+    },
+    {
+      "file": "ep_112a825d",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 216
+    },
+    {
+      "file": "ep_1ee4bdaf",
+      "status": "checked",
+      "score": 9.94,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 344
+    },
+    {
+      "file": "ep_20846435",
+      "status": "checked",
+      "score": 9.9,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 148
+    },
+    {
+      "file": "ep_208961d3",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 354
+    },
+    {
+      "file": "ep_212a979d",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 184
+    },
+    {
+      "file": "ep_223529fa",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 142
+    },
+    {
+      "file": "ep_23212682",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 243
+    },
+    {
+      "file": "ep_23f5a0d2",
+      "status": "checked",
+      "score": 9.94,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 498
+    },
+    {
+      "file": "ep_2c47cac2",
+      "status": "checked",
+      "score": 9.94,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 352
+    },
+    {
+      "file": "ep_2cb4b3ea",
+      "status": "checked",
+      "score": 9.94,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 340
+    },
+    {
+      "file": "ep_2e18f47f",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 366
+    },
+    {
+      "file": "ep_346eb2d7",
+      "status": "checked",
+      "score": 9.76,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 372
+    },
+    {
+      "file": "ep_34e2d6e2",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 366
+    },
+    {
+      "file": "ep_357dc6b9",
+      "status": "checked",
+      "score": 9.94,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 380
+    },
+    {
+      "file": "ep_39ec7993",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 308
+    },
+    {
+      "file": "ep_42d682ff",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 116
+    },
+    {
+      "file": "ep_459e3edd",
+      "status": "checked",
+      "score": 9.98,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 232
+    },
+    {
+      "file": "ep_49df3c44",
+      "status": "checked",
+      "score": 9.92,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 222
+    },
+    {
+      "file": "ep_4dd7ef84",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 164
+    },
+    {
+      "file": "ep_51347361",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 336
+    },
+    {
+      "file": "ep_52373c02",
+      "status": "checked",
+      "score": 9.91,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 158
+    },
+    {
+      "file": "ep_52d930da",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 290
+    },
+    {
+      "file": "ep_554d5730",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 112
+    },
+    {
+      "file": "ep_5b171934",
+      "status": "checked",
+      "score": 9.96,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 300
+    },
+    {
+      "file": "ep_5e2c1fd2",
+      "status": "checked",
+      "score": 9.9,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 326
+    },
+    {
+      "file": "ep_66909bdd",
+      "status": "checked",
+      "score": 9.94,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 272
+    },
+    {
+      "file": "ep_6d6fa903",
+      "status": "checked",
+      "score": 9.94,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 252
+    },
+    {
+      "file": "ep_6e4d59a3",
+      "status": "checked",
+      "score": 9.98,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 232
+    },
+    {
+      "file": "ep_6fed8bc1",
+      "status": "checked",
+      "score": 9.94,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 394
+    },
+    {
+      "file": "ep_9fae2f39",
+      "status": "checked",
+      "score": 9.93,
+      "recommendation": "acceptable",
+      "possible_obstruction": false,
+      "samples": 330
+    }
+  ],
+  "model": "visible-aspects-v1",
+  "checks": {
+    "grading_tests": 18,
+    "scorecard_and_obstruction_tests": 13,
+    "policy_and_timing_tests": 7,
+    "javascript_syntax": "passed",
+    "browser_check": "12 visible aspect cards, original BLACK_RUN findings, completed snapshot check",
+    "request_protection": "cross-origin and missing analysis header rejected",
+    "default_known_dark_recording_score": 9.76,
+    "image_focused_known_dark_recording_score": 9.46
+  },
+  "total_snapshots": 11599,
+  "possible_obstruction_recordings": 0
+}

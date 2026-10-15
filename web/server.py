@@ -1,9 +1,13 @@
 """Local dashboard. Storage credentials remain inside Kubernetes."""
-import hashlib,json,mimetypes,re,shutil,subprocess,threading,time,uuid
+import base64,os,hashlib,json,mimetypes,re,shutil,subprocess,threading,time,uuid
 from pathlib import Path
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from urllib.parse import urlparse,unquote,parse_qs
 from grading import grade,validate_profile,fingerprint
+from scorecard import build as scorecard
+from obstruction import provenance
+PORT=int(os.environ.get("QC_WEB_PORT","8090"))
+ANALYSIS_LOCK=threading.Lock()
 ROOT=Path(__file__).resolve().parents[1]
 CACHE=ROOT/".cache/web";CACHE.mkdir(parents=True,exist_ok=True)
 JOBS={};LOCK=threading.Lock();UPLOAD=threading.Lock()
@@ -53,13 +57,43 @@ def snapshot():
    if r["digest"] in names:r["name"]=names[r["digest"]]
   LIST_CACHE.update(time=time.time(),rows=rows)
   return rows
+def obstruction_path(report):
+ return CACHE/("obstruction-"+fingerprint({"report":fingerprint(report),"detector":provenance(),"probe":hashlib.sha256((ROOT/"web/pod_read.py").read_bytes()).hexdigest()})+".json")
+def graded(report,profile):
+ result=grade(report,profile)
+ path=obstruction_path(report)
+ evidence=json.loads(path.read_text()) if path.exists() else None
+ result["scorecard"]=scorecard(result,evidence)
+ result["legacy_category_grade"]={k:result[k] for k in ["score","weighted_average","recommendation","assessment_complete"]}
+ for key in ["score","weighted_average","recommendation","assessment_complete","why"]:
+  result[key]=result["scorecard"][key]
+ lower=sum(a["contribution"] or 0 for a in result["scorecard"]["aspects"])
+ upper=lower+sum(a["weight"]/10 for a in result["scorecard"]["aspects"] if a["score"] is None)
+ result["possible_range"]=[min(v,4) if result["critical_cap"] else v for v in [lower,upper]]
+ if result["critical_cap"]:result["critical_cap"]["applied"]=result["weighted_average"] is not None and result["weighted_average"]>4
+ result["engine_version"]="visible-aspects-v1"
+ result["engine_hash"]=fingerprint({name:hashlib.sha256((ROOT/"web"/name).read_bytes()).hexdigest() for name in ["grading.py","scorecard.py","obstruction.py","pod_read.py","server.py"]})
+ result["scope"]=result["scorecard"]["scope"]
+ return result
+def analyze(digest):
+ if not ANALYSIS_LOCK.acquire(False):raise ValueError("Another snapshot check is running. Try again shortly.")
+ try:
+  report=cli("report",digest);path=obstruction_path(report)
+  if path.exists():return json.loads(path.read_text())
+  evidence=probe("obstruction",digest,base64.b64encode((ROOT/"web/obstruction.py").read_bytes()).decode())
+  evidence.update(status="checked" if evidence["streams"] and all(s["status"]=="checked" for s in evidence["streams"]) else "not_assessed",
+                  source_report_hash=fingerprint(report),detector=provenance())
+  if evidence["status"]=="checked":
+   temporary=path.with_suffix("."+uuid.uuid4().hex+".tmp");temporary.write_text(json.dumps(evidence,allow_nan=False));temporary.replace(path)
+  return evidence
+ finally:ANALYSIS_LOCK.release()
 def records(profile):
  rows=[]
  for row in snapshot():
   visible={k:v for k,v in row.items() if k!="_report"}
   report=row.get("_report")
   if report:
-   result=grade(report,profile)
+   result=graded(report,profile)
    visible["grading"]={k:result[k] for k in ["score","weighted_average","recommendation","why","assessment_complete","possible_range","critical_cap","profile_version"]}
   else:visible["grading"]=None
   rows.append(visible)
@@ -81,13 +115,13 @@ class Handler(BaseHTTPRequestHandler):
   data=json.dumps(obj).encode();self.send_response(status);self.send_header("Content-Type","application/json");self.send_header("Content-Length",str(len(data)));self.send_header("Cache-Control","no-store");self.end_headers();self.wfile.write(data)
  def do_GET(self):
   parsed=urlparse(self.path);path=parsed.path
-  if self.headers.get("Host","") not in ["localhost:8090","127.0.0.1:8090"]:return self.reply({"error":"Invalid host"},403)
+  if self.headers.get("Host","") not in [f"localhost:{PORT}",f"127.0.0.1:{PORT}"]:return self.reply({"error":"Invalid host"},403)
   try:
    if path=="/api/profiles":return self.reply({"profiles":profiles(),"default":"balanced-v1"})
    profile_id=parse_qs(parsed.query).get("profile",["balanced-v1"])[0]
    if path=="/api/recordings":return self.reply({"recordings":records(profile_for(profile_id)),"updated_at":time.time()})
    m=re.fullmatch(r"/api/grades/([0-9a-f]{64})",path)
-   if m:return self.reply(grade(cli("report",m[1]),profile_for(profile_id)))
+   if m:return self.reply(graded(cli("report",m[1]),profile_for(profile_id)))
    if path=="/api/jobs":return self.reply(list(JOBS.values()))
    m=re.fullmatch(r"/api/samples/([0-9a-f]{64})/([0-9]+(?:[.][0-9]+)?)",path)
    if m:
@@ -104,10 +138,15 @@ class Handler(BaseHTTPRequestHandler):
   except ValueError as e:self.reply({"error":str(e)},400)
   except Exception as e:self.reply({"error":str(e)},503)
  def do_POST(self):
-  if self.headers.get("Host","") not in ["localhost:8090","127.0.0.1:8090"]:return self.reply({"error":"Invalid host"},403)
-  if self.path not in ["/api/upload","/api/profiles"]:return self.reply({"error":"Not found"},404)
+  if self.headers.get("Host","") not in [f"localhost:{PORT}",f"127.0.0.1:{PORT}"]:return self.reply({"error":"Invalid host"},403)
+  if self.path not in ["/api/upload","/api/profiles"] and not re.fullmatch(r"/api/obstruction/[0-9a-f]{64}",self.path):return self.reply({"error":"Not found"},404)
   origin=self.headers.get("Origin")
   if origin and origin!="http://"+self.headers.get("Host",""):return self.reply({"error":"Cross-origin request refused"},403)
+  if self.path.startswith("/api/obstruction/"):
+   if self.headers.get("X-QC-Analysis")!="1":return self.reply({"error":"Missing analysis header"},403)
+   try:return self.reply(analyze(self.path.rsplit("/",1)[1]))
+   except ValueError as e:return self.reply({"error":str(e)},409)
+   except Exception:return self.reply({"error":"Snapshot check unavailable. Check the local services and try again."},503)
   if self.path=="/api/profiles":
    if self.headers.get("X-QC-Profile")!="1":return self.reply({"error":"Missing profile header"},403)
    try:
@@ -136,5 +175,6 @@ class Handler(BaseHTTPRequestHandler):
    self.reply({"id":job},202)
   except Exception as e:UPLOAD.release();self.reply({"error":str(e)},400)
 if __name__=="__main__":
- print("QC dashboard: http://localhost:8090",flush=True)
- ThreadingHTTPServer(("127.0.0.1",8090),Handler).serve_forever()
+ server=ThreadingHTTPServer(("127.0.0.1",PORT),Handler)
+ print(f"QC dashboard: http://localhost:{PORT}",flush=True)
+ server.serve_forever()

@@ -9,27 +9,69 @@ are needed.
 
 ## Balanced profile
 
-| Area | Weight | Aggregation |
-| --- | ---: | --- |
-| File integrity | 10% | 10 complete, 5 incomplete, 2 recoverable truncation, 0 unreadable, unknown if unavailable |
-| Required streams | 10% | Each expected topic/schema/encoding gets 10 or 0; mean over required inventory |
-| Video decoding | 20% | Worst of decode discrepancy, initial keyframe and resolution consistency for each required camera |
-| Timing continuity | 20% | Worst of gap fraction, estimated-drop fraction, duplicates, reversals, rate and payload offsets per active stream |
-| Coverage and synchronization | 15% | Worst of start/end lag and applicable camera skew/drift per stream |
-| Image quality | 20% | Union of recorded black/bright/frozen/blur runs, divided by camera duration |
-| Sensor validity | 5% | Finite values; encoder stillness is advisory by default |
+| Visible aspect | Default importance |
+| --- | ---: |
+| File condition | 10% |
+| Required cameras and sensors | 10% |
+| Video playback | 20% |
+| Darkness | 4% |
+| Too much brightness | 4% |
+| Blur | 4% |
+| Frozen images | 4% |
+| Possible blocked view | 4% |
+| Missing moments | 10% |
+| Recording speed and timestamps | 10% |
+| Cameras recording together | 15% |
+| Sensor readings | 5% |
 
-For multi-stream categories, each required stream has equal weight within that
-category. Its mark is controlled by its worst applicable parameter. Category
-marks are the mean of stream marks; the worst stream is always displayed.
-Missing required streams are zero, never omitted from the denominator. Calibration
-streams participate in inventory but do not receive meaningless video marks.
+The model is visible-aspects-v1. Every aspect averages the marks of its required
+cameras or sensors equally. Within a stream, the worst applicable parameter
+controls that aspect's stream mark. The overall average is
+sum(aspect mark × importance / 100). Each card shows its contribution.
+For example, a 5/10 darkness mark at 4% adds 0.20 points, compared with 0.40
+points for a 10/10 darkness mark. All aspect marks of 10 produce 10 overall.
 
-Overall marks are the weighted category average. A hypothetical set of category
-marks [10, 10, 5, 2, 2, 0, 0] yields 3.7/10 with the default weights. All weighted
-marks at 10 yield 10; all at 0 yield 0. Ten means no measured penalty under the
-profile, not universally perfect data. Positive estimated drops can lower a mark
-even when the original QC policy did not flag a long gap. Drops remain estimates.
+Saved standards remain compatible: the picture-quality budget is split equally
+between the five picture aspects; the continuity budget is split equally between
+missing moments and recording speed/timestamps. Other budgets are unchanged.
+Different picture aspects can penalize the same moment separately because the
+total now averages distinct aspects. Overlapping runs within one aspect count
+only once. The previous seven-category grade remains in downloads under
+legacy_category_grade; its image category used the union of all image defects.
+Historical category totals and the new aspect totals use different formulas.
+
+Missing required streams are never omitted. Unknown evidence, including an
+unchecked blockage screen, prevents a complete total even at zero importance.
+Ten means no measured penalty under the chosen standard, not perfect data.
+Estimated missing readings remain timing estimates, not confirmed loss.
+
+## Possible blocked view
+
+Select **Check saved snapshots** in a recording report. One analysis runs at a
+time, inside an existing worker using retained snapshots; raw files are unchanged.
+No worker replacement or full decoding run is needed.
+
+The detector resizes grayscale snapshots to 160 × 160 and examines a 4 × 4 grid.
+A candidate dark tile has at least 95% of pixels below 20/255 and standard deviation
+at most 6. Connected edge-touching tiles must cover 20–75% of the image while
+the remaining area has mean brightness at least 45 and standard deviation at
+least 12. Whole-black images and symmetric single-row letterbox bars are excluded.
+At least three samples spanning two seconds with overlapping candidate tiles are
+required; gaps over 2.5 seconds break a run. A suspected interval runs from its
+first to last qualifying snapshot. Its duration divided by the observed snapshot
+window uses the selected standard's affected-time bands.
+
+At least three valid snapshots, no large internal sample gaps, and coverage
+within 1.5 seconds of each end of the measured stream window are required for a
+complete check. Missing or invalid data earns no mark. Suspected blockage
+forces review unless a stronger fault requires rejection.
+
+This is a conservative heuristic for dark edge blockages. Dark scene objects can
+trigger it; textured, bright, small, central or brief blockages can be missed.
+It does not prove physical obstruction or independently establish accuracy.
+Saved results include detector settings/hash, source-report hash, sample counts
+and suspect times. Cache keys include the source report, detector and probe code.
+The cache is ignored by Git and local to the checkout.
 
 ## Severity bands and the why
 
@@ -45,7 +87,7 @@ Time/readings affected use the first matching inclusive upper fraction boundary:
 | Above 20% | 0 |
 
 Image and gap intervals are clipped to each measured stream window and merged.
-Overlapping defects or duplicated log/publish findings do not count the same
+Overlapping runs of the same image aspect or duplicated log/publish findings do not count the same
 seconds twice. A run fraction measures only runs already detected by the source
 policy; it is not the fraction of all individual frames that exceeded a new
 brightness threshold. Zero-length event findings do not manufacture duration.
@@ -64,7 +106,7 @@ The default six allowances are rate deviation 30%, payload offset 100 ms,
 startup 6 seconds, end 0.5 seconds, skew 50 ms and absolute drift 30 ms.
 
 Each parameter includes its measured value, allowance if applicable, mark, and
-plain-language reason. Each category shows its weight, points contributed, stream
+plain-language reason. Each aspect shows its importance, points contributed, stream
 marks and worst stream. All calculations retain the profile hash, source-report
 hash, original code/config versions and grading engine version/hash.
 
@@ -78,8 +120,8 @@ acceptance cutoffs. The calculated average, cap and reasons are displayed.
 Inventory mismatches also trigger the guard if an imported report omitted a code.
 
 Missing required check evidence produces a null mark and Not assessed, never 10.
-The overall grade is null if any required category cannot be assessed, including
-zero-weight categories. A range shows the bounds from known weighted evidence.
+The overall grade is null if any required aspect cannot be assessed, including
+zero-weight aspects. A range shows the bounds from known weighted evidence.
 For unreadable files, file integrity is 0 while other categories remain unknown;
 we do not invent image marks just to produce a number. The original verdict
 remains Fail. Parameters legitimately not applicable to an encoder schema are
@@ -104,7 +146,7 @@ another profile so old exports remain interpretable.
 Default recommendations are acceptable from 8, review from 5, and unacceptable
 below 5. Critical defects always block acceptance. Unknown evidence never earns
 an acceptance decision. Marks are displayed to two decimal places; a sub-10 mark
-is never rounded up to a displayed 10. Recommendations use the displayed mark.
+is never rounded up to a displayed 10. Recommendations use the displayed overall mark. Possible blockage always requires review.
 
 For example, ep_346eb2d7 retains its original Fail for BLACK_RUN. Most of its
 recording is outside that brief interval, so Balanced can produce a high overall
@@ -129,8 +171,8 @@ wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && make qc-grade PROFILE='we
 wsl -d Ubuntu -- bash -lc "cd /home/haroon/video-qc && python3 -m unittest discover -s tests -p test_grading.py -v"
 ~~~
 
-Offline grading reads reports/ and writes verification/grading.json. It requires
-only Python's standard library and exported evidence, not a running cluster.
+Offline grading reads reports/ plus matching local snapshot-check caches and writes verification/grading.json. It requires
+only Python's standard library and exported evidence, not a running cluster. Without matching snapshot evidence, totals remain incomplete; run the snapshot check in the dashboard first.
 The dashboard reads current reports from Postgres and grades new finalized uploads
 too. JSON grade downloads include the complete selected profile and measurements.
 Raw reports are downloaded separately unchanged.

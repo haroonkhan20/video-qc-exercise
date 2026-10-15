@@ -36,4 +36,26 @@ def samples(digest,seconds):
 try:
  if sys.argv[1]=="list":print(json.dumps(asyncio.run(listing())))
  elif sys.argv[1]=="samples":print(json.dumps(samples(sys.argv[2],float(sys.argv[3]))))
+ elif sys.argv[1]=="obstruction":
+  import types
+  detector=types.ModuleType("snapshot_detector")
+  exec(base64.b64decode(sys.argv[3]),detector.__dict__)
+  with st.pg() as db:row=db.execute("SELECT report FROM qc_verdicts WHERE digest=%s",(sys.argv[2],)).fetchone()
+  if not row:raise ValueError("Report unavailable")
+  report=row[0];origin=report["inventory"].get("start_ns",0);result=[]
+  for stream in report.get("streams",[]):
+   if stream["kind"]!="video":continue
+   try:
+    data=st.s3().get_object(Bucket=st.DERIVED_BUCKET,Key=stream["samples_key"])["Body"].read()
+    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+     points=[((int(Path(n).stem)-origin)/1e9,archive.read(n)) for n in archive.namelist() if n.endswith(".jpg")]
+    summary=detector.summarize(points)
+    clock=stream.get("timing",{}).get("log",{})
+    first,last=clock.get("first_ns"),clock.get("last_ns")
+    covered=first is not None and last is not None and abs(summary["first_s"]-(first-origin)/1e9)<=1.5 and abs(summary["last_s"]-(last-origin)/1e9)<=1.5
+    summary["covers_stream_window"]=covered
+    if not covered:summary["status"]="not_assessed"
+    result.append({"topic":stream["topic"],**summary})
+   except Exception:result.append({"topic":stream["topic"],"status":"not_assessed","runs":[]})
+  print(json.dumps({"streams":result}))
 finally:st.close_pool()

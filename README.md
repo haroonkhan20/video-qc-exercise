@@ -44,9 +44,11 @@ are not included in Git.
 
 1. Upload an MCAP recording. The application saves it and starts its checks.
 2. Open a report to see the check result, quality score and affected moments.
-3. Expand a quality area to understand why it received its mark.
-4. Choose a time to view saved camera snapshots.
-5. Download the original check report or the score report.
+3. Read the visible aspect cards: each shows its mark, reason and importance.
+4. Choose **Check saved snapshots** to assess a possible blocked camera view.
+   Until all required evidence is checked, the overall score stays incomplete.
+5. Choose a time to view saved camera snapshots.
+6. Download the original check report or the score report.
 
 Check results and scores serve different purposes. Checks identify issues under
 the processing policy; scores summarize their impact under the selected standard.
@@ -79,6 +81,21 @@ Saved standards have new identities and persist under web/grading_profiles/.
 Downloaded scores include their full standard and version information. Regrading
 preserves original reports and does not decode video again. Changing underlying
 image or gap detection rules requires a new processing configuration.
+
+The scorecard shows darkness, brightness, blur, frozen images, possible blocked
+view, missing moments, recording speed/timestamps, camera alignment, sensor
+readings, file condition, required equipment and video playback. Its total is
+the weighted average of those 12 aspects under the chosen standard. This model
+replaces the earlier seven-category total; earlier totals are retained in score
+downloads for comparison.
+
+Blocked-view screening checks saved snapshots for persistent dark edge regions.
+It requires review when suspected and does not confirm an obstruction. It can
+miss brief or non-dark blockages. Cached results stay under ignored .cache/web;
+a changed source report or detector invalidates them.
+
+If port 8090 is occupied, run QC_WEB_PORT=8091 make web and open
+http://localhost:8091. This leaves the other dashboard running.
 
 See [grading calculations](docs/GRADING.md) for formulas and scope.
 
