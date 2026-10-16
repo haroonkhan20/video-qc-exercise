@@ -187,7 +187,7 @@ requires Docker image save --platform support.
 | MinIO local image | `video-qc/minio:RELEASE.2025-10-15T17-29-55Z` |
 | MinIO upstream source | `RELEASE.2025-10-15T17-29-55Z`, commit `9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a` |
 | MinIO build/runtime bases | `golang:1.24.9-bookworm`, `debian:bookworm-20251020-slim` |
-| Worker local image | `video-qc/qc-worker:pipeline-v1` |
+| Worker local image | `video-qc/qc-worker:movement-v1` |
 | Worker Python base | `python:3.12.12-slim-bookworm` |
 | Python Temporal SDK | `temporalio==1.14.1` |
 | SDK runtime dependencies | `nexus-rpc==1.1.0`, `protobuf==5.29.6`, `types-protobuf==7.35.1.20260906`, `typing-extensions==4.16.0` |
@@ -301,10 +301,42 @@ New findings support the timeline and human review while preserving original
 reports. Serious problems limit the Overall Score to 2 or 4; review findings
 limit it to 8. Incomplete evidence is not given an invented healthy rating.
 
-This feature defaults off pending deployment approval. It does not automatically
-reprocess recordings. See [head movement checks](docs/HEAD-MOVEMENT.md) for the
+New uploads receive these checks automatically. Historical recordings are not
+silently reprocessed. See [head movement checks](docs/HEAD-MOVEMENT.md) for the
 thresholds, limitations, controlled preview and activation settings.
 
 The existing video dashboard, ratings and review tools retain their layout.
 The head movement section uses a short result and issue explanations; optional
 measurements are under **What was checked**.
+
+## Controller and gripper movement
+
+Optional checks inspect position and direction for both controllers and grippers.
+Results use simple labels, issue times and optional measurements. Matching
+same-side warnings are grouped; original automatic results and individual
+ratings are preserved. Findings support the timeline, separate human reviews,
+and Overall Score limits of 2, 4 or 8 according to severity.
+
+New uploads receive these checks automatically; historical reports remain unchanged.
+See [controller and gripper checks](docs/HAND-MOVEMENT.md) for rules, limitations,
+single-recording analysis and the controlled preview.
+
+
+## New-upload coverage
+
+Uploads automatically run the existing video/sensor checks, head movement,
+controller/gripper movement, and saved-image obstruction screening. Select any
+of the three saved quality standards to grade the retained evidence without
+rerunning the recording. Serious faults cannot be cleared by choosing a more
+forgiving standard. See [automatic recording checks](docs/UPLOAD-CHECKS.md) for
+coverage, historical results, limitations and validation.
+
+
+## Recording collections
+
+The main **Recordings** view contains the original collection and additional
+uploads. **Test recordings** is a separate sidebar view for controlled validation
+copies. Test membership is matched against known SHA-256 fingerprints, never
+inferred from filenames or detected issues. Uploading a recording does not reveal
+test files in the main view. Switching collections changes the display only;
+it does not delete or modify stored recordings.

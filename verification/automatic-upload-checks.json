@@ -1,0 +1,105 @@
+{
+  "scope": "Four controlled complete-recording uploads through Temporal; all three saved standards; not a real-world accuracy estimate.",
+  "results": [
+    {
+      "file": "broken-values.mcap",
+      "digest": "84788aa29a89d9557eaf6c2f18c3ca6de5641e00be0ab6e8104eef463e15fb31",
+      "verdict": "fail",
+      "head": "fail",
+      "hands": "fail",
+      "obstruction": "checked",
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 4,
+          "recommendation": "unacceptable"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 4,
+          "recommendation": "unacceptable"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 4,
+          "recommendation": "unacceptable"
+        }
+      ]
+    },
+    {
+      "file": "control.mcap",
+      "digest": "dfc0929eb975ecebf60cc76181c47cc5feecdf1fcb448e65bb4af01f383d54ad",
+      "verdict": "needs_review",
+      "head": "pass",
+      "hands": "review",
+      "obstruction": "checked",
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "hand-jump.mcap",
+      "digest": "3857ec8eb3a23fde5c6788ae8e1271ad4d8c514f6aa95c55c7f66fd41d72e9bf",
+      "verdict": "needs_review",
+      "head": "pass",
+      "hands": "review",
+      "obstruction": "checked",
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "head-jump.mcap",
+      "digest": "494fa627f9bfd07819eebbcce977aa4e526ec2eeb8ad01af7a8aedc2c5a20d17",
+      "verdict": "needs_review",
+      "head": "review",
+      "hands": "review",
+      "obstruction": "checked",
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "recommendation": "review"
+        }
+      ]
+    }
+  ]
+}

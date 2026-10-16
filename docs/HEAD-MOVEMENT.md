@@ -35,7 +35,8 @@ settings; changed inputs invalidate the supplementary cache.
 
 ## Preview and activation
 
-The feature defaults off. QC_HEAD_MOTION_ENABLED=1 enables display.
+New uploads include this evidence automatically. Display is enabled by default;
+QC_HEAD_MOTION_ENABLED=0 can hide it.
 QC_HEAD_ANALYSIS_ENABLED=1 separately enables explicitly requested single-file
 scans. Scans are serialized; there is no automatic bulk scan. Deployment and
 dataset-wide processing require operator approval.

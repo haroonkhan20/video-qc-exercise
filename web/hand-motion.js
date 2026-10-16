@@ -1,0 +1,17 @@
+/* Read-only movement presentation. Measurements remain in downloadable evidence. */
+const HandMotionUI=(()=>{
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const labels={pass:'No issue found',review:'Needs a look',fail:'Problem found',not_assessed:'Not enough information',source_findings:'See original timing findings'};
+ const names={HAND_MISSING_STREAM:'Movement readings missing',HAND_MISSING_FIELDS:'Missing position or direction',HAND_INVALID_VALUES:'Broken movement values',HAND_ZERO_ROTATION:'Unusable direction',HAND_INVALID_TIMESTAMP:'Invalid reading time',HAND_ROTATION_SCALE:'Direction reading needs checking',HAND_POSITION_JUMP:'Unusually large position change',HAND_ROTATION_JUMP:'Sudden turn',HAND_FRAME_CHANGE:'Tracking reference changed',HAND_FRAME_MISSING:'Tracking reference missing',HAND_TIME_ORDER:'Reading times repeat or go backwards',HAND_TIME_GAP:'Gap in readings',HAND_CHECK_UNAVAILABLE:'Movement check incomplete',HAND_MOTION_UNAVAILABLE:'Too few readings'};
+ const time=v=>Number.isFinite(v)?Number(v).toFixed(2):'?';
+ function render(e){
+  let h='<section class="head-motion"><h2>Controller and gripper movement</h2>';
+  if(!e)return h+'<p>Not checked yet. Existing video and sensor results are unchanged.</p></section>';
+  h+='<p><strong>'+esc(labels[e.severity]||labels.not_assessed)+'</strong></p>';
+  h+='<details class="technical"><summary>What was checked</summary><p>Position, direction, unusually large position changes, reading times and tracking reference. Stillness is allowed. Position units are not confirmed.</p><ul>'+e.streams.map(s=>'<li>'+esc(s.name)+': '+esc(labels[s.severity]||labels.not_assessed)+' · '+esc(s.decoded_messages)+' readings read</li>').join('')+'</ul><p>An unusually large position change is a step over 20 times the typical step during the preceding second, when that recent movement is stable. A sudden turn means over 45° within 0.1 seconds. These warnings need review, not automatic rejection.</p></details>';
+  h+=(e.findings||[]).map(f=>'<article class="head-finding"><strong>'+esc(names[f.code]||f.code)+' · '+esc(f.side)+' side</strong><p>'+esc(f.why)+'</p><p>'+(Number.isFinite(f.start_s)&&Number.isFinite(f.end_s)?time(f.start_s)+'–'+time(f.end_s)+' seconds':'No exact time available')+'</p>'+(f.streams.length>1?'<p>Controller and gripper flagged together. Shown as one related event.</p>':'<p>Only '+esc(f.streams[0]?.includes("controller")?"the controller":"the gripper")+' flagged this event; there was no matching warning from the other stream at this time.</p>')+(Number.isFinite(f.start_s)&&Number.isFinite(f.end_s)&&f.start_s>=0?'<button class="show-problem" data-problem-topic="'+esc(f.stream)+'" data-problem-start="'+f.start_s+'" data-problem-end="'+f.end_s+'">Show nearby images</button>':'')+'<details class="technical"><summary>Measurements</summary><pre>'+esc(JSON.stringify(f.members,null,2))+'</pre></details></article>').join('');
+  return h+'<p>Missing required streams limit the Overall Score to 2; broken values to 4; warnings to 8. A lower score stays lower. Images provide context, not proof of a movement error.</p><a class="download" id="handDownload">Download movement report</a></section>';
+ }
+ return {render,names};
+})();
+if(typeof module!=='undefined')module.exports=HandMotionUI;

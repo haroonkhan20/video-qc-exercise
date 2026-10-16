@@ -8,6 +8,7 @@ from mcap.reader import make_reader
 from qc.model import canonical, finding, run_prefix, verdict, version
 from qc import storage as st
 from qc.checks import stream_check,coverage
+from qc import movement,obstruction
 
 def workdir(ref):
     path=st.CACHE/"work"/ref["digest"]/ref["config_version"]/ref["code_version"]
@@ -166,6 +167,16 @@ def metrics_rows(ref,report):
             frame=json.loads(line)
             for name in ("mean_luma","std_luma","laplacian_variance","frame_difference"):
                 if frame.get(name) is not None:yield row(topic,"frame",name,frame[name],frame["time_ns"])
+    for name in ("head_motion","hand_motion"):
+        evidence=report.get(name,{})
+        movement_streams=evidence.get("streams",[]) if name=="hand_motion" else [evidence]
+        for entry in movement_streams:
+            for metric,value in entry.get("metrics",{}).items():
+                if isinstance(value,(int,float)):yield row(entry["topic"],"movement",metric,value)
+        for entry in evidence.get("findings",[]):
+            if entry.get("severity")=="source_policy":continue
+            stamp=report["inventory"]["start_ns"]+int((entry.get("start_s") or 0)*1e9)
+            yield row(entry["stream"],"movement_finding",entry["code"],len(entry.get("members",[entry])),stamp)
     for topic,values in report["cross"]["metrics"].items():
         for name,value in values.items():
             if isinstance(value,(int,float)):yield row(topic,"cross_stream",name,value)
@@ -225,9 +236,31 @@ def finalize(request):
     findings=list(inv["findings"])+list(cross["findings"])
     for stream in streams:findings.extend(stream["findings"])
     for failed in request.get("errors",[]):findings.append(finding("CHECK_UNAVAILABLE",str(failed),metrics={"check":"activity"}))
-    result,codes=verdict(findings,cfg)
+    base_result,base_codes=verdict(findings,cfg)
+    extra=movement.scan(st.raw_path(ref),inv,findings,st.heartbeat)
+    obstruction_streams=[]
+    for stream in streams:
+        if stream["kind"]!="video":continue
+        content=st.s3().get_object(Bucket=st.DERIVED_BUCKET,Key=stream["samples_key"])["Body"].read()
+        with zipfile.ZipFile(io.BytesIO(content)) as archive:
+            samples=[((int(Path(n).stem)-inv["start_ns"])/1e9,archive.read(n)) for n in archive.namelist() if n.endswith(".jpg")]
+        summary=obstruction.summarize(samples)
+        clock=stream.get("timing",{}).get("log",{})
+        first,last=clock.get("first_ns"),clock.get("last_ns")
+        covered=first is not None and last is not None and abs(summary["first_s"]-(first-inv["start_ns"])/1e9)<=1.5 and abs(summary["last_s"]-(last-inv["start_ns"])/1e9)<=1.5
+        summary["covers_stream_window"]=covered
+        if not covered:summary["status"]="not_assessed"
+        obstruction_streams.append({"topic":stream["topic"],**summary})
+        st.heartbeat({"stage":"obstruction","stream":stream["topic"]})
+    extra["obstruction"]={"status":"checked" if len(obstruction_streams)==4 and all(s["status"]=="checked" for s in obstruction_streams) else "not_assessed",
+        "streams":obstruction_streams,"detector":obstruction.provenance(),"source":"automatic_pipeline"}
+    movement_findings=movement.verdict_findings(extra)
+    result,codes=verdict(findings+movement_findings,cfg)
+    if any(s["runs"] for s in obstruction_streams) and result=="pass":result="needs_review"
+
     report={**ref,"recording_type":cfg["recording_type"],"config":cfg,
             "inventory":inv,"streams":streams,"cross":cross,"findings":findings,
+            **extra,"base_verdict":base_result,"base_reason_codes":base_codes,
             "verdict":result,"reason_codes":codes,"report_key":artifact(ref,"qc_report.json"),
             "viewer_key":artifact(ref,"qc.rrd")}
     # External side effects finish before the short authoritative database transaction.

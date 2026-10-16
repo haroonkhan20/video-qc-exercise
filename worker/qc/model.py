@@ -11,6 +11,9 @@ CODES = frozenset([
     "BRIGHT_RUN","FROZEN_RUN","BLUR_RUN","RESOLUTION_CHANGE","CAMERA_SYNC","SENSOR_NONFINITE",
     "SENSOR_FLATLINE","CHECK_UNAVAILABLE",
 ])
+# Detailed pose findings participate in new-run verdicts; legacy findings remain intact.
+POSE_SUFFIXES={"MISSING_STREAM","MISSING_FIELDS","INVALID_VALUES","ZERO_ROTATION","INVALID_TIMESTAMP","ROTATION_SCALE","POSITION_JUMP","ROTATION_JUMP","FRAME_CHANGE","FRAME_MISSING","TIME_ORDER","TIME_GAP","CHECK_UNAVAILABLE","MOTION_UNAVAILABLE"}
+CODES=CODES | {prefix+suffix for prefix in ("HEAD_","HAND_") for suffix in POSE_SUFFIXES}
 def canonical(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
 def version(value):
@@ -29,7 +32,7 @@ def verdict(findings, config):
     all_codes={f["code"] for f in findings}
     if not all_codes <= CODES:raise ValueError("Unknown reason code in findings")
     codes=sorted(all_codes)
-    if any(code in config["policy"]["failure_codes"] for code in codes):
+    if any(code in config["policy"]["failure_codes"] for code in codes) or any(f.get("severity")=="fail" and f["code"].startswith(("HEAD_","HAND_")) for f in findings):
         return "fail",codes
     if codes:
         return "needs_review",codes

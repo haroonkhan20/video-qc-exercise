@@ -1,0 +1,124 @@
+{
+  "detector": {
+    "version": "hand-motion-v1",
+    "source_hash": "097330085f64174c5366870b35382f848f908c69d4cad59ba9d60e99c4c93654",
+    "base_hash": "8c95617072ad3ce892861babd7fc3dda21e31c9ffa1fd872628b6f36e14e2862",
+    "settings": {
+      "rotation_norm_tolerance": 0.001,
+      "position_jump_multiple": 20,
+      "baseline_seconds": 1,
+      "baseline_min_pairs": 10,
+      "baseline_max_mad_relative": 1,
+      "rotation_step_degrees": 45,
+      "maximum_pair_seconds": 0.1,
+      "nominal_hz": 50,
+      "gap_period_multiple": 3
+    },
+    "group_tolerance_seconds": 0.02
+  },
+  "scope": "Artificial four-stream recordings; verifies behavior, not real-world accuracy.",
+  "cases": [
+    {
+      "name": "Clean movement",
+      "expected": "pass",
+      "actual": "pass",
+      "grouped_findings": 0
+    },
+    {
+      "name": "Broken values",
+      "expected": "fail",
+      "actual": "fail",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Missing position",
+      "expected": "fail",
+      "actual": "fail",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Unusable direction",
+      "expected": "fail",
+      "actual": "fail",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Missing stream",
+      "expected": "fail",
+      "actual": "fail",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Sudden movement",
+      "expected": "review",
+      "actual": "review",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Sudden turn",
+      "expected": "review",
+      "actual": "review",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Tracking reset",
+      "expected": "review",
+      "actual": "review",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Reading gap",
+      "expected": "review",
+      "actual": "review",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Repeated time",
+      "expected": "review",
+      "actual": "review",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Direction scaling",
+      "expected": "review",
+      "actual": "review",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Missing reference",
+      "expected": "review",
+      "actual": "review",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Legitimate stillness",
+      "expected": "pass",
+      "actual": "pass",
+      "grouped_findings": 0
+    },
+    {
+      "name": "Equivalent direction signs",
+      "expected": "pass",
+      "actual": "pass",
+      "grouped_findings": 0
+    },
+    {
+      "name": "Unreadable message",
+      "expected": "not_assessed",
+      "actual": "not_assessed",
+      "grouped_findings": 2
+    },
+    {
+      "name": "Related controller and gripper event",
+      "expected": "review",
+      "actual": "review",
+      "grouped_findings": 1
+    },
+    {
+      "name": "Recorded time goes backwards",
+      "expected": "review",
+      "actual": "review",
+      "grouped_findings": 1
+    }
+  ]
+}

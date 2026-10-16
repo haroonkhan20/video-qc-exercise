@@ -1,0 +1,21 @@
+{
+  "scope": "Fresh upload through dashboard API, completed Temporal workflow, duplicate-submit reuse, automatic movement/obstruction, all three grading API responses.",
+  "digest": "80e37966b2dbba408ad07d6af98bc2c7a1ff2034e4e960d669361bb9d7feba08",
+  "scores": [
+    {
+      "standard": "Balanced",
+      "score": 8,
+      "recommendation": "review"
+    },
+    {
+      "standard": "Continuous recording",
+      "score": 8,
+      "recommendation": "review"
+    },
+    {
+      "standard": "Image-focused example",
+      "score": 8,
+      "recommendation": "review"
+    }
+  ]
+}

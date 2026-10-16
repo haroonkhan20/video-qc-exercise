@@ -18,6 +18,9 @@ def cache_path(report):
     return ROOT/".cache/web"/("head-motion-"+fingerprint({"report":fingerprint(report),"detector":provenance()})+".json")
 
 def evidence_for(report):
+    embedded=report.get("head_motion")
+    if isinstance(embedded,dict) and embedded.get("source")=="automatic_pipeline" and embedded.get("raw_digest")==report.get("digest"):
+        return embedded
     path=cache_path(report)
     if not path.exists():return None
     evidence=json.loads(path.read_text())

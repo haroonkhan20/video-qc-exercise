@@ -5,6 +5,8 @@ const Friendly = (() => {
  const number=v=>Number(v).toLocaleString(undefined,{maximumFractionDigits:3});
  const percent=v=>number(v*100)+'%';
  function stream(topic){
+ if(topic==='controller_gripper/left')return 'Left controller and gripper';
+ if(topic==='controller_gripper/right')return 'Right controller and gripper';
   const names={'/quest3s/head_left/camera/compressed':'Head camera · left','/quest3s/head_right/camera/compressed':'Head camera · right','/gripper/left/camera0/compressed':'Gripper camera · left','/gripper/right/camera0/compressed':'Gripper camera · right','/gripper/left/magnetic_encoder':'Gripper sensor · left','/gripper/right/magnetic_encoder':'Gripper sensor · right','/quest3s/head_pose':'Head movement','/quest3s/body_tracking':'Body movement','/quest3s/left_controller_pose':'Left controller movement','/quest3s/right_controller_pose':'Right controller movement','/quest3s/left_gripper_pose':'Left gripper movement','/quest3s/right_gripper_pose':'Right gripper movement'};
   if(names[topic])return names[topic];
   if(topic.includes('camera_info'))return topic.includes('head_left')?'Head camera settings · left':topic.includes('head_right')?'Head camera settings · right':topic.includes('/left/')?'Gripper camera settings · left':'Gripper camera settings · right';

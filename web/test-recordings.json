@@ -1,0 +1,125 @@
+{
+  "description": "Known controlled test copies, identified by content fingerprint, never by filename alone.",
+  "recordings": [
+    {
+      "digest": "139643bb1e9c6ad7df96e2e6b7800a49ad8aaf646d8d6754aa29447f77f617d1",
+      "name": "coverage-short-tail.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "221254c5b49fe6863daa0a680e55340e563c8b52646a330614e1f83655d6ee08",
+      "name": "wrong-schema.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "37da310c268ae806a2befb95fb28284c8608845de0bc7940d299b4985512e1a5",
+      "name": "unindexed.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "3857ec8eb3a23fde5c6788ae8e1271ad4d8c514f6aa95c55c7f66fd41d72e9bf",
+      "name": "hand-jump.mcap",
+      "source": "automatic upload checks"
+    },
+    {
+      "digest": "44f7f4bd7888c4dc004190c49e585cccd484ba4d2a04b26d4fcc6fb64d340915",
+      "name": "unreadable.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "4628bc7c9a46b1ebe51304e3d6284ba7af12355998a5f35ac195ea160998aec1",
+      "name": "coverage-ends-early.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "494fa627f9bfd07819eebbcce977aa4e526ec2eeb8ad01af7a8aedc2c5a20d17",
+      "name": "head-jump.mcap",
+      "source": "automatic upload checks"
+    },
+    {
+      "digest": "6234a083d338612def054d6099d66c9781f0b844e04a21cd82a9c90c967fbdc0",
+      "name": "complete-no-summary.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "75198a073aaf32d4d442493ab809e0ab4e49fb8f111ec70e6d26888d69c2b0f4",
+      "name": "reversed-timestamp.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "75dabde10e7a0b16a42fcc73211ca64bc94db81363d3a3946888f627b940711d",
+      "name": "unknown-encoding.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "80e37966b2dbba408ad07d6af98bc2c7a1ff2034e4e960d669361bb9d7feba08",
+      "name": "movement-web-route.mcap",
+      "source": "dashboard upload check"
+    },
+    {
+      "digest": "84788aa29a89d9557eaf6c2f18c3ca6de5641e00be0ab6e8104eef463e15fb31",
+      "name": "broken-values.mcap",
+      "source": "automatic upload checks"
+    },
+    {
+      "digest": "903b430408f947b64064d2465f13d2732c78956172ba71199b46366580afe97f",
+      "name": "publish-stamp-offset.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "9c0e00e4e11ce242fafa25886be8fa77e083125ca3004da67a15fe04af88db62",
+      "name": "control.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "9e6e27605c64a34a4247088311acd87c480d985cfc6912622e7fd5665b4e6774",
+      "name": "unexpected-stream.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "b04fa3fbc781f2b0a60f9f10ca36e8726c8c7dc469d6173ed2c574af4631a0a9",
+      "name": "frozen-video.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "b17a86dc70fa8ae869e964529f690f9eb1e8e660d5693050ba68bd90bb34a230",
+      "name": "undecodable-video.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "c7e625ad5f19e4ab0efa23c5f7ca54e67259e545cc0296ac6ded769acd44a830",
+      "name": "camera-gap.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "ccc662b0e2fcf4d8151ef6a9d8b40e469b29a9a56ff1a3ce995b021a39cb5420",
+      "name": "truncated-recoverable.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "cd38c5ba83d3942c0ad70afbc39a6ee0e03e0a88f33100e5d719be904bbb80d7",
+      "name": "missing-camera.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "db5319848a31f5975d0aa4e6ae7e395b42b6e4147fc0bdbffe6ce2842820328e",
+      "name": "duplicate-timestamp.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "dc1379e9e8bfdf1b4406f3289099ce5b96263e3fa8998fbd2f2c5bfa36d0c08b",
+      "name": "black-video.mcap",
+      "source": "controlled damage checks"
+    },
+    {
+      "digest": "dfc0929eb975ecebf60cc76181c47cc5feecdf1fcb448e65bb4af01f383d54ad",
+      "name": "control.mcap",
+      "source": "automatic upload checks"
+    },
+    {
+      "digest": "f48e2f2902c3132d61c50ce12ce18933e34ef42839a2bb1a68ab25b3a09d3475",
+      "name": "blur-video.mcap",
+      "source": "controlled damage checks"
+    }
+  ]
+}

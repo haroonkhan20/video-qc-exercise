@@ -1,0 +1,1182 @@
+{
+  "scope": "Final acceptance: all 41 original recordings and four pose streams each; source-bound supplementary results; an additional real recording uploaded through dashboard. No ground-truth accuracy claim.",
+  "worker_code_version": "15d733d612babb84b9bc93aeed16f2606c42f353a3800f108123e16f1e9cd0a1",
+  "detector": {
+    "version": "hand-motion-v1",
+    "source_hash": "097330085f64174c5366870b35382f848f908c69d4cad59ba9d60e99c4c93654",
+    "base_hash": "8c95617072ad3ce892861babd7fc3dda21e31c9ffa1fd872628b6f36e14e2862",
+    "settings": {
+      "rotation_norm_tolerance": 0.001,
+      "position_jump_multiple": 20,
+      "baseline_seconds": 1,
+      "baseline_min_pairs": 10,
+      "baseline_max_mad_relative": 1,
+      "rotation_step_degrees": 45,
+      "maximum_pair_seconds": 0.1,
+      "nominal_hz": 50,
+      "gap_period_multiple": 3
+    },
+    "group_tolerance_seconds": 0.02
+  },
+  "raw_integrity": "All 41 inputs matched recorded SHA-256 digests before scanning; originals were not modified.",
+  "controller_gripper": {
+    "files": 41,
+    "messages": 589976,
+    "outcomes": {
+      "review": 33,
+      "pass": 8
+    },
+    "grouped_finding_counts": {
+      "HAND_POSITION_JUMP": 107,
+      "HAND_ROTATION_JUMP": 6
+    },
+    "elapsed_seconds": 170.27
+  },
+  "warning_review": {
+    "scope": "Independent arithmetic review of the first measured pair retained in every warning member. Does not establish physical tracking truth or mark human-review decisions.",
+    "grouped_warnings": 113,
+    "member_measurements_checked": 315,
+    "mismatches": [],
+    "members_within_first_two_stream_seconds": 68,
+    "members_within_first_five_stream_seconds": 77,
+    "code_counts": {
+      "HAND_POSITION_JUMP": 303,
+      "HAND_ROTATION_JUMP": 12
+    },
+    "representative_rotation_case": {
+      "file": "ep_082f4185.mcap",
+      "first_change_degrees": 81.4816,
+      "return_change_degrees": 80.9643,
+      "intervals_s": [
+        [
+          89.3859,
+          89.4068
+        ],
+        [
+          89.4294,
+          89.452
+        ]
+      ],
+      "net_direction_change_over_89_2_to_89_6_s_degrees": 1.794,
+      "head_net_change_over_same_window_degrees": 0.6271,
+      "interpretation": "Short orientation excursion and return; tracking-correction candidate, not a confirmed physical fault."
+    }
+  },
+  "calibration_note": "33 of 41 recordings trigger a review rule. They are not 33 confirmed faults. Precision/recall remain unmeasured; no thresholds were changed.",
+  "all_standards": {
+    "recording_standard_combinations": 123,
+    "incomplete": []
+  },
+  "additional_upload": {
+    "file": "ep_fe97319f.mcap",
+    "digest": "e9d06da262b67b83611e8fb5ceb031c9cefa43fea7652468412ca77105ae4b6f",
+    "job_id": "3712a8f7eaef45baba88c72884d4e61c",
+    "bytes": 227023245,
+    "scope": "Real additional recording uploaded through dashboard; already-stored raw file reused; full current-code workflow and all three standards verified.",
+    "workflow_id": "qc-e9d06da262b67b83611e8fb5ceb031c9cefa43fea7652468412ca77105ae4b6f-bca36faad9ac190c64e523920ad7504ff83e20fd18ec36572640081b84d1f54c-15d733d612babb84b9bc93aeed16f2606c42f353a3800f108123e16f1e9cd0a1",
+    "code_version": "15d733d612babb84b9bc93aeed16f2606c42f353a3800f108123e16f1e9cd0a1",
+    "verdict": "needs_review",
+    "head": "pass",
+    "hands": "review",
+    "obstruction": "checked",
+    "scores": [
+      {
+        "name": "Balanced",
+        "score": 8,
+        "recommendation": "review",
+        "assessment_complete": true
+      },
+      {
+        "name": "Continuous recording",
+        "score": 8,
+        "recommendation": "review",
+        "assessment_complete": true
+      },
+      {
+        "name": "Image-focused example",
+        "score": 8,
+        "recommendation": "review",
+        "assessment_complete": true
+      }
+    ],
+    "total_records": 67,
+    "test_records": 24,
+    "main_records": 43
+  },
+  "recordings": [
+    {
+      "file": "ep_032e483c.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 1,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_03d813ce.mcap",
+      "head": "pass",
+      "hands": "pass",
+      "grouped_warnings": 0,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 9.96,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 9.92,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 9.96,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        }
+      ]
+    },
+    {
+      "file": "ep_0409bd35.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 10,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_041eb856.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 3,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_0444a8ac.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 3,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_07e258d4.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 3,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_082f4185.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 14,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_0dec4ae7.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 2,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_0e09c76b.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 1,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_0e374ee6.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 5,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_0ed34c0f.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 7,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_112a825d.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 5,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_1ee4bdaf.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 1,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_20846435.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 2,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_208961d3.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 3,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_212a979d.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 2,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_223529fa.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 1,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_23212682.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 3,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_23f5a0d2.mcap",
+      "head": "pass",
+      "hands": "pass",
+      "grouped_warnings": 0,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 9.94,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 9.88,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 9.94,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        }
+      ]
+    },
+    {
+      "file": "ep_2c47cac2.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 2,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_2cb4b3ea.mcap",
+      "head": "pass",
+      "hands": "pass",
+      "grouped_warnings": 0,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 9.94,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 9.88,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 9.94,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        }
+      ]
+    },
+    {
+      "file": "ep_2e18f47f.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 1,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_346eb2d7.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 2,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 4,
+          "assessment_complete": true,
+          "recommendation": "unacceptable"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 4,
+          "assessment_complete": true,
+          "recommendation": "unacceptable"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 4,
+          "assessment_complete": true,
+          "recommendation": "unacceptable"
+        }
+      ]
+    },
+    {
+      "file": "ep_34e2d6e2.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 1,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_357dc6b9.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 7,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_39ec7993.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 5,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_42d682ff.mcap",
+      "head": "pass",
+      "hands": "pass",
+      "grouped_warnings": 0,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 9.96,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 9.92,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 9.96,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        }
+      ]
+    },
+    {
+      "file": "ep_459e3edd.mcap",
+      "head": "pass",
+      "hands": "pass",
+      "grouped_warnings": 0,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 9.98,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 9.97,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 9.98,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        }
+      ]
+    },
+    {
+      "file": "ep_49df3c44.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 2,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_4dd7ef84.mcap",
+      "head": "pass",
+      "hands": "pass",
+      "grouped_warnings": 0,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 9.96,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 9.92,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 9.96,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        }
+      ]
+    },
+    {
+      "file": "ep_51347361.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 6,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_52373c02.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 1,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_52d930da.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 1,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_554d5730.mcap",
+      "head": "pass",
+      "hands": "pass",
+      "grouped_warnings": 0,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 9.96,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 9.92,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 9.96,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        }
+      ]
+    },
+    {
+      "file": "ep_5b171934.mcap",
+      "head": "pass",
+      "hands": "pass",
+      "grouped_warnings": 0,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 9.96,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 9.92,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 9.96,
+          "assessment_complete": true,
+          "recommendation": "acceptable"
+        }
+      ]
+    },
+    {
+      "file": "ep_5e2c1fd2.mcap",
+      "head": "review",
+      "hands": "review",
+      "grouped_warnings": 2,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_66909bdd.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 5,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_6d6fa903.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 1,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_6e4d59a3.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 4,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_6fed8bc1.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 5,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    },
+    {
+      "file": "ep_9fae2f39.mcap",
+      "head": "pass",
+      "hands": "review",
+      "grouped_warnings": 2,
+      "scores": [
+        {
+          "standard": "Balanced",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Continuous recording",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        },
+        {
+          "standard": "Image-focused example",
+          "score": 8,
+          "assessment_complete": true,
+          "recommendation": "review"
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "python_tests_passed": 99,
+    "controlled_mcap_cases_passed": 32,
+    "ui_and_timeline_checks": "passed",
+    "originals_modified": false,
+    "thresholds_changed": false,
+    "human_review_decisions_overwritten": false
+  }
+}

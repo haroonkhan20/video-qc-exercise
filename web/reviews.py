@@ -7,7 +7,7 @@ from grading import fingerprint
 
 DECISIONS={"confirmed_problem","normal_scene","unsure"}
 
-def issues(report,obstruction=None,head=None):
+def issues(report,obstruction=None,head=None,hands=None):
     source=fingerprint(report)
     findings=[("automatic",f) for f in report.get("findings",[])]
     for stream in (obstruction or {}).get("streams",[]):
@@ -23,6 +23,9 @@ def issues(report,obstruction=None,head=None):
         if finding.get("severity")=="source_policy":continue
         identity=fingerprint({"source_report":source,"origin":"head_motion","finding":finding,"detector":(head or {}).get("detector")})
         result[identity]={"id":identity,"origin":"head_motion","finding_index":None,"finding":finding}
+    for finding in (hands or {}).get("findings",[]):
+        identity=fingerprint({"source_report":source,"origin":"hand_motion","finding":finding,"detector":(hands or {}).get("detector")})
+        result[identity]={"id":identity,"origin":"hand_motion","finding_index":None,"finding":finding}
     return source,list(result.values())
 
 class ReviewStore:
@@ -35,8 +38,8 @@ class ReviewStore:
         try:
             with db:yield db
         finally:db.close()
-    def read(self,digest,report,obstruction=None,head=None):
-        source,catalog=issues(report,obstruction,head)
+    def read(self,digest,report,obstruction=None,head=None,hands=None):
+        source,catalog=issues(report,obstruction,head,hands)
         with self.connect() as db:
             rows=[dict(row) for row in db.execute("SELECT id,source_report,issue_id,decision,note,created_at,finding FROM reviews WHERE digest=? ORDER BY id DESC",(digest,))]
         for row in rows:row["finding"]=json.loads(row["finding"])
@@ -49,9 +52,9 @@ class ReviewStore:
                 "previous_report_review_count":len(archived),
                 "previous_report_reviews":archived,
                 "scope":"Human review is separate from automatic findings and Overall Score. Earlier decisions are retained."}
-    def save(self,digest,report,obstruction,data,head=None):
+    def save(self,digest,report,obstruction,data,head=None,hands=None):
         if not isinstance(data,dict) or set(data)!={"issue_id","source_report_hash","decision","note"}:raise ValueError("Invalid review fields")
-        source,catalog=issues(report,obstruction,head)
+        source,catalog=issues(report,obstruction,head,hands)
         item=next((i for i in catalog if i["id"]==data["issue_id"]),None)
         if data["source_report_hash"]!=source or item is None:raise ValueError("This issue has changed. Refresh the report before reviewing it.")
         if not isinstance(data["decision"],str) or data["decision"] not in DECISIONS:raise ValueError("Choose Confirmed problem, Normal scene or Unsure")
@@ -60,4 +63,4 @@ class ReviewStore:
         with self.connect() as db:
             db.execute("INSERT INTO reviews(digest,source_report,issue_id,decision,note,created_at,finding) VALUES(?,?,?,?,?,?,?)",
                 (digest,source,item["id"],data["decision"],data["note"].strip(),stamp,json.dumps(item["finding"],allow_nan=False)))
-        return self.read(digest,report,obstruction,head)
+        return self.read(digest,report,obstruction,head,hands)

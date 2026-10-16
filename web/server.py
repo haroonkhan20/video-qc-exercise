@@ -7,10 +7,14 @@ from grading import grade,validate_profile,fingerprint
 from scorecard import build as scorecard
 from obstruction import provenance
 from reviews import ReviewStore
+from result_summary import combined_verdict
+from recording_collections import classify,known_tests
 from head_results import evidence_for as head_evidence, cache_path as head_cache_path, store as store_head, SOURCE as HEAD_SOURCE
-HEAD_ENABLED=os.environ.get("QC_HEAD_MOTION_ENABLED")=="1"
+HEAD_ENABLED=os.environ.get("QC_HEAD_MOTION_ENABLED","1")=="1"
 HEAD_SCAN_ENABLED=os.environ.get("QC_HEAD_ANALYSIS_ENABLED")=="1"
 HEAD_PREVIEW=os.environ.get("QC_HEAD_PREVIEW")=="1"
+from hand_results import evidence_for as hand_evidence
+HAND_ENABLED=os.environ.get("QC_HAND_MOTION_ENABLED","1")=="1"
 HEAD_LOCK=threading.Lock()
 PORT=int(os.environ.get("QC_WEB_PORT","8090"))
 ANALYSIS_LOCK=threading.Lock()
@@ -58,9 +62,10 @@ def snapshot():
   for p in (ROOT/"reports").glob("ep_*.json"):
    try:names[json.loads(p.read_text())["digest"]]=p.stem+".mcap"
    except (ValueError,KeyError):pass
+  tests=known_tests(ROOT/"web/test-recordings.json")
   rows=probe("list")
   for r in rows:
-   r["dataset"]="reference" if r["digest"] in names else "other"
+   r["dataset"]=classify(r["digest"],names,tests)
    if r["digest"] in names:r["name"]=names[r["digest"]]
   LIST_CACHE.update(time=time.time(),rows=rows)
   return rows
@@ -69,9 +74,9 @@ def obstruction_path(report):
 def graded(report,profile):
  result=grade(report,profile)
  path=obstruction_path(report)
- evidence=json.loads(path.read_text()) if path.exists() else None
+ evidence=report.get("obstruction") or (json.loads(path.read_text()) if path.exists() else None)
  head=head_evidence(report) if HEAD_ENABLED else None
- result["scorecard"]=scorecard(result,evidence,head)
+ result["scorecard"]=scorecard(result,evidence,head,hand_evidence(report) if HAND_ENABLED else None)
  result["legacy_category_grade"]={k:result[k] for k in ["score","weighted_average","recommendation","assessment_complete"]}
  result["critical_cap"]=result["scorecard"]["serious_issue_limit"]
  for key in ["score","weighted_average","recommendation","assessment_complete","why","assessment_state"]:
@@ -103,7 +108,7 @@ def analyze(digest):
   if path.exists():
    existing=json.loads(path.read_text())
    if existing.get("status")=="checked":return existing
-  evidence=probe("obstruction",digest,base64.b64encode((ROOT/"web/obstruction.py").read_bytes()).decode())
+  evidence=probe("obstruction",digest,base64.b64encode((ROOT/"worker/qc/obstruction.py").read_bytes()).decode())
   evidence.update(status="checked" if evidence["streams"] and all(s["status"]=="checked" for s in evidence["streams"]) else "not_assessed",
                   source_report_hash=fingerprint(report),detector=provenance())
   if evidence["streams"]:
@@ -118,6 +123,14 @@ def records(profile):
   if report:
    result=graded(report,profile)
    visible["grading"]={k:result[k] for k in ["score","weighted_average","recommendation","why","assessment_complete","possible_range","critical_cap","profile_version","assessment_state"]}
+   movement=[result["scorecard"].get(k) for k in ("head_motion","hand_motion")]
+   active=[e for e in movement if e]
+   visible["original_verdict"]=report.get("base_verdict",visible["verdict"])
+   visible["verdict"]=combined_verdict(visible["verdict"],*active)
+   if active:
+    findings=[f for e in active for f in e["findings"] if f.get("severity")!="source_policy"]
+    severity="fail" if any(e["severity"]=="fail" for e in active) else "review" if any(e["severity"]!="pass" for e in active) else "pass"
+    visible["movement_summary"]={"severity":severity,"issues":len(findings)}
   else:visible["grading"]=None
   rows.append(visible)
  return rows
@@ -141,7 +154,9 @@ class Handler(BaseHTTPRequestHandler):
   if self.headers.get("Host","") not in [f"localhost:{PORT}",f"127.0.0.1:{PORT}"]:return self.reply({"error":"Invalid host"},403)
   try:
    if path=="/api/profiles":return self.reply({"profiles":profiles(),"default":"balanced-v1"})
-   if path=="/api/features":return self.reply({"head_motion":HEAD_ENABLED,"head_analysis":HEAD_ENABLED and HEAD_SCAN_ENABLED,"head_preview":HEAD_PREVIEW})
+   if path=="/api/features":return self.reply({"head_motion":HEAD_ENABLED,"head_analysis":HEAD_ENABLED and HEAD_SCAN_ENABLED,"head_preview":HEAD_PREVIEW,"hand_motion":HAND_ENABLED})
+   if path=="/api/hand-examples" and HEAD_PREVIEW:
+    return self.reply(json.loads((ROOT/".cache/hand-motion-preview/examples.json").read_text()))
    if path=="/api/head-examples" and HEAD_PREVIEW:
     return self.reply(json.loads((ROOT/".cache/head-motion-preview/examples.json").read_text()))
    m=re.fullmatch(r"/api/head-motion/([0-9a-f]{64})",path)
@@ -155,7 +170,7 @@ class Handler(BaseHTTPRequestHandler):
    m=re.fullmatch(r"/api/reviews/([0-9a-f]{64})",path)
    if m:
     report=cli("report",m[1]);cached=obstruction_path(report)
-    return self.reply(REVIEWS.read(m[1],report,json.loads(cached.read_text()) if cached.exists() else None,head_evidence(report) if HEAD_ENABLED else None))
+    return self.reply(REVIEWS.read(m[1],report,report.get("obstruction") or (json.loads(cached.read_text()) if cached.exists() else None),head_evidence(report) if HEAD_ENABLED else None,hand_evidence(report) if HAND_ENABLED else None))
    m=re.fullmatch(r"/api/samples/([0-9a-f]{64})/([0-9]+(?:[.][0-9]+)?)",path)
    if m:
     seconds=float(m[2])
@@ -163,7 +178,7 @@ class Handler(BaseHTTPRequestHandler):
     return self.reply(probe("samples",m[1],str(seconds)))
    m=re.fullmatch(r"/api/reports/([0-9a-f]{64})",path)
    if m:return self.reply(cli("report",m[1]))
-   if path in ["/","/app.js","/style.css","/friendly.js","/timeline.js","/head-motion.js"] or path=="/head-preview.html" and HEAD_PREVIEW:
+   if path in ["/","/app.js","/style.css","/friendly.js","/timeline.js","/head-motion.js","/hand-motion.js"] or path in ["/head-preview.html","/hand-preview.html"] and HEAD_PREVIEW:
     p=ROOT/"web"/("index.html" if path=="/" else path[1:]);data=p.read_bytes()
     self.send_response(200);self.send_header("Content-Type",mimetypes.guess_type(p)[0]);self.send_header("Content-Length",str(len(data)));self.end_headers();self.wfile.write(data);return
    self.reply({"error":"Not found"},404)
@@ -187,7 +202,7 @@ class Handler(BaseHTTPRequestHandler):
     if not 0<length<=16384:raise ValueError("Review body must be at most 16 KiB")
     data=json.loads(self.rfile.read(length));digest=self.path.rsplit("/",1)[1]
     report=cli("report",digest);cached=obstruction_path(report)
-    return self.reply(REVIEWS.save(digest,report,json.loads(cached.read_text()) if cached.exists() else None,data,head_evidence(report) if HEAD_ENABLED else None),201)
+    return self.reply(REVIEWS.save(digest,report,report.get("obstruction") or (json.loads(cached.read_text()) if cached.exists() else None),data,head_evidence(report) if HEAD_ENABLED else None,hand_evidence(report) if HAND_ENABLED else None),201)
    except (ValueError,TypeError) as e:return self.reply({"error":str(e)},400)
    except Exception:return self.reply({"error":"Review could not be saved. Try again; your automatic result is unchanged."},503)
   if self.path.startswith("/api/obstruction/"):
