@@ -1,0 +1,524 @@
+{
+  "schema_version": 1,
+  "codes": {
+    "BLACK_RUN": {
+      "groups": [
+        "legacy_pipeline",
+        "image",
+        "score_explanation"
+      ],
+      "description": "Pictures stayed unacceptably dark for a sustained interval.",
+      "kind": "finding"
+    },
+    "BLUR_RUN": {
+      "groups": [
+        "legacy_pipeline",
+        "image"
+      ],
+      "description": "Blur run.",
+      "kind": "finding"
+    },
+    "BRIGHT_RUN": {
+      "groups": [
+        "legacy_pipeline",
+        "image",
+        "score_explanation"
+      ],
+      "description": "Pictures stayed unacceptably bright for a sustained interval.",
+      "kind": "finding"
+    },
+    "CAMERA_SYNC": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Camera sync.",
+      "kind": "finding"
+    },
+    "CHECKS_PASSED": {
+      "groups": [],
+      "description": "Checks passed.",
+      "kind": "success"
+    },
+    "CHECK_UNAVAILABLE": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Check unavailable.",
+      "kind": "finding"
+    },
+    "CONTAINER_INCOMPLETE": {
+      "groups": [
+        "legacy_pipeline",
+        "critical_score"
+      ],
+      "description": "Container incomplete.",
+      "kind": "finding"
+    },
+    "CONTAINER_TRUNCATED_RECOVERABLE": {
+      "groups": [
+        "legacy_pipeline",
+        "critical_score"
+      ],
+      "description": "Container truncated recoverable.",
+      "kind": "finding"
+    },
+    "CONTAINER_UNREADABLE": {
+      "groups": [
+        "legacy_pipeline",
+        "critical_score",
+        "essential_score",
+        "score_explanation"
+      ],
+      "description": "The recording file cannot be read.",
+      "kind": "finding"
+    },
+    "CONTRACT_UNCONFIRMED": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Contract unconfirmed.",
+      "kind": "finding"
+    },
+    "COVERAGE_MISMATCH": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Coverage mismatch.",
+      "kind": "finding"
+    },
+    "FROZEN_RUN": {
+      "groups": [
+        "legacy_pipeline",
+        "image"
+      ],
+      "description": "Frozen run.",
+      "kind": "finding"
+    },
+    "GAP_RUN": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Gap run.",
+      "kind": "finding"
+    },
+    "HAND_CHECK_UNAVAILABLE": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Hand check unavailable.",
+      "kind": "finding"
+    },
+    "HAND_FRAME_CHANGE": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_review"
+      ],
+      "description": "Hand frame change.",
+      "kind": "finding"
+    },
+    "HAND_FRAME_MISSING": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_review"
+      ],
+      "description": "Hand frame missing.",
+      "kind": "finding"
+    },
+    "HAND_INVALID_TIMESTAMP": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_failure"
+      ],
+      "description": "Hand invalid timestamp.",
+      "kind": "finding"
+    },
+    "HAND_INVALID_VALUES": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_failure"
+      ],
+      "description": "Hand invalid values.",
+      "kind": "finding"
+    },
+    "HAND_MISSING_FIELDS": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_failure"
+      ],
+      "description": "Hand missing fields.",
+      "kind": "finding"
+    },
+    "HAND_MISSING_STREAM": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_failure"
+      ],
+      "description": "Hand missing stream.",
+      "kind": "finding"
+    },
+    "HAND_MOTION_UNAVAILABLE": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Hand motion unavailable.",
+      "kind": "finding"
+    },
+    "HAND_POSITION_JUMP": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_review"
+      ],
+      "description": "Hand position jump.",
+      "kind": "finding"
+    },
+    "HAND_ROTATION_JUMP": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_review"
+      ],
+      "description": "Hand rotation jump.",
+      "kind": "finding"
+    },
+    "HAND_ROTATION_SCALE": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_review"
+      ],
+      "description": "Hand rotation scale.",
+      "kind": "finding"
+    },
+    "HAND_TIME_GAP": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Hand time gap.",
+      "kind": "finding"
+    },
+    "HAND_TIME_ORDER": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Hand time order.",
+      "kind": "finding"
+    },
+    "HAND_ZERO_ROTATION": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_failure"
+      ],
+      "description": "Hand zero rotation.",
+      "kind": "finding"
+    },
+    "HEAD_CHECK_UNAVAILABLE": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Head check unavailable.",
+      "kind": "finding"
+    },
+    "HEAD_FRAME_CHANGE": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_review"
+      ],
+      "description": "Head frame change.",
+      "kind": "finding"
+    },
+    "HEAD_FRAME_MISSING": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_review"
+      ],
+      "description": "Head frame missing.",
+      "kind": "finding"
+    },
+    "HEAD_INVALID_TIMESTAMP": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_failure"
+      ],
+      "description": "Head invalid timestamp.",
+      "kind": "finding"
+    },
+    "HEAD_INVALID_VALUES": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_failure"
+      ],
+      "description": "Head invalid values.",
+      "kind": "finding"
+    },
+    "HEAD_MISSING_FIELDS": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_failure"
+      ],
+      "description": "Head missing fields.",
+      "kind": "finding"
+    },
+    "HEAD_MISSING_STREAM": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_failure"
+      ],
+      "description": "Head missing stream.",
+      "kind": "finding"
+    },
+    "HEAD_MOTION_UNAVAILABLE": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Head motion unavailable.",
+      "kind": "finding"
+    },
+    "HEAD_POSITION_JUMP": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_review"
+      ],
+      "description": "Head position jump.",
+      "kind": "finding"
+    },
+    "HEAD_ROTATION_JUMP": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_review"
+      ],
+      "description": "Head rotation jump.",
+      "kind": "finding"
+    },
+    "HEAD_ROTATION_SCALE": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_review"
+      ],
+      "description": "Head rotation scale.",
+      "kind": "finding"
+    },
+    "HEAD_TIME_GAP": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Head time gap.",
+      "kind": "finding"
+    },
+    "HEAD_TIME_ORDER": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Head time order.",
+      "kind": "finding"
+    },
+    "HEAD_ZERO_ROTATION": {
+      "groups": [
+        "legacy_pipeline",
+        "pose_failure"
+      ],
+      "description": "Head zero rotation.",
+      "kind": "finding"
+    },
+    "MISSING_OR_INVALID_REQUIRED_STREAM": {
+      "groups": [
+        "essential_score",
+        "score_explanation"
+      ],
+      "description": "Required camera or sensor data is missing or invalid.",
+      "kind": "score_only"
+    },
+    "MISSING_STREAM": {
+      "groups": [
+        "legacy_pipeline",
+        "critical_score",
+        "essential_score",
+        "score_explanation"
+      ],
+      "description": "A required camera or sensor is missing.",
+      "kind": "finding"
+    },
+    "PAYLOAD_TIMESTAMP_MISMATCH": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Payload timestamp mismatch.",
+      "kind": "finding"
+    },
+    "POSSIBLE_OBSTRUCTION": {
+      "groups": [],
+      "description": "Possible obstruction.",
+      "kind": "finding"
+    },
+    "RATE_OUT_OF_RANGE": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Rate out of range.",
+      "kind": "finding"
+    },
+    "RESOLUTION_CHANGE": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Resolution change.",
+      "kind": "finding"
+    },
+    "SENSOR_FLATLINE": {
+      "groups": [
+        "legacy_pipeline",
+        "advisory"
+      ],
+      "description": "Sensor flatline.",
+      "kind": "finding"
+    },
+    "SENSOR_NONFINITE": {
+      "groups": [
+        "legacy_pipeline",
+        "critical_score",
+        "score_explanation"
+      ],
+      "description": "Some sensor readings are invalid.",
+      "kind": "finding"
+    },
+    "SOURCE_POLICY_FAILURE": {
+      "groups": [
+        "score_explanation"
+      ],
+      "description": "The original recording checks reported an unacceptable issue.",
+      "kind": "score_only"
+    },
+    "TIMESTAMP_DUPLICATE": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Timestamp duplicate.",
+      "kind": "finding"
+    },
+    "TIMESTAMP_REVERSED": {
+      "groups": [
+        "legacy_pipeline"
+      ],
+      "description": "Timestamp reversed.",
+      "kind": "finding"
+    },
+    "UNEXPECTED_STREAM": {
+      "groups": [
+        "legacy_pipeline",
+        "advisory"
+      ],
+      "description": "Unexpected stream.",
+      "kind": "finding"
+    },
+    "VIDEO_NOT_KEYFRAME_START": {
+      "groups": [
+        "legacy_pipeline",
+        "critical_score",
+        "essential_score",
+        "score_explanation"
+      ],
+      "description": "Required video starts without a complete picture.",
+      "kind": "finding"
+    },
+    "VIDEO_UNDECODABLE": {
+      "groups": [
+        "legacy_pipeline",
+        "critical_score",
+        "essential_score",
+        "score_explanation"
+      ],
+      "description": "Required video could not be played correctly.",
+      "kind": "finding"
+    },
+    "WRONG_ENCODING": {
+      "groups": [
+        "legacy_pipeline",
+        "critical_score",
+        "essential_score",
+        "score_explanation"
+      ],
+      "description": "Required data cannot be interpreted.",
+      "kind": "finding"
+    },
+    "WRONG_SCHEMA": {
+      "groups": [
+        "legacy_pipeline",
+        "critical_score",
+        "essential_score",
+        "score_explanation"
+      ],
+      "description": "Required data uses an unexpected format.",
+      "kind": "finding"
+    },
+    "HEAD_POSITION_SPEED_IMPLAUSIBLE": {
+      "groups": [
+        "pose_review"
+      ],
+      "description": "Position speed exceeds the configured task-motion limit.",
+      "kind": "finding"
+    },
+    "HEAD_TURN_RATE_IMPLAUSIBLE": {
+      "groups": [
+        "pose_review"
+      ],
+      "description": "Turning speed exceeds the configured task-motion limit.",
+      "kind": "finding"
+    },
+    "HEAD_POSITION_UNIT_UNCONFIRMED": {
+      "groups": [],
+      "description": "Position speed was not assessed because metres are not established.",
+      "kind": "finding"
+    },
+    "HEAD_MOTION_METADATA_UNAVAILABLE": {
+      "groups": [],
+      "description": "Required capture, origin, or clock contract is unavailable.",
+      "kind": "finding"
+    },
+    "HEAD_MOTION_STARTUP_EXCLUDED": {
+      "groups": [],
+      "description": "Movement limits were not assessed during tracking settling.",
+      "kind": "finding"
+    },
+    "HEAD_MOTION_OUTSIDE_CAPTURE": {
+      "groups": [],
+      "description": "Movement limits were not assessed outside the declared capture window.",
+      "kind": "finding"
+    },
+    "HAND_POSITION_SPEED_IMPLAUSIBLE": {
+      "groups": [
+        "pose_review"
+      ],
+      "description": "Position speed exceeds the configured task-motion limit.",
+      "kind": "finding"
+    },
+    "HAND_TURN_RATE_IMPLAUSIBLE": {
+      "groups": [
+        "pose_review"
+      ],
+      "description": "Turning speed exceeds the configured task-motion limit.",
+      "kind": "finding"
+    },
+    "HAND_POSITION_UNIT_UNCONFIRMED": {
+      "groups": [],
+      "description": "Position speed was not assessed because metres are not established.",
+      "kind": "finding"
+    },
+    "HAND_MOTION_METADATA_UNAVAILABLE": {
+      "groups": [],
+      "description": "Required capture, origin, or clock contract is unavailable.",
+      "kind": "finding"
+    },
+    "HAND_MOTION_STARTUP_EXCLUDED": {
+      "groups": [],
+      "description": "Movement limits were not assessed during tracking settling.",
+      "kind": "finding"
+    },
+    "HAND_MOTION_OUTSIDE_CAPTURE": {
+      "groups": [],
+      "description": "Movement limits were not assessed outside the declared capture window.",
+      "kind": "finding"
+    },
+    "QUALITY_COUNTER_MISMATCH": {
+      "description": "Recorded capture-window timestamps disagree with producer quality counters.",
+      "groups": [],
+      "kind": "finding"
+    }
+  }
+}

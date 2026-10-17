@@ -1,3 +1,7 @@
+# Historical relative-movement detector
+
+This document describes the earlier relative-step checker retained for historical evidence and regression tools. New pipeline results use the physical speed and startup rules in [PHYSICAL-POLICY.md](PHYSICAL-POLICY.md). The earlier thresholds below do not govern new workflow verdicts.
+
 # Head position and rotation
 
 The headset records where it is and which direction it faces. These checks read

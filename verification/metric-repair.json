@@ -1,0 +1,113 @@
+{
+  "recording": "ep_041eb856.mcap",
+  "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+  "config_version": "7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b",
+  "code_version": "be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503",
+  "approved_action": "Explicit user approval to remove exactly eight obsolete analytics rows; no raw files, workflow histories, current reports or correct rows deleted.",
+  "completed_at_utc": "2026-10-17T05:11:35.977170+00:00",
+  "rows_before": 1872,
+  "rows_removed": 8,
+  "rows_after": 1864,
+  "expected_rows": 1864,
+  "projection_matches_current_report": true,
+  "raw_object_unchanged": true,
+  "removed_rows": [
+    {
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "config_version": "7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b",
+      "code_version": "be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503",
+      "stream": "/gripper/left/camera0/compressed",
+      "check_name": "content",
+      "metric": "video_undecodable_findings",
+      "time_ns": 0,
+      "value": 1,
+      "delivery_id": "7ff9d0ee581cccc37108e91580f6d425d37038106639bc2eb7b4e65595bbc56e",
+      "row_id": "af0c2aa6355a407154f48a6f471a2bbbd66da186d07df17bf163a66bfc3d7bab"
+    },
+    {
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "config_version": "7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b",
+      "code_version": "be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503",
+      "stream": "/gripper/left/camera0/compressed",
+      "check_name": "finding",
+      "metric": "VIDEO_UNDECODABLE",
+      "time_ns": 2,
+      "value": 0,
+      "delivery_id": "7ff9d0ee581cccc37108e91580f6d425d37038106639bc2eb7b4e65595bbc56e",
+      "row_id": "6ad81e84d87ed241bfeff51fd9251c9d4a1c35d8c5d3481ee3816ce5a221d16a"
+    },
+    {
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "config_version": "7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b",
+      "code_version": "be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503",
+      "stream": "/gripper/left/camera0/compressed",
+      "check_name": "stream",
+      "metric": "video_decode_errors",
+      "time_ns": 0,
+      "value": 1,
+      "delivery_id": "7ff9d0ee581cccc37108e91580f6d425d37038106639bc2eb7b4e65595bbc56e",
+      "row_id": "55eb38ec965f2280928755727eada97e057ab656a5bd52d46d559b38869ef30c"
+    },
+    {
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "config_version": "7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b",
+      "code_version": "be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "check_name": "content",
+      "metric": "video_undecodable_findings",
+      "time_ns": 0,
+      "value": 2,
+      "delivery_id": "7ff9d0ee581cccc37108e91580f6d425d37038106639bc2eb7b4e65595bbc56e",
+      "row_id": "b4857cc8847a1b255fcd81848eb8a2ccbd9fced9e19fe624b4f5e6755d206145"
+    },
+    {
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "config_version": "7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b",
+      "code_version": "be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "check_name": "finding",
+      "metric": "VIDEO_UNDECODABLE",
+      "time_ns": 0,
+      "value": 0,
+      "delivery_id": "7ff9d0ee581cccc37108e91580f6d425d37038106639bc2eb7b4e65595bbc56e",
+      "row_id": "745a9b559fb3fa1a5e15f1b8e346311fb3a0b3c4f06108c3336ae23e0b05bdd7"
+    },
+    {
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "config_version": "7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b",
+      "code_version": "be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "check_name": "finding",
+      "metric": "VIDEO_UNDECODABLE",
+      "time_ns": 1,
+      "value": 0,
+      "delivery_id": "7ff9d0ee581cccc37108e91580f6d425d37038106639bc2eb7b4e65595bbc56e",
+      "row_id": "34fef6aa7830432e7a0e41ce206c73db9ecfdf24a3313b7567fddd0fb8e15633"
+    },
+    {
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "config_version": "7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b",
+      "code_version": "be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "check_name": "stream",
+      "metric": "decoded_frames",
+      "time_ns": 0,
+      "value": 2303,
+      "delivery_id": "7ff9d0ee581cccc37108e91580f6d425d37038106639bc2eb7b4e65595bbc56e",
+      "row_id": "f23cc4d6247759d41fc0fefc22de123da4147dd85c6d3258e6395621c9393c15"
+    },
+    {
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "config_version": "7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b",
+      "code_version": "be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503",
+      "stream": "/quest3s/head_left/camera/compressed",
+      "check_name": "stream",
+      "metric": "video_decode_errors",
+      "time_ns": 0,
+      "value": 1,
+      "delivery_id": "7ff9d0ee581cccc37108e91580f6d425d37038106639bc2eb7b4e65595bbc56e",
+      "row_id": "b213a1018c7e55029a994a342fa08d840d119d05bc2bdaff0dc5b65490f03bfe"
+    }
+  ],
+  "rebuild_workflow_id": "rebuild-qc-eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b-7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b-be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503"
+}

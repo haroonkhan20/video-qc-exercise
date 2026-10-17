@@ -18,13 +18,9 @@ layout. The initial rates are 30 Hz for cameras, 50 Hz for pose/body tracking, a
 100 Hz for encoders. Calibration is metadata, so it is checked for presence and
 schema rather than continuous coverage.
 
-Camera acquisition started roughly 3–5.27 seconds after metadata in the initial
-inspection. Six seconds therefore allows observed startup behavior. End coverage instead
-allows only 0.5 seconds: all 164 camera streams ended within 0.0797 seconds of
-the active recording window. The user chose this tighter end budget. Local gap
-checks independently flag holes beyond three nominal periods. Rate tolerance
-is 30%; this broad initial budget separates major loss from acquisition jitter.
-Measured rates, period percentiles, gaps, and estimated drops remain in reports.
+Coverage uses each recording's declared capture window and the 0.5-second allowance declared in its seal. This avoids treating initial metadata timestamps as the beginning of active recording. The read-only audit of all 41 files found maximum first-reading lag of 0.040 seconds and final-reading lag of 0.081 seconds. Messages outside the capture window remain stored and decoded but do not define capture coverage.
+
+Declared nominal rates take priority. Missing rates in the supported profile use the fixed baseline documented in PHYSICAL-POLICY.md, selected across all 41 recordings rather than learned separately from each file. Rate tolerance remains 30%, and long gaps use the configured three-period allowance. Dataset-derived rate expectations do not redefine producer quality-counter semantics.
 
 Payload timestamps must agree with both log and publish time within 100 ms.
 Camera skew and drift budgets are 50 and 30 ms. These are explicit engineering
@@ -36,9 +32,7 @@ Near-black mean intensity below 10 or near-white above 245 must persist for
 all-camera blackout. It can miss localized clipping and can flag deliberately
 extreme scenes. Mean brightness is not an exposure-quality oracle.
 
-The blur, frozen-image, and encoder-flatline thresholds request review rather
-than rejection. Scene texture and physical stillness can explain those findings.
-The user explicitly chose review for unchanged encoder readings.
+Blur, frozen images and possible partial obstruction request review rather than automatic rejection. Scene texture or a stationary view can explain such findings. Encoder stillness alone is informational under the current policy and does not request review or reduce the score. Physical movement screening follows PHYSICAL-POLICY.md.
 
 ## Validation without an external answer key
 

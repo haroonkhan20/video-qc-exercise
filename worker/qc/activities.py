@@ -76,6 +76,9 @@ def inspect_container(ref):
               else "CONTAINER_TRUNCATED_RECOVERABLE") if recoverable else "CONTAINER_UNREADABLE"
         report["findings"].append(finding(code,metrics={"recovery_exit_code":recover_code,
                                                      "footer_magic_valid":report["footer_magic_valid"]}))
+    from qc.recording_contract import read_file
+    from qc.capture_profile import resolve
+    report["recording_contract"]=resolve(read_file(path),cfg)
     observed={c["topic"]:c for c in report["channels"]}
     duration=(report["end_ns"]-report["start_ns"])/1e9
     for expected in cfg["expected_streams"]:
@@ -115,11 +118,13 @@ def check_stream(request):
 def cross_stream(request):
     ref=request["ref"];cfg=st.run_config(ref);inv=st.get_json(artifact(ref,"inventory.json"))
     reports=[st.get_json(item["report_key"]) for item in request["streams"] if "report_key" in item]
+    from qc.rulebook import section
+    evaluation=section("evaluation",cfg)
     findings=[];metrics={}
-    active=[r for r in reports if r["kind"] in ("video","sensor") and r["timing"]["log"].get("messages")]
-    coverage_findings,metrics=coverage(active,inv["start_ns"],cfg["timing"])
+    active=[r for r in reports if r["kind"] in ("video","sensor")]
+    coverage_findings,metrics=coverage(active,inv["start_ns"],cfg["timing"],contract=inv.get("recording_contract"))
     findings.extend(coverage_findings)
-    cameras=sorted([r for r in active if r["kind"]=="video"],key=lambda r:r["topic"])
+    cameras=sorted([r for r in active if r["kind"]=="video" and r["timing"]["log"].get("messages")],key=lambda r:r["topic"])
     if len(cameras)>1:
         base=cameras[0];reference=np.sort(np.asarray(st.get_json(base["times_key"]),dtype=np.int64))
         for other in cameras[1:]:
@@ -130,8 +135,8 @@ def cross_stream(request):
             idx=np.searchsorted(x,a);right=np.minimum(idx,len(x)-1);left=np.maximum(idx-1,0)
             choose=np.where(np.abs(x[left]-a)<=np.abs(x[right]-a),left,right)
             skew=(x[choose]-a)/1e6;abs_skew=np.abs(skew)
-            q=max(1,len(skew)//4);drift=float(np.median(skew[-q:])-np.median(skew[:q]))
-            metrics[other["topic"]].update({"reference":base["topic"],"skew_p95_ms":float(np.percentile(abs_skew,95)),
+            q=max(1,len(skew)//evaluation["camera_drift_segment_divisor"]);drift=float(np.median(skew[-q:])-np.median(skew[:q]))
+            metrics.setdefault(other["topic"],{}).update({"reference":base["topic"],"skew_p95_ms":float(np.percentile(abs_skew,evaluation["camera_skew_percentile"])),
                                      "skew_max_ms":float(abs_skew.max()),"drift_ms":drift})
             mask=(abs_skew>cfg["timing"]["camera_sync_skew_ms"])
             if mask.any() or abs(drift)>cfg["timing"]["camera_sync_drift_ms"]:
@@ -236,30 +241,39 @@ def finalize(request):
     findings=list(inv["findings"])+list(cross["findings"])
     for stream in streams:findings.extend(stream["findings"])
     for failed in request.get("errors",[]):findings.append(finding("CHECK_UNAVAILABLE",str(failed),metrics={"check":"activity"}))
+    informational_codes=set(cfg["policy"].get("informational_codes",[]))
+    findings=[dict(f,severity="advisory") if f["code"] in informational_codes else f for f in findings]
     base_result,base_codes=verdict(findings,cfg)
-    extra=movement.scan(st.raw_path(ref),inv,findings,st.heartbeat)
+    extra=movement.scan(st.raw_path(ref),inv,findings,st.heartbeat,config=cfg)
+    from qc.rulebook import section
+    obstruction_settings=section("obstruction",cfg)
     obstruction_streams=[]
     for stream in streams:
         if stream["kind"]!="video":continue
         content=st.s3().get_object(Bucket=st.DERIVED_BUCKET,Key=stream["samples_key"])["Body"].read()
         with zipfile.ZipFile(io.BytesIO(content)) as archive:
             samples=[((int(Path(n).stem)-inv["start_ns"])/1e9,archive.read(n)) for n in archive.namelist() if n.endswith(".jpg")]
-        summary=obstruction.summarize(samples)
+        summary=obstruction.summarize(samples,obstruction_settings)
         clock=stream.get("timing",{}).get("log",{})
         first,last=clock.get("first_ns"),clock.get("last_ns")
-        covered=first is not None and last is not None and abs(summary["first_s"]-(first-inv["start_ns"])/1e9)<=1.5 and abs(summary["last_s"]-(last-inv["start_ns"])/1e9)<=1.5
+        covered=first is not None and last is not None and abs(summary["first_s"]-(first-inv["start_ns"])/1e9)<=obstruction_settings["stream_window_tolerance_seconds"] and abs(summary["last_s"]-(last-inv["start_ns"])/1e9)<=obstruction_settings["stream_window_tolerance_seconds"]
         summary["covers_stream_window"]=covered
         if not covered:summary["status"]="not_assessed"
         obstruction_streams.append({"topic":stream["topic"],**summary})
         st.heartbeat({"stage":"obstruction","stream":stream["topic"]})
-    extra["obstruction"]={"status":"checked" if len(obstruction_streams)==4 and all(s["status"]=="checked" for s in obstruction_streams) else "not_assessed",
-        "streams":obstruction_streams,"detector":obstruction.provenance(),"source":"automatic_pipeline"}
+    extra["obstruction"]={"status":"checked" if len(obstruction_streams)==section("evaluation",cfg)["expected_camera_count"] and all(s["status"]=="checked" for s in obstruction_streams) else "not_assessed",
+        "streams":obstruction_streams,"detector":obstruction.provenance(obstruction_settings),"source":"automatic_pipeline"}
     movement_findings=movement.verdict_findings(extra)
-    result,codes=verdict(findings+movement_findings,cfg)
-    if any(s["runs"] for s in obstruction_streams) and result=="pass":result="needs_review"
+    obstruction_findings=[finding("POSSIBLE_OBSTRUCTION",s["topic"],run["start_s"],run["end_s"],
+        {"sample_count":run["samples"],"maximum_area_fraction":run["maximum_area_fraction"]})
+        for s in obstruction_streams for run in s["runs"]]
+    all_findings=findings+movement_findings+obstruction_findings
+    result,codes=verdict(all_findings,cfg)
 
     report={**ref,"recording_type":cfg["recording_type"],"config":cfg,
-            "inventory":inv,"streams":streams,"cross":cross,"findings":findings,
+            "inventory":inv,"streams":streams,"cross":cross,"findings":all_findings,
+            "informational_findings":[f for item in (extra["head_motion"],extra["hand_motion"])
+                for f in item["findings"] if f.get("severity")=="info"],
             **extra,"base_verdict":base_result,"base_reason_codes":base_codes,
             "verdict":result,"reason_codes":codes,"report_key":artifact(ref,"qc_report.json"),
             "viewer_key":artifact(ref,"qc.rrd")}

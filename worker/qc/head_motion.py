@@ -9,15 +9,14 @@ from collections import deque
 
 TOPIC = "/quest3s/head_pose"
 VERSION = "head-motion-v1"
-SETTINGS = {"rotation_norm_tolerance": .001, "position_jump_multiple": 20,
-            "baseline_seconds": 1, "baseline_min_pairs": 10,
-            "baseline_max_mad_relative": 1, "rotation_step_degrees": 45,
-            "maximum_pair_seconds": .1, "nominal_hz": 50, "gap_period_multiple": 3}
+from qc.rulebook import section
+from qc.reasons import group
+SETTINGS = section("movement")
 CATEGORIES = {"values": "Usable position and rotation", "rotation": "Rotation consistency",
               "position": "Sudden position changes", "turns": "Sudden direction changes",
               "timing": "Recording times", "reference": "Reference frame"}
-FAIL_CODES = {"HEAD_MISSING_STREAM", "HEAD_MISSING_FIELDS", "HEAD_INVALID_VALUES", "HEAD_ZERO_ROTATION", "HEAD_INVALID_TIMESTAMP"}
-REVIEW_CODES = {"HEAD_ROTATION_SCALE", "HEAD_POSITION_JUMP", "HEAD_ROTATION_JUMP", "HEAD_FRAME_CHANGE", "HEAD_FRAME_MISSING"}
+FAIL_CODES = frozenset(c for c in group("pose_failure") if c.startswith("HEAD_"))
+REVIEW_CODES = frozenset(c for c in group("pose_review") if c.startswith("HEAD_"))
 
 class Inspector:
     def __init__(self, origin_ns, expected_count=None, timing_findings=(), settings=None):
@@ -73,7 +72,7 @@ class Inspector:
             self.event("HEAD_ZERO_ROTATION","values",t,t,"The rotation cannot be interpreted: its quaternion has zero or unrepresentable magnitude.")
             self.prior=None;self.history.clear();return
         error=abs(norm-1);self.metrics["largest_rotation_norm_error"]=max(self.metrics["largest_rotation_norm_error"] or 0,error)
-        if error>self.settings["rotation_norm_tolerance"]+1e-12:
+        if error>self.settings["rotation_norm_tolerance"]+self.settings["norm_boundary_epsilon"]:
             self.event("HEAD_ROTATION_SCALE","rotation",t,t,"Rotation scaling differs from the expected unit magnitude; inspect the producer's rotation representation.",{"magnitude":norm,"error":error,"allowed_error":self.settings["rotation_norm_tolerance"]})
         if not isinstance(stamp,int) or isinstance(stamp,bool) or sample.get("invalid_timestamp") or t is None:
             self.event("HEAD_INVALID_TIMESTAMP","values",t,t,"A required timestamp is missing or malformed.")
@@ -112,13 +111,13 @@ class Inspector:
                 if len(self.history)>=self.settings["baseline_min_pairs"]:
                     values=[value for _,value in self.history];median=statistics.median(values)
                     mad=statistics.median(abs(v-median) for v in values)
-                    noise=max(math.ulp(float(c)) for c in list(p)+list(prior["p"]))*100
+                    noise=max(math.ulp(float(c)) for c in list(p)+list(prior["p"]))*self.settings["numeric_noise_ulps"]
                     stable=median>noise and mad<=median*self.settings["baseline_max_mad_relative"]
                     if stable:
                         self.metrics["baseline_comparisons"]+=1
                         if distance>median*self.settings["position_jump_multiple"]:
                             self.event("HEAD_POSITION_JUMP","position",prior["t"],t,"Position changed much more than recent movement. This is a review signal, not proof of impossible movement.",{"step_coordinate_units":distance,"recent_median_step":median,"multiple":distance/median,"allowed_multiple":self.settings["position_jump_multiple"]})
-                if angle>self.settings["rotation_step_degrees"]+1e-9:
+                if angle>self.settings["rotation_step_degrees"]+self.settings["rotation_boundary_epsilon_degrees"]:
                     self.event("HEAD_ROTATION_JUMP","turns",prior["t"],t,"Facing direction changed sharply between nearby readings; fast movement can be legitimate.",{"angle_degrees":angle,"interval_seconds":dt,"allowed_degrees":self.settings["rotation_step_degrees"]})
                 self.history.append((stamp,distance))
             else:self.metrics["skipped_motion_pairs"]+=1;self.history.clear()

@@ -1,4 +1,6 @@
 """Versioned retained head evidence. No automatic scanning or deployment."""
+import sys
+sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parents[1]/"worker"))
 import hashlib
 import importlib.util
 import json

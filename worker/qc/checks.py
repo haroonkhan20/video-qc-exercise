@@ -14,11 +14,16 @@ except ImportError:
     class CancelledError(Exception):
         pass
 
+def repeated(field):
+    # New Protobuf runtimes expose is_repeated; the pinned worker also supports label.
+    if hasattr(field,"is_repeated"):return field.is_repeated
+    return field.label==field.LABEL_REPEATED
+
 def stamps(message):
     result=[]
     for field,value in message.ListFields():
         if field.type!=field.TYPE_MESSAGE:continue
-        values=value if field.label==field.LABEL_REPEATED else [value]
+        values=value if repeated(field) else [value]
         for child in values:
             if child.DESCRIPTOR.full_name=="google.protobuf.Timestamp":
                 result.append(child.seconds*1_000_000_000+child.nanos)
@@ -28,7 +33,7 @@ def stamps(message):
 def nonfinite(message):
     count=0
     for field,value in message.ListFields():
-        values=value if field.label==field.LABEL_REPEATED else [value]
+        values=value if repeated(field) else [value]
         if field.type in (field.TYPE_DOUBLE,field.TYPE_FLOAT):count+=sum(not math.isfinite(v) for v in values)
         elif field.type==field.TYPE_MESSAGE:count+=sum(nonfinite(v) for v in values)
     return count
@@ -53,7 +58,7 @@ class Runs:
             if b-a>=self.minimum:self.findings.append(finding(self.code,self.topic,a,b,{"observations":count}))
             self.active=None
 
-def timing(values,topic,label,origin,expected,cfg):
+def timing(values,topic,label,origin,expected,cfg,require_expected=False,conservative_drop_estimate=False):
     x=np.asarray(values,dtype=np.int64);result={"messages":len(x)};findings=[]
     if not len(x):return result,[finding("CHECK_UNAVAILABLE",topic,metrics={"check":label})]
     result.update({"first_ns":int(x.min()),"last_ns":int(x.max())})
@@ -68,10 +73,16 @@ def timing(values,topic,label,origin,expected,cfg):
                        "period_p99_ms":float(np.percentile(positive,99)/1e6)})
     span=(int(x.max())-int(x.min()))/1e9
     result["effective_hz"]=(len(x)-1)/span if span>0 else None
-    result["estimated_dropped_frames"]=0
+    result["estimated_dropped_frames"]=0 if expected or not require_expected else None
+    if require_expected and not expected:
+        result["rate_assessment"]="unavailable_no_declared_rate"
+        result["large_gap_count"]=None
+        findings.append(finding("CONTRACT_UNCONFIRMED",topic,metrics={"check":"declared_nominal_rate","clock":label}))
     if expected and len(x)>1:
         period=1e9/expected
-        result["estimated_dropped_frames"]=int(np.maximum(np.rint(positive/period)-1,0).sum())
+        drop_intervals=positive[positive>cfg["gap_period_multiple"]*period] if conservative_drop_estimate else positive
+        result["estimated_dropped_frames"]=int(np.maximum(np.rint(drop_intervals/period)-1,0).sum())
+        result["drop_estimate_basis"]="configured_gap_limit" if conservative_drop_estimate else "declared_period_rounding"
         gaps=np.flatnonzero(delta>cfg["gap_period_multiple"]*period)
         result["large_gap_count"]=len(gaps)
         for i in gaps:
@@ -82,7 +93,10 @@ def timing(values,topic,label,origin,expected,cfg):
                                     {"clock":label,"observed_hz":result["effective_hz"],"nominal_hz":expected}))
     return result,findings
 
-def coverage(active,origin,cfg):
+def coverage(active,origin,cfg,contract=None):
+    if contract is not None:
+        from qc.contract_timing import declared_coverage
+        return declared_coverage(active,origin,contract)
     if not active:return [],{}
     earliest=min(r["timing"]["log"]["first_ns"] for r in active)
     latest=max(r["timing"]["log"]["last_ns"] for r in active)
@@ -106,6 +120,10 @@ def stream_check(path,channel_id,inventory,config,work,beat):
     topic=selected["topic"];origin=inventory["start_ns"]
     expected=next((c for c in config["expected_streams"] if c["topic"]==topic),None)
     kind=expected["kind"] if expected else "unknown"
+    contract=inventory.get("recording_contract")
+    from qc.contract_timing import expected_rate,window,quality_comparison
+    capture=window(contract)
+    rate=expected_rate(contract,topic) if contract is not None else None
     log=array("q");publish=array("q");findings=[];offsets=array("q")
     stats={"protobuf_decode_errors":0,"video_decode_errors":0,"decoded_frames":0,"nonfinite_values":0}
     codec=None;previous=None;resolution=None;next_sample=0.;first_video=True;last_beat=0
@@ -118,6 +136,10 @@ def stream_check(path,channel_id,inventory,config,work,beat):
     def measure(frame,raw_ns,zipped,metrics):
         nonlocal previous,resolution,next_sample
         t=(raw_ns-origin)/1e9;shape=(frame.width,frame.height)
+        stats["decoded_frames"]+=1
+        if capture and not capture["start_ns"]<=raw_ns<=capture["end_ns"]:
+            previous=None
+            return
         if resolution is not None and shape!=resolution:
             findings.append(finding("RESOLUTION_CHANGE",topic,t,t,{"before":resolution,"after":shape}))
         resolution=shape
@@ -131,7 +153,6 @@ def stream_check(path,channel_id,inventory,config,work,beat):
         runs["BRIGHT_RUN"].update(mean>config["content"]["bright_mean"],t)
         runs["FROZEN_RUN"].update(diff is not None and diff<config["content"]["freeze_mean_abs_difference"],t)
         runs["BLUR_RUN"].update(blur<config["content"]["blur_laplacian_variance"],t)
-        stats["decoded_frames"]+=1
         if t>=next_sample:
             values={"time_ns":int(raw_ns),"relative_s":t,"mean_luma":mean,"std_luma":std,
                     "laplacian_variance":blur,"frame_difference":diff,"width":frame.width,"height":frame.height}
@@ -198,12 +219,33 @@ def stream_check(path,channel_id,inventory,config,work,beat):
         findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"message_count","observed":len(log),"declared":selected["message_count"]}))
     if kind=="video" and (not decode_available or not stats["decoded_frames"]):
         findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"video","formats":sorted(format_seen)}))
-    log_stats,log_findings=timing(log,topic,"log",origin,expected["nominal_hz"] if expected else None,config["timing"])
-    pub_stats,pub_findings=timing(publish,topic,"publish",origin,expected["nominal_hz"] if expected else None,config["timing"])
+    stats["total_messages"]=len(log)
+    log_array=np.asarray(log,dtype=np.int64);pub_array=np.asarray(publish,dtype=np.int64)
+    continuous=kind in {"video","sensor"}
+    if capture and continuous:
+        mask=(log_array>=capture["start_ns"])&(log_array<=capture["end_ns"])
+        active_log=log_array[mask];active_publish=pub_array[mask]
+    elif contract is not None and continuous:
+        active_log=log_array[:0];active_publish=pub_array[:0]
+    else:
+        # Calibration is static setup information, often emitted before capture.
+        active_log=log_array;active_publish=pub_array
+    hz=rate["hz"] if rate is not None else expected["nominal_hz"] if expected else None
+    required=contract is not None and kind in {"video","sensor"}
+    log_stats,log_findings=timing(active_log,topic,"log",origin,hz,config["timing"],require_expected=required,conservative_drop_estimate=bool(rate and rate["status"]=="configured_baseline"))
+    pub_stats,pub_findings=timing(active_publish,topic,"publish",origin,hz,config["timing"],require_expected=required,conservative_drop_estimate=bool(rate and rate["status"]=="configured_baseline"))
+    comparison=None
+    if required:
+        comparison,quality_findings=quality_comparison(active_log,topic,origin,contract,config)
+        findings.extend(quality_findings)
     findings.extend(log_findings);findings.extend(pub_findings)
     if offsets:stats["payload_stamp_offset_max_ms"]=float(np.abs(np.asarray(offsets,dtype=np.int64)).max()/1e6)
     report={"id":channel_id,"topic":topic,"kind":kind,"schema":selected["schema"],"stats":stats,
             "timing":{"log":log_stats,"publish":pub_stats},"findings":findings,
             "frame_metric_sample_seconds":config["content"]["sample_seconds"]}
-    times_path=work/f"{channel_id}-times.json";times_path.write_text(json.dumps(list(log)))
+    if contract is not None:
+        report.update(rate_contract=rate,timing_scope="declared_capture_window" if continuous else "static_setup_information",
+            producer_quality_comparison=comparison,
+            stored_message_count=len(log),outside_capture_messages=len(log)-len(active_log))
+    times_path=work/f"{channel_id}-times.json";times_path.write_text(json.dumps([int(v) for v in active_log]))
     return report,frame_metrics,frames_zip,times_path

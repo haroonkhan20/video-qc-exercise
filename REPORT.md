@@ -1,72 +1,92 @@
-# Final pipeline report — 2026-10-14
+# Recording quality report
 
-## Result
+## Accepted results
 
-All 41 supplied MCAP recordings have versioned QC reports and viewer artifacts.
-The final engineer-selected policy produces **29 pass, 1 fail, and 11 needs_review**.
-The failure is ep_346eb2d7: sustained near-black images across all four cameras
-around 21.76–23.16 seconds. The 11 review outcomes are SENSOR_FLATLINE findings;
-they request interpretation because stationary grippers can be legitimate.
-They are not pipeline errors.
+All 41 original recordings completed workflows under the versions below: **38 pass, 2 need review, 1 fail**.
 
-## Verified
+- Configuration: 7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b
+- Worker code: be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503
+- Image: video-qc/qc-worker:physical-v4
 
-- Original digests match the frozen inventory; one protected raw object version
-  and one authoritative Postgres verdict exist per supplied recording.
-- Every supplied video frame decoded. No checks were unavailable.
-- All 41 Rerun artifacts pass native verification; all workflow histories replay,
-  and metric rows contain no duplicate identities.
-- The dataset-scoped ClickHouse query matches reports. All four cameras tie at
-  zero estimated drops under the chosen nominal-period model. Tests are excluded.
-- The controlled suite matches **19/19** expected verdicts and required reasons:
-  one clean pass, 15 failures, and three review outcomes.
-- A separately approved worker crash proved an attempt-2 retry after a heartbeat
-  timeout, exit 137, one restart, and one final verdict.
-- A full rebuild under the final policy preserves 1,275 distinct metric rows
-  and one verdict for the representative file. Its viewer and rebuild replay pass.
-- Startup and a fresh checkout were revalidated on the existing cluster.
-  Earlier infrastructure verification separately proves empty-cluster startup/teardown.
-  Two QC workers remain configured, following the user's memory preference.
+The sustained all-camera blackout in ep_346eb2d7 remains a BLACK_RUN failure. ep_082f4185 requires review for excessive position and turning speeds; ep_0409bd35 requires review for excessive position speed. Unchanged gripper readings alone are informational.
 
-## Acceptance decisions
+## Rules and provenance
 
-Limits live in worker/config/qc.json. Startup coverage allows six seconds,
-based on observed acquisition delay. End coverage allows half a second:
-all 164 camera streams showed a maximum end lag of 0.0797 seconds.
-A two-second missing-tail test proves this stronger policy catches a defect
-the initial six-second limit could miss.
+Coverage uses the declared capture window and seal tolerance. Producer-declared nominal rates take priority. Missing rates in the supported delivery profiles use a fixed dataset baseline: head cameras 30 FPS, and pose/body streams 50 Hz. These expectations were selected across the 41 recordings, not separately fitted to each recording. Wrist cameras declare 30 FPS and encoders declare 100 Hz.
 
-Exact function/library fingerprints and unchanged non-coverage settings allowed
-reuse of completed measurements for this policy-only change. Streams preserve
-their source versions. Container inspection, cross-stream checks, aggregation,
-reports, metrics, and viewer export ran again. A subsequent full raw-based rebuild
-confirmed consistent projections.
+The recording owner confirmed that stored pose coordinates are metres. The checker applies no radians-to-metres conversion. Orientations remain quaternions and encoders remain radians. The supported profile is limited to delivery versions 24.1.0/24.2.0 with RDF head basis.
 
-Structural and timing violations fail closed. Blur, apparent freezing, unexpected
-streams, and encoder stillness request review. These are documented engineering
-choices with limits, not a claim of a perfect classifier.
+Movement limits are 5 m/s for head position, 10 m/s for controller/gripper position, 1,500 degrees/s for head turning and 3,000 degrees/s for controller/gripper turning. Startup comparisons exclude the first second, while value validity and timing checks remain active. Declared clock uncertainty makes the speed calculation conservative. These are generous task-screening limits, not proof of an impossible human action.
 
-## Scoring and deliverables
+Thresholds are centralized in worker/config/qc.json and reason identifiers in worker/config/reason-codes.json. Suspected blocked-camera views carry POSSIBLE_OBSTRUCTION and successful checks carry CHECKS_PASSED. The present reference run produced no blocked-view review finding.
 
-The controlled confusion table measures known mutations. Agreement with frozen
-initial inspection labels is 26/41; those guesses were preliminary, so this is not
-independent accuracy. Each disagreement has an explanation. No external answer
-key is assumed or fabricated.
+## Verification
 
-- [Reports and index](reports/index.json)
-- [Full verification](verification/full-dataset.json)
-- [Controlled confusion table](verification/damage-fixtures.json)
-- [First-read comparison](verification/first-read-comparison.json)
-- [Acceptance standard](docs/ACCEPTANCE-STANDARD.md)
-- [Design note](docs/DESIGN.md)
-- [Operating guide](docs/OPERATING.md)
-- [Twenty-minute demo](docs/DEMO.md)
+- All required checks completed; all stored video frames decoded in the accepted results.
+- All 41 accepted workflow histories replay and all viewer artifacts pass native verification.
+- Each original has one protected raw-object version; no duplicate metric identities were found.
+- Stored analytics exactly match the canonical rows generated from each current report.
+- Dataset-scoped fleet totals match the reports; estimated camera drops are zero under the stated model.
+- The pinned worker runtime passes 210 tests.
 
-## Limits and next step
+## Recovered transient decoding result
 
-The 11 review outcomes need human interpretation if the downstream task requires
-a binary shipping label. The viewer stores one-second samples, not full playback.
-Our curated tests do not establish accuracy on unseen recordings. The design
-note covers scale, cache, retention, and concurrency limits.
+The first completed attempt for ep_041eb856 reported two decoding errors. A fresh scan of the verified raw file decoded both affected streams without error, and an official full workflow rebuild passed. The original failure was not reproducible; its exact runtime cause is unconfirmed. It is not accepted as evidence of damaged recording bytes.
 
-The local dashboard supports uploads, quality standards, scores, findings and sampled camera inspection. Full playback and saved human review decisions remain product improvements. Processing services run locally and require the cluster to remain available.
+The rebuild left eight obsolete analytics rows from the failed attempt. After explicit operator approval, only those eight rows were removed. All 1,864 correct rows were already present and remain present. The raw object, workflow histories and accepted report were preserved. The stricter analytics check rejected the stale projection before cleanup and passed afterward. See verification/metric-repair.json.
+
+The accepted workflow for this recording is the rebuild workflow listed in verification/full-dataset.json. The earlier attempt remains in history.
+
+## Scope and limitations
+
+These checks establish implementation consistency and identify conditions requiring review. They do not measure classification accuracy against an independently labelled dataset or guarantee suitability for every downstream use. Brief or non-dark camera obstructions may be missed by the sampled obstruction check. Unknown recording profiles retain unconfirmed assumptions.
+
+Wall-clock workflow durations include computer-availability pauses and are not throughput benchmarks. Superseded trial runs remain retained on older processing queues and are excluded from this accepted dataset run.
+
+The two additional real uploads were also processed using the current implementation; their completion evidence is in verification/additional-uploads.json. Controlled test recordings remain separate from the main collection.
+
+## Recording verdicts
+
+| Recording | Result | Reasons |
+|---|---|---|
+| ep_032e483c.mcap | pass | CHECKS_PASSED |
+| ep_03d813ce.mcap | pass | CHECKS_PASSED |
+| ep_0409bd35.mcap | needs_review | HAND_POSITION_SPEED_IMPLAUSIBLE |
+| ep_041eb856.mcap | pass | CHECKS_PASSED |
+| ep_0444a8ac.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_07e258d4.mcap | pass | CHECKS_PASSED |
+| ep_082f4185.mcap | needs_review | HAND_POSITION_SPEED_IMPLAUSIBLE, HAND_TURN_RATE_IMPLAUSIBLE |
+| ep_0dec4ae7.mcap | pass | CHECKS_PASSED |
+| ep_0e09c76b.mcap | pass | CHECKS_PASSED |
+| ep_0e374ee6.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_0ed34c0f.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_112a825d.mcap | pass | CHECKS_PASSED |
+| ep_1ee4bdaf.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_20846435.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_208961d3.mcap | pass | CHECKS_PASSED |
+| ep_212a979d.mcap | pass | CHECKS_PASSED |
+| ep_223529fa.mcap | pass | CHECKS_PASSED |
+| ep_23212682.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_23f5a0d2.mcap | pass | CHECKS_PASSED |
+| ep_2c47cac2.mcap | pass | CHECKS_PASSED |
+| ep_2cb4b3ea.mcap | pass | CHECKS_PASSED |
+| ep_2e18f47f.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_346eb2d7.mcap | fail | BLACK_RUN |
+| ep_34e2d6e2.mcap | pass | CHECKS_PASSED |
+| ep_357dc6b9.mcap | pass | CHECKS_PASSED |
+| ep_39ec7993.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_42d682ff.mcap | pass | CHECKS_PASSED |
+| ep_459e3edd.mcap | pass | CHECKS_PASSED |
+| ep_49df3c44.mcap | pass | CHECKS_PASSED |
+| ep_4dd7ef84.mcap | pass | CHECKS_PASSED |
+| ep_51347361.mcap | pass | CHECKS_PASSED |
+| ep_52373c02.mcap | pass | CHECKS_PASSED |
+| ep_52d930da.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_554d5730.mcap | pass | CHECKS_PASSED |
+| ep_5b171934.mcap | pass | CHECKS_PASSED |
+| ep_5e2c1fd2.mcap | pass | CHECKS_PASSED |
+| ep_66909bdd.mcap | pass | CHECKS_PASSED |
+| ep_6d6fa903.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_6e4d59a3.mcap | pass | CHECKS_PASSED |
+| ep_6fed8bc1.mcap | pass | CHECKS_PASSED, SENSOR_FLATLINE |
+| ep_9fae2f39.mcap | pass | CHECKS_PASSED |

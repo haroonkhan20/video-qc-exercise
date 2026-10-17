@@ -4,7 +4,7 @@ from . import head_motion as base
 VERSION="hand-motion-v1"
 TOPICS={f"/quest3s/{side}_{kind}_pose":f"{side.title()} {kind}" for side in ("left","right") for kind in ("controller","gripper")}
 SETTINGS=dict(base.SETTINGS)
-GROUP_TOLERANCE_SECONDS=.02
+GROUP_TOLERANCE_SECONDS=SETTINGS["group_tolerance_seconds"]
 
 class Inspector(base.Inspector):
     def __init__(self,topic,origin_ns,expected_count=None,timing_findings=(),settings=None):
@@ -25,16 +25,16 @@ class Inspector(base.Inspector):
         previous=self.last_log
         if isinstance(log,int) and not isinstance(log,bool):
             self.last_log=log
-            if previous is not None and (log<=previous or (log-previous)/1e9>.06):
+            if previous is not None and (log<=previous or (log-previous)/1e9>self.settings["gap_period_multiple"]/self.settings["nominal_hz"]):
                 self.prior=None;self.history.clear()
         super().add(sample)
         if previous is not None and isinstance(log,int) and not isinstance(log,bool):
             delta=(log-previous)/1e9
-            if delta<=0 or delta>.06:
+            if delta<=0 or delta>self.settings["gap_period_multiple"]/self.settings["nominal_hz"]:
                 self.event("HEAD_TIME_ORDER" if delta<=0 else "HEAD_TIME_GAP","timing",
                     (min(previous,log)-self.origin)/1e9,(max(previous,log)-self.origin)/1e9,
                     "Recorded reading times repeat or go backwards." if delta<=0 else "Recorded readings have a gap longer than 0.06 seconds.",
-                    {"clock":"recorded","interval_seconds":delta,"allowed_seconds":.06})
+                    {"clock":"recorded","interval_seconds":delta,"allowed_seconds":self.settings["gap_period_multiple"]/self.settings["nominal_hz"]})
                 self.prior=None;self.history.clear()
 
     def finish(self,scan_complete=True):
@@ -46,16 +46,17 @@ class Inspector(base.Inspector):
             f["why"]=f["why"].replace("head-pose","movement").replace("head-position","controller/gripper").replace("head stream","movement stream").replace("Head readings","Movement readings")
         return result
 
-def group_findings(results):
+def group_findings(results,tolerance_seconds=None):
     """Group same-side, same-rule overlapping events; preserve every member."""
+    tolerance_seconds=GROUP_TOLERANCE_SECONDS if tolerance_seconds is None else tolerance_seconds
     findings=[dict(f) for r in results for f in r["findings"] if f.get("severity")!="source_policy"]
     groups=[]
     for f in sorted(findings,key=lambda f:(f["code"],f["stream"].split("/")[-1].split("_")[0],f["start_s"] if f["start_s"] is not None else float("inf"))):
         side=f["stream"].split("/")[-1].split("_")[0]
         existing=next((g for g in reversed(groups) if g["code"]==f["code"] and g["side"]==side
             and g["severity"]==f["severity"] and g["end_s"] is not None and f["start_s"] is not None
-            and f["start_s"]<=g["end_s"]+GROUP_TOLERANCE_SECONDS
-            and f["end_s"] is not None and f["end_s"]>=g["start_s"]-GROUP_TOLERANCE_SECONDS),None)
+            and f["start_s"]<=g["end_s"]+tolerance_seconds
+            and f["end_s"] is not None and f["end_s"]>=g["start_s"]-tolerance_seconds),None)
         if existing:
             existing["start_s"]=min(existing["start_s"],f["start_s"]);existing["end_s"]=max(existing["end_s"],f["end_s"])
             existing["members"].append(f)
@@ -66,10 +67,11 @@ def group_findings(results):
 
 def finish(inspectors,complete=True):
     results=[i.finish(complete) for i in inspectors.values()]
-    findings=group_findings(results)
+    settings=results[0]["settings"] if results else SETTINGS
+    findings=group_findings(results,settings["group_tolerance_seconds"])
     severity="fail" if any(f["severity"]=="fail" for f in findings) else "not_assessed" if any(r["severity"]=="not_assessed" for r in results) else "review" if any(f["severity"]=="review" for f in findings) else "source_findings" if any(r["severity"]=="source_findings" for r in results) else "pass"
     return {"version":VERSION,"status":"checked" if all(r["status"]=="checked" for r in results) else "not_assessed",
-        "severity":severity,"settings":SETTINGS,"group_tolerance_seconds":GROUP_TOLERANCE_SECONDS,
+        "severity":severity,"settings":settings,"group_tolerance_seconds":settings["group_tolerance_seconds"],
         "streams":results,"findings":findings,
         "scope":"Related same-side warnings are grouped, not independent proof. Original automatic findings remain unchanged. No physical units or accuracy are assumed."}
 

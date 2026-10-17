@@ -4,12 +4,14 @@ import argparse,csv,json,subprocess
 from pathlib import Path
 
 PROBE=r'''
-import asyncio,json,sys,subprocess
+import asyncio,json,sys,subprocess,hashlib
 from pathlib import Path
 from temporalio.client import Client
 from temporalio.worker import Replayer
 from qc.workflow import QcEpisode
 from qc import storage as st
+from qc.activities import metrics_rows
+from qc.model import canonical
 
 async def main():
     expected=json.loads(sys.argv[1])
@@ -21,6 +23,7 @@ async def main():
     assert set(reports)==set(digests),"Some recordings lack finalized results under the current policy"
     where=" WHERE config_version='"+cv+"' AND code_version='"+code+"' AND digest IN ("+",".join("'"+d+"'" for d in digests)+")"
     counts={r["digest"]:r for r in json.loads(st.ch("SELECT digest,count() AS rows,uniqExact(row_id) AS unique_rows FROM qc_metrics"+where+" GROUP BY digest FORMAT JSON"))["data"]}
+    stored_ids={r["digest"]:set(r["row_ids"]) for r in json.loads(st.ch("SELECT digest,groupArray(row_id) AS row_ids FROM qc_metrics"+where+" GROUP BY digest FORMAT JSON"))["data"]}
     fleet_sql="SELECT stream,sum(value) AS estimated_dropped_frames FROM qc_metrics"+where+" AND check_name='timing_log' AND metric='estimated_dropped_frames' AND stream LIKE '%/compressed' GROUP BY stream ORDER BY estimated_dropped_frames DESC,stream"
     fleet=json.loads(st.ch(fleet_sql+" FORMAT JSON"))["data"]
     totals={}
@@ -38,6 +41,10 @@ async def main():
             unavailable.append(item["file"])
         assert len(report["streams"])==16,"Unexpected stream count"
         assert counts[digest]["rows"]==counts[digest]["unique_rows"],"Duplicate metric rows"
+        expected_ids={hashlib.sha256(canonical(row)).hexdigest() for row in metrics_rows(report,report)}
+        actual_ids=stored_ids[digest]
+        assert actual_ids==expected_ids,("Analytics disagree with current report for "+item["file"]+
+            ": stale="+str(len(actual_ids-expected_ids))+", missing="+str(len(expected_ids-actual_ids)))
         key="raw/"+digest+".mcap"
         assert versions[key]==1,"Duplicate raw version"
         meta=client.head_object(Bucket=st.RAW_BUCKET,Key=key)
@@ -47,7 +54,7 @@ async def main():
         assert st.get_json("derived/"+digest+"/qc_report.json")==report
         for stream in report["streams"]:
             if stream["kind"]=="video":
-                if stream["stats"]["decoded_frames"]!=stream["timing"]["log"]["messages"]:
+                if stream["stats"]["decoded_frames"]!=stream["stats"].get("total_messages",stream["timing"]["log"]["messages"]):
                     assert report["verdict"]=="fail" and ({"VIDEO_UNDECODABLE","CHECK_UNAVAILABLE"} & set(report["reason_codes"])),"Incomplete decoding must be reported"
                     decode_failures.append({"file":item["file"],"stream":stream["topic"]})
                 topic=stream["topic"];totals[topic]=totals.get(topic,0)+stream["timing"]["log"]["estimated_dropped_frames"]
@@ -60,7 +67,7 @@ async def main():
                 output.write(block)
         verified=subprocess.run(["rerun","rrd","verify",str(viewer)],capture_output=True,text=True)
         assert verified.returncode==0,"Invalid viewer for "+item["file"]
-        wid="qc-"+digest+"-"+cv+"-"+code
+        wid=("rebuild-" if report.get("rebuild") else "")+"qc-"+digest+"-"+cv+"-"+code
         handle=temporal.get_workflow_handle(wid);description=await handle.describe()
         assert description.status.name=="COMPLETED"
         await Replayer(workflows=[QcEpisode]).replay_workflow(await handle.fetch_history())
@@ -77,7 +84,7 @@ async def main():
     verdicts={v:sum(r["verdict"]==v for r in results) for v in ["pass","fail","needs_review"]}
     print(json.dumps({"summary":{"config_version":cv,"code_version":code,"recordings":len(results),
           "verdicts":verdicts,"unavailable_check_files":unavailable,"incomplete_decode_streams":decode_failures,"all_viewers_verified":True,"all_histories_replayed":True,
-          "no_duplicate_metrics":True,"raw_versions_one_each":True,"fleet_matches_reports":True,
+          "no_duplicate_metrics":True,"metric_projection_matches_reports":True,"raw_versions_one_each":True,"fleet_matches_reports":True,
           "fleet_camera_drops":fleet,"fleet_query":fleet_sql,"results":results},"exports":exports}))
 try:asyncio.run(main())
 finally:st.close_pool()
@@ -100,7 +107,7 @@ def main():
         "config_version":data["summary"]["config_version"],"code_version":data["summary"]["code_version"],
         "episodes":data["summary"]["results"]},indent=2)+"\n")
     with Path("verification/verdicts.csv").open("w",newline="") as output:
-        writer=csv.DictWriter(output,fieldnames=["file","digest","verdict","reason_codes","workflow_seconds"])
+        writer=csv.DictWriter(output,fieldnames=["file","digest","verdict","reason_codes","workflow_seconds"],lineterminator="\n")
         writer.writeheader()
         for row in data["summary"]["results"]:
             writer.writerow({k:";".join(row[k]) if k=="reason_codes" else row[k] for k in writer.fieldnames})

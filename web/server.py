@@ -4,6 +4,7 @@ from pathlib import Path
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from urllib.parse import urlparse,unquote,parse_qs
 from grading import grade,validate_profile,fingerprint
+from rulebook import section
 from scorecard import build as scorecard
 from obstruction import provenance
 from reviews import ReviewStore
@@ -83,7 +84,7 @@ def graded(report,profile):
   result[key]=result["scorecard"][key]
  lower=sum(a["contribution"] or 0 for a in result["scorecard"]["aspects"])
  upper=lower+sum(a["weight"]/10 for a in result["scorecard"]["aspects"] if a["score"] is None)
- ceiling=result["critical_cap"]["limit"] if result["critical_cap"] else 8 if result["scorecard"]["review_limit"] else 10
+ ceiling=result["critical_cap"]["limit"] if result["critical_cap"] else section("score_limits")["review"] if result["scorecard"]["review_limit"] else section("score_limits")["maximum"]
  result["possible_range"]=[min(v,ceiling) for v in [lower,upper]]
  result["engine_version"]=result["scorecard"]["model"]
  result["engine_hash"]=fingerprint({name:hashlib.sha256((ROOT/"web"/name).read_bytes()).hexdigest() for name in ["grading.py","scorecard.py","obstruction.py","pod_read.py","server.py"]})
@@ -122,13 +123,16 @@ def records(profile):
   report=row.get("_report")
   if report:
    result=graded(report,profile)
+   # Display actionable reasons; the downloaded report retains success/advisory codes.
+   actionable={f["code"] for f in report.get("findings",[]) if f.get("severity") not in {"info","advisory","source_policy"}}
+   visible["reason_codes"]=[code for code in visible.get("reason_codes",[]) if code in actionable]
    visible["grading"]={k:result[k] for k in ["score","weighted_average","recommendation","why","assessment_complete","possible_range","critical_cap","profile_version","assessment_state"]}
    movement=[result["scorecard"].get(k) for k in ("head_motion","hand_motion")]
    active=[e for e in movement if e]
    visible["original_verdict"]=report.get("base_verdict",visible["verdict"])
    visible["verdict"]=combined_verdict(visible["verdict"],*active)
    if active:
-    findings=[f for e in active for f in e["findings"] if f.get("severity")!="source_policy"]
+    findings=[f for e in active for f in e["findings"] if f.get("severity") not in {"source_policy","info","advisory"}]
     severity="fail" if any(e["severity"]=="fail" for e in active) else "review" if any(e["severity"]!="pass" for e in active) else "pass"
     visible["movement_summary"]={"severity":severity,"issues":len(findings)}
   else:visible["grading"]=None

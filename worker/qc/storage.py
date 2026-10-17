@@ -24,7 +24,8 @@ _LOCKS={}
 _LOCKS_GUARD=threading.Lock()
 
 def config():
-    return json.loads(Path(os.environ.get("QC_CONFIG","/app/config/qc.json")).read_text())
+    from qc.rulebook import validate,validate_physical
+    return validate_physical(validate(json.loads(Path(os.environ.get("QC_CONFIG","/app/config/qc.json")).read_text())))
 
 def code_version():
     return os.environ.get("QC_CODE_VERSION","development")
@@ -76,6 +77,8 @@ def setup():
         "ObjectLockEnabled":"Enabled","Rule":{"DefaultRetention":{"Mode":"COMPLIANCE","Days":36500}}})
     with pg() as db:
         db.execute(Path("/app/sql/postgres.sql").read_text())
+        from qc.reasons import constraint_sql
+        db.execute(constraint_sql())
     for sql in Path("/app/sql/clickhouse.sql").read_text().split(";"):
         if sql.strip():ch(sql)
     return {"raw_bucket":RAW_BUCKET,"derived_bucket":DERIVED_BUCKET}

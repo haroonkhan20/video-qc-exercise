@@ -10,12 +10,11 @@ CATEGORIES = {
     "alignment": "Coverage and synchronization", "image": "Image quality",
     "sensor": "Sensor validity",
 }
-CRITICAL_CODES = frozenset({
-    "CONTAINER_UNREADABLE", "CONTAINER_TRUNCATED_RECOVERABLE", "CONTAINER_INCOMPLETE",
-    "MISSING_STREAM", "WRONG_SCHEMA", "WRONG_ENCODING", "VIDEO_UNDECODABLE",
-    "VIDEO_NOT_KEYFRAME_START", "SENSOR_NONFINITE",
-})
-IMAGE_CODES = {"BLACK_RUN", "BRIGHT_RUN", "FROZEN_RUN", "BLUR_RUN"}
+from rulebook import section,group
+CRITICAL_CODES = group("critical_score")
+IMAGE_CODES = group("image")
+SCORE_LIMITS=section("score_limits")
+PROFILE_VALIDATION=section("profile_validation")
 ENGINE_VERSION = "grading-v1"
 
 def fingerprint(value):
@@ -30,7 +29,7 @@ def validate_profile(profile):
         raise ValueError("Profile must contain the documented grading fields only")
     if profile["schema_version"] != 1 or isinstance(profile["schema_version"], bool):
         raise ValueError("Unsupported profile schema")
-    if not isinstance(profile["name"], str) or not 1 <= len(profile["name"].strip()) <= 60:
+    if not isinstance(profile["name"], str) or not 1 <= len(profile["name"].strip()) <= PROFILE_VALIDATION["maximum_name_characters"]:
         raise ValueError("Profile name must be 1 to 60 characters")
     import re
     if not isinstance(profile["id"], str) or not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,79}", profile["id"]):
@@ -38,11 +37,11 @@ def validate_profile(profile):
     weights = profile["weights"]
     if not isinstance(weights, dict) or set(weights) != set(CATEGORIES):
         raise ValueError("All seven category weights are required")
-    if any(not numeric(v) or not 0 <= v <= 100 for v in weights.values()) or not math.isclose(sum(weights.values()), 100, abs_tol=1e-6):
+    if any(not numeric(v) or not 0 <= v <= 100 for v in weights.values()) or not math.isclose(sum(weights.values()), 100, abs_tol=PROFILE_VALIDATION["weights_sum_absolute_tolerance"]):
         raise ValueError("Weights must be nonnegative and total 100 percent")
     for field in ("fraction_bands", "limit_bands"):
         bands = profile[field]
-        if not isinstance(bands, list) or not 2 <= len(bands) <= 10:
+        if not isinstance(bands, list) or not PROFILE_VALIDATION["minimum_band_count"] <= len(bands) <= PROFILE_VALIDATION["maximum_band_count"]:
             raise ValueError("Use 2 to 10 severity bands")
         previous_max, previous_score = -1, 11
         for band in bands:
@@ -57,14 +56,14 @@ def validate_profile(profile):
             raise ValueError("Limit bands must start at 1/10")
     limits = profile["limits"]
     expected_limits = {"rate_relative_tolerance", "payload_stamp_tolerance_ms", "coverage_start_tolerance_seconds", "coverage_end_tolerance_seconds", "camera_sync_skew_ms", "camera_sync_drift_ms"}
-    if not isinstance(limits, dict) or set(limits) != expected_limits or any(not numeric(v) or v <= 0 or v > 86400 for v in limits.values()):
+    if not isinstance(limits, dict) or set(limits) != expected_limits or any(not numeric(v) or v <= 0 or v > PROFILE_VALIDATION["maximum_limit_value"] for v in limits.values()):
         raise ValueError("All six grading limits must be finite and positive")
     cutoffs = profile["cutoffs"]
     if not isinstance(cutoffs, dict) or set(cutoffs) != {"acceptable", "review"} or any(not numeric(v) for v in cutoffs.values()) or not 0 < cutoffs["review"] < cutoffs["acceptable"] <= 10:
         raise ValueError("Require 0 < review cutoff < acceptable cutoff <= 10")
     if not isinstance(profile["flatline_advisory"], bool):
         raise ValueError("Flatline advisory must be true or false")
-    if profile["critical_cap"] != 4 or isinstance(profile["critical_cap"], bool):
+    if profile["critical_cap"] != SCORE_LIMITS["other_failure"] or isinstance(profile["critical_cap"], bool):
         raise ValueError("The approved critical-defect cap is fixed at 4")
     return profile
 
@@ -114,7 +113,7 @@ def category(key, streams, profile):
     worst = min((s for s in streams if s["score"] is not None), key=lambda s: s["score"], default=None)
     weight = profile["weights"][key]
     return {"id": key, "name": CATEGORIES[key], "weight": weight,
-            "score": round(score, 4) if score is not None else None,
+            "score": round(score, SCORE_LIMITS["weighted_decimal_places"]) if score is not None else None,
             "contribution": round(score * weight / 100, 6) if score is not None else None,
             "why": "Not all required evidence is assessed" if score is None else "Equal-weight mean of required streams; each stream uses its worst parameter",
             "worst_stream": worst["topic"] if worst else None, "streams": streams}
@@ -133,7 +132,7 @@ def grade(report, profile):
     unreadable = "CONTAINER_UNREADABLE" in codes
     result = {}
     structural = sorted(codes & {"CONTAINER_UNREADABLE", "CONTAINER_TRUNCATED_RECOVERABLE", "CONTAINER_INCOMPLETE"})
-    integrity_score = 0 if unreadable else 2 if "CONTAINER_TRUNCATED_RECOVERABLE" in codes else 5 if "CONTAINER_INCOMPLETE" in codes else None if global_unavailable or "findings" not in inventory or "channels" not in inventory else 10
+    integrity_score = SCORE_LIMITS["container_unreadable"] if unreadable else SCORE_LIMITS["container_recoverable"] if "CONTAINER_TRUNCATED_RECOVERABLE" in codes else SCORE_LIMITS["container_incomplete"] if "CONTAINER_INCOMPLETE" in codes else None if global_unavailable or "findings" not in inventory or "channels" not in inventory else 10
     result["integrity"] = [scored_stream("Recording", [metric("Container completeness", integrity_score,
         ", ".join(structural) if structural else "Required container inspection completed with no structural finding" if integrity_score == 10 else "Container evidence unavailable")], inventory.get("findings", []))]
     for key in list(CATEGORIES)[1:]:
@@ -166,14 +165,15 @@ def grade(report, profile):
         duration = end - start
         if kind == "video":
             frames, errors = stats.get("decoded_frames"), stats.get("video_decode_errors")
-            decode_ok = numeric(n) and n > 0 and numeric(frames) and numeric(errors)
-            failure = min(1, max(abs(n - frames), errors) / n) if decode_ok else None
+            decode_n=stats.get("total_messages",n)
+            decode_ok = numeric(decode_n) and decode_n > 0 and numeric(frames) and numeric(errors)
+            failure = min(1, max(abs(decode_n - frames), errors) / decode_n) if decode_ok else None
             decode_parameters = [metric("Decode discrepancy", fraction_score(failure, profile) if failure is not None else None,
-                f"{frames} decoded frames, {n} messages, {errors} decoder errors; discrepancy is not an independently measured frame-loss fraction", failure)]
+                f"{frames} decoded frames, {decode_n} messages, {errors} decoder errors; discrepancy is not an independently measured frame-loss fraction", failure)]
             for name, flag in [("Initial keyframe", "VIDEO_NOT_KEYFRAME_START"), ("Resolution consistency", "RESOLUTION_CHANGE")]:
                 decode_parameters.append(metric(name, 0 if flag in {f["code"] for f in topic_findings} else 10, f"{flag} detected" if flag in {f["code"] for f in topic_findings} else f"No {flag} finding"))
             result["decoding"].append(scored_stream(topic, decode_parameters, topic_findings))
-            full_content = decode_ok and frames == n and errors == 0 and window_ok
+            full_content = decode_ok and frames == decode_n and errors == 0 and window_ok
             image_findings = [f for f in topic_findings if f["code"] in IMAGE_CODES]
             affected = union_seconds(image_findings, start, end) if full_content else None
             image_parameters = [metric("Union of image defects", fraction_score(affected / duration, profile) if affected is not None else None,
@@ -191,9 +191,10 @@ def grade(report, profile):
             if "magnetic_encoder" in topic:
                 flatlines = [f for f in topic_findings if f["code"] == "SENSOR_FLATLINE"]
                 seconds = union_seconds(flatlines, start, end) if window_ok else None
-                score = 10 if profile["flatline_advisory"] and seconds is not None else fraction_score(seconds / duration, profile) if seconds is not None else None
+                stillness_informational="SENSOR_FLATLINE" in report.get("config",{}).get("policy",{}).get("informational_codes",[])
+                score = 10 if (profile["flatline_advisory"] or stillness_informational) and seconds is not None else fraction_score(seconds / duration, profile) if seconds is not None else None
                 sensor_parameters.append(metric("Encoder stillness", score,
-                    f"{seconds:.3f} seconds unchanged; advisory only because stillness can be legitimate" if profile["flatline_advisory"] and seconds is not None else f"{seconds:.3f} seconds unchanged; this profile penalizes stillness" if seconds is not None else "Not assessed",
+                    f"{seconds:.3f} seconds unchanged; advisory only because stillness can be legitimate" if (profile["flatline_advisory"] or stillness_informational) and seconds is not None else f"{seconds:.3f} seconds unchanged; this profile penalizes stillness" if seconds is not None else "Not assessed",
                     {"affected_seconds": seconds, "duration_seconds": duration}))
             result["sensor"].append(scored_stream(topic, sensor_parameters, topic_findings))
         timing_parameters = []
@@ -209,7 +210,7 @@ def grade(report, profile):
                 timing_parameters.append(metric(field, fraction_score(fraction, profile) if fraction is not None else None,
                     f"Worst clock has {maximum} {field}; maximum of log/publish avoids charging twice" if maximum is not None else "Clock counts unavailable", {"count": maximum, "messages": n, "fraction": fraction}))
             rate = log.get("effective_hz")
-            nominal = item.get("nominal_hz")
+            nominal = stream["rate_contract"].get("hz") if "rate_contract" in stream else item.get("nominal_hz")
             deviation = abs(rate / nominal - 1) if numeric(rate) and numeric(nominal) and nominal > 0 else None
             timing_parameters.append(metric("Rate deviation", limit_score(deviation, profile["limits"]["rate_relative_tolerance"], profile) if deviation is not None else None,
                 f"Observed {rate} Hz, nominal {nominal} Hz", deviation, profile["limits"]["rate_relative_tolerance"]))
@@ -245,9 +246,9 @@ def grade(report, profile):
     # Also guard inconsistent imported reports, not only their reason-code list.
     if any(s["score"] == 0 for s in result["inventory"]):critical = sorted(set(critical) | {"MISSING_OR_INVALID_REQUIRED_STREAM"})
     final = min(weighted, profile["critical_cap"]) if weighted is not None and critical else weighted
-    if final is not None:final = min(9.99, round(final, 2)) if final < 10 else 10.0
+    if final is not None:final = min(SCORE_LIMITS["nonperfect_ceiling"], round(final, SCORE_LIMITS["decimal_places"])) if final < 10 else 10.0
     recommendation = "not_assessed" if final is None else "unacceptable" if critical else "acceptable" if final >= profile["cutoffs"]["acceptable"] else "review" if final >= profile["cutoffs"]["review"] else "unacceptable"
-    advisories = [f for f in findings if f.get("code") in {"SENSOR_FLATLINE", "UNEXPECTED_STREAM"}]
+    advisories = [f for f in findings if f.get("code") in group("advisory")]
     why = "Some required evidence is not assessed; no complete grade or acceptance decision is issued" if final is None else f"Weighted average {weighted:.4f}/10 using {profile['name']}"
     if critical:why += "; critical defects: " + ", ".join(critical) + "; maximum grade 4 and no acceptance"
     if advisories:why += "; advisory findings remain visible for human interpretation"
@@ -259,9 +260,9 @@ def grade(report, profile):
             "original_verdict": report.get("verdict"), "score": final,
             "source_findings": findings,
             "source_failure_codes": report.get("config", {}).get("policy", {}).get("failure_codes", []),
-            "weighted_average": round(weighted, 4) if weighted is not None else None,
-            "possible_range": [round(min(lower, 4) if critical else lower, 4), round(min(upper, 4) if critical else upper, 4)],
+            "weighted_average": round(weighted, SCORE_LIMITS["weighted_decimal_places"]) if weighted is not None else None,
+            "possible_range": [round(min(lower, SCORE_LIMITS["other_failure"]) if critical else lower, SCORE_LIMITS["weighted_decimal_places"]), round(min(upper, SCORE_LIMITS["other_failure"]) if critical else upper, SCORE_LIMITS["weighted_decimal_places"])],
             "assessment_complete": complete, "recommendation": recommendation,
-            "critical_cap": {"limit": 4, "reasons": critical, "applied": weighted is not None and weighted > 4} if critical else None,
+            "critical_cap": {"limit": SCORE_LIMITS["other_failure"], "reasons": critical, "applied": weighted is not None and weighted > SCORE_LIMITS["other_failure"]} if critical else None,
             "why": why, "categories": categories, "advisories": advisories,
             "scope": "Grade of retained QC evidence; image and gap detectors use source-report thresholds. Not classification accuracy or a replacement for the original verdict."}

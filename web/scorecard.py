@@ -2,21 +2,10 @@
 from grading import fraction_score, numeric, fingerprint
 
 MODEL = "overall-score-v3"
-ESSENTIAL_CODES = frozenset({"CONTAINER_UNREADABLE", "MISSING_STREAM", "WRONG_SCHEMA",
-    "WRONG_ENCODING", "VIDEO_UNDECODABLE", "VIDEO_NOT_KEYFRAME_START", "MISSING_OR_INVALID_REQUIRED_STREAM"})
-REASONS = {
-    "BLACK_RUN": "Pictures stayed unacceptably dark for a sustained interval.",
-    "BRIGHT_RUN": "Pictures stayed unacceptably bright for a sustained interval.",
-    "CONTAINER_UNREADABLE": "The recording file cannot be read.",
-    "VIDEO_UNDECODABLE": "Required video could not be played correctly.",
-    "VIDEO_NOT_KEYFRAME_START": "Required video starts without a complete picture.",
-    "MISSING_STREAM": "A required camera or sensor is missing.",
-    "WRONG_SCHEMA": "Required data uses an unexpected format.",
-    "WRONG_ENCODING": "Required data cannot be interpreted.",
-    "MISSING_OR_INVALID_REQUIRED_STREAM": "Required camera or sensor data is missing or invalid.",
-    "SENSOR_NONFINITE": "Some sensor readings are invalid.",
-    "SOURCE_POLICY_FAILURE": "The original recording checks reported an unacceptable issue.",
-}
+from rulebook import section,group,REGISTRY
+ESSENTIAL_CODES=group("essential_score")
+REASONS={code:item["description"] for code,item in REGISTRY.items() if "score_explanation" in item["groups"]}
+SCORE_LIMITS=section("score_limits")
 
 def serious_limit(legacy):
     findings=legacy.get("source_findings",[])
@@ -28,7 +17,7 @@ def serious_limit(legacy):
     if legacy.get("original_verdict")=="fail" and not serious and "CHECK_UNAVAILABLE" not in codes:
         serious.add("SOURCE_POLICY_FAILURE")
     if not serious:return None
-    limit=2 if serious & ESSENTIAL_CODES else 4
+    limit=SCORE_LIMITS["essential_failure"] if serious & ESSENTIAL_CODES else SCORE_LIMITS["other_failure"]
     return {"limit":limit,"reasons":sorted(serious),
             "explanations":[REASONS.get(code,"An unacceptable "+code.replace("_"," ").lower()+" issue was detected by the original checks.") for code in sorted(serious)],
             "findings":[f for f in findings if f["code"] in serious]}
@@ -80,17 +69,17 @@ def build(legacy, obstruction=None, head=None, hands=None):
     cap=serious_limit(legacy)
     head_failures=[f for f in head_findings if f.get("severity")=="fail"]
     if head_failures:
-        limit=2 if any(f["code"] in {"HEAD_MISSING_STREAM","HAND_MISSING_STREAM"} for f in head_failures) else 4
+        limit=SCORE_LIMITS["essential_failure"] if any(f["code"] in {"HEAD_MISSING_STREAM","HAND_MISSING_STREAM"} for f in head_failures) else SCORE_LIMITS["other_failure"]
         cap={"limit":min(limit,cap["limit"] if cap else 10),
              "reasons":sorted(set((cap or {}).get("reasons",[]))|{f["code"] for f in head_failures}),
              "explanations":list(dict.fromkeys((cap or {}).get("explanations",[])+[f["why"] for f in head_failures])),
              "findings":(cap or {}).get("findings",[])+head_failures}
     score=min(average,cap["limit"]) if cap and complete else average
-    if score is not None:score=min(9.99,round(score,2)) if score<10 else 10.0
+    if score is not None:score=min(SCORE_LIMITS["nonperfect_ceiling"],round(score,SCORE_LIMITS["decimal_places"])) if score<10 else 10.0
     suspected=any(s.get("runs") for s in obstruction.get("streams",[]))
-    review=suspected or any(f.get("severity")=="review" for f in head_findings) or legacy.get("original_verdict")=="needs_review" or any(f["code"] in {"BLUR_RUN","FROZEN_RUN","SENSOR_FLATLINE","UNEXPECTED_STREAM"} for f in legacy.get("source_findings",[]))
-    review_limit={"limit":8,"applied":score is not None and score>8,"why":"A finding still needs review, so the Overall Score cannot exceed 8/10."} if review and not cap else None
-    if review_limit and score is not None:score=min(score,8)
+    review=suspected or any(f.get("severity")=="review" for f in head_findings) or legacy.get("original_verdict")=="needs_review" or any(f["code"] in {"BLUR_RUN","FROZEN_RUN","SENSOR_FLATLINE","UNEXPECTED_STREAM"} for f in legacy.get("source_findings",[]) if f.get("severity") not in {"info","advisory"})
+    review_limit={"limit":SCORE_LIMITS["review"],"applied":score is not None and score>SCORE_LIMITS["review"],"why":f'A finding still needs review, so the Overall Score cannot exceed {SCORE_LIMITS["review"]}/10.'} if review and not cap else None
+    if review_limit and score is not None:score=min(score,SCORE_LIMITS["review"])
     head_incomplete=any(e is not None and (e.get("status")!="checked" or e.get("severity")=="not_assessed") for e in (head,hands))
     blocked=not complete and cap is not None and (head_incomplete or obstruction.get("status")=="not_assessed" or any(a["score"] is None and a["id"]!="obstruction" for a in aspects))
     cutoffs=legacy["profile"]["cutoffs"]
@@ -104,7 +93,7 @@ def build(legacy, obstruction=None, head=None, hands=None):
     if blocked:why+=" Known file or data faults prevent a complete assessment; this recording was checked, but some aspects cannot be rated."
     if review_limit:why+=" "+review_limit["why"]
     model="overall-score-v5-movement" if hands is not None else "overall-score-v4-head" if head is not None else MODEL
-    return {"model":model,"score":round(score,2) if score is not None else None,
+    return {"model":model,"score":round(score,SCORE_LIMITS["decimal_places"]) if score is not None else None,
             "weighted_average":average,"assessment_complete":complete,"recommendation":recommendation,
             "aspects":aspects,"obstruction":obstruction,"possible_obstruction":suspected,
             "serious_issue_limit":cap,

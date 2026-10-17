@@ -17,7 +17,7 @@ async def submit(digest,wait,rebuild=False):
         ref.update({"rebuild":True,"repair_nonce":uuid.uuid4().hex})
         workflow_id="rebuild-"+workflow_id
     try:
-        handle=await client.start_workflow("QcEpisode",ref,id=workflow_id,task_queue="video-qc",
+        handle=await client.start_workflow("QcEpisode",ref,id=workflow_id,task_queue="video-qc-"+ref["code_version"],
             id_reuse_policy=WorkflowIDReusePolicy.ALLOW_DUPLICATE if rebuild else WorkflowIDReusePolicy.ALLOW_DUPLICATE_FAILED_ONLY)
         created=True
     except WorkflowAlreadyStartedError:

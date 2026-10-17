@@ -3,17 +3,7 @@ import hashlib
 import json
 import re
 
-CODES = frozenset([
-    "CONTRACT_UNCONFIRMED","CONTAINER_UNREADABLE","CONTAINER_TRUNCATED_RECOVERABLE",
-    "CONTAINER_INCOMPLETE","MISSING_STREAM","UNEXPECTED_STREAM","WRONG_SCHEMA","WRONG_ENCODING",
-    "RATE_OUT_OF_RANGE","TIMESTAMP_REVERSED","TIMESTAMP_DUPLICATE","PAYLOAD_TIMESTAMP_MISMATCH",
-    "GAP_RUN","COVERAGE_MISMATCH","VIDEO_UNDECODABLE","VIDEO_NOT_KEYFRAME_START","BLACK_RUN",
-    "BRIGHT_RUN","FROZEN_RUN","BLUR_RUN","RESOLUTION_CHANGE","CAMERA_SYNC","SENSOR_NONFINITE",
-    "SENSOR_FLATLINE","CHECK_UNAVAILABLE",
-])
-# Detailed pose findings participate in new-run verdicts; legacy findings remain intact.
-POSE_SUFFIXES={"MISSING_STREAM","MISSING_FIELDS","INVALID_VALUES","ZERO_ROTATION","INVALID_TIMESTAMP","ROTATION_SCALE","POSITION_JUMP","ROTATION_JUMP","FRAME_CHANGE","FRAME_MISSING","TIME_ORDER","TIME_GAP","CHECK_UNAVAILABLE","MOTION_UNAVAILABLE"}
-CODES=CODES | {prefix+suffix for prefix in ("HEAD_","HAND_") for suffix in POSE_SUFFIXES}
+from qc.reasons import PIPELINE_CODES as CODES
 def canonical(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
 def version(value):
@@ -31,9 +21,15 @@ def finding(code, stream="", start=0.0, end=0.0, metrics=None):
 def verdict(findings, config):
     all_codes={f["code"] for f in findings}
     if not all_codes <= CODES:raise ValueError("Unknown reason code in findings")
+    policy=config["policy"];informational=set(policy.get("informational_codes",[]))
+    active=[f for f in findings if f["code"] not in informational and f.get("severity") not in {"info","advisory","source_policy"}]
     codes=sorted(all_codes)
-    if any(code in config["policy"]["failure_codes"] for code in codes) or any(f.get("severity")=="fail" and f["code"].startswith(("HEAD_","HAND_")) for f in findings):
+    if any(f["code"] in policy["failure_codes"] or f.get("severity")=="fail" and f["code"].startswith(("HEAD_","HAND_")) for f in active):
         return "fail",codes
-    if codes:
-        return "needs_review",codes
+    if active:return "needs_review",codes
+    success=policy.get("success_reason_code")
+    if success:
+        from qc.reasons import REGISTRY
+        if success not in CODES or REGISTRY[success]["kind"]!="success":raise ValueError("Invalid success reason")
+        codes=sorted(all_codes|{success})
     return "pass",codes

@@ -42,7 +42,7 @@ async def main():
             st.put_json(run_prefix(ref)+"/streams/"+str(stream["id"])+"/report.json",copied)
         wid="qc-"+digest+"-"+ref["config_version"]+"-"+ref["code_version"]
         try:
-            h=await client.start_workflow("QcEpisode",ref,id=wid,task_queue="video-qc",
+            h=await client.start_workflow("QcEpisode",ref,id=wid,task_queue="video-qc-"+ref["code_version"],
                   id_reuse_policy=WorkflowIDReusePolicy.ALLOW_DUPLICATE_FAILED_ONLY)
         except WorkflowAlreadyStartedError:h=client.get_workflow_handle(wid)
         handles.append(h);reused+=1

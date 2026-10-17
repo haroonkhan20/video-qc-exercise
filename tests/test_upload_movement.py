@@ -42,11 +42,13 @@ class UploadMovementTests(unittest.TestCase):
     def test_database_allowlist_contains_every_python_reason(self):
         import re
         from qc.model import CODES
-        sql=(ROOT/"worker/sql/postgres.sql").read_text()
+        from qc.reasons import constraint_sql,PIPELINE_CODES
+        sql=constraint_sql()
         arrays=re.findall(r"ARRAY\[(.*?)\]::text\[\]",sql)
-        self.assertGreaterEqual(len(arrays),3)
-        for value in arrays:
-            self.assertTrue(CODES<=set(re.findall(r"'([^']+)'",value)))
+        self.assertTrue(arrays)
+        for value in arrays:self.assertEqual(CODES,set(re.findall(r"'([^']+)'",value)))
+        self.assertEqual(CODES,PIPELINE_CODES)
+        self.assertNotIn("ARRAY[",(ROOT/"worker/sql/postgres.sql").read_text())
 
     def test_unreadable_recording_cannot_pass_movement_scan(self):
         import uuid

@@ -22,7 +22,7 @@ spec:
         runAsNonRoot: true
       containers:
         - name: worker
-          image: video-qc/qc-worker:movement-v1
+          image: video-qc/qc-worker:physical-v4
           imagePullPolicy: Never
           command: ["bash", "-c", "rerun analytics disable >/dev/null && exec python -m qc.worker"]
           env:

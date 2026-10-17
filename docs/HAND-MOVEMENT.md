@@ -1,3 +1,7 @@
+# Historical relative-movement detector
+
+This document describes the earlier relative-step checker retained for historical evidence and regression tools. New pipeline results use the physical speed and startup rules in [PHYSICAL-POLICY.md](PHYSICAL-POLICY.md). The earlier thresholds below do not govern new workflow verdicts.
+
 # Controller and gripper movement
 
 This optional checker inspects every position/direction message on the left and

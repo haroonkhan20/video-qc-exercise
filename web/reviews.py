@@ -9,9 +9,11 @@ DECISIONS={"confirmed_problem","normal_scene","unsure"}
 
 def issues(report,obstruction=None,head=None,hands=None):
     source=fingerprint(report)
-    findings=[("automatic",f) for f in report.get("findings",[])]
+    auxiliary=(head or {}).get("findings",[])+(hands or {}).get("findings",[])
+    findings=[("automatic",f) for f in report.get("findings",[]) if f.get("severity") not in {"info","advisory"} and f not in auxiliary]
     for stream in (obstruction or {}).get("streams",[]):
         for run in stream.get("runs",[]):
+            if any(f.get("code")=="POSSIBLE_OBSTRUCTION" and f.get("stream")==stream["topic"] and f.get("start_s")==run["start_s"] and f.get("end_s")==run["end_s"] for f in report.get("findings",[])):continue
             findings.append(("snapshot_screen",{"code":"POSSIBLE_OBSTRUCTION","stream":stream["topic"],**run,
                 "detector":(obstruction or {}).get("detector")}))
     result={}
@@ -20,10 +22,11 @@ def issues(report,obstruction=None,head=None,hands=None):
         result[identity]={"id":identity,"origin":origin,"finding_index":index,"finding":finding}
     # Head findings have their own evidence identity; existing review identities stay unchanged.
     for finding in (head or {}).get("findings",[]):
-        if finding.get("severity")=="source_policy":continue
+        if finding.get("severity") in {"source_policy","info","advisory"}:continue
         identity=fingerprint({"source_report":source,"origin":"head_motion","finding":finding,"detector":(head or {}).get("detector")})
         result[identity]={"id":identity,"origin":"head_motion","finding_index":None,"finding":finding}
     for finding in (hands or {}).get("findings",[]):
+        if finding.get("severity") in {"source_policy","info","advisory"}:continue
         identity=fingerprint({"source_report":source,"origin":"hand_motion","finding":finding,"detector":(hands or {}).get("detector")})
         result[identity]={"id":identity,"origin":"hand_motion","finding_index":None,"finding":finding}
     return source,list(result.values())

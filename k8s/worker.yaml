@@ -21,7 +21,7 @@ spec:
         runAsNonRoot: true
       containers:
         - name: worker
-          image: video-qc/qc-worker:movement-v1
+          image: video-qc/qc-worker:physical-v4
           imagePullPolicy: Never
           env:
             - name: TEMPORAL_ADDRESS

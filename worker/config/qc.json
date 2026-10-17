@@ -139,7 +139,6 @@
     "review_codes": [
       "BLUR_RUN",
       "FROZEN_RUN",
-      "SENSOR_FLATLINE",
       "UNEXPECTED_STREAM"
     ],
     "failure_codes": [
@@ -162,8 +161,104 @@
       "RESOLUTION_CHANGE",
       "CAMERA_SYNC",
       "SENSOR_NONFINITE",
-      "CHECK_UNAVAILABLE"
-    ]
+      "CHECK_UNAVAILABLE",
+      "QUALITY_COUNTER_MISMATCH"
+    ],
+    "informational_codes": [
+      "SENSOR_FLATLINE"
+    ],
+    "success_reason_code": "CHECKS_PASSED"
   },
-  "parameter_authority": "engineer_selected"
+  "parameter_authority": "engineer_selected",
+  "movement": {
+    "rotation_norm_tolerance": 0.001,
+    "position_jump_multiple": 20,
+    "baseline_seconds": 1,
+    "baseline_min_pairs": 10,
+    "baseline_max_mad_relative": 1,
+    "rotation_step_degrees": 45,
+    "maximum_pair_seconds": 0.1,
+    "nominal_hz": 50,
+    "gap_period_multiple": 3,
+    "numeric_noise_ulps": 100,
+    "rotation_boundary_epsilon_degrees": 1e-09,
+    "norm_boundary_epsilon": 1e-12,
+    "group_tolerance_seconds": 0.02
+  },
+  "obstruction": {
+    "grid": 4,
+    "dark_pixel": 20,
+    "dark_fraction": 0.95,
+    "tile_std_max": 6,
+    "area_min": 0.2,
+    "area_max": 0.75,
+    "remaining_mean_min": 45,
+    "remaining_std_min": 12,
+    "minimum_seconds": 2,
+    "minimum_samples": 3,
+    "maximum_gap_seconds": 2.5,
+    "image_size": 160,
+    "completion_minimum_samples": 3,
+    "completion_minimum_seconds": 2,
+    "stream_window_tolerance_seconds": 1.5
+  },
+  "score_limits": {
+    "essential_failure": 2,
+    "other_failure": 4,
+    "review": 8,
+    "maximum": 10,
+    "nonperfect_ceiling": 9.99,
+    "decimal_places": 2,
+    "weighted_decimal_places": 4,
+    "container_unreadable": 0,
+    "container_recoverable": 2,
+    "container_incomplete": 5
+  },
+  "evaluation": {
+    "expected_camera_count": 4,
+    "camera_drift_segment_divisor": 4,
+    "camera_skew_percentile": 95
+  },
+  "profile_validation": {
+    "weights_sum_absolute_tolerance": 1e-06,
+    "maximum_limit_value": 86400,
+    "minimum_band_count": 2,
+    "maximum_band_count": 10,
+    "maximum_name_characters": 60
+  },
+  "physical_movement": {
+    "mode": "physical",
+    "startup_seconds": 1.0,
+    "head_position_speed_mps": 5.0,
+    "hand_position_speed_mps": 10.0,
+    "head_turn_rate_degrees_per_second": 1500.0,
+    "hand_turn_rate_degrees_per_second": 3000.0,
+    "clock_uncertainty_endpoint_factor": 2.0,
+    "require_confirmed_position_unit": true
+  },
+  "metadata_comparison": {
+    "timestamp_quantum_ns": 1,
+    "floating_point_ulps": 16
+  },
+  "capture_profile": {
+    "id": "quest-delivery-metres-20261016",
+    "data_versions": [
+      "24.1.0",
+      "24.2.0"
+    ],
+    "head_basis": "rdf",
+    "position_unit": "m",
+    "position_unit_source": "user_confirmed_stored_pose_units_2026-10-16",
+    "rate_source": "configured_baseline_from_41_recordings_2026-10-16",
+    "expected_rate_hz": {
+      "left_head_video": 30,
+      "right_head_video": 30,
+      "head_pose": 50,
+      "left_controller_pose": 50,
+      "right_controller_pose": 50,
+      "left_gripper_pose": 50,
+      "right_gripper_pose": 50,
+      "body_tracking": 50
+    }
+  }
 }

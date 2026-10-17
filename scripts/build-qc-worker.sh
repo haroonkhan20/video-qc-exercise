@@ -13,6 +13,6 @@ Path(".cache/qc-code-version").write_text(h.hexdigest()+chr(10))
 print(h.hexdigest())
 HASH
 )
-docker build --provenance=false --build-arg QC_CODE_VERSION="$code_version" -t video-qc/qc-worker:movement-v1 worker
-docker image inspect video-qc/qc-worker:movement-v1 --format '{{.Id}}'
-bash scripts/load-image.sh video-qc/qc-worker:movement-v1
+docker build --provenance=false --build-arg QC_CODE_VERSION="$code_version" -t video-qc/qc-worker:physical-v4 worker
+docker image inspect video-qc/qc-worker:physical-v4 --format '{{.Id}}'
+bash scripts/load-image.sh video-qc/qc-worker:physical-v4
