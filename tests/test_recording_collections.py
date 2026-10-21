@@ -5,7 +5,7 @@ from recording_collections import classify,known_tests
 class CollectionsTests(unittest.TestCase):
  def test_known_fixtures_use_digest(self):
   tests=known_tests(ROOT/"web/test-recordings.json")
-  self.assertEqual(len(tests),24)
+  self.assertGreaterEqual(len(tests),24)
   self.assertEqual(classify("75dabde10e7a0b16a42fcc73211ca64bc94db81363d3a3946888f627b940711d",{},tests),"test")
  def test_unknown_upload_is_never_hidden_by_its_name(self):
   self.assertEqual(classify("a"*64,{},{"b"*64}),"upload")

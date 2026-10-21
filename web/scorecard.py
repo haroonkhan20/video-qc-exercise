@@ -86,6 +86,8 @@ def build(legacy, obstruction=None, head=None, hands=None):
     recommendation="not_assessed" if score is None else "unacceptable" if cap or score<cutoffs["review"] else "review" if review or score<cutoffs["acceptable"] else "acceptable"
     if cap:cap["applied"]=average is not None and average>cap["limit"]
     why="Overall Score combines the individual ratings with serious-issue limits."
+    if legacy.get("processing_status")=="incomplete":
+        why="Checking could not finish. No Overall Score is issued. This does not prove the recording is damaged."
     if cap:
         why+=" "+" ".join(cap["explanations"])+f" The Overall Score cannot exceed {cap['limit']}/10."
         if average is not None:why+=f" Calculated score before the limit: {average:.2f}/10."

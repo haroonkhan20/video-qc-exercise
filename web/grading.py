@@ -128,7 +128,7 @@ def grade(report, profile):
     channels = inventory.get("channels", [])
     channel_map = {c["topic"]: c for c in channels}
     origin = inventory.get("start_ns", 0)
-    global_unavailable = any(f.get("code") == "CHECK_UNAVAILABLE" and f.get("stream", "") not in {x.get("topic") for x in expected} for f in findings)
+    global_unavailable = report.get("processing_status") == "incomplete" or any(f.get("code") == "CHECK_UNAVAILABLE" and f.get("stream", "") not in {x.get("topic") for x in expected} for f in findings)
     unreadable = "CONTAINER_UNREADABLE" in codes
     result = {}
     structural = sorted(codes & {"CONTAINER_UNREADABLE", "CONTAINER_TRUNCATED_RECOVERABLE", "CONTAINER_INCOMPLETE"})
@@ -250,6 +250,7 @@ def grade(report, profile):
     recommendation = "not_assessed" if final is None else "unacceptable" if critical else "acceptable" if final >= profile["cutoffs"]["acceptable"] else "review" if final >= profile["cutoffs"]["review"] else "unacceptable"
     advisories = [f for f in findings if f.get("code") in group("advisory")]
     why = "Some required evidence is not assessed; no complete grade or acceptance decision is issued" if final is None else f"Weighted average {weighted:.4f}/10 using {profile['name']}"
+    if report.get("processing_status") == "incomplete":why = "Checking could not finish; no overall score is issued. This does not prove the recording is damaged."
     if critical:why += "; critical defects: " + ", ".join(critical) + "; maximum grade 4 and no acceptance"
     if advisories:why += "; advisory findings remain visible for human interpretation"
     return {"schema_version": 1, "engine_version": ENGINE_VERSION,
@@ -258,6 +259,7 @@ def grade(report, profile):
             "source_report_hash": fingerprint(report), "digest": report.get("digest"),
             "source_config_version": report.get("config_version"), "source_code_version": report.get("code_version"),
             "original_verdict": report.get("verdict"), "score": final,
+            "processing_status": report.get("processing_status", "complete"),
             "source_findings": findings,
             "source_failure_codes": report.get("config", {}).get("policy", {}).get("failure_codes", []),
             "weighted_average": round(weighted, SCORE_LIMITS["weighted_decimal_places"]) if weighted is not None else None,

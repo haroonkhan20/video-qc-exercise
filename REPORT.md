@@ -5,10 +5,16 @@
 All 41 original recordings completed workflows under the versions below: **38 pass, 2 need review, 1 fail**.
 
 - Configuration: 7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b
-- Worker code: be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503
-- Image: video-qc/qc-worker:physical-v4
+- Worker code: 5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9
+- Image: video-qc/qc-worker:processing-v2
 
 The sustained all-camera blackout in ep_346eb2d7 remains a BLACK_RUN failure. ep_082f4185 requires review for excessive position and turning speeds; ep_0409bd35 requires review for excessive position speed. Unchanged gripper readings alone are informational.
+
+## Comparison after the processing-error update
+
+Verified on 21 October 2026. No verdicts, reason-code sets, timed findings, stream statistics or Default scores changed across the 41 originals. All required checks completed. The error-handling safeguards improve how interrupted processing is reported without changing the quality thresholds.
+
+The previous accepted results were preserved before the run. See [the per-recording comparison](verification/processing-error-full-dataset-comparison.json) and [the full verification record](verification/full-dataset.json).
 
 ## Rules and provenance
 
@@ -27,23 +33,27 @@ Thresholds are centralized in worker/config/qc.json and reason identifiers in wo
 - Each original has one protected raw-object version; no duplicate metric identities were found.
 - Stored analytics exactly match the canonical rows generated from each current report.
 - Dataset-scoped fleet totals match the reports; estimated camera drops are zero under the stated model.
-- The pinned worker runtime passes 210 tests.
+- The pinned worker runtime passes 234 tests.
 
-## Recovered transient decoding result
+## Runtime recovery in this rerun
+
+Two stream checks in ep_6d6fa903 exceeded the heartbeat wait and succeeded on their second attempts. The recording retained its previous pass result, and its findings and measurements were unchanged. All 41 recordings completed with no unfinished required checks. The exact cause of the heartbeat delays is not established; the timeouts are not evidence of damaged video. Retry details are included in the per-recording comparison record.
+
+## Historical transient decoding result
 
 The first completed attempt for ep_041eb856 reported two decoding errors. A fresh scan of the verified raw file decoded both affected streams without error, and an official full workflow rebuild passed. The original failure was not reproducible; its exact runtime cause is unconfirmed. It is not accepted as evidence of damaged recording bytes.
 
 The rebuild left eight obsolete analytics rows from the failed attempt. After explicit operator approval, only those eight rows were removed. All 1,864 correct rows were already present and remain present. The raw object, workflow histories and accepted report were preserved. The stricter analytics check rejected the stale projection before cleanup and passed afterward. See verification/metric-repair.json.
 
-The accepted workflow for this recording is the rebuild workflow listed in verification/full-dataset.json. The earlier attempt remains in history.
+That earlier accepted rebuild remains in Temporal history. Current workflow identifiers, including the fresh run for ep_041eb856, are listed in verification/full-dataset.json.
 
 ## Scope and limitations
 
 These checks establish implementation consistency and identify conditions requiring review. They do not measure classification accuracy against an independently labelled dataset or guarantee suitability for every downstream use. Brief or non-dark camera obstructions may be missed by the sampled obstruction check. Unknown recording profiles retain unconfirmed assumptions.
 
-Wall-clock workflow durations include computer-availability pauses and are not throughput benchmarks. Superseded trial runs remain retained on older processing queues and are excluded from this accepted dataset run.
+Workflow durations include queueing and any computer-availability pauses; they are not per-file decoding benchmarks. Superseded trial runs remain retained on older processing queues and are excluded from this accepted dataset run.
 
-The two additional real uploads were also processed using the current implementation; their completion evidence is in verification/additional-uploads.json. Controlled test recordings remain separate from the main collection.
+The two additional real uploads retain their earlier accepted results; their completion evidence is in verification/additional-uploads.json. They were outside this 41-recording rerun. Controlled test recordings remain separate from the main collection.
 
 ## Recording verdicts
 

@@ -6,6 +6,8 @@ import numpy as np
 from mcap.reader import make_reader
 from mcap_protobuf.decoder import DecoderFactory
 from qc.model import finding
+from google.protobuf.message import DecodeError
+from qc.data_errors import DATA_READ_ERRORS
 
 av.logging.set_level(av.logging.PANIC)
 try:
@@ -171,9 +173,11 @@ def stream_check(path,channel_id,inventory,config,work,beat):
                     beat({"stage":"stream","stream":topic,"messages":len(log)});last_beat=time.monotonic()
                 try:
                     decode=factory.decoder_for(ch.message_encoding,schema)
-                    if decode is None:raise ValueError("No protobuf decoder")
+                    if decode is None:
+                        findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"unsupported_decoder"}))
+                        continue
                     decoded=decode(raw.data)
-                except Exception:stats["protobuf_decode_errors"]+=1;continue
+                except DecodeError:stats["protobuf_decode_errors"]+=1;continue
                 for stamp in stamps(decoded):
                     offset=stamp-raw.log_time;offsets.append(offset)
                     findings.extend(payload_timestamp_findings(stamp,raw.log_time,raw.publish_time,topic,origin,
@@ -196,16 +200,22 @@ def stream_check(path,channel_id,inventory,config,work,beat):
                     first_video=False
                 try:
                     packet=av.Packet(decoded.data);packet.pts=raw.log_time
-                    for frame in codec.decode(packet):measure(frame,frame.pts if frame.pts is not None else raw.log_time,zipped,metrics)
-                except Exception:
+                    frames=codec.decode(packet)
+                except av.error.InvalidDataError:
                     stats["video_decode_errors"]+=1;findings.append(finding("VIDEO_UNDECODABLE",topic,t,t))
+                    continue
+                for frame in frames:
+                    measure(frame,frame.pts if frame.pts is not None else raw.log_time,zipped,metrics)
             if codec:
                 try:
-                    for frame in codec.decode(None):measure(frame,frame.pts if frame.pts is not None else log[-1],zipped,metrics)
-                except Exception:stats["video_decode_errors"]+=1
+                    frames=codec.decode(None)
+                except av.error.InvalidDataError:
+                    stats["video_decode_errors"]+=1;frames=[]
+                for frame in frames:measure(frame,frame.pts if frame.pts is not None else log[-1],zipped,metrics)
         except CancelledError:
             raise
-        except Exception:findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"message_scan"}))
+        except DATA_READ_ERRORS as exc:
+            findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"message_scan","error_type":type(exc).__name__}))
     for run in runs.values():run.finish();findings.extend(run.findings)
     scalar_runs.finish();findings.extend(scalar_runs.findings)
     if stats["protobuf_decode_errors"]:
@@ -240,7 +250,7 @@ def stream_check(path,channel_id,inventory,config,work,beat):
         findings.extend(quality_findings)
     findings.extend(log_findings);findings.extend(pub_findings)
     if offsets:stats["payload_stamp_offset_max_ms"]=float(np.abs(np.asarray(offsets,dtype=np.int64)).max()/1e6)
-    report={"id":channel_id,"topic":topic,"kind":kind,"schema":selected["schema"],"stats":stats,
+    report={"processing_status":"complete","processing_handler_version":1,"id":channel_id,"topic":topic,"kind":kind,"schema":selected["schema"],"stats":stats,
             "timing":{"log":log_stats,"publish":pub_stats},"findings":findings,
             "frame_metric_sample_seconds":config["content"]["sample_seconds"]}
     if contract is not None:

@@ -120,6 +120,26 @@
       "digest": "f48e2f2902c3132d61c50ce12ce18933e34ef42839a2bb1a68ab25b3a09d3475",
       "name": "blur-video.mcap",
       "source": "controlled damage checks"
+    },
+    {
+      "digest": "b577bc16d9035e90a466c026a1ede0a016d87f622f989002359eb39f15373663",
+      "name": "processing-control.mcap",
+      "source": "controlled processing-error acceptance"
+    },
+    {
+      "digest": "012208a7246f1f199d03384fcd4dcc419c6ca7e5ec405b099c5bb224e1b06ef0",
+      "name": "processing-invalid-video.mcap",
+      "source": "controlled processing-error acceptance"
+    },
+    {
+      "digest": "4d54ad6729c702d4a483e9925593b7ded9296d0ae6f9420997026498836cb657",
+      "name": "processing-transient-processing.mcap",
+      "source": "controlled processing-error acceptance"
+    },
+    {
+      "digest": "127b48d4cb6ec1ebe08120462b078318cc2dec38ffab632682049e37bb5e74d2",
+      "name": "processing-persistent-processing.mcap",
+      "source": "controlled processing-error acceptance"
     }
   ]
 }

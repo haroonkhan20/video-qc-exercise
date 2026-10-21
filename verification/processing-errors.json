@@ -1,0 +1,155 @@
+{
+  "verified_at_utc": "2026-10-21T07:19:57.419291+00:00",
+  "scope": "Four controlled test copies; no original recordings were reprocessed.",
+  "image": "video-qc/qc-worker:processing-v2",
+  "code_version": "5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9",
+  "config_version": "7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b",
+  "automated_tests": {
+    "passed": 234,
+    "failed": 0
+  },
+  "cluster_tests": [
+    {
+      "case": "control",
+      "digest": "b577bc16d9035e90a466c026a1ede0a016d87f622f989002359eb39f15373663",
+      "verdict": "pass",
+      "processing_status": "complete",
+      "reason_codes": [
+        "CHECKS_PASSED"
+      ],
+      "processing_errors": [],
+      "metrics_match_report": true,
+      "metric_rows": 1064,
+      "viewer_verified": true,
+      "raw_versions": 1,
+      "raw_retention": "COMPLIANCE",
+      "workflow_status": "COMPLETED",
+      "workflow_replay_passed": true,
+      "workflow_ids": [
+        "processing-acceptance-control-c64897f9b3af46609a6cf8631c990b47"
+      ],
+      "overall_score": 10.0,
+      "score_explanation": "Overall Score combines the individual ratings with serious-issue limits."
+    },
+    {
+      "case": "invalid-video",
+      "digest": "012208a7246f1f199d03384fcd4dcc419c6ca7e5ec405b099c5bb224e1b06ef0",
+      "verdict": "fail",
+      "processing_status": "complete",
+      "reason_codes": [
+        "VIDEO_UNDECODABLE"
+      ],
+      "processing_errors": [],
+      "metrics_match_report": true,
+      "metric_rows": 1066,
+      "viewer_verified": true,
+      "raw_versions": 1,
+      "raw_retention": "COMPLIANCE",
+      "workflow_status": "COMPLETED",
+      "workflow_replay_passed": true,
+      "workflow_ids": [
+        "processing-acceptance-invalid-video-eb5b7562490a4435a328fba6093fdf27"
+      ],
+      "overall_score": null,
+      "score_explanation": "Overall Score combines the individual ratings with serious-issue limits. Required video could not be played correctly. The Overall Score cannot exceed 2/10. Required checks are incomplete, so no final Overall Score is issued. Known file or data faults prevent a complete assessment; this recording was checked, but some aspects cannot be rated."
+    },
+    {
+      "case": "transient-processing",
+      "digest": "4d54ad6729c702d4a483e9925593b7ded9296d0ae6f9420997026498836cb657",
+      "verdict": "pass",
+      "processing_status": "complete",
+      "reason_codes": [
+        "CHECKS_PASSED"
+      ],
+      "processing_errors": [],
+      "metrics_match_report": true,
+      "metric_rows": 1064,
+      "viewer_verified": true,
+      "raw_versions": 1,
+      "raw_retention": "COMPLIANCE",
+      "workflow_status": "COMPLETED",
+      "workflow_replay_passed": true,
+      "workflow_ids": [
+        "processing-acceptance-transient-processing-cfd763c4084743b1ad72bdfe0a609f88"
+      ],
+      "overall_score": 10.0,
+      "score_explanation": "Overall Score combines the individual ratings with serious-issue limits."
+    },
+    {
+      "case": "persistent-processing",
+      "digest": "127b48d4cb6ec1ebe08120462b078318cc2dec38ffab632682049e37bb5e74d2",
+      "verdict": "fail",
+      "processing_status": "incomplete",
+      "reason_codes": [
+        "CHECK_UNAVAILABLE"
+      ],
+      "processing_errors": [
+        {
+          "stage": "check_stream",
+          "stream": "3",
+          "error_type": "MemoryError",
+          "explanation": "Checking could not finish. This does not prove the recording is damaged.",
+          "reason_code": "CHECK_UNAVAILABLE"
+        }
+      ],
+      "metrics_match_report": true,
+      "metric_rows": 0,
+      "viewer_verified": true,
+      "raw_versions": 1,
+      "raw_retention": "COMPLIANCE",
+      "workflow_status": "COMPLETED",
+      "workflow_replay_passed": true,
+      "workflow_ids": [
+        "processing-acceptance-persistent-processing-c5d94c5016dc489f9d2f4f4b2faffadc"
+      ],
+      "overall_score": null,
+      "score_explanation": "Checking could not finish. No Overall Score is issued. This does not prove the recording is damaged. Required checks are incomplete, so no final Overall Score is issued."
+    }
+  ],
+  "controlled_failure_attempts": [
+    {
+      "case": "transient-processing",
+      "attempt": 1
+    },
+    {
+      "case": "transient-processing",
+      "attempt": 2
+    },
+    {
+      "case": "persistent-processing",
+      "attempt": 1
+    },
+    {
+      "case": "persistent-processing",
+      "attempt": 2
+    },
+    {
+      "case": "persistent-processing",
+      "attempt": 3
+    },
+    {
+      "case": "persistent-processing",
+      "attempt": 4
+    },
+    {
+      "case": "persistent-processing",
+      "attempt": 5
+    }
+  ],
+  "fault_injection": "Dedicated worker process and task queue inside a qc worker pod; same deployed code and real Temporal, object storage and databases. No production worker was killed.",
+  "preexisting_reports_unchanged": 67,
+  "main_dashboard_recordings": 43,
+  "dashboard_collections": {
+    "reference": 41,
+    "test": 28,
+    "upload": 2
+  },
+  "qc_workers_ready": 2,
+  "qc_worker_restarts": 0,
+  "duplicate_submission_reused_workflow": true,
+  "metric_uniqueness_verified_after_duplicate": true,
+  "git_committed": false,
+  "git_pushed": false,
+  "older_waiting_workflows_left_untouched": 40,
+  "limits": "Controlled failure cases establish these error-handling paths, not accuracy for every possible recording or failure."
+}

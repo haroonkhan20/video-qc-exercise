@@ -55,11 +55,12 @@ def inspect_image(data,settings=None):
 
 def summarize(samples,settings=None):
     """Samples are (relative seconds, JPEG bytes), with failures kept unknown."""
+    from PIL import UnidentifiedImageError
     settings=dict(SETTINGS if settings is None else settings)
     checked = [];errors = 0
     for seconds,data in sorted(samples):
         try:checked.append({"seconds": seconds, "candidate": inspect_image(data,settings)})
-        except Exception:errors += 1
+        except UnidentifiedImageError:errors += 1
     runs = [];run = []
     def finish():
         if len(run) >= settings["minimum_samples"] and run[-1]["seconds"]-run[0]["seconds"] >= settings["minimum_seconds"]:

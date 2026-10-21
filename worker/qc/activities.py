@@ -9,6 +9,12 @@ from qc.model import canonical, finding, run_prefix, verdict, version
 from qc import storage as st
 from qc.checks import stream_check,coverage
 from qc import movement,obstruction
+from qc.data_errors import DATA_READ_ERRORS
+from qc.processing import status, unavailable_movement
+from botocore.exceptions import ClientError
+
+class MissingSummary(Exception):
+    pass
 
 def workdir(ref):
     path=st.CACHE/"work"/ref["digest"]/ref["config_version"]/ref["code_version"]
@@ -42,7 +48,7 @@ def inspect_container(ref):
             reader=make_reader(stream,validate_crcs=True);reader.get_header();report["header_valid"]=True
             summary=reader.get_summary();report["summary_present"]=summary is not None
             if summary is None or summary.statistics is None:
-                raise ValueError("Missing summary")
+                raise MissingSummary("Missing summary")
             stats=summary.statistics
             report.update({"start_ns":stats.message_start_time,"end_ns":stats.message_end_time,
                            "message_count":stats.message_count,"chunk_indexes":len(summary.chunk_indexes),
@@ -53,7 +59,7 @@ def inspect_container(ref):
                 report["channels"].append({"id":ch.id,"topic":ch.topic,"schema":schema.name if schema else None,
                                           "encoding":ch.message_encoding,"schema_encoding":schema.encoding if schema else None,
                                           "message_count":stats.channel_message_counts.get(ch.id,0)})
-    except Exception:
+    except (*DATA_READ_ERRORS, MissingSummary):
         recovered=work/"recovered-inspection-copy.mcap"
         recover_code=cli_scan(["mcap","recover",str(path),"-o",str(recovered)],work/"recover.txt")
         recoverable=False
@@ -62,7 +68,7 @@ def inspect_container(ref):
                 with recovered.open("rb") as stream:
                     recovered_summary=make_reader(stream).get_summary()
                     recoverable=bool(recovered_summary and recovered_summary.statistics and recovered_summary.statistics.message_count)
-            except Exception:pass
+            except DATA_READ_ERRORS:pass
         if recoverable:
             stats=recovered_summary.statistics
             report.update({"start_ns":stats.message_start_time,"end_ns":stats.message_end_time,
@@ -98,21 +104,35 @@ def inspect_container(ref):
 def check_stream(request):
     ref=request["ref"];cid=request["channel_id"]
     key=artifact(ref,f"streams/{cid}/report.json")
-    try:
-        cached=st.get_json(key)
-        if not ref.get("rebuild"):return {"report_key":key,"channel_id":cid}
-    except Exception:pass
+    if not ref.get("rebuild"):
+        try:
+            cached=st.get_json(key)
+        except ClientError as exc:
+            if exc.response.get("Error",{}).get("Code") not in {"NoSuchKey","404","NotFound"}:raise
+        else:
+            if cached.get("processing_status")=="complete" and cached.get("processing_handler_version")==1:
+                return {"report_key":key,"channel_id":cid}
     inv=st.get_json(artifact(ref,"inventory.json"));cfg=st.run_config(ref)
-    st.heartbeat({"stage":"check_stream","channel_id":cid,"worker":os.environ.get("HOSTNAME")})
-    report,metrics,samples,times=stream_check(st.raw_path(ref),cid,inv,cfg,workdir(ref),st.heartbeat)
-    report.update({"frame_metrics_key":artifact(ref,f"streams/{cid}/frames.jsonl"),
-                   "samples_key":artifact(ref,f"streams/{cid}/samples.zip"),
-                   "times_key":artifact(ref,f"streams/{cid}/times.json")})
-    st.upload_derived(metrics,report["frame_metrics_key"],"application/x-ndjson")
-    st.upload_derived(samples,report["samples_key"],"application/zip")
-    st.upload_derived(times,report["times_key"],"application/json")
+    # Each attempt owns its files and object keys. Late attempts cannot overwrite
+    # the files read by the successful attempt's downstream activities.
+    attempt=uuid.uuid4().hex
+    prefix=f"streams/{cid}/attempts/{attempt}"
+    beat=lambda details:st.heartbeat({**details,"attempt":activity.info().attempt if activity.in_activity() else 1})
+    beat({"stage":"check_stream","channel_id":cid})
+    report,metrics,samples,times=stream_check(st.raw_path(ref),cid,inv,cfg,workdir(ref)/attempt,beat)
+    report.update({"frame_metrics_key":artifact(ref,prefix+"/frames.jsonl"),
+                   "samples_key":artifact(ref,prefix+"/samples.zip"),
+                   "times_key":artifact(ref,prefix+"/times.json")})
+    for path,name,content in [(metrics,"frames.jsonl","application/x-ndjson"),
+                              (samples,"samples.zip","application/zip"),(times,"times.json","application/json")]:
+        beat({"stage":"publish_stream","channel_id":cid})
+        st.upload_derived(path,artifact(ref,prefix+"/"+name),content)
+    beat({"stage":"publish_stream_report","channel_id":cid})
+    attempt_key=artifact(ref,prefix+"/report.json")
+    st.put_json(attempt_key,report)
+    beat({"stage":"publish_stream_cache","channel_id":cid})
     st.put_json(key,report)
-    return {"report_key":key,"channel_id":cid}
+    return {"report_key":attempt_key,"channel_id":cid}
 
 @activity.defn
 def cross_stream(request):
@@ -234,17 +254,21 @@ def finalize(request):
     with st.pg() as db:
         existing=db.execute("SELECT report FROM qc_runs WHERE digest=%s AND config_version=%s AND code_version=%s AND finalized_at IS NOT NULL",
                             (ref["digest"],ref["config_version"],ref["code_version"])).fetchone()
-    if existing and not ref.get("rebuild"):return {k:existing[0][k] for k in ("digest","verdict","reason_codes","report_key","viewer_key")}
+    if existing and existing[0].get("processing_status") != "incomplete" and not ref.get("rebuild"):return {k:existing[0][k] for k in ("digest","verdict","reason_codes","report_key","viewer_key")}
     inv=st.get_json(artifact(ref,"inventory.json"))
     streams=[st.get_json(item["report_key"]) for item in request["streams"] if "report_key" in item]
     cross=st.get_json(request["cross"]["report_key"]) if "report_key" in request["cross"] else {"metrics":{},"findings":[]}
     findings=list(inv["findings"])+list(cross["findings"])
     for stream in streams:findings.extend(stream["findings"])
-    for failed in request.get("errors",[]):findings.append(finding("CHECK_UNAVAILABLE",str(failed),metrics={"check":"activity"}))
+    errors=request.get("errors",[])
+    for failed in errors:
+        details=failed if isinstance(failed,dict) else {"stage":str(failed)}
+        findings.append(finding("CHECK_UNAVAILABLE",metrics={"check":"processing",**details}))
     informational_codes=set(cfg["policy"].get("informational_codes",[]))
     findings=[dict(f,severity="advisory") if f["code"] in informational_codes else f for f in findings]
     base_result,base_codes=verdict(findings,cfg)
-    extra=movement.scan(st.raw_path(ref),inv,findings,st.heartbeat,config=cfg)
+    extra=request.get("movement")
+    if extra is None:raise ValueError("Missing movement activity result")
     from qc.rulebook import section
     obstruction_settings=section("obstruction",cfg)
     obstruction_streams=[]
@@ -270,7 +294,7 @@ def finalize(request):
     all_findings=findings+movement_findings+obstruction_findings
     result,codes=verdict(all_findings,cfg)
 
-    report={**ref,"recording_type":cfg["recording_type"],"config":cfg,
+    report={**ref,**status(errors),"recording_type":cfg["recording_type"],"config":cfg,
             "inventory":inv,"streams":streams,"cross":cross,"findings":all_findings,
             "informational_findings":[f for item in (extra["head_motion"],extra["hand_motion"])
                 for f in item["findings"] if f.get("severity")=="info"],
@@ -279,11 +303,11 @@ def finalize(request):
             "viewer_key":artifact(ref,"qc.rrd")}
     # External side effects finish before the short authoritative database transaction.
     rows=[];batch=0
-    for row in metrics_rows(ref,report):
+    for row in (() if errors else metrics_rows(ref,report)):
         rows.append(row)
         if len(rows)>=2000:deliver_batch(ref,rows,batch);batch+=1;rows=[]
     if rows:deliver_batch(ref,rows,batch)
-    viewer=viewer_export(ref,report,workdir(ref)/"qc.rrd")
+    viewer=viewer_export(ref,report,workdir(ref)/(uuid.uuid4().hex+"-qc.rrd"))
     st.upload_derived(viewer,report["viewer_key"])
     st.put_json(report["report_key"],report)
     st.put_json(f"derived/{ref['digest']}/qc_report.json",report)
@@ -299,8 +323,18 @@ def finalize(request):
     return {k:report[k] for k in ("digest","verdict","reason_codes","report_key","viewer_key")}
 
 @activity.defn
-def finalize_unavailable(ref):
+def check_movement(request):
+    ref=request["ref"];cfg=st.run_config(ref)
+    inv=st.get_json(artifact(ref,"inventory.json"))
+    reports=[st.get_json(item["report_key"]) for item in request["streams"] if "report_key" in item]
+    cross=st.get_json(request["cross"]["report_key"]) if "report_key" in request["cross"] else {"findings":[]}
+    findings=list(inv["findings"])+list(cross["findings"])
+    for report in reports:findings.extend(report["findings"])
+    return movement.scan(st.raw_path(ref),inv,findings,st.heartbeat,config=cfg)
+
+@activity.defn
+def finalize_unavailable(request):
+    ref=request["ref"];error=request["error"]
     key=artifact(ref,"inventory.json")
-    st.put_json(key,{"digest":ref["digest"],"findings":[finding("CHECK_UNAVAILABLE",metrics={"check":"container"})],
-                     "channels":[],"start_ns":0,"end_ns":0})
-    return finalize({"ref":ref,"streams":[],"cross":{},"errors":["container"]})
+    st.put_json(key,{"digest":ref["digest"],"findings":[],"channels":[],"start_ns":0,"end_ns":0})
+    return finalize({"ref":ref,"streams":[],"cross":{},"errors":[error],"movement":unavailable_movement()})

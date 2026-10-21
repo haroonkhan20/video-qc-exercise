@@ -94,7 +94,10 @@ def upload_derived(path,key,content_type="application/octet-stream"):
     return key
 def heartbeat(details):
     from temporalio import activity
-    if activity.in_activity():activity.heartbeat(details)
+    if activity.in_activity():
+        from temporalio.exceptions import CancelledError
+        if activity.is_cancelled():raise CancelledError("Processing cancelled")
+        activity.heartbeat(details)
 
 def raw_path(ref):
     digest=validate_digest(ref["digest"])

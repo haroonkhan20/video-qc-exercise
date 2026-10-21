@@ -4,6 +4,7 @@ from datetime import timedelta
 from temporalio import workflow
 from temporalio.common import RetryPolicy
 from temporalio.exceptions import ActivityError
+from qc.processing import failure, unavailable_movement
 
 @workflow.defn
 class QcEpisode:
@@ -16,20 +17,24 @@ class QcEpisode:
         errors=[]
         try:
             inventory=await workflow.execute_activity("inspect_container",ref,result_type=dict,**options)
-        except ActivityError:
-            # Finalization must fail closed even if container inspection cannot complete.
-            return await workflow.execute_activity("finalize_unavailable",ref,result_type=dict,**options)
+        except ActivityError as exc:
+            return await workflow.execute_activity("finalize_unavailable",{"ref":ref,"error":failure("inspect_container",exc)},result_type=dict,**options)
         async def one(channel_id):
             try:
                 return await workflow.execute_activity("check_stream",{"ref":ref,"channel_id":channel_id},
                                                         result_type=dict,**options)
-            except ActivityError:
-                return {"error":str(channel_id)}
+            except ActivityError as exc:
+                return {"error":failure("check_stream",exc,str(channel_id))}
         streams=await asyncio.gather(*(one(cid) for cid in sorted(inventory["stream_ids"])))
         errors.extend(s["error"] for s in streams if "error" in s)
         try:
             cross=await workflow.execute_activity("cross_stream",{"ref":ref,"streams":streams},result_type=dict,**options)
-        except ActivityError:
-            cross={};errors.append("cross_stream")
-        return await workflow.execute_activity("finalize",{"ref":ref,"streams":streams,"cross":cross,"errors":errors},
+        except ActivityError as exc:
+            cross={};errors.append(failure("cross_stream",exc))
+        try:
+            motion=await workflow.execute_activity("check_movement",{"ref":ref,"streams":streams,"cross":cross},
+                                                    result_type=dict,**options)
+        except ActivityError as exc:
+            motion=unavailable_movement();errors.append(failure("check_movement",exc))
+        return await workflow.execute_activity("finalize",{"ref":ref,"streams":streams,"cross":cross,"errors":errors,"movement":motion},
                                                result_type=dict,**options)

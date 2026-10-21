@@ -296,10 +296,11 @@ def parse(records):
 def read_file(path):
     """Inspect an MCAP opened read-only; do not scan video or modify the file."""
     from mcap.reader import make_reader
+    from qc.data_errors import DATA_READ_ERRORS
     try:
         with open(path, "rb") as file:
             return parse(make_reader(file, validate_crcs=True).iter_metadata())
-    except Exception as error:
+    except DATA_READ_ERRORS as error:
         result = parse([])
         result["status"] = "unreadable"
         result["diagnostics"].append({"record": "MCAP", "field": "metadata",

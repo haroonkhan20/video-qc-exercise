@@ -425,17 +425,19 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/1/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/1/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/1/attempts/347ff5d8135f418aa000b34df35d3be9/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/1/attempts/347ff5d8135f418aa000b34df35d3be9/samples.zip",
       "timing_scope": "static_setup_information",
       "rate_contract": {
         "hz": null,
         "source": null,
         "status": "undeclared"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/1/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/1/attempts/347ff5d8135f418aa000b34df35d3be9/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": null
     },
@@ -474,17 +476,19 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/2/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/2/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/2/attempts/8d756da12efa48be926a03a369f55f64/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/2/attempts/8d756da12efa48be926a03a369f55f64/samples.zip",
       "timing_scope": "static_setup_information",
       "rate_contract": {
         "hz": null,
         "source": null,
         "status": "undeclared"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/2/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/2/attempts/8d756da12efa48be926a03a369f55f64/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": null
     },
@@ -533,8 +537,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/3/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/3/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/3/attempts/e668359875784ff4b6f326b6454bccd7/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/3/attempts/e668359875784ff4b6f326b6454bccd7/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 30,
@@ -542,9 +546,11 @@
         "status": "configured_baseline",
         "authority": "configured_dataset_baseline"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/3/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/3/attempts/e668359875784ff4b6f326b6454bccd7/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1077,
       "outside_capture_messages": 9,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -611,8 +617,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/4/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/4/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/4/attempts/a6c08fb16c2f4e8191bf498b3c17d8f9/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/4/attempts/a6c08fb16c2f4e8191bf498b3c17d8f9/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 30,
@@ -620,9 +626,11 @@
         "status": "configured_baseline",
         "authority": "configured_dataset_baseline"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/4/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/4/attempts/a6c08fb16c2f4e8191bf498b3c17d8f9/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1077,
       "outside_capture_messages": 9,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -689,8 +697,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/5/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/5/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/5/attempts/8e0e14663c2f4dd6b15dfa44b07b970d/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/5/attempts/8e0e14663c2f4dd6b15dfa44b07b970d/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 30,
@@ -698,9 +706,11 @@
         "source": "/gripper/right/system_info",
         "status": "declared"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/5/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/5/attempts/8e0e14663c2f4dd6b15dfa44b07b970d/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1070,
       "outside_capture_messages": 3,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -761,17 +771,19 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/6/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/6/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/6/attempts/c865011588434ebca73a5a36efd5e30a/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/6/attempts/c865011588434ebca73a5a36efd5e30a/samples.zip",
       "timing_scope": "static_setup_information",
       "rate_contract": {
         "hz": null,
         "source": null,
         "status": "undeclared"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/6/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/6/attempts/c865011588434ebca73a5a36efd5e30a/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 36,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": null
     },
@@ -820,8 +832,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/7/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/7/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/7/attempts/6ce58f4db3bf442fb300970fb7d61f2d/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/7/attempts/6ce58f4db3bf442fb300970fb7d61f2d/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 30,
@@ -829,9 +841,11 @@
         "source": "/gripper/left/system_info",
         "status": "declared"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/7/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/7/attempts/6ce58f4db3bf442fb300970fb7d61f2d/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1070,
       "outside_capture_messages": 3,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -892,17 +906,19 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/8/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/8/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/8/attempts/933117189b3449a388b6f2ace015f130/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/8/attempts/933117189b3449a388b6f2ace015f130/samples.zip",
       "timing_scope": "static_setup_information",
       "rate_contract": {
         "hz": null,
         "source": null,
         "status": "undeclared"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/8/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/8/attempts/933117189b3449a388b6f2ace015f130/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 36,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": null
     },
@@ -951,8 +967,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/9/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/9/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/9/attempts/edf61eb8501542ae90be66c5491c6693/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/9/attempts/edf61eb8501542ae90be66c5491c6693/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 50,
@@ -960,9 +976,11 @@
         "status": "configured_baseline",
         "authority": "configured_dataset_baseline"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/9/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/9/attempts/edf61eb8501542ae90be66c5491c6693/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1780,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -1029,8 +1047,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/10/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/10/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/10/attempts/54e04604040b4fc2ac4d81c78e0d9dff/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/10/attempts/54e04604040b4fc2ac4d81c78e0d9dff/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 50,
@@ -1038,9 +1056,11 @@
         "status": "configured_baseline",
         "authority": "configured_dataset_baseline"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/10/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/10/attempts/54e04604040b4fc2ac4d81c78e0d9dff/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1780,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -1105,8 +1125,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/11/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/11/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/11/attempts/3e3fb6669eac42959089bfa80fbdc937/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/11/attempts/3e3fb6669eac42959089bfa80fbdc937/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 100.0,
@@ -1115,9 +1135,11 @@
         "status": "declared",
         "period_ns": 10000000
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/11/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/11/attempts/3e3fb6669eac42959089bfa80fbdc937/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 3560,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -1182,8 +1204,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/12/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/12/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/12/attempts/fd760f51408f4fcea88e520eb7818c32/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/12/attempts/fd760f51408f4fcea88e520eb7818c32/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 50,
@@ -1191,9 +1213,11 @@
         "status": "configured_baseline",
         "authority": "configured_dataset_baseline"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/12/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/12/attempts/fd760f51408f4fcea88e520eb7818c32/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1780,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -1258,8 +1282,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/13/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/13/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/13/attempts/a5cef4bf60bb483f975ed28a9ef20289/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/13/attempts/a5cef4bf60bb483f975ed28a9ef20289/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 100.0,
@@ -1268,9 +1292,11 @@
         "status": "declared",
         "period_ns": 10000000
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/13/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/13/attempts/a5cef4bf60bb483f975ed28a9ef20289/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 3559,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -1335,8 +1361,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/14/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/14/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/14/attempts/2d285048de2347669067a98158d160fc/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/14/attempts/2d285048de2347669067a98158d160fc/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 50,
@@ -1344,9 +1370,11 @@
         "status": "configured_baseline",
         "authority": "configured_dataset_baseline"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/14/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/14/attempts/2d285048de2347669067a98158d160fc/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1779,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -1413,8 +1441,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/15/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/15/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/15/attempts/02b230ebb6da4ee18cc68a308be9f412/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/15/attempts/02b230ebb6da4ee18cc68a308be9f412/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 50,
@@ -1422,9 +1450,11 @@
         "status": "configured_baseline",
         "authority": "configured_dataset_baseline"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/15/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/15/attempts/02b230ebb6da4ee18cc68a308be9f412/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1779,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -1491,8 +1521,8 @@
         }
       },
       "findings": [],
-      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/16/times.json",
-      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/16/samples.zip",
+      "times_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/16/attempts/1e2eec0631774a91ab7bab9218d6b6d6/times.json",
+      "samples_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/16/attempts/1e2eec0631774a91ab7bab9218d6b6d6/samples.zip",
       "timing_scope": "declared_capture_window",
       "rate_contract": {
         "hz": 50,
@@ -1500,9 +1530,11 @@
         "status": "configured_baseline",
         "authority": "configured_dataset_baseline"
       },
-      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/streams/16/frames.jsonl",
+      "frame_metrics_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/streams/16/attempts/1e2eec0631774a91ab7bab9218d6b6d6/frames.jsonl",
+      "processing_status": "complete",
       "stored_message_count": 1779,
       "outside_capture_messages": 0,
+      "processing_handler_version": 1,
       "frame_metric_sample_seconds": 1,
       "producer_quality_comparison": {
         "scope": "declared_capture_window",
@@ -2433,8 +2465,8 @@
       "optional_clock_metadata_present": true
     }
   },
-  "report_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/qc_report.json",
-  "viewer_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503/qc.rrd",
+  "report_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/qc_report.json",
+  "viewer_key": "derived/1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104/runs/7ea24a0c274833626628cc9af88a71f6cefc3e129131c775ff1229d06422a74b/5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9/qc.rrd",
   "hand_motion": {
     "scope": "Related same-side warnings are grouped, not independent proof. Original automatic findings remain unchanged. No physical units or accuracy are assumed.",
     "source": "automatic_pipeline",
@@ -3266,11 +3298,11 @@
         "completion_minimum_seconds": 2,
         "stream_window_tolerance_seconds": 1.5
       },
-      "source_hash": "77ec50725a7acd5100052752b251d9049fe380cf9d9ca4ea620c57ba4eaa5d7b"
+      "source_hash": "2ea6ba4a66c744bef51cbb41b812fcd2319be18f2ba505fc6cec2ecc178883f4"
     }
   },
   "base_verdict": "pass",
-  "code_version": "be638a02c1d60ad34c35d6c02f49d9f88de3c4c73c95ff63849266463de59503",
+  "code_version": "5b6dafa4a13eb189ca45d7a29e15a62d96b4873ace6092e89e7515e54db842a9",
   "reason_codes": [
     "CHECKS_PASSED"
   ],
@@ -3279,6 +3311,8 @@
   "base_reason_codes": [
     "CHECKS_PASSED"
   ],
+  "processing_errors": [],
+  "processing_status": "complete",
   "informational_findings": [
     {
       "why": "Movement limits excluded settling readings; value and timing checks still ran.",

@@ -59,6 +59,57 @@ A high score can still include an issue that needs review. BLACK_RUN remains
 visible with an explanation of its sustained dark interval. Camera snapshots
 are sampled images, not full video playback.
 
+## Processing failures
+
+A recording fault and an interrupted check are different. Invalid video bytes
+remain recording findings. Unexpected decoding, storage or memory failures are
+allowed to retry through Temporal's existing five-attempt policy.
+
+If required checks still cannot finish, the JSON report has
+`processing_status: incomplete`, safe step/error details and the shared
+`CHECK_UNAVAILABLE` reason code. No overall quality score is issued. The
+existing database verdict remains `fail` so incomplete checking cannot pass;
+this alone is not evidence that the recording is damaged. Incomplete reports
+are excluded from the completed ClickHouse metrics projection.
+
+Each stream attempt owns its derived files. Only completed reports from the
+current processing handler can be reused; permission and connection errors are
+not treated as a missing cache entry. Cancellation stops processing at heartbeat
+and publication checkpoints. A failure in final report storage/export itself
+still appears as a failed Temporal workflow if its retries are exhausted.
+
+The [processing-error verification record](verification/processing-errors.json)
+covers healthy data, damaged video, recovery after a temporary processing failure,
+and an incomplete result after retries are exhausted. These are separate test
+copies; the original recording results are preserved.
+
+## Processing-error test recordings
+
+Four controlled copies of one previously passing recording exercise different
+failure paths. They appear in the separate test collection, identified by content
+fingerprint rather than filename.
+
+| Test recording | Test condition | Verified result |
+|---|---|---|
+| processing-control.mcap | Recording data unchanged | Pass, Default score 10/10 |
+| processing-invalid-video.mcap | One video packet deliberately damaged | Video problem reported; no complete score |
+| processing-transient-processing.mcap | Valid data; checker error injected on the first attempt | Retry succeeds on attempt 2; pass, 10/10 |
+| processing-persistent-processing.mcap | Valid data; checker error injected on all five attempts | Checking incomplete; no overall score |
+
+The temporary and persistent errors were injected in an isolated test-worker
+process using the deployed code and real cluster services. They are not embedded
+in the recordings and are not triggered by uploading a file with these names.
+Original recordings were not modified. MCAP files, snapshots and private caches
+are excluded from this repository; the repository contains test code,
+fingerprints and verification evidence.
+
+The updated checker was also run on all 41 originals. Results remained **38 pass,
+2 need review and 1 fail**, with no changes to findings, measurements or Default
+scores. Two heartbeat timeouts recovered on their second attempts without
+changing the recording result. See [REPORT.md](REPORT.md) and the
+[per-recording comparison](verification/processing-error-full-dataset-comparison.json).
+The quality thresholds were unchanged.
+
 ## Quality standards
 
 **Default — recommended** is selected on startup. It is a balanced starting point
@@ -189,7 +240,7 @@ requires Docker image save --platform support.
 | MinIO local image | `video-qc/minio:RELEASE.2025-10-15T17-29-55Z` |
 | MinIO upstream source | `RELEASE.2025-10-15T17-29-55Z`, commit `9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a` |
 | MinIO build/runtime bases | `golang:1.24.9-bookworm`, `debian:bookworm-20251020-slim` |
-| Worker local image | `video-qc/qc-worker:physical-v4` |
+| Worker local image | `video-qc/qc-worker:processing-v2` |
 | Worker Python base | `python:3.12.12-slim-bookworm` |
 | Python Temporal SDK | `temporalio==1.14.1` |
 | SDK runtime dependencies | `nexus-rpc==1.1.0`, `protobuf==5.29.6`, `types-protobuf==7.35.1.20260906`, `typing-extensions==4.16.0` |
