@@ -596,6 +596,216 @@
       ],
       "description": "No valid measured head position is available to match.",
       "kind": "finding"
+    },
+    "BODY_EMPTY_MESSAGE": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "A body message contains no points; capture phase or producer behavior needs context.",
+      "kind": "finding"
+    },
+    "BODY_FRAME_NAME_MISSING": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "A body point lacks a usable coordinate reference or point name.",
+      "kind": "finding"
+    },
+    "BODY_FIELDS_ABSENT": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "Explicit timestamp, position or rotation fields are absent; no complete pose is inferred.",
+      "kind": "finding"
+    },
+    "BODY_INVALID_VALUES": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "A body position or rotation contains invalid numbers or an invalid shape.",
+      "kind": "finding"
+    },
+    "BODY_ROTATION_UNUSABLE": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "A body rotation has zero or unrepresentable magnitude.",
+      "kind": "finding"
+    },
+    "BODY_ROTATION_SCALE": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "A body rotation differs from unit magnitude beyond the configured tolerance.",
+      "kind": "finding"
+    },
+    "BODY_INVALID_TIMESTAMP": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "A body point timestamp is absent or malformed.",
+      "kind": "finding"
+    },
+    "BODY_DUPLICATE_POINT_TIME": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "The same body point appears more than once at the same timestamp; producer context is needed.",
+      "kind": "finding"
+    },
+    "BODY_SELF_REFERENCE": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "A body point names itself as its coordinate reference.",
+      "kind": "finding"
+    },
+    "BODY_TIME_ORDER": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "A body point timestamp repeats or moves backwards; batching/static-update context may matter.",
+      "kind": "finding"
+    },
+    "BODY_REFERENCE_CHANGED": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "The coordinate reference for a body point changed; comparisons must not assume a common reference.",
+      "kind": "finding"
+    },
+    "BODY_POINT_SET_CHANGED": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "The set of body points changed from the first message; partial updates may be legitimate.",
+      "kind": "finding"
+    },
+    "BODY_REFERENCE_CYCLE": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "Coordinate references form a loop at one timestamp.",
+      "kind": "finding"
+    },
+    "BODY_MESSAGE_UNREADABLE": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "A body message could not be decoded; a clean body result cannot be inferred.",
+      "kind": "finding"
+    },
+    "CALIBRATION_DIMENSIONS_UNUSABLE": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "Camera calibration does not provide positive image dimensions.",
+      "kind": "finding"
+    },
+    "CALIBRATION_FRAME_MISSING": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "The calibration coordinate reference is not named.",
+      "kind": "finding"
+    },
+    "CALIBRATION_MATRIX_SHAPE": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "A supplied calibration matrix has the wrong number of entries.",
+      "kind": "finding"
+    },
+    "CALIBRATION_NONFINITE": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "Calibration parameters contain invalid numbers.",
+      "kind": "finding"
+    },
+    "CALIBRATION_UNCALIBRATED": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "K[0] is zero, which marks the camera as uncalibrated under the schema convention.",
+      "kind": "finding"
+    },
+    "CALIBRATION_FOCAL_SIGN": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "Focal-length signs need producer context; no physical lens fault is inferred.",
+      "kind": "finding"
+    },
+    "CALIBRATION_MODEL_UNASSESSED": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "This distortion model is not covered by the configured parameter-shape checks.",
+      "kind": "finding"
+    },
+    "CALIBRATION_DISTORTION_SHAPE": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "The distortion coefficient count differs from the supported model definition.",
+      "kind": "finding"
+    },
+    "CALIBRATION_RECTIFICATION_UNUSABLE": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "The supplied rectification matrix does not meet the configured rotation-matrix consistency tolerance.",
+      "kind": "finding"
+    },
+    "CALIBRATION_MESSAGE_UNREADABLE": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "A camera-calibration message could not be decoded.",
+      "kind": "finding"
+    },
+    "CALIBRATION_VIDEO_UNASSESSED": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "Calibration or decoded image dimensions are unavailable for comparison.",
+      "kind": "finding"
+    },
+    "CALIBRATION_DYNAMIC_CONTEXT": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "Calibration changed during the recording; time-aware association is needed before comparing dimensions.",
+      "kind": "finding"
+    },
+    "CALIBRATION_VIDEO_DIMENSIONS_MATCH": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "Static calibration dimensions match the decoded image dimensions.",
+      "kind": "finding"
+    },
+    "CALIBRATION_VIDEO_DIMENSIONS_MISMATCH": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "Static calibration dimensions differ from decoded image dimensions; this is diagnostic evidence, not a quality verdict.",
+      "kind": "finding"
+    },
+    "CALIBRATION_FIELDS_UNAVAILABLE": {
+      "groups": [
+        "calibration_diagnostic"
+      ],
+      "description": "The calibration schema does not provide the expected field types; no complete calibration is inferred.",
+      "kind": "finding"
+    },
+    "BODY_SCHEMA_UNSUPPORTED": {
+      "groups": [
+        "body_diagnostic"
+      ],
+      "description": "The declared body schema lacks compatible transform fields; body structure cannot be assessed.",
+      "kind": "finding"
     }
   }
 }

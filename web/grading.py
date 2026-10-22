@@ -216,9 +216,9 @@ def grade(report, profile):
                 f"Observed {rate} Hz, nominal {nominal} Hz", deviation, profile["limits"]["rate_relative_tolerance"]))
             values = [stats.get("payload_stamp_offset_max_ms"), stats.get("payload_stamp_publish_offset_max_ms")]
             offset = max(values) if all(numeric(v) for v in values) else None
-            no_payload_stamp = stream.get("schema") == "foxglove.MagneticEncoderMeasurement" and all(v is None for v in values)
+            no_payload_stamp = stream.get("schema") == "foxglove.MagneticEncoderMeasurement" and stream.get("payload_timestamp_source") != "DLSHeader.timestamp_ns" and "unsupported_payload_timestamps" not in stats and all(v is None for v in values)
             timing_parameters.append(metric("Payload timestamp offset", limit_score(offset, profile["limits"]["payload_stamp_tolerance_ms"], profile) if offset is not None else None,
-                "This encoder message schema has no measured payload timestamp; not applicable" if no_payload_stamp else f"Largest payload-versus-clock offset is {offset} ms", offset, profile["limits"]["payload_stamp_tolerance_ms"], applicable=not no_payload_stamp))
+                "This historical report did not inspect the encoder payload clock; no offset assessment is available" if no_payload_stamp else f"Largest payload-versus-clock offset is {offset} ms", offset, profile["limits"]["payload_stamp_tolerance_ms"], applicable=not no_payload_stamp))
         else:timing_parameters.append(metric("Timing evidence", None, "Insufficient temporal evidence"))
         result["timing"].append(scored_stream(topic, timing_parameters, topic_findings))
         cross = report.get("cross", {}).get("metrics", {}).get(topic, {})

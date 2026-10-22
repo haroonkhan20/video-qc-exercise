@@ -21,15 +21,42 @@ def repeated(field):
     if hasattr(field,"is_repeated"):return field.is_repeated
     return field.label==field.LABEL_REPEATED
 
-def stamps(message):
+def encoder_header_clock(message):
+    if message.DESCRIPTOR.full_name!="foxglove.MagneticEncoderMeasurement":return False
+    header=message.DESCRIPTOR.fields_by_name.get("header")
+    if header is None or header.message_type is None or repeated(header):return False
+    field=header.message_type.fields_by_name.get("timestamp")
+    return field is not None and not repeated(field) and field.type in (field.TYPE_INT64,field.TYPE_UINT64)
+
+def payload_clock_problem(message):
+    """Known formats require a timestamp; never guess an unknown clock."""
+    if message.DESCRIPTOR.full_name=="foxglove.MagneticEncoderMeasurement":
+        if not encoder_header_clock(message):return "unsupported_timestamp_field"
+        if not message.HasField("header"):return "missing_timestamp"
+        return None
+    if message.DESCRIPTOR.full_name not in {
+            "foxglove.CompressedVideo","foxglove.PoseInFrame","foxglove.CameraCalibration"}:
+        return None
+    field=message.DESCRIPTOR.fields_by_name.get("timestamp")
+    if field is None or field.message_type is None or repeated(field) or field.message_type.full_name!="google.protobuf.Timestamp":
+        return "unsupported_timestamp_field"
+    if not message.HasField("timestamp"):return "missing_timestamp"
+    return None
+
+def stamps(message,invalid=None):
     result=[]
+    # Only this supported encoder schema declares an integer nanosecond clock.
+    if encoder_header_clock(message) and message.HasField("header"):
+        result.append(int(message.header.timestamp))
     for field,value in message.ListFields():
         if field.type!=field.TYPE_MESSAGE:continue
         values=value if repeated(field) else [value]
         for child in values:
             if child.DESCRIPTOR.full_name=="google.protobuf.Timestamp":
-                result.append(child.seconds*1_000_000_000+child.nanos)
-            else:result.extend(stamps(child))
+                if 0<=child.nanos<1_000_000_000 and -62135596800<=child.seconds<=253402300799:
+                    result.append(child.seconds*1_000_000_000+child.nanos)
+                elif invalid is not None:invalid.append(field.name)
+            else:result.extend(stamps(child,invalid))
     return result
 
 def nonfinite(message):
@@ -126,8 +153,8 @@ def stream_check(path,channel_id,inventory,config,work,beat):
     from qc.contract_timing import expected_rate,window,quality_comparison
     capture=window(contract)
     rate=expected_rate(contract,topic) if contract is not None else None
-    log=array("q");publish=array("q");findings=[];offsets=array("q")
-    stats={"protobuf_decode_errors":0,"video_decode_errors":0,"decoded_frames":0,"nonfinite_values":0}
+    log=array("q");publish=array("q");findings=[];offsets=array("d")
+    stats={"protobuf_decode_errors":0,"video_decode_errors":0,"decoded_frames":0,"nonfinite_values":0,"invalid_payload_timestamps":0,"missing_payload_timestamps":0,"unsupported_payload_timestamps":0}
     codec=None;previous=None;resolution=None;next_sample=0.;first_video=True;last_beat=0
     frames_zip=work/f"{channel_id}-samples.zip";frame_metrics=work/f"{channel_id}-frames.jsonl"
     runs={code:Runs(code,topic,config["content"]["freeze_min_seconds"] if code=="FROZEN_RUN" else
@@ -135,6 +162,13 @@ def stream_check(path,channel_id,inventory,config,work,beat):
           for code in ["BLACK_RUN","BRIGHT_RUN","FROZEN_RUN","BLUR_RUN"]}
     scalar_runs=Runs("SENSOR_FLATLINE",topic,config["content"]["sensor_flatline_min_seconds"])
     prior_scalar=None;format_seen=set();decode_available=True;factory=DecoderFactory()
+    body=None;calibration=None;dimensions_seen=set();encoder_clock=[];encoder_clock_supported=False
+    if topic=="/quest3s/body_tracking" and selected["schema"]=="foxglove.FrameTransforms":
+        from qc.body_tracking import Inspector
+        body=Inspector(config)
+    if selected["schema"]=="foxglove.CameraCalibration":
+        from qc.calibration import Inspector
+        calibration=Inspector(config)
     def measure(frame,raw_ns,zipped,metrics):
         nonlocal previous,resolution,next_sample
         t=(raw_ns-origin)/1e9;shape=(frame.width,frame.height)
@@ -142,6 +176,7 @@ def stream_check(path,channel_id,inventory,config,work,beat):
         if capture and not capture["start_ns"]<=raw_ns<=capture["end_ns"]:
             previous=None
             return
+        dimensions_seen.add(shape)
         if resolution is not None and shape!=resolution:
             findings.append(finding("RESOLUTION_CHANGE",topic,t,t,{"before":resolution,"after":shape}))
         resolution=shape
@@ -177,13 +212,38 @@ def stream_check(path,channel_id,inventory,config,work,beat):
                         findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"unsupported_decoder"}))
                         continue
                     decoded=decode(raw.data)
-                except DecodeError:stats["protobuf_decode_errors"]+=1;continue
-                for stamp in stamps(decoded):
+                except DecodeError:
+                    stats["protobuf_decode_errors"]+=1
+                    if body:body.decode_error(raw.log_time)
+                    if calibration:calibration.decode_error(raw.log_time)
+                    continue
+                if body:
+                    from qc.body_tracking import transforms_from_message,BodySchemaError
+                    try:points=transforms_from_message(decoded)
+                    except BodySchemaError:
+                        body.unsupported_schema(raw.log_time)
+                        findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"body_schema_fields"}))
+                    else:body.add(points,raw.log_time)
+                if calibration:
+                    from qc.calibration import from_message
+                    calibration.add(from_message(decoded),raw.log_time)
+                if encoder_header_clock(decoded):
+                    encoder_clock_supported=True
+                    stamp=int(decoded.header.timestamp) if decoded.HasField("header") else None
+                    encoder_clock.append((raw.log_time,stamp if stamp is not None and 0<=stamp<=(1<<63)-1 else None))
+                clock_problem=payload_clock_problem(decoded)
+                if clock_problem:
+                    stats["missing_payload_timestamps" if clock_problem=="missing_timestamp" else "unsupported_payload_timestamps"]+=1
+                bad_stamps=[]
+                for stamp in stamps(decoded,bad_stamps):
                     offset=stamp-raw.log_time;offsets.append(offset)
                     findings.extend(payload_timestamp_findings(stamp,raw.log_time,raw.publish_time,topic,origin,
                                                                config["timing"]["payload_stamp_tolerance_ms"]))
                     stats["payload_stamp_publish_offset_max_ms"]=max(stats.get("payload_stamp_publish_offset_max_ms",0),
                                                                       abs(stamp-raw.publish_time)/1e6)
+                if bad_stamps:
+                    stats["invalid_payload_timestamps"]+=len(bad_stamps)
+                    findings.append(finding("CHECK_UNAVAILABLE",topic,t,t,{"check":"payload_timestamp_format","fields":sorted(set(bad_stamps))}))
                 stats["nonfinite_values"]+=nonfinite(decoded)
                 if kind!="video":
                     if selected["schema"]=="foxglove.MagneticEncoderMeasurement":
@@ -218,6 +278,9 @@ def stream_check(path,channel_id,inventory,config,work,beat):
             findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"message_scan","error_type":type(exc).__name__}))
     for run in runs.values():run.finish();findings.extend(run.findings)
     scalar_runs.finish();findings.extend(scalar_runs.findings)
+    for metric,cause in (("missing_payload_timestamps","missing_timestamp"),("unsupported_payload_timestamps","unsupported_timestamp_field")):
+        if stats[metric]:
+            findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"required_payload_timestamp","cause":cause,"messages":stats[metric]}))
     if stats["protobuf_decode_errors"]:
         findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"protobuf","errors":stats["protobuf_decode_errors"]}))
     if stats["nonfinite_values"]:findings.append(finding("SENSOR_NONFINITE",topic,metrics={"count":stats["nonfinite_values"]}))
@@ -249,10 +312,29 @@ def stream_check(path,channel_id,inventory,config,work,beat):
         comparison,quality_findings=quality_comparison(active_log,topic,origin,contract,config)
         findings.extend(quality_findings)
     findings.extend(log_findings);findings.extend(pub_findings)
-    if offsets:stats["payload_stamp_offset_max_ms"]=float(np.abs(np.asarray(offsets,dtype=np.int64)).max()/1e6)
+    if offsets:stats["payload_stamp_offset_max_ms"]=float(np.abs(np.asarray(offsets,dtype=np.float64)).max()/1e6)
     report={"processing_status":"complete","processing_handler_version":1,"id":channel_id,"topic":topic,"kind":kind,"schema":selected["schema"],"stats":stats,
             "timing":{"log":log_stats,"publish":pub_stats},"findings":findings,
             "frame_metric_sample_seconds":config["content"]["sample_seconds"]}
+    from qc.structural_policy import structural_findings
+    if body:
+        report["body_tracking"]=body.finish()
+        findings.extend(structural_findings(report["body_tracking"],topic,origin,config))
+    if calibration:
+        report["camera_calibration"]=calibration.finish()
+        findings.extend(structural_findings(report["camera_calibration"],topic,origin,config))
+    if kind=="video":stats["decoded_dimensions"]=[list(d) for d in sorted(dimensions_seen)]
+    if encoder_clock_supported:
+        report["payload_timestamp_source"]="DLSHeader.timestamp_ns"
+        active_clock=[stamp for log_ns,stamp in encoder_clock if (capture is None and contract is None) or capture is not None and capture["start_ns"]<=log_ns<=capture["end_ns"]]
+        if not active_clock or len(active_clock)!=len(active_log) or any(stamp is None for stamp in active_clock):
+            findings.append(finding("CHECK_UNAVAILABLE",topic,metrics={"check":"encoder_payload_timestamp","cause":"missing_or_unsupported_timestamp"}))
+            report["encoder_payload_timing"]={"status":"unavailable"}
+        else:
+            clock_stats,clock_findings=timing(active_clock,topic,"encoder_payload",origin,hz,config["timing"],require_expected=required,
+                conservative_drop_estimate=bool(rate and rate["status"]=="configured_baseline"))
+            findings.extend(clock_findings)
+            report["encoder_payload_timing"]={"status":"checked",**clock_stats}
     if contract is not None:
         report.update(rate_contract=rate,timing_scope="declared_capture_window" if continuous else "static_setup_information",
             producer_quality_comparison=comparison,

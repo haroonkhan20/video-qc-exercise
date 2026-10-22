@@ -1,0 +1,1160 @@
+{
+  "schema_version": 1,
+  "verification_date": "2026-10-22",
+  "status": "local_candidate_not_deployed",
+  "unit_tests_passed": 312,
+  "recordings": 41,
+  "streams_per_recording": 16,
+  "stream_inventories_reviewed": 656,
+  "body": {
+    "streams_checked": 41,
+    "messages": 146883,
+    "point_records": 12338172,
+    "structure_observations": 0,
+    "fixed_point_count_required": false,
+    "observed_point_count": 84,
+    "independent_audit_matches": true,
+    "production_stream_integration_tested_on_originals": 3
+  },
+  "calibration": {
+    "streams_checked": 164,
+    "messages": 6032,
+    "structure_observations": 0,
+    "full_video_dimension_matches": 164,
+    "fixed32_dimension_compatibility_verified": true
+  },
+  "encoders": {
+    "streams_checked": 82,
+    "messages": 589948,
+    "maximum_header_log_offset_ms": 0,
+    "maximum_header_publish_offset_ms": 0,
+    "payload_clock_order_faults": 0,
+    "source_semantics": "host_arrival_dejittered_100hz"
+  },
+  "video": {
+    "streams_checked": 164,
+    "decoded_frames": 355057,
+    "existing_findings_and_metrics_unchanged": true,
+    "full_video_redecoded": true,
+    "obstruction_model_unchanged_not_reexecuted_in_this_run": true
+  },
+  "timestamps": {
+    "camera_and_calibration_format_files_checked": 41,
+    "invalid_camera_calibration_payload_timestamps": 0,
+    "body_format_checked_in_independent_audit": true,
+    "pose_timestamp_checks_reexecuted_via_movement_scan": true
+  },
+  "movement": {
+    "recordings_rechecked": 41,
+    "evidence_identical_to_baseline": true,
+    "thresholds_changed": false
+  },
+  "quality": {
+    "baseline_verdict_counts": {
+      "pass": 38,
+      "needs_review": 2,
+      "fail": 1
+    },
+    "source_findings_unchanged": true,
+    "overall_scores_unchanged_across_three_saved_profiles": true,
+    "new_body_calibration_diagnostics_change_verdicts": false
+  },
+  "assets": {
+    "hand_model_attachments_inspected": 41,
+    "unique_model_hashes": [
+      "dc12644756e03db1efc70cfcbd14a2adca53b5645ce79344d67c5b11250a62bb"
+    ],
+    "checked": [
+      "XML syntax",
+      "duplicate link/joint names",
+      "joint link references",
+      "finite/nonreversed joint limits"
+    ],
+    "model_accuracy_or_encoder_joint_mapping_confirmed": false
+  },
+  "resource_event": {
+    "worker_container_oom_restarts_observed": 1,
+    "cause": "Concurrent manual audit processes exceeded a worker memory limit.",
+    "recovery": "Unfinished video and timestamp-format cases resumed with one audit process per worker.",
+    "recording_fault": false
+  },
+  "deployment_changed": false,
+  "git_commit_or_push_performed": false,
+  "scope_limits": [
+    "Original MCAPs and accepted database reports were not modified.",
+    "Checks cover the known recording family; physical tracking/calibration accuracy is not independently established.",
+    "All four video streams were freshly decoded; the unchanged sampled-image obstruction model was not rerun.",
+    "Body/calibration observations are diagnostic evidence, not newly approved score or pass/fail rules.",
+    "Candidate source was tested using the existing runtime; new deployment acceptance remains required."
+  ],
+  "files": [
+    {
+      "file": "ep_032e483c.mcap",
+      "digest": "1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1",
+      "body_messages": 2293,
+      "body_point_records": 192612,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_03d813ce.mcap",
+      "digest": "1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104",
+      "body_messages": 1780,
+      "body_point_records": 149520,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_0409bd35.mcap",
+      "digest": "e636687a37d98d060f4e9de453358d97cd73b8c8c0b03b6ae8e0105f2e2cacf0",
+      "body_messages": 3825,
+      "body_point_records": 321300,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "needs_review",
+      "scores": {
+        "Balanced": {
+          "before": 8,
+          "after": 8
+        },
+        "Image-focused example": {
+          "before": 8,
+          "after": 8
+        },
+        "Continuous recording": {
+          "before": 8,
+          "after": 8
+        }
+      }
+    },
+    {
+      "file": "ep_041eb856.mcap",
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "body_messages": 3813,
+      "body_point_records": 320292,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_0444a8ac.mcap",
+      "digest": "05acfc4830de72effe68cfe3c30d7a0d125a7ffc91a5c62141a58fb630c19927",
+      "body_messages": 3371,
+      "body_point_records": 283164,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_07e258d4.mcap",
+      "digest": "59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e",
+      "body_messages": 1249,
+      "body_point_records": 104916,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_082f4185.mcap",
+      "digest": "cf8fdf8efa1e2433d2b1c4f9de7903578d12e32dc2f7e3a056762aa01f5233fa",
+      "body_messages": 5242,
+      "body_point_records": 440328,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "needs_review",
+      "scores": {
+        "Balanced": {
+          "before": 8,
+          "after": 8
+        },
+        "Image-focused example": {
+          "before": 8,
+          "after": 8
+        },
+        "Continuous recording": {
+          "before": 8,
+          "after": 8
+        }
+      }
+    },
+    {
+      "file": "ep_0dec4ae7.mcap",
+      "digest": "6e34087802e0bcba57db93f96001d4bf326d27b8e37cfe9fe5e39697b5d854fc",
+      "body_messages": 1443,
+      "body_point_records": 121212,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_0e09c76b.mcap",
+      "digest": "8287ec6910be35f5edc8cadac3f221351c2bfd3bc042596a41993a7915e82325",
+      "body_messages": 5391,
+      "body_point_records": 452844,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_0e374ee6.mcap",
+      "digest": "7bd8f7a0b4871fbee96ba9d49332ebfad240c9ae0dccd6bc17d3580bf146b346",
+      "body_messages": 5246,
+      "body_point_records": 440664,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_0ed34c0f.mcap",
+      "digest": "344e7e9f4bd1f0f151267d5e62ed993f1e95af9afae54ca84a627a2817b79e95",
+      "body_messages": 7482,
+      "body_point_records": 628488,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_112a825d.mcap",
+      "digest": "c3711f9aab4997e87ba992fb184c8894c4c9efa630d70986c9b32ba985461300",
+      "body_messages": 2728,
+      "body_point_records": 229152,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_1ee4bdaf.mcap",
+      "digest": "5c5c54666f03e4f09d34785f0f5bebf0d97769522d334cd526a484565ff07bc6",
+      "body_messages": 4329,
+      "body_point_records": 363636,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_20846435.mcap",
+      "digest": "5bd147e427d8312f38dd5de5f671630c38e79955fe980b82d554afda8575ff83",
+      "body_messages": 1858,
+      "body_point_records": 156072,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_208961d3.mcap",
+      "digest": "6b8053b7828b2f8e150a2dbde8a9d49bf457acb4962743a86d552f6a2f100a43",
+      "body_messages": 4494,
+      "body_point_records": 377496,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_212a979d.mcap",
+      "digest": "570781e0a8f2c280584ad58677f456f3be88d195f8a3822af016f947b643b0da",
+      "body_messages": 2335,
+      "body_point_records": 196140,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_223529fa.mcap",
+      "digest": "1b50a00263d4c83b5387fe94e450202b2733bcbc4383d44436b13bd34db565a8",
+      "body_messages": 1779,
+      "body_point_records": 149436,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_23212682.mcap",
+      "digest": "0b3967b8cb82f68917d441f79f2ace78699cf20f12602fbec7b72e5cbeb053d6",
+      "body_messages": 3074,
+      "body_point_records": 258216,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_23f5a0d2.mcap",
+      "digest": "0f2f31579a90e8c87062772109699a5f242c2c6b6f43ebf8b86630815fc3fd6b",
+      "body_messages": 6357,
+      "body_point_records": 533988,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_2c47cac2.mcap",
+      "digest": "16f52895c5111b2a379decdd76f36c997fadd66023195ebd0daabd99ff459a02",
+      "body_messages": 4496,
+      "body_point_records": 377664,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_2cb4b3ea.mcap",
+      "digest": "b778fde7280c1b95b8d1928c5edda82ba07c0339819def88b2115bf4e58486ad",
+      "body_messages": 4302,
+      "body_point_records": 361368,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_2e18f47f.mcap",
+      "digest": "61c65408860383ccc7cfa1def851e3ffed1ac1924623ed28d991919fa4b418df",
+      "body_messages": 4646,
+      "body_point_records": 390264,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_346eb2d7.mcap",
+      "digest": "05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d",
+      "body_messages": 4718,
+      "body_point_records": 396312,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "fail",
+      "scores": {
+        "Balanced": {
+          "before": 4,
+          "after": 4
+        },
+        "Image-focused example": {
+          "before": 4,
+          "after": 4
+        },
+        "Continuous recording": {
+          "before": 4,
+          "after": 4
+        }
+      }
+    },
+    {
+      "file": "ep_34e2d6e2.mcap",
+      "digest": "445f6180b3fcc0ce71cd142128965c92f40917db6b994ec9fe62b7d3eff1ca37",
+      "body_messages": 4663,
+      "body_point_records": 391692,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_357dc6b9.mcap",
+      "digest": "061fad38191631f29ba1c70c97bf76b6c5df5ed57e303c4a94a1c5291b66eed6",
+      "body_messages": 4855,
+      "body_point_records": 407820,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_39ec7993.mcap",
+      "digest": "b7aa01113ca5ddb6fe609f84c3c2f7d87b72d67dd68bf501e47520b6305becfd",
+      "body_messages": 3856,
+      "body_point_records": 323904,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_42d682ff.mcap",
+      "digest": "01b7d11e831e460b17c1e4de5b46a1047927382f2948478cee1e628fc63c4628",
+      "body_messages": 1463,
+      "body_point_records": 122892,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_459e3edd.mcap",
+      "digest": "6e110f683a185e3b14f4759509d99aa884619dc74c471527ad623b7f3350f19c",
+      "body_messages": 2958,
+      "body_point_records": 248472,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_49df3c44.mcap",
+      "digest": "8de5e6d91d700b3ecbc4598adf300042d5c03cdd69a1092e1b14690f0333d6dd",
+      "body_messages": 2798,
+      "body_point_records": 235032,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_4dd7ef84.mcap",
+      "digest": "7d5d80062f36fa6ff3ad6c47cdee0e917a50914adf874b9d2903eda8db61f650",
+      "body_messages": 2043,
+      "body_point_records": 171612,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_51347361.mcap",
+      "digest": "e8aacdff325da39ee89bd9171d6690d98b23eecae1e07fa99127c404f6353091",
+      "body_messages": 4274,
+      "body_point_records": 359016,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_52373c02.mcap",
+      "digest": "c5c9e08b916d854acb868e3c93ac05d77dd33cae86de4841559abb6f774a3b69",
+      "body_messages": 1981,
+      "body_point_records": 166404,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_52d930da.mcap",
+      "digest": "b95660ee2105a0a98cfd34a0c491fed259d7c8a70949245e0bbfacf6f37c7742",
+      "body_messages": 3690,
+      "body_point_records": 309960,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_554d5730.mcap",
+      "digest": "d04201b2c332d9afb1e635679100087007ee4c3beb9ed3d4a0d44fe48cce5b71",
+      "body_messages": 1405,
+      "body_point_records": 118020,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_5b171934.mcap",
+      "digest": "491f7fbce7832446bb38f2d072d1e8a163d1df6937a305368eb3e553f78d573e",
+      "body_messages": 3773,
+      "body_point_records": 316932,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_5e2c1fd2.mcap",
+      "digest": "d77cd6d98d8c117eed5829ebb2aa2ab6385350256d6317dbe01ef15a5eead93c",
+      "body_messages": 4152,
+      "body_point_records": 348768,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_66909bdd.mcap",
+      "digest": "3773a3070ee7f6f9a72a4e963bdba9e41e743dd29b2a399802a1bfd466f2c213",
+      "body_messages": 3471,
+      "body_point_records": 291564,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_6d6fa903.mcap",
+      "digest": "c32b3595678e075d0f8196626fb9568a93b65f4f44c223a29e9696ebeb33c36c",
+      "body_messages": 3219,
+      "body_point_records": 270396,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_6e4d59a3.mcap",
+      "digest": "88546277a433056a18137411c696dcc1952463cf70479d89594d56826878d2ae",
+      "body_messages": 2953,
+      "body_point_records": 248052,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_6fed8bc1.mcap",
+      "digest": "fe478a38179fac48b4b0d2a3f03132302fcf81314c6b610aa8e631feb1be1976",
+      "body_messages": 5036,
+      "body_point_records": 423024,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    },
+    {
+      "file": "ep_9fae2f39.mcap",
+      "digest": "af989c8fa8d6a2812a7367a47afa4e35f13087ec0003bde65933c89d31bba844",
+      "body_messages": 4042,
+      "body_point_records": 339528,
+      "body_structure_observations": 0,
+      "calibration_streams_checked": 4,
+      "encoder_streams_checked": 2,
+      "video_streams_checked": 4,
+      "movement_evidence_unchanged": true,
+      "existing_verdict": "pass",
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      }
+    }
+  ],
+  "candidate_worker_source_hash": "dde3428c090524790b9e4fe234b3add522cdadb80beed4948f89c8d25b3e7e28",
+  "candidate_config_version": "7f27cb21a73ccddf8b593904404695e1ea962177de9aed870cdefebb8bf47934"
+}

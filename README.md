@@ -240,7 +240,7 @@ requires Docker image save --platform support.
 | MinIO local image | `video-qc/minio:RELEASE.2025-10-15T17-29-55Z` |
 | MinIO upstream source | `RELEASE.2025-10-15T17-29-55Z`, commit `9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a` |
 | MinIO build/runtime bases | `golang:1.24.9-bookworm`, `debian:bookworm-20251020-slim` |
-| Worker local image | `video-qc/qc-worker:matching-v1` |
+| Worker local image | `video-qc/qc-worker:streams-v1` |
 | Worker Python base | `python:3.12.12-slim-bookworm` |
 | Python Temporal SDK | `temporalio==1.14.1` |
 | SDK runtime dependencies | `nexus-rpc==1.1.0`, `protobuf==5.29.6`, `types-protobuf==7.35.1.20260906`, `typing-extensions==4.16.0` |
@@ -499,3 +499,152 @@ covers the pinned matching-v1 worker image:
 The all-recording scanner check is not a new full QC workflow run for all 41
 files. Only the three end-to-end test reports were updated during this deployment.
 The remaining historical reports retain their previous version until reprocessed.
+
+## Additional stream diagnostics
+
+The source includes body-transform and camera-calibration diagnostics alongside
+the existing video, movement and timing checks. Stream reports retain named
+reasons and bounded examples. Configured unusable body/calibration evidence now
+requires review; it cannot silently receive a clean pass. This uses the existing
+review score ceiling, without introducing new physical movement limits.
+
+- **Body tracking:** streams[].body_tracking checks usable point/reference names,
+  finite values, rotation magnitude, timestamp structure/order, duplicate
+  point/time entries, reference changes and reference loops. It records point-set
+  changes without requiring a fixed skeleton or treating legitimate partial
+  updates as faults. A valid structure does not prove accurate physical tracking.
+- **Camera calibration:** streams[].camera_calibration checks dimensions,
+  matrix/coefficient shapes, finite parameters and rectification consistency.
+  K[0] == 0 is reported as uncalibrated, following the
+  [Foxglove schema convention](https://docs.foxglove.dev/docs/sdk/schemas/camera-calibration).
+  Optional rectification/projection arrays may be absent. Unknown distortion
+  models remain unassessed and require review instead of being declared invalid.
+- **Calibration and video:** cross.calibration_video compares static calibration
+  dimensions with dimensions decoded during capture. Changing calibration needs
+  time-aware association and is left unassessed by this comparison. A static
+  dimension mismatch requires review.
+- **Encoder clocks:** the supported format's integer DLSHeader.timestamp is
+  inspected as a nanosecond payload clock alongside standard Protobuf timestamps.
+  Reports identify it with payload_timestamp_source; encoder_payload_timing
+  records continuity/rate checks separately from log/publish time. Missing or
+  unsupported clock evidence remains unavailable. Timestamp agreement checks
+  stored-time consistency, not physical sensor synchronization.
+- **Timestamp format:** standard Protobuf timestamps are checked for legal
+  seconds/nanoseconds before offset calculations. Invalid structure produces an
+  explicit unavailable-check finding rather than being silently normalized.
+  Missing or unsupported timestamp fields in the supported video, pose,
+  calibration and encoder formats also produce an unavailable-check finding.
+
+Settings live in worker/config/qc.json; reason codes remain centralized in
+worker/config/reason-codes.json. Numerical rotation tolerances are structural
+screening settings, not validated physical accuracy limits. No gripper range,
+anatomical length or new movement limit is inferred from observed data.
+Historical grading remains compatible; new reports with a known but unavailable
+encoder payload clock do not receive a complete timing assessment.
+
+The streams-v1 release includes these checks. The worker was rebuilt/deployed
+and the dashboard restarted for the grading update. Local validation results
+remain separate from deployment acceptance.
+
+The [local stream-validation record](verification/stream-structure.json) reports
+the exact dataset scope, regression results, unchanged scores and the
+pre-deployment state of that audit. It also records the resource interruption and completed
+serial retries, rather than treating interrupted checking as a recording fault.
+
+
+## Stream coverage and interpretation
+
+The expected inventory contains 16 streams: four videos, four camera setup
+streams, five head/controller/gripper pose streams, one body transform stream
+and two magnetic encoder streams. Every expected topic is checked for presence,
+schema and encoding. Continuous streams are assessed within the recording's
+capture window; static camera setup messages are not required at video rates.
+
+- Videos: decode integrity, recorded timing, coverage, changing dimensions,
+  sustained darkness/brightness/blur/freeze and a separate sampled obstruction
+  heuristic. A dark scene or obstruction candidate is not proof of its physical
+  cause.
+- Poses: missing/unusable fields, finite values, rotation validity, reference/time
+  consistency and configured position/turn-rate screening after startup.
+  Linked controller/gripper observations are grouped to avoid treating the same
+  tracking event as independent evidence.
+- Body transforms: structure and references for every stored point, including
+  unusable rotations and reference cycles. Changing point sets and repeated
+  point timestamps remain contextual observations; partial updates can be valid.
+  No anatomical accuracy, bone-length or per-joint physical speed claim is made.
+- Camera setup: matrix/model consistency and comparison with decoded dimensions.
+  Numeric consistency cannot establish that a lens was physically calibrated.
+- Encoders: finite readings and recorded/header-clock consistency, rate and gaps.
+  Unchanged readings are informational. Physical opening limits require a
+  confirmed mapping from encoder values to the hardware; the embedded hand
+  model alone does not establish that mapping.
+
+The actionable structural reasons are configured in
+worker/config/qc.json under policy.structural_review_codes; descriptions are
+defined once in worker/config/reason-codes.json. These checks identify problems;
+they do not repair the raw recordings. A pass means no configured actionable
+problem was detected, not that every possible real-world defect is excluded.
+
+The [coverage follow-up](verification/stream-coverage.json) distinguishes
+all-file recorded evidence, current-source integration tests and deployment.
+Deployment acceptance for streams-v1 is recorded in
+[the deployment verification](verification/stream-deployment.json). New uploads
+of the supported format use these checks automatically. Unsupported formats or
+missing prerequisites cannot be promised complete coverage.
+
+
+## Stream-check release verification
+
+The streams-v1 release passed 323 tests using its built image and four complete
+workflows: a passing original, a known black-video failure, a known movement
+review and a newly uploaded controlled body-rotation fault. Each workflow checked
+all 16 streams. The controlled fault produced BODY_ROTATION_UNUSABLE, required
+review and capped the Default Overall Score at 8/10.
+
+The upload used the dashboard endpoint and remains in Test recordings. The main
+reference collection still contains 41 recordings. Database/object report
+agreement, analytics uniqueness, viewer validity and workflow replay were
+verified for each case. Neither worker restarted during acceptance.
+
+This release acceptance updates three original reports and one controlled test.
+It does not represent a new full-workflow run of all 41 originals; the separate
+all-file structural and timestamp audits retain their own provenance.
+
+
+## Threshold sources
+
+The checker distinguishes recorder declarations, configured assumptions and
+engineering screening rules. Declared rates take priority. Unknown formats or
+missing prerequisites are reported explicitly rather than assigned invented
+physical assumptions.
+
+| Basis | Values and use |
+|---|---|
+| Recording metadata | Capture window, coverage allowance, clock-mapping bound, tracking reference/recenter state and producer quality counters. Gripper cameras declare 30 FPS; encoders declare a 10 ms nominal period (100 Hz) in the reference dataset. |
+| Supported-format baseline | Head cameras 30 FPS; pose/body messages 50 Hz where the producer did not declare a nominal rate. These are fixed dataset baselines, not rates fitted separately to a slow recording. |
+| Recording-owner confirmation | Stored pose coordinates are metres. This is explicit external confirmation, not an embedded units declaration. |
+| Format and mathematics | Required field shapes, finite values, nonzero usable rotations, supported distortion-coefficient counts and matrix consistency. |
+| Configurable screening policy | Gap multiplier 3; rate tolerance 30%; payload offset 100 ms; camera skew 50 ms and drift 30 ms; movement limits, image-quality thresholds, structural numeric tolerances and score ceilings. |
+
+For a 50 Hz head stream, 30 Hz head camera and a declared 2 ms clock bound,
+nearest matching permits min(20/2, 33.33/2) + 2 + 2 = 14 ms. Interpolation requires
+a surrounding head-reading interval no larger than 20 + 2 + 2 = 24 ms.
+The sampling periods and uncertainty determine the numbers; the half-period
+nearest-match and one-period bracket rules are engineering choices. Missing
+supported evidence blocks the assessment. These are stored-time eligibility
+checks, not independent proof of physical synchronization.
+
+Position screening uses distance divided by elapsed time plus twice the declared
+endpoint clock bound. The configured limits are 5 m/s for the head and 10 m/s for
+controller/gripper poses; turn-rate limits are 1,500 and 3,000 degrees/s,
+respectively. One second of startup settling is excluded from movement
+comparisons. These are task-screening limits, not validated maximum human speeds.
+
+Metadata-backed coverage uses the recording's declared coverage allowance
+(0.5 seconds in the inspected reference). The legacy six-second startup and
+half-second end settings do not override that contract.
+
+Image thresholds and structural tolerances are configurable starting policies.
+Passing unit tests and controlled-fault tests verifies implementation behavior;
+it does not measure sensitivity or false-positive rates on independently
+labelled recordings. A pass means no configured actionable issue was found.

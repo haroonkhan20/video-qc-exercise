@@ -5,6 +5,8 @@ PATH=Path(__file__).resolve().parents[1]/"config/qc.json"
 DEFAULTS=json.loads(PATH.read_text())
 REQUIRED_FIELDS={'movement': ['baseline_max_mad_relative', 'baseline_min_pairs', 'baseline_seconds', 'gap_period_multiple', 'group_tolerance_seconds', 'maximum_pair_seconds', 'nominal_hz', 'norm_boundary_epsilon', 'numeric_noise_ulps', 'position_jump_multiple', 'rotation_boundary_epsilon_degrees', 'rotation_norm_tolerance', 'rotation_step_degrees'], 'obstruction': ['area_max', 'area_min', 'completion_minimum_samples', 'completion_minimum_seconds', 'dark_fraction', 'dark_pixel', 'grid', 'image_size', 'maximum_gap_seconds', 'minimum_samples', 'minimum_seconds', 'remaining_mean_min', 'remaining_std_min', 'stream_window_tolerance_seconds', 'tile_std_max'], 'score_limits': ['container_incomplete', 'container_recoverable', 'container_unreadable', 'decimal_places', 'essential_failure', 'maximum', 'nonperfect_ceiling', 'other_failure', 'review', 'weighted_decimal_places'], 'evaluation': ['camera_drift_segment_divisor', 'camera_skew_percentile', 'expected_camera_count'], 'profile_validation': ['maximum_band_count', 'maximum_limit_value', 'maximum_name_characters', 'minimum_band_count', 'weights_sum_absolute_tolerance']}
 def validate(config):
+ from qc.structural_policy import review_codes
+ review_codes(config)
  for name in ("movement","obstruction","score_limits","evaluation","profile_validation"):
   block=config.get(name)
   if not isinstance(block,dict) or set(block)!=set(REQUIRED_FIELDS[name]):

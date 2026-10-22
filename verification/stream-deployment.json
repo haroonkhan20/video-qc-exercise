@@ -1,0 +1,250 @@
+{
+  "verified_at_utc": "2026-10-22T07:20:14.479498+00:00",
+  "status": "deployed_and_acceptance_passed",
+  "image": "video-qc/qc-worker:streams-v1",
+  "docker_image_id": "sha256:09c9243fc3aee69bd6f23e20fd9781c6f9ca8dd3f12138e957663ab43a00a148",
+  "code_version": "cef6c98cba31bfeefac9b1ec93470b7da516563f08d54e003ebfce2039242e0a",
+  "config_version": "374184a0186cebac565ea8df630023962f6ac9645b902b5b5f73f0ccbffbbdf1",
+  "tests_passed_using_built_image": 323,
+  "namespace": "qc",
+  "context": "kind-qc",
+  "pods": [
+    {
+      "name": "qc-worker-7f54746755-blbgh",
+      "ready": true,
+      "restart_count": 0,
+      "image_id": "docker.io/library/import-2026-10-22@sha256:8ec826c1fde1385a999eae8ecb9ca075132a5aab8dd019abf697cc983d161549",
+      "resources": {
+        "limits": {
+          "cpu": "1",
+          "ephemeral-storage": "8Gi",
+          "memory": "768Mi"
+        },
+        "requests": {
+          "cpu": "100m",
+          "ephemeral-storage": "512Mi",
+          "memory": "256Mi"
+        }
+      }
+    },
+    {
+      "name": "qc-worker-7f54746755-pn55x",
+      "ready": true,
+      "restart_count": 0,
+      "image_id": "docker.io/library/import-2026-10-22@sha256:8ec826c1fde1385a999eae8ecb9ca075132a5aab8dd019abf697cc983d161549",
+      "resources": {
+        "limits": {
+          "cpu": "1",
+          "ephemeral-storage": "8Gi",
+          "memory": "768Mi"
+        },
+        "requests": {
+          "cpu": "100m",
+          "ephemeral-storage": "512Mi",
+          "memory": "256Mi"
+        }
+      }
+    }
+  ],
+  "workflow_cases": [
+    {
+      "file": "ep_07e258d4.mcap",
+      "digest": "59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e",
+      "new_upload": false,
+      "workflow_id": "qc-59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e-374184a0186cebac565ea8df630023962f6ac9645b902b5b5f73f0ccbffbbdf1-cef6c98cba31bfeefac9b1ec93470b7da516563f08d54e003ebfce2039242e0a",
+      "workflow_status": "COMPLETED",
+      "workflow_seconds": 182.44,
+      "verdict": "pass",
+      "reason_codes": [
+        "CHECKS_PASSED"
+      ],
+      "streams": 16,
+      "body_point_records": 104916,
+      "body_observations": [],
+      "calibration_video_matches": 4,
+      "encoder_clock_checks": 2,
+      "raw_versions": 1,
+      "database_matches_object_report": true,
+      "analytics": {
+        "rows": 1116,
+        "unique_rows": 1116
+      },
+      "viewer_verified": true,
+      "workflow_replay_passed": true,
+      "max_activity_attempt": 1
+    },
+    {
+      "file": "ep_346eb2d7.mcap",
+      "digest": "05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d",
+      "new_upload": false,
+      "workflow_id": "qc-05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d-374184a0186cebac565ea8df630023962f6ac9645b902b5b5f73f0ccbffbbdf1-cef6c98cba31bfeefac9b1ec93470b7da516563f08d54e003ebfce2039242e0a",
+      "workflow_status": "COMPLETED",
+      "workflow_seconds": 184.1,
+      "verdict": "fail",
+      "reason_codes": [
+        "BLACK_RUN"
+      ],
+      "streams": 16,
+      "body_point_records": 396312,
+      "body_observations": [],
+      "calibration_video_matches": 4,
+      "encoder_clock_checks": 2,
+      "raw_versions": 1,
+      "database_matches_object_report": true,
+      "analytics": {
+        "rows": 2208,
+        "unique_rows": 2208
+      },
+      "viewer_verified": true,
+      "workflow_replay_passed": true,
+      "max_activity_attempt": 1
+    },
+    {
+      "file": "ep_082f4185.mcap",
+      "digest": "cf8fdf8efa1e2433d2b1c4f9de7903578d12e32dc2f7e3a056762aa01f5233fa",
+      "new_upload": false,
+      "workflow_id": "qc-cf8fdf8efa1e2433d2b1c4f9de7903578d12e32dc2f7e3a056762aa01f5233fa-374184a0186cebac565ea8df630023962f6ac9645b902b5b5f73f0ccbffbbdf1-cef6c98cba31bfeefac9b1ec93470b7da516563f08d54e003ebfce2039242e0a",
+      "workflow_status": "COMPLETED",
+      "workflow_seconds": 182.2,
+      "verdict": "needs_review",
+      "reason_codes": [
+        "HAND_POSITION_SPEED_IMPLAUSIBLE",
+        "HAND_TURN_RATE_IMPLAUSIBLE"
+      ],
+      "streams": 16,
+      "body_point_records": 440328,
+      "body_observations": [],
+      "calibration_video_matches": 4,
+      "encoder_clock_checks": 2,
+      "raw_versions": 1,
+      "database_matches_object_report": true,
+      "analytics": {
+        "rows": 2464,
+        "unique_rows": 2464
+      },
+      "viewer_verified": true,
+      "workflow_replay_passed": true,
+      "max_activity_attempt": 1
+    },
+    {
+      "file": "acceptance-body-zero-rotation.mcap",
+      "digest": "e70e578bb70fe2251966229b36331623d09bed1efa8c9dde7fb5651fbfd4c2bf",
+      "new_upload": true,
+      "workflow_id": "qc-e70e578bb70fe2251966229b36331623d09bed1efa8c9dde7fb5651fbfd4c2bf-374184a0186cebac565ea8df630023962f6ac9645b902b5b5f73f0ccbffbbdf1-cef6c98cba31bfeefac9b1ec93470b7da516563f08d54e003ebfce2039242e0a",
+      "workflow_status": "COMPLETED",
+      "workflow_seconds": 163.72,
+      "verdict": "needs_review",
+      "reason_codes": [
+        "BODY_ROTATION_UNUSABLE"
+      ],
+      "streams": 16,
+      "body_point_records": 104916,
+      "body_observations": [
+        {
+          "count": 1,
+          "examples": [
+            {
+              "log_ns": 1791376523581184064,
+              "point": "body/Root"
+            }
+          ],
+          "reason_code": "BODY_ROTATION_UNUSABLE",
+          "why": "A body rotation has zero or unrepresentable magnitude."
+        }
+      ],
+      "calibration_video_matches": 4,
+      "encoder_clock_checks": 2,
+      "raw_versions": 1,
+      "database_matches_object_report": true,
+      "analytics": {
+        "rows": 1117,
+        "unique_rows": 1117
+      },
+      "viewer_verified": true,
+      "workflow_replay_passed": true,
+      "max_activity_attempt": 1
+    }
+  ],
+  "dashboard": {
+    "url": "http://localhost:8096/",
+    "original_recordings": 41,
+    "original_collection_unchanged": true,
+    "source_file_unchanged": true,
+    "counts_before": {
+      "reference": 41,
+      "test": 28,
+      "upload": 2
+    },
+    "counts_after": {
+      "reference": 41,
+      "test": 29,
+      "upload": 2
+    },
+    "cases": [
+      {
+        "file": "ep_07e258d4.mcap",
+        "digest": "59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e",
+        "collection": "reference",
+        "verdict": "pass",
+        "score": 10.0,
+        "reason_codes": [],
+        "http_report_and_list_agree": true,
+        "review_cap_explanation": null
+      },
+      {
+        "file": "ep_346eb2d7.mcap",
+        "digest": "05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d",
+        "collection": "reference",
+        "verdict": "fail",
+        "score": 4,
+        "reason_codes": [
+          "BLACK_RUN"
+        ],
+        "http_report_and_list_agree": true,
+        "review_cap_explanation": null
+      },
+      {
+        "file": "ep_082f4185.mcap",
+        "digest": "cf8fdf8efa1e2433d2b1c4f9de7903578d12e32dc2f7e3a056762aa01f5233fa",
+        "collection": "reference",
+        "verdict": "needs_review",
+        "score": 8,
+        "reason_codes": [
+          "HAND_POSITION_SPEED_IMPLAUSIBLE",
+          "HAND_TURN_RATE_IMPLAUSIBLE"
+        ],
+        "http_report_and_list_agree": true,
+        "review_cap_explanation": {
+          "limit": 8,
+          "applied": true,
+          "why": "A finding still needs review, so the Overall Score cannot exceed 8/10."
+        }
+      },
+      {
+        "file": "acceptance-body-zero-rotation.mcap",
+        "digest": "e70e578bb70fe2251966229b36331623d09bed1efa8c9dde7fb5651fbfd4c2bf",
+        "collection": "test",
+        "verdict": "needs_review",
+        "score": 8,
+        "reason_codes": [
+          "BODY_ROTATION_UNUSABLE"
+        ],
+        "http_report_and_list_agree": true,
+        "review_cap_explanation": {
+          "limit": 8,
+          "applied": true,
+          "why": "A finding still needs review, so the Overall Score cannot exceed 8/10."
+        }
+      }
+    ]
+  },
+  "git_staged_committed_or_pushed": false,
+  "scope": [
+    "Three original recordings and one newly uploaded controlled test completed full Temporal workflows.",
+    "All 16 expected streams were present and checked in each accepted case.",
+    "The controlled upload intentionally changes exactly one body rotation and remains in the Test recordings collection.",
+    "Database/object report agreement, unique analytics rows, one raw-object version, valid viewer export and Temporal replay were checked for all four cases.",
+    "This is deployment acceptance, not a fresh full-workflow rerun of all 41 originals.",
+    "Prior all-file audits remain separately recorded; physical sensor and calibration truth is not independently established."
+  ]
+}

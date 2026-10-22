@@ -37,3 +37,21 @@ class CameraHeadActivityTests(unittest.TestCase):
              patch("qc.camera_head_matching.scan_file",side_effect=MemoryError):
             with self.assertRaises(MemoryError):
                 a.cross_stream({"ref":{"digest":"a"*64,"config_version":"b"*64,"code_version":"c"*64},"streams":[]})
+
+    def test_calibration_dimension_mismatch_requires_review(self):
+        calibration={"topic":"/camera/camera_info","kind":"calibration","camera_calibration":{
+            "content_changes":0,"observed_dimensions":[[640,480]]}}
+        video={"topic":"/camera/compressed","kind":"video","timing":{"log":{"messages":0}},
+               "stats":{"decoded_dimensions":[[720,720]]}}
+        with patch.object(a.st,"run_config",return_value=DEFAULTS), \
+             patch.object(a.st,"get_json",side_effect=[{"start_ns":0},calibration,video]), \
+             patch.object(a.st,"raw_path",return_value="recording.mcap"), \
+             patch.object(a.st,"heartbeat"), \
+             patch.object(a.st,"put_json",side_effect=lambda key,data:key) as put, \
+             patch.object(a,"coverage",return_value=([],{})), \
+             patch("qc.camera_head_matching.scan_file",return_value={"frames":[]}):
+            ref={"digest":"a"*64,"config_version":"b"*64,"code_version":"c"*64}
+            a.cross_stream({"ref":ref,"streams":[{"report_key":"cal"},{"report_key":"video"}]})
+            cross=put.call_args.args[1]
+            self.assertEqual(cross["calibration_video"]["/camera/camera_info"]["status"],"dimensions_mismatch")
+            self.assertEqual([f["code"] for f in cross["findings"]],["CALIBRATION_VIDEO_DIMENSIONS_MISMATCH"])

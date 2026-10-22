@@ -1,0 +1,1175 @@
+{
+  "status": "local_candidate_not_deployed",
+  "tests_passed": 323,
+  "scope": "All 41 saved body/calibration audits evaluated under current review policy; 12 non-video streams rescanned from one original with current stream code. All 41 originals freshly scanned for required timestamp presence in all 13 camera/calibration/pose topics. Prior full stream evidence remains separately versioned.",
+  "quality": {
+    "pass": 38,
+    "needs_review": 2,
+    "fail": 1
+  },
+  "files": [
+    {
+      "file": "ep_032e483c.mcap",
+      "digest": "1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_03d813ce.mcap",
+      "digest": "1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_0409bd35.mcap",
+      "digest": "e636687a37d98d060f4e9de453358d97cd73b8c8c0b03b6ae8e0105f2e2cacf0",
+      "verdict": "needs_review",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_041eb856.mcap",
+      "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_0444a8ac.mcap",
+      "digest": "05acfc4830de72effe68cfe3c30d7a0d125a7ffc91a5c62141a58fb630c19927",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_07e258d4.mcap",
+      "digest": "59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_082f4185.mcap",
+      "digest": "cf8fdf8efa1e2433d2b1c4f9de7903578d12e32dc2f7e3a056762aa01f5233fa",
+      "verdict": "needs_review",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_0dec4ae7.mcap",
+      "digest": "6e34087802e0bcba57db93f96001d4bf326d27b8e37cfe9fe5e39697b5d854fc",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_0e09c76b.mcap",
+      "digest": "8287ec6910be35f5edc8cadac3f221351c2bfd3bc042596a41993a7915e82325",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_0e374ee6.mcap",
+      "digest": "7bd8f7a0b4871fbee96ba9d49332ebfad240c9ae0dccd6bc17d3580bf146b346",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_0ed34c0f.mcap",
+      "digest": "344e7e9f4bd1f0f151267d5e62ed993f1e95af9afae54ca84a627a2817b79e95",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_112a825d.mcap",
+      "digest": "c3711f9aab4997e87ba992fb184c8894c4c9efa630d70986c9b32ba985461300",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_1ee4bdaf.mcap",
+      "digest": "5c5c54666f03e4f09d34785f0f5bebf0d97769522d334cd526a484565ff07bc6",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_20846435.mcap",
+      "digest": "5bd147e427d8312f38dd5de5f671630c38e79955fe980b82d554afda8575ff83",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_208961d3.mcap",
+      "digest": "6b8053b7828b2f8e150a2dbde8a9d49bf457acb4962743a86d552f6a2f100a43",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_212a979d.mcap",
+      "digest": "570781e0a8f2c280584ad58677f456f3be88d195f8a3822af016f947b643b0da",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_223529fa.mcap",
+      "digest": "1b50a00263d4c83b5387fe94e450202b2733bcbc4383d44436b13bd34db565a8",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_23212682.mcap",
+      "digest": "0b3967b8cb82f68917d441f79f2ace78699cf20f12602fbec7b72e5cbeb053d6",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_23f5a0d2.mcap",
+      "digest": "0f2f31579a90e8c87062772109699a5f242c2c6b6f43ebf8b86630815fc3fd6b",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_2c47cac2.mcap",
+      "digest": "16f52895c5111b2a379decdd76f36c997fadd66023195ebd0daabd99ff459a02",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_2cb4b3ea.mcap",
+      "digest": "b778fde7280c1b95b8d1928c5edda82ba07c0339819def88b2115bf4e58486ad",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_2e18f47f.mcap",
+      "digest": "61c65408860383ccc7cfa1def851e3ffed1ac1924623ed28d991919fa4b418df",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_346eb2d7.mcap",
+      "digest": "05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d",
+      "verdict": "fail",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_34e2d6e2.mcap",
+      "digest": "445f6180b3fcc0ce71cd142128965c92f40917db6b994ec9fe62b7d3eff1ca37",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_357dc6b9.mcap",
+      "digest": "061fad38191631f29ba1c70c97bf76b6c5df5ed57e303c4a94a1c5291b66eed6",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_39ec7993.mcap",
+      "digest": "b7aa01113ca5ddb6fe609f84c3c2f7d87b72d67dd68bf501e47520b6305becfd",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_42d682ff.mcap",
+      "digest": "01b7d11e831e460b17c1e4de5b46a1047927382f2948478cee1e628fc63c4628",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_459e3edd.mcap",
+      "digest": "6e110f683a185e3b14f4759509d99aa884619dc74c471527ad623b7f3350f19c",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_49df3c44.mcap",
+      "digest": "8de5e6d91d700b3ecbc4598adf300042d5c03cdd69a1092e1b14690f0333d6dd",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_4dd7ef84.mcap",
+      "digest": "7d5d80062f36fa6ff3ad6c47cdee0e917a50914adf874b9d2903eda8db61f650",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_51347361.mcap",
+      "digest": "e8aacdff325da39ee89bd9171d6690d98b23eecae1e07fa99127c404f6353091",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_52373c02.mcap",
+      "digest": "c5c9e08b916d854acb868e3c93ac05d77dd33cae86de4841559abb6f774a3b69",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_52d930da.mcap",
+      "digest": "b95660ee2105a0a98cfd34a0c491fed259d7c8a70949245e0bbfacf6f37c7742",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_554d5730.mcap",
+      "digest": "d04201b2c332d9afb1e635679100087007ee4c3beb9ed3d4a0d44fe48cce5b71",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_5b171934.mcap",
+      "digest": "491f7fbce7832446bb38f2d072d1e8a163d1df6937a305368eb3e553f78d573e",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_5e2c1fd2.mcap",
+      "digest": "d77cd6d98d8c117eed5829ebb2aa2ab6385350256d6317dbe01ef15a5eead93c",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_66909bdd.mcap",
+      "digest": "3773a3070ee7f6f9a72a4e963bdba9e41e743dd29b2a399802a1bfd466f2c213",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_6d6fa903.mcap",
+      "digest": "c32b3595678e075d0f8196626fb9568a93b65f4f44c223a29e9696ebeb33c36c",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_6e4d59a3.mcap",
+      "digest": "88546277a433056a18137411c696dcc1952463cf70479d89594d56826878d2ae",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_6fed8bc1.mcap",
+      "digest": "fe478a38179fac48b4b0d2a3f03132302fcf81314c6b610aa8e631feb1be1976",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    },
+    {
+      "file": "ep_9fae2f39.mcap",
+      "digest": "af989c8fa8d6a2812a7367a47afa4e35f13087ec0003bde65933c89d31bba844",
+      "verdict": "pass",
+      "added_structural_findings": 0
+    }
+  ],
+  "current_scanner_original_smoke_test": {
+    "file": "ep_07e258d4.mcap",
+    "streams": [
+      {
+        "topic": "/quest3s/head_left/camera/camera_info",
+        "messages": 1,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/quest3s/head_right/camera/camera_info",
+        "messages": 1,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/gripper/left/camera0/camera_info",
+        "messages": 26,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/gripper/right/camera0/camera_info",
+        "messages": 26,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/quest3s/right_controller_pose",
+        "messages": 1249,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/quest3s/right_gripper_pose",
+        "messages": 1249,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/gripper/left/magnetic_encoder",
+        "messages": 2497,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/gripper/right/magnetic_encoder",
+        "messages": 2497,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/quest3s/body_tracking",
+        "messages": 1249,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/quest3s/left_controller_pose",
+        "messages": 1248,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/quest3s/left_gripper_pose",
+        "messages": 1248,
+        "findings_unchanged": true
+      },
+      {
+        "topic": "/quest3s/head_pose",
+        "messages": 1248,
+        "findings_unchanged": true
+      }
+    ]
+  },
+  "config_version": "374184a0186cebac565ea8df630023962f6ac9645b902b5b5f73f0ccbffbbdf1",
+  "deployment_or_git_changed": false,
+  "required_timestamp_presence": {
+    "recordings": 41,
+    "stream_inventories": 533,
+    "messages_checked": 1098557,
+    "missing_or_unsupported": 0,
+    "files": [
+      {
+        "file": "ep_032e483c.mcap",
+        "digest": "1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1388,
+          "/quest3s/head_right/camera/compressed": 1388,
+          "/gripper/right/camera0/compressed": 1382,
+          "/gripper/right/camera0/camera_info": 47,
+          "/gripper/left/camera0/compressed": 1380,
+          "/gripper/left/camera0/camera_info": 46,
+          "/quest3s/left_controller_pose": 2296,
+          "/quest3s/left_gripper_pose": 2296,
+          "/quest3s/head_pose": 2296,
+          "/quest3s/right_controller_pose": 2296,
+          "/quest3s/right_gripper_pose": 2296
+        }
+      },
+      {
+        "file": "ep_03d813ce.mcap",
+        "digest": "1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1077,
+          "/quest3s/head_right/camera/compressed": 1077,
+          "/gripper/right/camera0/compressed": 1070,
+          "/gripper/right/camera0/camera_info": 36,
+          "/gripper/left/camera0/compressed": 1070,
+          "/gripper/left/camera0/camera_info": 36,
+          "/quest3s/right_controller_pose": 1780,
+          "/quest3s/right_gripper_pose": 1780,
+          "/quest3s/left_controller_pose": 1779,
+          "/quest3s/left_gripper_pose": 1779,
+          "/quest3s/head_pose": 1779
+        }
+      },
+      {
+        "file": "ep_0409bd35.mcap",
+        "digest": "e636687a37d98d060f4e9de453358d97cd73b8c8c0b03b6ae8e0105f2e2cacf0",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2304,
+          "/quest3s/head_right/camera/compressed": 2304,
+          "/gripper/right/camera0/compressed": 2298,
+          "/gripper/right/camera0/camera_info": 77,
+          "/gripper/left/camera0/compressed": 2297,
+          "/gripper/left/camera0/camera_info": 77,
+          "/quest3s/left_controller_pose": 3825,
+          "/quest3s/left_gripper_pose": 3825,
+          "/quest3s/head_pose": 3825,
+          "/quest3s/right_controller_pose": 3825,
+          "/quest3s/right_gripper_pose": 3825
+        }
+      },
+      {
+        "file": "ep_041eb856.mcap",
+        "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2304,
+          "/quest3s/head_right/camera/compressed": 2304,
+          "/gripper/left/camera0/compressed": 2297,
+          "/gripper/left/camera0/camera_info": 77,
+          "/gripper/right/camera0/compressed": 2297,
+          "/gripper/right/camera0/camera_info": 77,
+          "/quest3s/left_controller_pose": 3825,
+          "/quest3s/left_gripper_pose": 3825,
+          "/quest3s/head_pose": 3825,
+          "/quest3s/right_controller_pose": 3825,
+          "/quest3s/right_gripper_pose": 3825
+        }
+      },
+      {
+        "file": "ep_0444a8ac.mcap",
+        "digest": "05acfc4830de72effe68cfe3c30d7a0d125a7ffc91a5c62141a58fb630c19927",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2048,
+          "/quest3s/head_right/camera/compressed": 2048,
+          "/gripper/right/camera0/compressed": 2040,
+          "/gripper/right/camera0/camera_info": 68,
+          "/gripper/left/camera0/compressed": 2039,
+          "/gripper/left/camera0/camera_info": 68,
+          "/quest3s/left_controller_pose": 3396,
+          "/quest3s/left_gripper_pose": 3396,
+          "/quest3s/head_pose": 3396,
+          "/quest3s/right_controller_pose": 3396,
+          "/quest3s/right_gripper_pose": 3396
+        }
+      },
+      {
+        "file": "ep_07e258d4.mcap",
+        "digest": "59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 758,
+          "/quest3s/head_right/camera/compressed": 758,
+          "/gripper/left/camera0/compressed": 751,
+          "/gripper/left/camera0/camera_info": 26,
+          "/gripper/right/camera0/compressed": 751,
+          "/gripper/right/camera0/camera_info": 26,
+          "/quest3s/right_controller_pose": 1249,
+          "/quest3s/right_gripper_pose": 1249,
+          "/quest3s/left_controller_pose": 1248,
+          "/quest3s/left_gripper_pose": 1248,
+          "/quest3s/head_pose": 1248
+        }
+      },
+      {
+        "file": "ep_082f4185.mcap",
+        "digest": "cf8fdf8efa1e2433d2b1c4f9de7903578d12e32dc2f7e3a056762aa01f5233fa",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 3168,
+          "/quest3s/head_right/camera/compressed": 3168,
+          "/gripper/right/camera0/compressed": 3159,
+          "/gripper/right/camera0/camera_info": 106,
+          "/gripper/left/camera0/compressed": 3159,
+          "/gripper/left/camera0/camera_info": 106,
+          "/quest3s/left_controller_pose": 5263,
+          "/quest3s/left_gripper_pose": 5263,
+          "/quest3s/head_pose": 5263,
+          "/quest3s/right_controller_pose": 5263,
+          "/quest3s/right_gripper_pose": 5263
+        }
+      },
+      {
+        "file": "ep_0dec4ae7.mcap",
+        "digest": "6e34087802e0bcba57db93f96001d4bf326d27b8e37cfe9fe5e39697b5d854fc",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 880,
+          "/quest3s/head_right/camera/compressed": 880,
+          "/gripper/right/camera0/compressed": 874,
+          "/gripper/right/camera0/camera_info": 30,
+          "/gripper/left/camera0/compressed": 872,
+          "/gripper/left/camera0/camera_info": 30,
+          "/quest3s/left_controller_pose": 1451,
+          "/quest3s/left_gripper_pose": 1451,
+          "/quest3s/head_pose": 1451,
+          "/quest3s/right_controller_pose": 1451,
+          "/quest3s/right_gripper_pose": 1451
+        }
+      },
+      {
+        "file": "ep_0e09c76b.mcap",
+        "digest": "8287ec6910be35f5edc8cadac3f221351c2bfd3bc042596a41993a7915e82325",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 3248,
+          "/quest3s/head_right/camera/compressed": 3248,
+          "/gripper/left/camera0/compressed": 3241,
+          "/gripper/left/camera0/camera_info": 109,
+          "/gripper/right/camera0/compressed": 3241,
+          "/gripper/right/camera0/camera_info": 108,
+          "/quest3s/left_controller_pose": 5400,
+          "/quest3s/left_gripper_pose": 5400,
+          "/quest3s/head_pose": 5400,
+          "/quest3s/right_controller_pose": 5400,
+          "/quest3s/right_gripper_pose": 5400
+        }
+      },
+      {
+        "file": "ep_0e374ee6.mcap",
+        "digest": "7bd8f7a0b4871fbee96ba9d49332ebfad240c9ae0dccd6bc17d3580bf146b346",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_right/camera/compressed": 3225,
+          "/quest3s/head_left/camera/compressed": 3225,
+          "/gripper/left/camera0/compressed": 3219,
+          "/gripper/left/camera0/camera_info": 108,
+          "/gripper/right/camera0/compressed": 3218,
+          "/gripper/right/camera0/camera_info": 108,
+          "/quest3s/left_controller_pose": 5361,
+          "/quest3s/left_gripper_pose": 5361,
+          "/quest3s/head_pose": 5361,
+          "/quest3s/right_controller_pose": 5361,
+          "/quest3s/right_gripper_pose": 5361
+        }
+      },
+      {
+        "file": "ep_0ed34c0f.mcap",
+        "digest": "344e7e9f4bd1f0f151267d5e62ed993f1e95af9afae54ca84a627a2817b79e95",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 4504,
+          "/quest3s/head_right/camera/compressed": 4504,
+          "/gripper/right/camera0/compressed": 4497,
+          "/gripper/right/camera0/camera_info": 150,
+          "/gripper/left/camera0/compressed": 4496,
+          "/gripper/left/camera0/camera_info": 150,
+          "/quest3s/left_controller_pose": 7491,
+          "/quest3s/left_gripper_pose": 7491,
+          "/quest3s/head_pose": 7491,
+          "/quest3s/right_controller_pose": 7491,
+          "/quest3s/right_gripper_pose": 7491
+        }
+      },
+      {
+        "file": "ep_112a825d.mcap",
+        "digest": "c3711f9aab4997e87ba992fb184c8894c4c9efa630d70986c9b32ba985461300",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1648,
+          "/quest3s/head_right/camera/compressed": 1648,
+          "/gripper/right/camera0/compressed": 1641,
+          "/gripper/right/camera0/camera_info": 55,
+          "/gripper/left/camera0/compressed": 1640,
+          "/gripper/left/camera0/camera_info": 55,
+          "/quest3s/left_controller_pose": 2731,
+          "/quest3s/left_gripper_pose": 2731,
+          "/quest3s/head_pose": 2731,
+          "/quest3s/right_controller_pose": 2731,
+          "/quest3s/right_gripper_pose": 2731
+        }
+      },
+      {
+        "file": "ep_1ee4bdaf.mcap",
+        "digest": "5c5c54666f03e4f09d34785f0f5bebf0d97769522d334cd526a484565ff07bc6",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2636,
+          "/quest3s/head_right/camera/compressed": 2636,
+          "/gripper/right/camera0/compressed": 2628,
+          "/gripper/right/camera0/camera_info": 88,
+          "/gripper/left/camera0/compressed": 2626,
+          "/gripper/left/camera0/camera_info": 88,
+          "/quest3s/left_controller_pose": 4348,
+          "/quest3s/left_gripper_pose": 4348,
+          "/quest3s/head_pose": 4348,
+          "/quest3s/right_controller_pose": 4348,
+          "/quest3s/right_gripper_pose": 4348
+        }
+      },
+      {
+        "file": "ep_20846435.mcap",
+        "digest": "5bd147e427d8312f38dd5de5f671630c38e79955fe980b82d554afda8575ff83",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1127,
+          "/quest3s/head_right/camera/compressed": 1127,
+          "/gripper/right/camera0/compressed": 1119,
+          "/gripper/right/camera0/camera_info": 38,
+          "/gripper/left/camera0/compressed": 1118,
+          "/gripper/left/camera0/camera_info": 38,
+          "/quest3s/left_controller_pose": 1861,
+          "/quest3s/left_gripper_pose": 1861,
+          "/quest3s/head_pose": 1861,
+          "/quest3s/right_controller_pose": 1861,
+          "/quest3s/right_gripper_pose": 1861
+        }
+      },
+      {
+        "file": "ep_208961d3.mcap",
+        "digest": "6b8053b7828b2f8e150a2dbde8a9d49bf457acb4962743a86d552f6a2f100a43",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2717,
+          "/quest3s/head_right/camera/compressed": 2717,
+          "/gripper/left/camera0/compressed": 2710,
+          "/gripper/left/camera0/camera_info": 91,
+          "/gripper/right/camera0/compressed": 2710,
+          "/gripper/right/camera0/camera_info": 91,
+          "/quest3s/left_controller_pose": 4514,
+          "/quest3s/left_gripper_pose": 4514,
+          "/quest3s/head_pose": 4514,
+          "/quest3s/right_controller_pose": 4513,
+          "/quest3s/right_gripper_pose": 4513
+        }
+      },
+      {
+        "file": "ep_212a979d.mcap",
+        "digest": "570781e0a8f2c280584ad58677f456f3be88d195f8a3822af016f947b643b0da",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1413,
+          "/quest3s/head_right/camera/compressed": 1413,
+          "/gripper/right/camera0/compressed": 1406,
+          "/gripper/right/camera0/camera_info": 47,
+          "/gripper/left/camera0/compressed": 1405,
+          "/gripper/left/camera0/camera_info": 47,
+          "/quest3s/left_controller_pose": 2339,
+          "/quest3s/left_gripper_pose": 2339,
+          "/quest3s/head_pose": 2339,
+          "/quest3s/right_controller_pose": 2339,
+          "/quest3s/right_gripper_pose": 2339
+        }
+      },
+      {
+        "file": "ep_223529fa.mcap",
+        "digest": "1b50a00263d4c83b5387fe94e450202b2733bcbc4383d44436b13bd34db565a8",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1077,
+          "/quest3s/head_right/camera/compressed": 1077,
+          "/gripper/left/camera0/compressed": 1070,
+          "/gripper/left/camera0/camera_info": 36,
+          "/gripper/right/camera0/compressed": 1070,
+          "/gripper/right/camera0/camera_info": 36,
+          "/quest3s/left_controller_pose": 1780,
+          "/quest3s/left_gripper_pose": 1780,
+          "/quest3s/head_pose": 1780,
+          "/quest3s/right_controller_pose": 1780,
+          "/quest3s/right_gripper_pose": 1780
+        }
+      },
+      {
+        "file": "ep_23212682.mcap",
+        "digest": "0b3967b8cb82f68917d441f79f2ace78699cf20f12602fbec7b72e5cbeb053d6",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1855,
+          "/quest3s/head_right/camera/compressed": 1855,
+          "/gripper/right/camera0/compressed": 1849,
+          "/gripper/right/camera0/camera_info": 62,
+          "/gripper/left/camera0/compressed": 1846,
+          "/gripper/left/camera0/camera_info": 62,
+          "/quest3s/left_controller_pose": 3074,
+          "/quest3s/left_gripper_pose": 3074,
+          "/quest3s/head_pose": 3074,
+          "/quest3s/right_controller_pose": 3074,
+          "/quest3s/right_gripper_pose": 3074
+        }
+      },
+      {
+        "file": "ep_23f5a0d2.mcap",
+        "digest": "0f2f31579a90e8c87062772109699a5f242c2c6b6f43ebf8b86630815fc3fd6b",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 3828,
+          "/quest3s/head_right/camera/compressed": 3828,
+          "/gripper/left/camera0/compressed": 3820,
+          "/gripper/left/camera0/camera_info": 128,
+          "/gripper/right/camera0/compressed": 3820,
+          "/gripper/right/camera0/camera_info": 128,
+          "/quest3s/left_controller_pose": 6364,
+          "/quest3s/left_gripper_pose": 6364,
+          "/quest3s/head_pose": 6364,
+          "/quest3s/right_controller_pose": 6364,
+          "/quest3s/right_gripper_pose": 6364
+        }
+      },
+      {
+        "file": "ep_2c47cac2.mcap",
+        "digest": "16f52895c5111b2a379decdd76f36c997fadd66023195ebd0daabd99ff459a02",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2707,
+          "/quest3s/head_right/camera/compressed": 2707,
+          "/gripper/left/camera0/compressed": 2700,
+          "/gripper/left/camera0/camera_info": 90,
+          "/gripper/right/camera0/compressed": 2699,
+          "/gripper/right/camera0/camera_info": 90,
+          "/quest3s/left_controller_pose": 4496,
+          "/quest3s/left_gripper_pose": 4496,
+          "/quest3s/head_pose": 4496,
+          "/quest3s/right_controller_pose": 4496,
+          "/quest3s/right_gripper_pose": 4496
+        }
+      },
+      {
+        "file": "ep_2cb4b3ea.mcap",
+        "digest": "b778fde7280c1b95b8d1928c5edda82ba07c0339819def88b2115bf4e58486ad",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2599,
+          "/quest3s/head_right/camera/compressed": 2599,
+          "/gripper/right/camera0/compressed": 2592,
+          "/gripper/right/camera0/camera_info": 87,
+          "/gripper/left/camera0/compressed": 2592,
+          "/gripper/left/camera0/camera_info": 87,
+          "/quest3s/right_controller_pose": 4317,
+          "/quest3s/right_gripper_pose": 4317,
+          "/quest3s/left_controller_pose": 4316,
+          "/quest3s/left_gripper_pose": 4316,
+          "/quest3s/head_pose": 4316
+        }
+      },
+      {
+        "file": "ep_2e18f47f.mcap",
+        "digest": "61c65408860383ccc7cfa1def851e3ffed1ac1924623ed28d991919fa4b418df",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2807,
+          "/quest3s/head_right/camera/compressed": 2807,
+          "/gripper/right/camera0/compressed": 2801,
+          "/gripper/right/camera0/camera_info": 94,
+          "/gripper/left/camera0/compressed": 2800,
+          "/gripper/left/camera0/camera_info": 94,
+          "/quest3s/right_controller_pose": 4665,
+          "/quest3s/right_gripper_pose": 4665,
+          "/quest3s/left_controller_pose": 4664,
+          "/quest3s/left_gripper_pose": 4664,
+          "/quest3s/head_pose": 4664
+        }
+      },
+      {
+        "file": "ep_346eb2d7.mcap",
+        "digest": "05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2863,
+          "/quest3s/head_right/camera/compressed": 2863,
+          "/gripper/left/camera0/compressed": 2855,
+          "/gripper/left/camera0/camera_info": 96,
+          "/gripper/right/camera0/compressed": 2855,
+          "/gripper/right/camera0/camera_info": 96,
+          "/quest3s/left_controller_pose": 4756,
+          "/quest3s/left_gripper_pose": 4756,
+          "/quest3s/head_pose": 4756,
+          "/quest3s/right_controller_pose": 4756,
+          "/quest3s/right_gripper_pose": 4756
+        }
+      },
+      {
+        "file": "ep_34e2d6e2.mcap",
+        "digest": "445f6180b3fcc0ce71cd142128965c92f40917db6b994ec9fe62b7d3eff1ca37",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2817,
+          "/quest3s/head_right/camera/compressed": 2817,
+          "/gripper/right/camera0/compressed": 2811,
+          "/gripper/right/camera0/camera_info": 94,
+          "/gripper/left/camera0/compressed": 2809,
+          "/gripper/left/camera0/camera_info": 94,
+          "/quest3s/left_controller_pose": 4679,
+          "/quest3s/left_gripper_pose": 4679,
+          "/quest3s/head_pose": 4679,
+          "/quest3s/right_controller_pose": 4679,
+          "/quest3s/right_gripper_pose": 4679
+        }
+      },
+      {
+        "file": "ep_357dc6b9.mcap",
+        "digest": "061fad38191631f29ba1c70c97bf76b6c5df5ed57e303c4a94a1c5291b66eed6",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2924,
+          "/quest3s/head_right/camera/compressed": 2924,
+          "/gripper/right/camera0/compressed": 2915,
+          "/gripper/right/camera0/camera_info": 98,
+          "/gripper/left/camera0/compressed": 2915,
+          "/gripper/left/camera0/camera_info": 98,
+          "/quest3s/right_controller_pose": 4856,
+          "/quest3s/right_gripper_pose": 4856,
+          "/quest3s/left_controller_pose": 4856,
+          "/quest3s/left_gripper_pose": 4856,
+          "/quest3s/head_pose": 4856
+        }
+      },
+      {
+        "file": "ep_39ec7993.mcap",
+        "digest": "b7aa01113ca5ddb6fe609f84c3c2f7d87b72d67dd68bf501e47520b6305becfd",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2323,
+          "/quest3s/head_right/camera/compressed": 2323,
+          "/gripper/right/camera0/compressed": 2316,
+          "/gripper/right/camera0/camera_info": 78,
+          "/gripper/left/camera0/compressed": 2316,
+          "/gripper/left/camera0/camera_info": 78,
+          "/quest3s/left_controller_pose": 3856,
+          "/quest3s/left_gripper_pose": 3856,
+          "/quest3s/head_pose": 3856,
+          "/quest3s/right_controller_pose": 3856,
+          "/quest3s/right_gripper_pose": 3856
+        }
+      },
+      {
+        "file": "ep_42d682ff.mcap",
+        "digest": "01b7d11e831e460b17c1e4de5b46a1047927382f2948478cee1e628fc63c4628",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 886,
+          "/quest3s/head_right/camera/compressed": 886,
+          "/gripper/left/camera0/compressed": 880,
+          "/gripper/left/camera0/camera_info": 30,
+          "/gripper/right/camera0/compressed": 880,
+          "/gripper/right/camera0/camera_info": 30,
+          "/quest3s/left_controller_pose": 1464,
+          "/quest3s/left_gripper_pose": 1464,
+          "/quest3s/head_pose": 1464,
+          "/quest3s/right_controller_pose": 1464,
+          "/quest3s/right_gripper_pose": 1464
+        }
+      },
+      {
+        "file": "ep_459e3edd.mcap",
+        "digest": "6e110f683a185e3b14f4759509d99aa884619dc74c471527ad623b7f3350f19c",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1785,
+          "/quest3s/head_right/camera/compressed": 1785,
+          "/gripper/left/camera0/compressed": 1776,
+          "/gripper/left/camera0/camera_info": 60,
+          "/gripper/right/camera0/compressed": 1777,
+          "/gripper/right/camera0/camera_info": 60,
+          "/quest3s/left_controller_pose": 2957,
+          "/quest3s/left_gripper_pose": 2957,
+          "/quest3s/head_pose": 2957,
+          "/quest3s/right_controller_pose": 2957,
+          "/quest3s/right_gripper_pose": 2957
+        }
+      },
+      {
+        "file": "ep_49df3c44.mcap",
+        "digest": "8de5e6d91d700b3ecbc4598adf300042d5c03cdd69a1092e1b14690f0333d6dd",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/gripper/left/camera0/compressed": 1704,
+          "/gripper/left/camera0/camera_info": 57,
+          "/gripper/right/camera0/compressed": 1704,
+          "/gripper/right/camera0/camera_info": 57,
+          "/quest3s/head_left/camera/compressed": 1682,
+          "/quest3s/head_right/camera/compressed": 1682,
+          "/quest3s/left_controller_pose": 2800,
+          "/quest3s/left_gripper_pose": 2800,
+          "/quest3s/head_pose": 2800,
+          "/quest3s/right_controller_pose": 2800,
+          "/quest3s/right_gripper_pose": 2800
+        }
+      },
+      {
+        "file": "ep_4dd7ef84.mcap",
+        "digest": "7d5d80062f36fa6ff3ad6c47cdee0e917a50914adf874b9d2903eda8db61f650",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1255,
+          "/quest3s/head_right/camera/compressed": 1255,
+          "/gripper/right/camera0/compressed": 1249,
+          "/gripper/right/camera0/camera_info": 42,
+          "/gripper/left/camera0/compressed": 1248,
+          "/gripper/left/camera0/camera_info": 42,
+          "/quest3s/left_controller_pose": 2078,
+          "/quest3s/left_gripper_pose": 2078,
+          "/quest3s/head_pose": 2078,
+          "/quest3s/right_controller_pose": 2078,
+          "/quest3s/right_gripper_pose": 2078
+        }
+      },
+      {
+        "file": "ep_51347361.mcap",
+        "digest": "e8aacdff325da39ee89bd9171d6690d98b23eecae1e07fa99127c404f6353091",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2575,
+          "/quest3s/head_right/camera/compressed": 2575,
+          "/gripper/right/camera0/compressed": 2567,
+          "/gripper/right/camera0/camera_info": 86,
+          "/gripper/left/camera0/compressed": 2567,
+          "/gripper/left/camera0/camera_info": 86,
+          "/quest3s/left_controller_pose": 4276,
+          "/quest3s/left_gripper_pose": 4276,
+          "/quest3s/head_pose": 4276,
+          "/quest3s/right_controller_pose": 4276,
+          "/quest3s/right_gripper_pose": 4276
+        }
+      },
+      {
+        "file": "ep_52373c02.mcap",
+        "digest": "c5c9e08b916d854acb868e3c93ac05d77dd33cae86de4841559abb6f774a3b69",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1202,
+          "/quest3s/head_right/camera/compressed": 1202,
+          "/gripper/right/camera0/compressed": 1194,
+          "/gripper/right/camera0/camera_info": 40,
+          "/gripper/left/camera0/compressed": 1194,
+          "/gripper/left/camera0/camera_info": 40,
+          "/quest3s/left_controller_pose": 1988,
+          "/quest3s/left_gripper_pose": 1988,
+          "/quest3s/head_pose": 1988,
+          "/quest3s/right_controller_pose": 1988,
+          "/quest3s/right_gripper_pose": 1988
+        }
+      },
+      {
+        "file": "ep_52d930da.mcap",
+        "digest": "b95660ee2105a0a98cfd34a0c491fed259d7c8a70949245e0bbfacf6f37c7742",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2226,
+          "/quest3s/head_right/camera/compressed": 2226,
+          "/gripper/right/camera0/compressed": 2218,
+          "/gripper/right/camera0/camera_info": 74,
+          "/gripper/left/camera0/compressed": 2218,
+          "/gripper/left/camera0/camera_info": 74,
+          "/quest3s/left_controller_pose": 3694,
+          "/quest3s/left_gripper_pose": 3694,
+          "/quest3s/head_pose": 3694,
+          "/quest3s/right_controller_pose": 3694,
+          "/quest3s/right_gripper_pose": 3694
+        }
+      },
+      {
+        "file": "ep_554d5730.mcap",
+        "digest": "d04201b2c332d9afb1e635679100087007ee4c3beb9ed3d4a0d44fe48cce5b71",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 857,
+          "/quest3s/head_right/camera/compressed": 857,
+          "/gripper/right/camera0/compressed": 850,
+          "/gripper/right/camera0/camera_info": 29,
+          "/gripper/left/camera0/compressed": 849,
+          "/gripper/left/camera0/camera_info": 29,
+          "/quest3s/left_controller_pose": 1409,
+          "/quest3s/left_gripper_pose": 1409,
+          "/quest3s/head_pose": 1409,
+          "/quest3s/right_controller_pose": 1409,
+          "/quest3s/right_gripper_pose": 1409
+        }
+      },
+      {
+        "file": "ep_5b171934.mcap",
+        "digest": "491f7fbce7832446bb38f2d072d1e8a163d1df6937a305368eb3e553f78d573e",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2300,
+          "/quest3s/head_right/camera/compressed": 2300,
+          "/gripper/left/camera0/compressed": 2293,
+          "/gripper/left/camera0/camera_info": 77,
+          "/gripper/right/camera0/compressed": 2287,
+          "/gripper/right/camera0/camera_info": 77,
+          "/quest3s/right_controller_pose": 3809,
+          "/quest3s/right_gripper_pose": 3809,
+          "/quest3s/left_controller_pose": 3808,
+          "/quest3s/left_gripper_pose": 3808,
+          "/quest3s/head_pose": 3808
+        }
+      },
+      {
+        "file": "ep_5e2c1fd2.mcap",
+        "digest": "d77cd6d98d8c117eed5829ebb2aa2ab6385350256d6317dbe01ef15a5eead93c",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2502,
+          "/quest3s/head_right/camera/compressed": 2502,
+          "/gripper/right/camera0/compressed": 2495,
+          "/gripper/right/camera0/camera_info": 84,
+          "/gripper/left/camera0/compressed": 2493,
+          "/gripper/left/camera0/camera_info": 84,
+          "/quest3s/left_controller_pose": 4152,
+          "/quest3s/left_gripper_pose": 4152,
+          "/quest3s/head_pose": 4152,
+          "/quest3s/right_controller_pose": 4152,
+          "/quest3s/right_gripper_pose": 4152
+        }
+      },
+      {
+        "file": "ep_66909bdd.mcap",
+        "digest": "3773a3070ee7f6f9a72a4e963bdba9e41e743dd29b2a399802a1bfd466f2c213",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2095,
+          "/quest3s/head_right/camera/compressed": 2095,
+          "/gripper/right/camera0/compressed": 2088,
+          "/gripper/right/camera0/camera_info": 70,
+          "/gripper/left/camera0/compressed": 2086,
+          "/gripper/left/camera0/camera_info": 70,
+          "/quest3s/left_controller_pose": 3474,
+          "/quest3s/left_gripper_pose": 3474,
+          "/quest3s/head_pose": 3474,
+          "/quest3s/right_controller_pose": 3474,
+          "/quest3s/right_gripper_pose": 3474
+        }
+      },
+      {
+        "file": "ep_6d6fa903.mcap",
+        "digest": "c32b3595678e075d0f8196626fb9568a93b65f4f44c223a29e9696ebeb33c36c",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1942,
+          "/quest3s/head_right/camera/compressed": 1942,
+          "/gripper/right/camera0/compressed": 1934,
+          "/gripper/right/camera0/camera_info": 65,
+          "/gripper/left/camera0/compressed": 1934,
+          "/gripper/left/camera0/camera_info": 65,
+          "/quest3s/left_controller_pose": 3220,
+          "/quest3s/left_gripper_pose": 3220,
+          "/quest3s/head_pose": 3220,
+          "/quest3s/right_controller_pose": 3220,
+          "/quest3s/right_gripper_pose": 3220
+        }
+      },
+      {
+        "file": "ep_6e4d59a3.mcap",
+        "digest": "88546277a433056a18137411c696dcc1952463cf70479d89594d56826878d2ae",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 1782,
+          "/quest3s/head_right/camera/compressed": 1782,
+          "/gripper/right/camera0/compressed": 1776,
+          "/gripper/right/camera0/camera_info": 60,
+          "/gripper/left/camera0/compressed": 1774,
+          "/gripper/left/camera0/camera_info": 60,
+          "/quest3s/left_controller_pose": 2954,
+          "/quest3s/left_gripper_pose": 2954,
+          "/quest3s/head_pose": 2954,
+          "/quest3s/right_controller_pose": 2954,
+          "/quest3s/right_gripper_pose": 2954
+        }
+      },
+      {
+        "file": "ep_6fed8bc1.mcap",
+        "digest": "fe478a38179fac48b4b0d2a3f03132302fcf81314c6b610aa8e631feb1be1976",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 3031,
+          "/quest3s/head_right/camera/compressed": 3031,
+          "/gripper/right/camera0/compressed": 3024,
+          "/gripper/right/camera0/camera_info": 101,
+          "/gripper/left/camera0/compressed": 3024,
+          "/gripper/left/camera0/camera_info": 101,
+          "/quest3s/left_controller_pose": 5038,
+          "/quest3s/left_gripper_pose": 5038,
+          "/quest3s/head_pose": 5038,
+          "/quest3s/right_controller_pose": 5038,
+          "/quest3s/right_gripper_pose": 5038
+        }
+      },
+      {
+        "file": "ep_9fae2f39.mcap",
+        "digest": "af989c8fa8d6a2812a7367a47afa4e35f13087ec0003bde65933c89d31bba844",
+        "clock_problems": {},
+        "messages_by_topic": {
+          "/quest3s/head_left/camera/camera_info": 1,
+          "/quest3s/head_right/camera/camera_info": 1,
+          "/quest3s/head_left/camera/compressed": 2539,
+          "/quest3s/head_right/camera/compressed": 2539,
+          "/gripper/right/camera0/compressed": 2532,
+          "/gripper/right/camera0/camera_info": 85,
+          "/gripper/left/camera0/compressed": 2532,
+          "/gripper/left/camera0/camera_info": 85,
+          "/quest3s/left_controller_pose": 4211,
+          "/quest3s/left_gripper_pose": 4211,
+          "/quest3s/head_pose": 4211,
+          "/quest3s/right_controller_pose": 4211,
+          "/quest3s/right_gripper_pose": 4211
+        }
+      }
+    ]
+  },
+  "prior_full_stream_audit": "verification/stream-structure.json",
+  "original_verdicts_unchanged": true,
+  "future_file_scope": {
+    "supported_format_only": true,
+    "new_fault_regression_cases": [
+      "zero body rotation reaches review",
+      "uncalibrated camera reaches review",
+      "static calibration/video dimension mismatch reaches review",
+      "missing video timestamp cannot pass",
+      "unsupported encoder clock cannot use historical grading exemption"
+    ],
+    "fresh_upload_after_candidate_deployment_tested": false,
+    "guarantee_every_physical_error_detected": false
+  },
+  "limitations": [
+    "Physical tracking and lens calibration accuracy are not independently measured.",
+    "No encoder-to-joint mapping, physical encoder range or per-body-point motion threshold is assumed.",
+    "Body point-set changes, repeated point times and reference changes retain named contextual observations; partial updates are not automatically faults.",
+    "The sampled obstruction heuristic was not rerun in this follow-up.",
+    "No current-candidate full Temporal workflow or production-upload acceptance has been run."
+  ],
+  "candidate_worker_source_hash": "cef6c98cba31bfeefac9b1ec93470b7da516563f08d54e003ebfce2039242e0a"
+}

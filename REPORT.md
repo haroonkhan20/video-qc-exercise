@@ -1,6 +1,26 @@
 # Recording quality report
 
-## Accepted results
+## Latest deployed release
+
+The streams-v1 release was verified on 22 October 2026. Configuration:
+374184a0186cebac565ea8df630023962f6ac9645b902b5b5f73f0ccbffbbdf1; worker code:
+cef6c98cba31bfeefac9b1ec93470b7da516563f08d54e003ebfce2039242e0a.
+
+Three original recordings and one new controlled upload completed the full
+workflow with all 16 streams checked. The passing original scored 10/10, the known
+black-video failure 4/10, the known movement review 8/10 and the controlled
+unusable body rotation 8/10 with BODY_ROTATION_UNUSABLE. The controlled recording
+is kept in Test recordings; the 41-reference collection is unchanged.
+
+All 323 tests passed in the release image. Saved reports agreed between storage
+and the database; analytics rows were unique, viewer files valid and workflow
+replay passed. Both deployed QC workers remained ready with zero restarts.
+
+See [deployment acceptance](verification/stream-deployment.json).
+The full-dataset table below remains the earlier accepted run. The latest release
+acceptance is a selected-case test, not a fresh full-workflow run of all 41 files.
+
+## Accepted full-dataset baseline
 
 All 41 original recordings completed workflows under the versions below: **38 pass, 2 need review, 1 fail**.
 

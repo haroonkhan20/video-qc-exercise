@@ -140,6 +140,11 @@
       "digest": "127b48d4cb6ec1ebe08120462b078318cc2dec38ffab632682049e37bb5e74d2",
       "name": "processing-persistent-processing.mcap",
       "source": "controlled processing-error acceptance"
+    },
+    {
+      "digest": "e70e578bb70fe2251966229b36331623d09bed1efa8c9dde7fb5651fbfd4c2bf",
+      "name": "acceptance-body-zero-rotation.mcap",
+      "source": "controlled body stream deployment acceptance"
     }
   ]
 }

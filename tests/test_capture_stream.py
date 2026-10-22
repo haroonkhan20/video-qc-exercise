@@ -75,12 +75,18 @@ class CaptureStreamTests(unittest.TestCase):
  def test_static_calibration_before_capture_is_not_missing(self):
   folder=ROOT/'.cache/capture-tests'/uuid.uuid4().hex;folder.mkdir(parents=True)
   proto=descriptor_pb2.FileDescriptorProto(name='static_calibration.proto',package='foxglove',syntax='proto3')
-  proto.message_type.add(name='CameraCalibration')
-  ds=descriptor_pb2.FileDescriptorSet();ds.file.add().CopyFrom(proto)
+  from google.protobuf import timestamp_pb2,descriptor_pool,message_factory
+  proto.dependency.append('google/protobuf/timestamp.proto')
+  message=proto.message_type.add(name='CameraCalibration')
+  message.field.add(name='timestamp',number=1,type=11,label=1,type_name='.google.protobuf.Timestamp')
+  pool=descriptor_pool.DescriptorPool();pool.AddSerializedFile(timestamp_pb2.DESCRIPTOR.serialized_pb);pool.Add(proto)
+  cls=message_factory.GetMessageClass(pool.FindMessageTypeByName('foxglove.CameraCalibration'))
+  value=cls();value.timestamp.seconds=1
+  ds=descriptor_pb2.FileDescriptorSet();ds.file.add().ParseFromString(timestamp_pb2.DESCRIPTOR.serialized_pb);ds.file.add().CopyFrom(proto)
   topic='/quest3s/head_left/camera/camera_info';path=folder/'calibration.mcap'
   with path.open('wb') as f:
    writer=Writer(f);writer.start();sid=writer.register_schema('foxglove.CameraCalibration','protobuf',ds.SerializeToString());cid=writer.register_channel(topic,'protobuf',sid)
-   writer.add_message(cid,1000000000,b'',1000000000);writer.finish()
+   writer.add_message(cid,1000000000,value.SerializeToString(),1000000000);writer.finish()
   inv={'start_ns':1000000000,'channels':[{'id':cid,'topic':topic,'schema':'foxglove.CameraCalibration','message_count':1}],
        'recording_contract':{'status':'parsed_with_unknowns','capture_window':{'start_ns':2000000000,'end_ns':3000000000},'streams':{}}}
   r,*_=stream_check(path,cid,inv,DEFAULTS,folder/'work',lambda _:None)

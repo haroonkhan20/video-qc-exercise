@@ -171,7 +171,17 @@ def cross_stream(request):
         # Full per-message positions stay in object storage, not workflow history.
         matching[side]={k:v for k,v in evidence.items() if k!="frames"}
         matching[side]["detail_report_key"]=detail_key
-    result={"findings":findings,"metrics":metrics,"camera_head_matching":matching}
+    from qc.calibration import compare_video
+    video_reports={r["topic"]:r for r in reports if r["kind"]=="video"}
+    calibration_video={}
+    for report in reports:
+        if report["kind"]!="calibration":continue
+        video=video_reports.get(report["topic"].replace("/camera_info","/compressed"),{})
+        calibration_video[report["topic"]]=compare_video(report.get("camera_calibration"),
+                                                        video.get("stats",{}).get("decoded_dimensions"))
+        from qc.structural_policy import structural_findings
+        findings.extend(structural_findings(calibration_video[report["topic"]],report["topic"],inv["start_ns"],cfg))
+    result={"findings":findings,"metrics":metrics,"camera_head_matching":matching,"calibration_video":calibration_video}
     key=st.put_json(artifact(ref,"cross-stream.json"),result)
     return {"report_key":key}
 

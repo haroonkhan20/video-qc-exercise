@@ -167,7 +167,32 @@
     "informational_codes": [
       "SENSOR_FLATLINE"
     ],
-    "success_reason_code": "CHECKS_PASSED"
+    "success_reason_code": "CHECKS_PASSED",
+    "structural_review_codes": [
+      "BODY_EMPTY_MESSAGE",
+      "BODY_FRAME_NAME_MISSING",
+      "BODY_FIELDS_ABSENT",
+      "BODY_INVALID_VALUES",
+      "BODY_ROTATION_UNUSABLE",
+      "BODY_ROTATION_SCALE",
+      "BODY_INVALID_TIMESTAMP",
+      "BODY_SELF_REFERENCE",
+      "BODY_REFERENCE_CYCLE",
+      "BODY_MESSAGE_UNREADABLE",
+      "BODY_SCHEMA_UNSUPPORTED",
+      "CALIBRATION_FIELDS_UNAVAILABLE",
+      "CALIBRATION_DIMENSIONS_UNUSABLE",
+      "CALIBRATION_FRAME_MISSING",
+      "CALIBRATION_MATRIX_SHAPE",
+      "CALIBRATION_NONFINITE",
+      "CALIBRATION_UNCALIBRATED",
+      "CALIBRATION_FOCAL_SIGN",
+      "CALIBRATION_MODEL_UNASSESSED",
+      "CALIBRATION_DISTORTION_SHAPE",
+      "CALIBRATION_RECTIFICATION_UNUSABLE",
+      "CALIBRATION_MESSAGE_UNREADABLE",
+      "CALIBRATION_VIDEO_DIMENSIONS_MISMATCH"
+    ]
   },
   "parameter_authority": "engineer_selected",
   "movement": {
@@ -269,5 +294,28 @@
     "nearest_head_periods": 0.5,
     "nearest_camera_periods": 0.5,
     "clock_uncertainty_endpoint_factor": 2
+  },
+  "body_tracking": {
+    "rotation_norm_tolerance": 0.001,
+    "maximum_examples_per_reason": 3
+  },
+  "camera_calibration": {
+    "rotation_matrix_tolerance": 0.001,
+    "maximum_examples_per_reason": 3,
+    "distortion_parameter_counts": {
+      "plumb_bob": [
+        5
+      ],
+      "rational_polynomial": [
+        8
+      ],
+      "kannala_brandt": [
+        4
+      ],
+      "fisheye62": [
+        6,
+        7
+      ]
+    }
   }
 }
