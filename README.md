@@ -240,7 +240,7 @@ requires Docker image save --platform support.
 | MinIO local image | `video-qc/minio:RELEASE.2025-10-15T17-29-55Z` |
 | MinIO upstream source | `RELEASE.2025-10-15T17-29-55Z`, commit `9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a` |
 | MinIO build/runtime bases | `golang:1.24.9-bookworm`, `debian:bookworm-20251020-slim` |
-| Worker local image | `video-qc/qc-worker:processing-v2` |
+| Worker local image | `video-qc/qc-worker:matching-v1` |
 | Worker Python base | `python:3.12.12-slim-bookworm` |
 | Python Temporal SDK | `temporalio==1.14.1` |
 | SDK runtime dependencies | `nexus-rpc==1.1.0`, `protobuf==5.29.6`, `types-protobuf==7.35.1.20260906`, `typing-extensions==4.16.0` |
@@ -404,3 +404,98 @@ All thresholds are in worker/config/qc.json; reason codes are defined in worker/
 Each worker code version polls its own Temporal task queue. This prevents a partially completed run from mixing activity implementations during a deployment. Superseded runs remain in processing history; their removal or cancellation requires a separate operator decision.
 
 For rates chosen from a dataset baseline, ordinary timing jitter is not counted as lost readings. Drop estimates use the configured long-gap allowance; the recorder's inferred-drop counter is not compared with an estimate made using an undeclared nominal rate. Counts, timestamps, gap summaries and mean rates are still compared directly.
+
+### Camera-to-head timestamp matching
+
+The worker matches head-camera message payload timestamps to head positions
+during the cross-stream activity. Each new workflow report contains separate
+nearest-reading and interpolation summaries under camera_head_matching.
+Detailed per-message results are stored in MinIO at the summary's
+detail_report_key. Matching evidence does not alter scores or recording verdicts.
+
+The dashboard's existing raw report download includes these summaries. No new
+dashboard panels are added. Historical reports gain the evidence only when
+processed by this worker version; installing the image does not rewrite them.
+
+For a standalone diagnostic using the project's Python environment:
+
+    PYTHONPATH=worker .venv/bin/python -m qc.camera_head_matching /path/to/recording.mcap --side left
+
+The budget is computed separately for each recording and camera side. A recognized
+producer clock mapping, expected camera/head rates, declared clock-error bound,
+and confirmed metre units are required. Rates retain their source: declarations
+take precedence; supported delivery profiles may supply explicitly configured
+baselines. Missing required evidence results in an unassessed check.
+
+Let Th = 1000 / head Hz and Tc = 1000 / camera Hz, both in milliseconds.
+For the current policy:
+- Maximum surrounding head-reading gap = Th + 2u.
+- Maximum distance to the nearest head timestamp = min(Th/2, Tc/2) + 2u.
+- u is the recording's declared per-timestamp clock-mapping error bound.
+
+One head period requires adjacent expected samples; the clock allowance is a
+conservative sum of two endpoint bounds. The additional half-camera-period
+proximity cap is an engineering freshness policy, not a synchronization theorem.
+At head 50 Hz, camera 30 Hz and u = 2 ms, the budgets are 24 ms and 14 ms.
+At head 100 Hz, camera 60 Hz and u = 1 ms, they become 12 ms and 7 ms.
+These calculations replace the former three-period (60 ms) allowance.
+
+The periods, endpoint factor and supported mappings live in worker/config/qc.json;
+reason codes live in worker/config/reason-codes.json. Diagnostic experiments also
+measure average cadence as (N-1)/(last_timestamp-first_timestamp), and report
+interval variation. Observed slowdowns never automatically widen the acceptance
+budget: that could hide missing samples. These calculations do not estimate
+the correct nominal rate for an unsupported recording.
+
+Each camera message now has two independent results:
+- Nearest reading: the closest valid measured XYZ position, its coordinate
+  reference and signed time offset. Positive means the head reading came after
+  the camera message; negative means before. Equal-distance ties choose the
+  earlier reading. Invalid positions are skipped. Outside the proximity budget,
+  the candidate's timestamp is retained for diagnosis but no matched position
+  is returned. Clock uncertainty is reported separately; the measured offset is
+  not a guaranteed physical capture-time difference.
+- Interpolation: an exact reading or a linearly estimated XYZ position between
+  valid neighbors in the same reference, only when the configured gap and
+  proximity budgets permit it. An eligible estimate explicitly carries
+  accuracy_validated=false; timing eligibility is not a validated error bound.
+
+A nearby measured reading can remain usable when interpolation is unavailable.
+At a stream boundary a close single reading may be matched, but no position is
+extrapolated to the camera time. Every unavailable/unassessed result retains its
+own reason code. Invalid or unordered timestamps prevent assessment. No rotation
+interpolation is performed. These diagnostics do not create a recording fault
+or alter scores or existing QC verdicts.
+
+For backward compatibility, top-level counts in the diagnostic describe
+interpolation reason codes. Use nearest_reading_counts and interpolation_counts
+to distinguish the two answers. Per-message nearest_reading and interpolation
+objects retain their separate explanations.
+
+Matching timestamps does not independently prove physical synchronization,
+account for all sensor latency, or guarantee steady motion between readings.
+Counts describe MCAP camera messages, not independently decoded video frames.
+A rejected estimate is not automatically a failed recording. Startup/end overlap
+must be evaluated against the intended capture window before assigning a verdict.
+
+#### Verified deployment
+
+The [camera/head verification record](verification/camera-head-matching.json)
+covers the pinned matching-v1 worker image:
+
+- 260 unit/integration tests passed.
+- The installed scanner checked both head cameras in all 41 original recordings
+  and reproduced the predeployment trial results.
+- Of 177,808 camera messages, 176,986 (99.54%) have a nearby measured head
+  reading; 173,898 (97.80%) meet the interpolation eligibility policy.
+- Three originals completed full Temporal workflows: a normal recording,
+  a recording with the largest observed timing gap, and the known sustained
+  black-camera recording. Their saved detail artifacts and workflow-history
+  replay passed verification.
+- Existing findings, stream timing/content metrics and Overall Scores under all
+  three saved standards remained unchanged in those end-to-end tests. Dashboard
+  report/score HTTP checks passed for the same three recordings.
+
+The all-recording scanner check is not a new full QC workflow run for all 41
+files. Only the three end-to-end test reports were updated during this deployment.
+The remaining historical reports retain their previous version until reprocessed.

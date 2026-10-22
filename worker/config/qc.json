@@ -260,5 +260,14 @@
       "right_gripper_pose": 50,
       "body_tracking": 50
     }
+  },
+  "camera_head_matching": {
+    "supported_clock_mappings": [
+      "quest_ovr_to_episode_clock_offset/v1"
+    ],
+    "bracket_head_periods": 1,
+    "nearest_head_periods": 0.5,
+    "nearest_camera_periods": 0.5,
+    "clock_uncertainty_endpoint_factor": 2
   }
 }

@@ -519,6 +519,83 @@
       "description": "Recorded capture-window timestamps disagree with producer quality counters.",
       "groups": [],
       "kind": "finding"
+    },
+    "CAMERA_HEAD_EXACT": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "A valid head reading has the same recorded timestamp as the camera frame.",
+      "kind": "finding"
+    },
+    "CAMERA_HEAD_ESTIMATED": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "A head position was estimated between nearby valid readings, assuming steady movement.",
+      "kind": "finding"
+    },
+    "CAMERA_HEAD_UNASSESSED": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "Comparable clocks, expected camera/head rates, declared clock uncertainty or confirmed metre units are unavailable.",
+      "kind": "finding"
+    },
+    "CAMERA_HEAD_INVALID_TIMING": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "Timestamps are invalid, repeated or out of order; matching is not trusted.",
+      "kind": "finding"
+    },
+    "CAMERA_HEAD_NO_BRACKET": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "No head readings surround this frame; no position is extrapolated.",
+      "kind": "finding"
+    },
+    "CAMERA_HEAD_INVALID_POSE": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "A required head position or coordinate reference is missing or invalid.",
+      "kind": "finding"
+    },
+    "CAMERA_HEAD_REFERENCE_CHANGE": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "The coordinate reference changed between readings; no estimate is made.",
+      "kind": "finding"
+    },
+    "CAMERA_HEAD_GAP_TOO_LARGE": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "Head readings are too far apart for the configured matching rule; no estimate is made.",
+      "kind": "finding"
+    },
+    "CAMERA_HEAD_TOO_FAR": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "The nearest head reading exceeds the frequency-derived proximity budget; no estimate is made.",
+      "kind": "finding"
+    },
+    "CAMERA_HEAD_NEARBY_READING": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "A valid measured head reading is within the configured proximity budget; it is not an estimated position at the camera time.",
+      "kind": "finding"
+    },
+    "CAMERA_HEAD_NO_VALID_READING": {
+      "groups": [
+        "camera_head_diagnostic"
+      ],
+      "description": "No valid measured head position is available to match.",
+      "kind": "finding"
     }
   }
 }

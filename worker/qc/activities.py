@@ -163,7 +163,15 @@ def cross_stream(request):
                 findings.append(finding("CAMERA_SYNC",other["topic"],(a[0]-inv["start_ns"])/1e9,
                                         (a[-1]-inv["start_ns"])/1e9,metrics[other["topic"]]))
             st.heartbeat({"stage":"cross_stream","stream":other["topic"]})
-    result={"findings":findings,"metrics":metrics}
+    from qc.camera_head_matching import scan_file as match_camera_head
+    matching={}
+    for side in ("left","right"):
+        evidence=match_camera_head(st.raw_path(ref),side,config=cfg,heartbeat=st.heartbeat)
+        detail_key=st.put_json(artifact(ref,"camera-head-"+side+".json"),evidence)
+        # Full per-message positions stay in object storage, not workflow history.
+        matching[side]={k:v for k,v in evidence.items() if k!="frames"}
+        matching[side]["detail_report_key"]=detail_key
+    result={"findings":findings,"metrics":metrics,"camera_head_matching":matching}
     key=st.put_json(artifact(ref,"cross-stream.json"),result)
     return {"report_key":key}
 
@@ -295,7 +303,7 @@ def finalize(request):
     result,codes=verdict(all_findings,cfg)
 
     report={**ref,**status(errors),"recording_type":cfg["recording_type"],"config":cfg,
-            "inventory":inv,"streams":streams,"cross":cross,"findings":all_findings,
+            "inventory":inv,"streams":streams,"cross":cross,"camera_head_matching":cross.get("camera_head_matching",{}),"findings":all_findings,
             "informational_findings":[f for item in (extra["head_motion"],extra["hand_motion"])
                 for f in item["findings"] if f.get("severity")=="info"],
             **extra,"base_verdict":base_result,"base_reason_codes":base_codes,

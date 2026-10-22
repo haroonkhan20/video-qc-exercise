@@ -1,0 +1,710 @@
+{
+  "schema_version": 1,
+  "verified_date": "2026-10-22",
+  "image": "video-qc/qc-worker:matching-v1",
+  "image_id": "sha256:a17efe97e84eb8c9d25e4d0149e872eb7fb6dd742c02795ca0d74b5c028d5050",
+  "code_version": "cdbd67138ed768b6819f0822742f49298c3fd69ded91ff7dcd99709eaf4b665c",
+  "config_version": "b3c056dfb5a4c06605988888d2054f8f12036737d7774aba2743c3710ea53b94",
+  "unit_and_integration_tests": {
+    "passed": 260
+  },
+  "deployed_matching_scan": {
+    "recordings": 41,
+    "camera_streams": 82,
+    "camera_messages": 177808,
+    "nearest_reading_counts": {
+      "too_far": 822,
+      "matched": 176986
+    },
+    "nearest_matched_percent": 99.53770359038964,
+    "interpolation_counts": {
+      "unavailable": 3910,
+      "eligible_estimate": 173898
+    },
+    "matches_predeployment_trial": true,
+    "files": [
+      {
+        "file": "ep_032e483c.mcap",
+        "digest": "1859d09f4f1c57178f4a4c74cfe29311731a1c161213dee3eba54b7e650805b1",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 2756
+        },
+        "interpolation_counts": {
+          "unavailable": 30,
+          "eligible_estimate": 2746
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_03d813ce.mcap",
+        "digest": "1769d6b7dd35d6b361060ab07a61d176095ed99cbcad7a60cea210141fd7f104",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 2136
+        },
+        "interpolation_counts": {
+          "unavailable": 20,
+          "eligible_estimate": 2134
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_0409bd35.mcap",
+        "digest": "e636687a37d98d060f4e9de453358d97cd73b8c8c0b03b6ae8e0105f2e2cacf0",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 4590
+        },
+        "interpolation_counts": {
+          "unavailable": 54,
+          "eligible_estimate": 4554
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_041eb856.mcap",
+        "digest": "eb1c882f09bedd5079481ae1fe3baf7c889d89e9e9a91e3c9194bbf5daac575b",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 4590
+        },
+        "interpolation_counts": {
+          "unavailable": 96,
+          "eligible_estimate": 4512
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_0444a8ac.mcap",
+        "digest": "05acfc4830de72effe68cfe3c30d7a0d125a7ffc91a5c62141a58fb630c19927",
+        "nearest_reading_counts": {
+          "too_far": 22,
+          "matched": 4074
+        },
+        "interpolation_counts": {
+          "unavailable": 52,
+          "eligible_estimate": 4044
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_07e258d4.mcap",
+        "digest": "59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 1498
+        },
+        "interpolation_counts": {
+          "unavailable": 22,
+          "eligible_estimate": 1494
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_082f4185.mcap",
+        "digest": "cf8fdf8efa1e2433d2b1c4f9de7903578d12e32dc2f7e3a056762aa01f5233fa",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 6316
+        },
+        "interpolation_counts": {
+          "unavailable": 32,
+          "eligible_estimate": 6304
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_0dec4ae7.mcap",
+        "digest": "6e34087802e0bcba57db93f96001d4bf326d27b8e37cfe9fe5e39697b5d854fc",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 1742
+        },
+        "interpolation_counts": {
+          "unavailable": 68,
+          "eligible_estimate": 1692
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_0e09c76b.mcap",
+        "digest": "8287ec6910be35f5edc8cadac3f221351c2bfd3bc042596a41993a7915e82325",
+        "nearest_reading_counts": {
+          "too_far": 16,
+          "matched": 6480
+        },
+        "interpolation_counts": {
+          "unavailable": 138,
+          "eligible_estimate": 6358
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_0e374ee6.mcap",
+        "digest": "7bd8f7a0b4871fbee96ba9d49332ebfad240c9ae0dccd6bc17d3580bf146b346",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 6432
+        },
+        "interpolation_counts": {
+          "unavailable": 38,
+          "eligible_estimate": 6412
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_0ed34c0f.mcap",
+        "digest": "344e7e9f4bd1f0f151267d5e62ed993f1e95af9afae54ca84a627a2817b79e95",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 8988
+        },
+        "interpolation_counts": {
+          "unavailable": 388,
+          "eligible_estimate": 8620
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_112a825d.mcap",
+        "digest": "c3711f9aab4997e87ba992fb184c8894c4c9efa630d70986c9b32ba985461300",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 3278
+        },
+        "interpolation_counts": {
+          "unavailable": 284,
+          "eligible_estimate": 3012
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_1ee4bdaf.mcap",
+        "digest": "5c5c54666f03e4f09d34785f0f5bebf0d97769522d334cd526a484565ff07bc6",
+        "nearest_reading_counts": {
+          "too_far": 54,
+          "matched": 5218
+        },
+        "interpolation_counts": {
+          "unavailable": 220,
+          "eligible_estimate": 5052
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_20846435.mcap",
+        "digest": "5bd147e427d8312f38dd5de5f671630c38e79955fe980b82d554afda8575ff83",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 2234
+        },
+        "interpolation_counts": {
+          "unavailable": 26,
+          "eligible_estimate": 2228
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_208961d3.mcap",
+        "digest": "6b8053b7828b2f8e150a2dbde8a9d49bf457acb4962743a86d552f6a2f100a43",
+        "nearest_reading_counts": {
+          "too_far": 16,
+          "matched": 5418
+        },
+        "interpolation_counts": {
+          "unavailable": 38,
+          "eligible_estimate": 5396
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_212a979d.mcap",
+        "digest": "570781e0a8f2c280584ad58677f456f3be88d195f8a3822af016f947b643b0da",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 2806
+        },
+        "interpolation_counts": {
+          "unavailable": 22,
+          "eligible_estimate": 2804
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_223529fa.mcap",
+        "digest": "1b50a00263d4c83b5387fe94e450202b2733bcbc4383d44436b13bd34db565a8",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 2134
+        },
+        "interpolation_counts": {
+          "unavailable": 36,
+          "eligible_estimate": 2118
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_23212682.mcap",
+        "digest": "0b3967b8cb82f68917d441f79f2ace78699cf20f12602fbec7b72e5cbeb053d6",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 3690
+        },
+        "interpolation_counts": {
+          "unavailable": 246,
+          "eligible_estimate": 3464
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_23f5a0d2.mcap",
+        "digest": "0f2f31579a90e8c87062772109699a5f242c2c6b6f43ebf8b86630815fc3fd6b",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 7636
+        },
+        "interpolation_counts": {
+          "unavailable": 32,
+          "eligible_estimate": 7624
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_2c47cac2.mcap",
+        "digest": "16f52895c5111b2a379decdd76f36c997fadd66023195ebd0daabd99ff459a02",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 5396
+        },
+        "interpolation_counts": {
+          "unavailable": 72,
+          "eligible_estimate": 5342
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_2cb4b3ea.mcap",
+        "digest": "b778fde7280c1b95b8d1928c5edda82ba07c0339819def88b2115bf4e58486ad",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 5180
+        },
+        "interpolation_counts": {
+          "unavailable": 204,
+          "eligible_estimate": 4994
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_2e18f47f.mcap",
+        "digest": "61c65408860383ccc7cfa1def851e3ffed1ac1924623ed28d991919fa4b418df",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 5596
+        },
+        "interpolation_counts": {
+          "unavailable": 134,
+          "eligible_estimate": 5480
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_346eb2d7.mcap",
+        "digest": "05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 5706
+        },
+        "interpolation_counts": {
+          "unavailable": 202,
+          "eligible_estimate": 5524
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_34e2d6e2.mcap",
+        "digest": "445f6180b3fcc0ce71cd142128965c92f40917db6b994ec9fe62b7d3eff1ca37",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 5616
+        },
+        "interpolation_counts": {
+          "unavailable": 54,
+          "eligible_estimate": 5580
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_357dc6b9.mcap",
+        "digest": "061fad38191631f29ba1c70c97bf76b6c5df5ed57e303c4a94a1c5291b66eed6",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 5828
+        },
+        "interpolation_counts": {
+          "unavailable": 192,
+          "eligible_estimate": 5656
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_39ec7993.mcap",
+        "digest": "b7aa01113ca5ddb6fe609f84c3c2f7d87b72d67dd68bf501e47520b6305becfd",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 4628
+        },
+        "interpolation_counts": {
+          "unavailable": 122,
+          "eligible_estimate": 4524
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_42d682ff.mcap",
+        "digest": "01b7d11e831e460b17c1e4de5b46a1047927382f2948478cee1e628fc63c4628",
+        "nearest_reading_counts": {
+          "too_far": 16,
+          "matched": 1756
+        },
+        "interpolation_counts": {
+          "unavailable": 44,
+          "eligible_estimate": 1728
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_459e3edd.mcap",
+        "digest": "6e110f683a185e3b14f4759509d99aa884619dc74c471527ad623b7f3350f19c",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 3550
+        },
+        "interpolation_counts": {
+          "unavailable": 34,
+          "eligible_estimate": 3536
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_49df3c44.mcap",
+        "digest": "8de5e6d91d700b3ecbc4598adf300042d5c03cdd69a1092e1b14690f0333d6dd",
+        "nearest_reading_counts": {
+          "too_far": 4,
+          "matched": 3360
+        },
+        "interpolation_counts": {
+          "unavailable": 22,
+          "eligible_estimate": 3342
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_4dd7ef84.mcap",
+        "digest": "7d5d80062f36fa6ff3ad6c47cdee0e917a50914adf874b9d2903eda8db61f650",
+        "nearest_reading_counts": {
+          "too_far": 16,
+          "matched": 2494
+        },
+        "interpolation_counts": {
+          "unavailable": 28,
+          "eligible_estimate": 2482
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_51347361.mcap",
+        "digest": "e8aacdff325da39ee89bd9171d6690d98b23eecae1e07fa99127c404f6353091",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 5130
+        },
+        "interpolation_counts": {
+          "unavailable": 158,
+          "eligible_estimate": 4992
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_52373c02.mcap",
+        "digest": "c5c9e08b916d854acb868e3c93ac05d77dd33cae86de4841559abb6f774a3b69",
+        "nearest_reading_counts": {
+          "too_far": 18,
+          "matched": 2386
+        },
+        "interpolation_counts": {
+          "unavailable": 148,
+          "eligible_estimate": 2256
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_52d930da.mcap",
+        "digest": "b95660ee2105a0a98cfd34a0c491fed259d7c8a70949245e0bbfacf6f37c7742",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 4432
+        },
+        "interpolation_counts": {
+          "unavailable": 36,
+          "eligible_estimate": 4416
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_554d5730.mcap",
+        "digest": "d04201b2c332d9afb1e635679100087007ee4c3beb9ed3d4a0d44fe48cce5b71",
+        "nearest_reading_counts": {
+          "too_far": 24,
+          "matched": 1690
+        },
+        "interpolation_counts": {
+          "unavailable": 26,
+          "eligible_estimate": 1688
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_5b171934.mcap",
+        "digest": "491f7fbce7832446bb38f2d072d1e8a163d1df6937a305368eb3e553f78d573e",
+        "nearest_reading_counts": {
+          "too_far": 30,
+          "matched": 4570
+        },
+        "interpolation_counts": {
+          "unavailable": 38,
+          "eligible_estimate": 4562
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_5e2c1fd2.mcap",
+        "digest": "d77cd6d98d8c117eed5829ebb2aa2ab6385350256d6317dbe01ef15a5eead93c",
+        "nearest_reading_counts": {
+          "too_far": 22,
+          "matched": 4982
+        },
+        "interpolation_counts": {
+          "unavailable": 192,
+          "eligible_estimate": 4812
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_66909bdd.mcap",
+        "digest": "3773a3070ee7f6f9a72a4e963bdba9e41e743dd29b2a399802a1bfd466f2c213",
+        "nearest_reading_counts": {
+          "too_far": 22,
+          "matched": 4168
+        },
+        "interpolation_counts": {
+          "unavailable": 50,
+          "eligible_estimate": 4140
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_6d6fa903.mcap",
+        "digest": "c32b3595678e075d0f8196626fb9568a93b65f4f44c223a29e9696ebeb33c36c",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 3864
+        },
+        "interpolation_counts": {
+          "unavailable": 202,
+          "eligible_estimate": 3682
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_6e4d59a3.mcap",
+        "digest": "88546277a433056a18137411c696dcc1952463cf70479d89594d56826878d2ae",
+        "nearest_reading_counts": {
+          "too_far": 20,
+          "matched": 3544
+        },
+        "interpolation_counts": {
+          "unavailable": 38,
+          "eligible_estimate": 3526
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_6fed8bc1.mcap",
+        "digest": "fe478a38179fac48b4b0d2a3f03132302fcf81314c6b610aa8e631feb1be1976",
+        "nearest_reading_counts": {
+          "too_far": 22,
+          "matched": 6040
+        },
+        "interpolation_counts": {
+          "unavailable": 40,
+          "eligible_estimate": 6022
+        },
+        "matches_predeployment_trial": true
+      },
+      {
+        "file": "ep_9fae2f39.mcap",
+        "digest": "af989c8fa8d6a2812a7367a47afa4e35f13087ec0003bde65933c89d31bba844",
+        "nearest_reading_counts": {
+          "too_far": 24,
+          "matched": 5054
+        },
+        "interpolation_counts": {
+          "unavailable": 32,
+          "eligible_estimate": 5046
+        },
+        "matches_predeployment_trial": true
+      }
+    ]
+  },
+  "end_to_end_workflows": [
+    {
+      "file": "ep_346eb2d7.mcap",
+      "digest": "05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d",
+      "verdict": "fail",
+      "reason_codes": [
+        "BLACK_RUN"
+      ],
+      "scores": {
+        "Balanced": {
+          "before": 4,
+          "after": 4
+        },
+        "Image-focused example": {
+          "before": 4,
+          "after": 4
+        },
+        "Continuous recording": {
+          "before": 4,
+          "after": 4
+        }
+      },
+      "nearest_reading_counts": {
+        "matched": 5706,
+        "too_far": 20
+      },
+      "interpolation_counts": {
+        "eligible_estimate": 5524,
+        "unavailable": 202
+      },
+      "workflow_id": "qc-05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d-b3c056dfb5a4c06605988888d2054f8f12036737d7774aba2743c3710ea53b94-cdbd67138ed768b6819f0822742f49298c3fd69ded91ff7dcd99709eaf4b665c",
+      "report_key": "derived/05a63c3b3e0c075dbf4e5a3f12ee276eb83a1e3b6c7247d7851e979cb66a2d4d/runs/b3c056dfb5a4c06605988888d2054f8f12036737d7774aba2743c3710ea53b94/cdbd67138ed768b6819f0822742f49298c3fd69ded91ff7dcd99709eaf4b665c/qc_report.json",
+      "code_version": "cdbd67138ed768b6819f0822742f49298c3fd69ded91ff7dcd99709eaf4b665c",
+      "config_version": "b3c056dfb5a4c06605988888d2054f8f12036737d7774aba2743c3710ea53b94",
+      "temporal_replay_passed": true,
+      "stored_detail_checks_passed": true,
+      "existing_findings_metrics_and_scores_unchanged": true
+    },
+    {
+      "file": "ep_223529fa.mcap",
+      "digest": "1b50a00263d4c83b5387fe94e450202b2733bcbc4383d44436b13bd34db565a8",
+      "verdict": "pass",
+      "reason_codes": [
+        "CHECKS_PASSED"
+      ],
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      },
+      "nearest_reading_counts": {
+        "matched": 2134,
+        "too_far": 20
+      },
+      "interpolation_counts": {
+        "eligible_estimate": 2118,
+        "unavailable": 36
+      },
+      "workflow_id": "qc-1b50a00263d4c83b5387fe94e450202b2733bcbc4383d44436b13bd34db565a8-b3c056dfb5a4c06605988888d2054f8f12036737d7774aba2743c3710ea53b94-cdbd67138ed768b6819f0822742f49298c3fd69ded91ff7dcd99709eaf4b665c",
+      "report_key": "derived/1b50a00263d4c83b5387fe94e450202b2733bcbc4383d44436b13bd34db565a8/runs/b3c056dfb5a4c06605988888d2054f8f12036737d7774aba2743c3710ea53b94/cdbd67138ed768b6819f0822742f49298c3fd69ded91ff7dcd99709eaf4b665c/qc_report.json",
+      "code_version": "cdbd67138ed768b6819f0822742f49298c3fd69ded91ff7dcd99709eaf4b665c",
+      "config_version": "b3c056dfb5a4c06605988888d2054f8f12036737d7774aba2743c3710ea53b94",
+      "temporal_replay_passed": true,
+      "stored_detail_checks_passed": true,
+      "existing_findings_metrics_and_scores_unchanged": true
+    },
+    {
+      "file": "ep_07e258d4.mcap",
+      "digest": "59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e",
+      "verdict": "pass",
+      "reason_codes": [
+        "CHECKS_PASSED"
+      ],
+      "scores": {
+        "Balanced": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Image-focused example": {
+          "before": 10.0,
+          "after": 10.0
+        },
+        "Continuous recording": {
+          "before": 10.0,
+          "after": 10.0
+        }
+      },
+      "nearest_reading_counts": {
+        "matched": 1498,
+        "too_far": 18
+      },
+      "interpolation_counts": {
+        "eligible_estimate": 1494,
+        "unavailable": 22
+      },
+      "workflow_id": "qc-59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e-b3c056dfb5a4c06605988888d2054f8f12036737d7774aba2743c3710ea53b94-cdbd67138ed768b6819f0822742f49298c3fd69ded91ff7dcd99709eaf4b665c",
+      "report_key": "derived/59b3122dd36109a358ab53d01705a19de7b4752c3db217291c32aab862fcaf3e/runs/b3c056dfb5a4c06605988888d2054f8f12036737d7774aba2743c3710ea53b94/cdbd67138ed768b6819f0822742f49298c3fd69ded91ff7dcd99709eaf4b665c/qc_report.json",
+      "code_version": "cdbd67138ed768b6819f0822742f49298c3fd69ded91ff7dcd99709eaf4b665c",
+      "config_version": "b3c056dfb5a4c06605988888d2054f8f12036737d7774aba2743c3710ea53b94",
+      "temporal_replay_passed": true,
+      "stored_detail_checks_passed": true,
+      "existing_findings_metrics_and_scores_unchanged": true
+    }
+  ],
+  "dashboard_http_checks": [
+    {
+      "file": "ep_07e258d4.mcap",
+      "report_http_ok": true,
+      "matching_summary_present": true,
+      "overall_score": 10.0,
+      "verdict": "pass"
+    },
+    {
+      "file": "ep_223529fa.mcap",
+      "report_http_ok": true,
+      "matching_summary_present": true,
+      "overall_score": 10.0,
+      "verdict": "pass"
+    },
+    {
+      "file": "ep_346eb2d7.mcap",
+      "report_http_ok": true,
+      "matching_summary_present": true,
+      "overall_score": 4,
+      "verdict": "fail"
+    }
+  ],
+  "scope": [
+    "Installed scanner checked all 41 originals; three originals completed full QC workflows.",
+    "Nearest measured positions and interpolation eligibility are separate diagnostic evidence.",
+    "No classification accuracy or physical synchronization claim.",
+    "Existing findings, stream metrics and all three saved score profiles unchanged in the three end-to-end tests.",
+    "Other historical reports are not automatically backfilled by deployment."
+  ],
+  "limitations": [
+    "Expected head/camera rates for this delivery family use explicit configured 50/30 Hz baselines, not producer rate declarations.",
+    "Clock-mapping uncertainty does not bound scheduling jitter.",
+    "The 24 ms interpolation eligibility budget and 14 ms proximity budget are diagnostic policies, not recording-fault thresholds.",
+    "Interpolation assumes steady XYZ motion and carries accuracy_validated=false."
+  ]
+}
